@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>4&nbsp; Estimation – Introduction to Biostatistics</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./chapter05_statistical_testing.html" rel="next">
+<link href="./chapter03_probability_distribution.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./chapter04_estimation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estimation</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to Biostatistics</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter01_data_in_health_science.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data in Health Science</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter02_data_summarization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Summarization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter03_probability_distribution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Random Variable and Probability Distribution</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter04_estimation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter05_statistical_testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Testing</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter06_statistical_modeling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduction to Statistical Modeling</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#concept-of-estimation" id="toc-concept-of-estimation" class="nav-link" data-scroll-target="#concept-of-estimation"><span class="header-section-number">5</span> Concept of Estimation</a>
+  <ul class="collapse">
+  <li><a href="#point-estimate-vs.-interval-estimate" id="toc-point-estimate-vs.-interval-estimate" class="nav-link" data-scroll-target="#point-estimate-vs.-interval-estimate"><span class="header-section-number">5.1</span> Point Estimate vs.&nbsp;Interval Estimate</a>
+  <ul class="collapse">
+  <li><a href="#point-estimate" id="toc-point-estimate" class="nav-link" data-scroll-target="#point-estimate"><span class="header-section-number">5.1.1</span> Point Estimate</a></li>
+  <li><a href="#interval-estimate-confidence-interval" id="toc-interval-estimate-confidence-interval" class="nav-link" data-scroll-target="#interval-estimate-confidence-interval"><span class="header-section-number">5.1.2</span> Interval Estimate (Confidence Interval)</a></li>
+  </ul></li>
+  <li><a href="#the-role-of-the-standard-error" id="toc-the-role-of-the-standard-error" class="nav-link" data-scroll-target="#the-role-of-the-standard-error"><span class="header-section-number">5.2</span> The Role of the Standard Error</a>
+  <ul class="collapse">
+  <li><a href="#standard-error-of-the-mean" id="toc-standard-error-of-the-mean" class="nav-link" data-scroll-target="#standard-error-of-the-mean"><span class="header-section-number">5.2.1</span> Standard Error of the Mean</a></li>
+  <li><a href="#standard-error-of-a-proportion" id="toc-standard-error-of-a-proportion" class="nav-link" data-scroll-target="#standard-error-of-a-proportion"><span class="header-section-number">5.2.2</span> Standard Error of a Proportion</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#confidence-interval-for-a-mean" id="toc-confidence-interval-for-a-mean" class="nav-link" data-scroll-target="#confidence-interval-for-a-mean"><span class="header-section-number">6</span> Confidence Interval for a Mean</a>
+  <ul class="collapse">
+  <li><a href="#when-the-population-sd-is-known-z-interval" id="toc-when-the-population-sd-is-known-z-interval" class="nav-link" data-scroll-target="#when-the-population-sd-is-known-z-interval"><span class="header-section-number">6.1</span> When the Population SD Is Known (Z-interval)</a></li>
+  <li><a href="#when-the-population-sd-is-unknown-t-interval" id="toc-when-the-population-sd-is-unknown-t-interval" class="nav-link" data-scroll-target="#when-the-population-sd-is-unknown-t-interval"><span class="header-section-number">6.2</span> When the Population SD Is Unknown (t-interval)</a>
+  <ul class="collapse">
+  <li><a href="#the-t-distribution" id="toc-the-t-distribution" class="nav-link" data-scroll-target="#the-t-distribution"><span class="header-section-number">6.2.1</span> The t-Distribution</a></li>
+  <li><a href="#t-critical-values" id="toc-t-critical-values" class="nav-link" data-scroll-target="#t-critical-values"><span class="header-section-number">6.2.2</span> t Critical Values</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#confidence-interval-for-a-proportion" id="toc-confidence-interval-for-a-proportion" class="nav-link" data-scroll-target="#confidence-interval-for-a-proportion"><span class="header-section-number">7</span> Confidence Interval for a Proportion</a></li>
+  <li><a href="#interpreting-a-confidence-interval" id="toc-interpreting-a-confidence-interval" class="nav-link" data-scroll-target="#interpreting-a-confidence-interval"><span class="header-section-number">8</span> Interpreting a Confidence Interval</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><span class="header-section-number">9</span> Key Takeaways</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">10</span> Examples</a>
+  <ul class="collapse">
+  <li><a href="#example-1-95-ci-for-a-mean-σ-unknown" id="toc-example-1-95-ci-for-a-mean-σ-unknown" class="nav-link" data-scroll-target="#example-1-95-ci-for-a-mean-σ-unknown"><span class="header-section-number">10.1</span> Example 1: 95% CI for a Mean (σ unknown)</a></li>
+  <li><a href="#example-2-95-ci-for-a-proportion" id="toc-example-2-95-ci-for-a-proportion" class="nav-link" data-scroll-target="#example-2-95-ci-for-a-proportion"><span class="header-section-number">10.2</span> Example 2: 95% CI for a Proportion</a></li>
+  <li><a href="#example-3-effect-of-sample-size-on-ci-width" id="toc-example-3-effect-of-sample-size-on-ci-width" class="nav-link" data-scroll-target="#example-3-effect-of-sample-size-on-ci-width"><span class="header-section-number">10.3</span> Example 3: Effect of Sample Size on CI Width</a></li>
+  </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">11</span> Exercises</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estimation</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<hr>
+<section id="introduction" class="level1 unnumbered">
+<h1 class="unnumbered">Introduction</h1>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>💡 Why Does This Matter?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In practice, we almost never have access to an entire population. We collect data from a <strong>sample</strong> and use it to draw conclusions about the <strong>population</strong> — a process called <strong>statistical inference</strong>.</p>
+<p><strong>Estimation</strong> is one of the two main branches of statistical inference (the other being hypothesis testing, covered in Chapter 5).</p>
+<p>In this chapter, we answer questions like:</p>
+<ul>
+<li>The mean serum cholesterol in our sample is 198 mg/dL — what can we say about the mean for the <em>entire</em> population?</li>
+<li>A survey found that 34% of respondents have hypertension — what is a reasonable range for the true population proportion?</li>
+</ul>
+<p>The key tool for answering these questions is the <strong>confidence interval</strong>.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="concept-of-estimation" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Concept of Estimation</h1>
+<section id="point-estimate-vs.-interval-estimate" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="point-estimate-vs.-interval-estimate"><span class="header-section-number">5.1</span> Point Estimate vs.&nbsp;Interval Estimate</h2>
+<p>There are two ways to estimate a population parameter from sample data:</p>
+<section id="point-estimate" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="point-estimate"><span class="header-section-number">5.1.1</span> Point Estimate</h3>
+<p>A <strong>point estimate</strong> is a <strong>single value</strong> calculated from the sample that serves as our best guess for the population parameter.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Population Parameter</th>
+<th style="text-align: center;">Symbol</th>
+<th>Point Estimate</th>
+<th style="text-align: center;">Symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Population mean</td>
+<td style="text-align: center;"><span class="math inline">\(\mu\)</span></td>
+<td>Sample mean</td>
+<td style="text-align: center;"><span class="math inline">\(\bar{x}\)</span></td>
+</tr>
+<tr class="even">
+<td>Population proportion</td>
+<td style="text-align: center;"><span class="math inline">\(p\)</span></td>
+<td>Sample proportion</td>
+<td style="text-align: center;"><span class="math inline">\(\hat{p}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Population SD</td>
+<td style="text-align: center;"><span class="math inline">\(\sigma\)</span></td>
+<td>Sample SD</td>
+<td style="text-align: center;"><span class="math inline">\(s\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>A point estimate is simple and easy to communicate, but it gives us <strong>no information about how accurate or reliable</strong> that single number is.</p>
+<hr>
+</section>
+<section id="interval-estimate-confidence-interval" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="interval-estimate-confidence-interval"><span class="header-section-number">5.1.2</span> Interval Estimate (Confidence Interval)</h3>
+<p>An <strong>interval estimate</strong> gives a <strong>range of plausible values</strong> for the population parameter, along with a stated level of confidence.</p>
+<p><span class="math display">\[\text{Point Estimate} \pm \text{Margin of Error}\]</span></p>
+<p>This range is called a <strong>confidence interval (CI)</strong>.</p>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>🔑 Key Concept: Confidence Level
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <strong>confidence level</strong> (commonly <strong>90%, 95%, or 99%</strong>) tells us:</p>
+<blockquote class="blockquote">
+<p><em>“If we repeated this study many times and calculated a confidence interval each time, approximately X% of those intervals would contain the true population parameter.”</em></p>
+</blockquote>
+<p>In health research, <strong>95% confidence</strong> is the most widely used standard.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="the-role-of-the-standard-error" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="the-role-of-the-standard-error"><span class="header-section-number">5.2</span> The Role of the Standard Error</h2>
+<p>Before constructing a confidence interval, we need to understand the <strong>standard error (SE)</strong> — a measure of how much the sample estimate varies from sample to sample.</p>
+<section id="standard-error-of-the-mean" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="standard-error-of-the-mean"><span class="header-section-number">5.2.1</span> Standard Error of the Mean</h3>
+<p><span class="math display">\[SE_{\bar{x}} = \frac{s}{\sqrt{n}}\]</span></p>
+<p>Where <span class="math inline">\(s\)</span> is the sample standard deviation and <span class="math inline">\(n\)</span> is the sample size.</p>
+</section>
+<section id="standard-error-of-a-proportion" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="standard-error-of-a-proportion"><span class="header-section-number">5.2.2</span> Standard Error of a Proportion</h3>
+<p><span class="math display">\[SE_{\hat{p}} = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\]</span></p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>💡 SE vs.&nbsp;SD — What Is the Difference?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Standard Deviation (SD)</th>
+<th>Standard Error (SE)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Describes</strong></td>
+<td>Variability of individual observations</td>
+<td>Variability of the sample mean</td>
+</tr>
+<tr class="even">
+<td><strong>Gets smaller with</strong></td>
+<td>More homogeneous data</td>
+<td>Larger sample size</td>
+</tr>
+<tr class="odd">
+<td><strong>Used for</strong></td>
+<td>Describing the spread of data</td>
+<td>Constructing confidence intervals</td>
+</tr>
+</tbody>
+</table>
+<p>The SE always gets smaller as <span class="math inline">\(n\)</span> increases — larger samples give more precise estimates.</p>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n_vals <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">500</span>, <span class="at">by =</span> <span class="dv">10</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>se_vals <span class="ot">&lt;-</span> <span class="dv">15</span> <span class="sc">/</span> <span class="fu">sqrt</span>(n_vals)   <span class="co"># SD = 15, typical for SBP</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df_se <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">n =</span> n_vals, <span class="at">se =</span> se_vals)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_se, <span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> se)) <span class="sc">+</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#2c7bb6"</span>, <span class="at">linewidth =</span> <span class="fl">1.3</span>) <span class="sc">+</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"#d7191c"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">480</span>, <span class="at">y =</span> <span class="fl">2.3</span>, <span class="at">label =</span> <span class="st">"SE = 2"</span>, <span class="at">color =</span> <span class="st">"#d7191c"</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">480</span>, <span class="at">y =</span> <span class="fl">1.3</span>, <span class="at">label =</span> <span class="st">"SE = 1"</span>, <span class="at">color =</span> <span class="st">"#d7191c"</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sample Size (n)"</span>, <span class="at">y =</span> <span class="st">"Standard Error"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Standard Error vs. Sample Size (SD = 15)"</span>) <span class="sc">+</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-se" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-se-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="chapter04_estimation_files/figure-html/fig-se-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-se-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.1: As sample size increases, the standard error decreases and estimates become more precise
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+</section>
+<section id="confidence-interval-for-a-mean" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Confidence Interval for a Mean</h1>
+<section id="when-the-population-sd-is-known-z-interval" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="when-the-population-sd-is-known-z-interval"><span class="header-section-number">6.1</span> When the Population SD Is Known (Z-interval)</h2>
+<p>If the population standard deviation <span class="math inline">\(\sigma\)</span> is known and either (a) the population is normal, or (b) the sample size is large (<span class="math inline">\(n \geq 30\)</span>), we use the <strong>Z-interval</strong>:</p>
+<p><span class="math display">\[\bar{x} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}\]</span></p>
+<p>The <strong>critical value</strong> <span class="math inline">\(z_{\alpha/2}\)</span> depends on the confidence level:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>crit <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Confidence Level</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"90%"</span>, <span class="st">"95%"</span>, <span class="st">"99%"</span>),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">α</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"0.10"</span>, <span class="st">"0.05"</span>, <span class="st">"0.01"</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">α/2</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"0.05"</span>, <span class="st">"0.025"</span>, <span class="st">"0.005"</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">z(α/2)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"1.645"</span>, <span class="st">"1.960"</span>, <span class="st">"2.576"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(crit,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Confidence Level"</span>, <span class="st">"α"</span>, <span class="st">"α/2"</span>, <span class="st">"z(α/2)"</span>),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"bordered"</span>),</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">13</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"#2c7bb6"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">2</span>, <span class="at">background =</span> <span class="st">"#eaf4fb"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-z-critical" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-z-critical-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6.1: Critical Values for Common Confidence Levels
+</figcaption>
+<div aria-describedby="tbl-z-critical-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-bordered cell caption-top table-sm small">
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Confidence Level</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">α</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">α/2</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">z(α/2)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">90%</td>
+<td style="text-align: center;">0.10</td>
+<td style="text-align: center;">0.05</td>
+<td style="text-align: center;">1.645</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important; background-color: rgba(234, 244, 251, 255) !important;">95%</td>
+<td style="text-align: center; background-color: rgba(234, 244, 251, 255) !important;">0.05</td>
+<td style="text-align: center; background-color: rgba(234, 244, 251, 255) !important;">0.025</td>
+<td style="text-align: center; background-color: rgba(234, 244, 251, 255) !important;">1.960</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">99%</td>
+<td style="text-align: center;">0.01</td>
+<td style="text-align: center;">0.005</td>
+<td style="text-align: center;">2.576</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>💡 The Most Used Value
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In health research, the 95% CI with <span class="math inline">\(z_{0.025} = 1.96\)</span> is by far the most commonly reported. You will see it in almost every clinical paper.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="when-the-population-sd-is-unknown-t-interval" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="when-the-population-sd-is-unknown-t-interval"><span class="header-section-number">6.2</span> When the Population SD Is Unknown (t-interval)</h2>
+<p>In practice, <span class="math inline">\(\sigma\)</span> is almost never known. When we use the sample SD <span class="math inline">\(s\)</span> as an estimate, we must use the <strong>t-distribution</strong> instead of the Z-distribution:</p>
+<p><span class="math display">\[\bar{x} \pm t_{\alpha/2,\, n-1} \cdot \frac{s}{\sqrt{n}}\]</span></p>
+<p>Where <span class="math inline">\(t_{\alpha/2,\, n-1}\)</span> is the critical value from the <strong>t-distribution</strong> with <span class="math inline">\(n - 1\)</span> <strong>degrees of freedom (df)</strong>.</p>
+<section id="the-t-distribution" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="the-t-distribution"><span class="header-section-number">6.2.1</span> The t-Distribution</h3>
+<p>The t-distribution is similar to the standard normal distribution but has <strong>heavier tails</strong> — reflecting the extra uncertainty from estimating <span class="math inline">\(\sigma\)</span> with <span class="math inline">\(s\)</span>. As <span class="math inline">\(n\)</span> increases, the t-distribution approaches the Z-distribution.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">length =</span> <span class="dv">500</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df_plot <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">rep</span>(x, <span class="dv">4</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="fu">dnorm</span>(x),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">dt</span>(x, <span class="at">df =</span> <span class="dv">3</span>),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">dt</span>(x, <span class="at">df =</span> <span class="dv">10</span>),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">dt</span>(x, <span class="at">df =</span> <span class="dv">30</span>)),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">dist =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Z (normal)"</span>, <span class="st">"t (df=3)"</span>, <span class="st">"t (df=10)"</span>, <span class="st">"t (df=30)"</span>), <span class="at">each =</span> <span class="dv">500</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>df_plot<span class="sc">$</span>dist <span class="ot">&lt;-</span> <span class="fu">factor</span>(df_plot<span class="sc">$</span>dist,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"t (df=3)"</span>,<span class="st">"t (df=10)"</span>,<span class="st">"t (df=30)"</span>,<span class="st">"Z (normal)"</span>))</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_plot, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> dist, <span class="at">linetype =</span> dist)) <span class="sc">+</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#d7191c"</span>,<span class="st">"#fdae61"</span>,<span class="st">"#abd9e9"</span>,<span class="st">"#2c7bb6"</span>)) <span class="sc">+</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"dashed"</span>,<span class="st">"dashed"</span>,<span class="st">"dashed"</span>,<span class="st">"solid"</span>)) <span class="sc">+</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Value"</span>, <span class="at">y =</span> <span class="st">"Density"</span>, <span class="at">color =</span> <span class="st">"Distribution"</span>, <span class="at">linetype =</span> <span class="st">"Distribution"</span>) <span class="sc">+</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-t-dist" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-t-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="chapter04_estimation_files/figure-html/fig-t-dist-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-t-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.1: t-distributions with different degrees of freedom compared to Z
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="t-critical-values" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="t-critical-values"><span class="header-section-number">6.2.2</span> t Critical Values</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_vals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">60</span>, <span class="dv">120</span>, <span class="cn">Inf</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>t_vals  <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> df_vals)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>t_vals[<span class="fu">length</span>(t_vals)] <span class="ot">&lt;-</span> <span class="fl">1.960</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>t_tab <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">df =</span> <span class="fu">c</span>(<span class="fu">as.character</span>(df_vals[<span class="sc">-</span><span class="fu">length</span>(df_vals)]), <span class="st">"∞ (Z)"</span>),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">t  =</span> <span class="fu">round</span>(t_vals, <span class="dv">3</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(t_tab, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Degrees of Freedom (df = n−1)"</span>, <span class="st">"t(0.025, df)"</span>),</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"c"</span>,<span class="st">"c"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"bordered"</span>),</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">13</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"#2c7bb6"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">10</span>, <span class="at">background =</span> <span class="st">"#eaf4fb"</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-t-critical" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-t-critical-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6.2: Selected t Critical Values (95% CI, two-tailed: α/2 = 0.025)
+</figcaption>
+<div aria-describedby="tbl-t-critical-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-bordered cell caption-top table-sm small">
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Degrees of Freedom (df = n−1)</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">t(0.025, df)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">5</td>
+<td style="text-align: center;">2.571</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">10</td>
+<td style="text-align: center;">2.228</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">15</td>
+<td style="text-align: center;">2.131</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">20</td>
+<td style="text-align: center;">2.086</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">25</td>
+<td style="text-align: center;">2.060</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">30</td>
+<td style="text-align: center;">2.042</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">40</td>
+<td style="text-align: center;">2.021</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">60</td>
+<td style="text-align: center;">2.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">120</td>
+<td style="text-align: center;">1.980</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important; font-weight: bold; background-color: rgba(234, 244, 251, 255) !important;">∞ (Z)</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 255) !important;">1.960</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>As df increases, the t critical value converges to <strong>1.960</strong> (the Z value). For <span class="math inline">\(n \geq 30\)</span>, the difference is small and Z is often used as an approximation.</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="confidence-interval-for-a-proportion" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Confidence Interval for a Proportion</h1>
+<p>When the outcome of interest is a <strong>proportion</strong> (e.g., prevalence of a disease, percentage of patients who respond to treatment), we use:</p>
+<p><span class="math display">\[\hat{p} \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\]</span></p>
+<p>Where <span class="math inline">\(\hat{p} = \dfrac{x}{n}\)</span> is the sample proportion (<span class="math inline">\(x\)</span> = number with the characteristic, <span class="math inline">\(n\)</span> = total sample size).</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ When Is This Formula Valid?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This formula requires a <strong>sufficiently large sample</strong>. A common rule of thumb is:</p>
+<p><span class="math display">\[n\hat{p} \geq 5 \quad \text{and} \quad n(1-\hat{p}) \geq 5\]</span></p>
+<p>If this condition is not met, special methods are needed (not covered in this course).</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="interpreting-a-confidence-interval" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Interpreting a Confidence Interval</h1>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>✅ Correct Interpretation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<blockquote class="blockquote">
+<p><em>“We are 95% confident that the true population mean lies between [lower bound] and [upper bound].”</em></p>
+</blockquote>
+<p><strong>What this means:</strong> If we repeated the sampling process many times, 95% of the resulting confidence intervals would contain the true parameter.</p>
+<p><strong>What this does NOT mean:</strong> There is NOT a 95% probability that the true parameter lies in this specific interval — the true parameter is fixed; it either is or is not in the interval.</p>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>true_mu <span class="ot">&lt;-</span> <span class="dv">130</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sigma    <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>n        <span class="ot">&lt;-</span> <span class="dv">40</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>n_sims   <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_sims, {</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  x    <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> true_mu, <span class="at">sd =</span> sigma)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  xbar <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  se   <span class="ot">&lt;-</span> <span class="fu">sd</span>(x) <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(xbar, xbar <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>se, xbar <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>se)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>ci_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">sim   =</span> <span class="dv">1</span><span class="sc">:</span>n_sims,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean  =</span> sims[<span class="dv">1</span>,],</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> sims[<span class="dv">2</span>,],</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper =</span> sims[<span class="dv">3</span>,],</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">contains =</span> sims[<span class="dv">2</span>,] <span class="sc">&lt;=</span> true_mu <span class="sc">&amp;</span> sims[<span class="dv">3</span>,] <span class="sc">&gt;=</span> true_mu</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ci_df, <span class="fu">aes</span>(<span class="at">y =</span> sim, <span class="at">color =</span> contains)) <span class="sc">+</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> lower, <span class="at">xend =</span> upper, <span class="at">yend =</span> sim), <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean), <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> true_mu, <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"#1a9641"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"#d7191c"</span>),</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"Contains μ"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"Does not contain μ"</span>),</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>                     <span class="at">name =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> true_mu <span class="sc">+</span> <span class="fl">0.5</span>, <span class="at">y =</span> <span class="dv">52</span>,</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"True μ = 130"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Value"</span>, <span class="at">y =</span> <span class="st">"Sample Number"</span>) <span class="sc">+</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ci-simulation" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ci-simulation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="chapter04_estimation_files/figure-html/fig-ci-simulation-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ci-simulation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.1: Simulation: 50 confidence intervals from repeated samples. Green intervals contain the true mean (μ = 130); red ones do not.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The figure above shows 50 confidence intervals from 50 different samples of the same population. Most (≈95%) contain the true mean; a few do not — this is expected and not an error.</p>
+<hr>
+</section>
+<section id="key-takeaways" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Key Takeaways</h1>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>📝 Chapter 4 Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>A <strong>point estimate</strong> gives a single best-guess value for a population parameter; an <strong>interval estimate</strong> gives a range of plausible values.</p></li>
+<li><p>A <strong>confidence interval (CI)</strong> = Point estimate <span class="math inline">\(\pm\)</span> Margin of error. The margin of error depends on the confidence level, the SE, and the critical value.</p></li>
+<li><p>Use the <strong>Z-interval</strong> when <span class="math inline">\(\sigma\)</span> is known or <span class="math inline">\(n \geq 30\)</span>; use the <strong>t-interval</strong> when <span class="math inline">\(\sigma\)</span> is unknown and <span class="math inline">\(n\)</span> is small, with <span class="math inline">\(df = n - 1\)</span>.</p></li>
+<li><p>The <strong>95% CI</strong> is the standard in health research, using <span class="math inline">\(z_{0.025} = 1.96\)</span>.</p></li>
+<li><p>A wider CI means less precision; a larger sample size <span class="math inline">\(n\)</span> always produces a narrower (more precise) CI.</p></li>
+<li><p>The correct interpretation: <em>“We are 95% confident the true parameter lies within this interval”</em> — not a probability statement about a fixed parameter.</p></li>
+</ol>
+</div>
+</div>
+<hr>
+</section>
+<section id="examples" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Examples</h1>
+<section id="example-1-95-ci-for-a-mean-σ-unknown" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="example-1-95-ci-for-a-mean-σ-unknown"><span class="header-section-number">10.1</span> Example 1: 95% CI for a Mean (σ unknown)</h2>
+<p>A study measured the fasting blood glucose (mg/dL) of a random sample of <strong>36 adults</strong> and found:</p>
+<p><span class="math display">\[\bar{x} = 105.4 \text{ mg/dL}, \qquad s = 18.6 \text{ mg/dL}\]</span></p>
+<p>Construct a <strong>95% confidence interval</strong> for the population mean blood glucose.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>✅ Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Given:</strong> <span class="math inline">\(n = 36\)</span>, <span class="math inline">\(\bar{x} = 105.4\)</span>, <span class="math inline">\(s = 18.6\)</span>, confidence level = 95%</p>
+<p><strong>Step 1 — Standard Error:</strong> <span class="math display">\[SE = \frac{s}{\sqrt{n}} = \frac{18.6}{\sqrt{36}} = \frac{18.6}{6} = 3.10\]</span></p>
+<p><strong>Step 2 — Critical value:</strong></p>
+<p><span class="math inline">\(df = n - 1 = 35\)</span>. From the t-table at <span class="math inline">\(\alpha/2 = 0.025\)</span>: <span class="math inline">\(t_{0.025,\, 35} = 2.030\)</span></p>
+<p><em>(Since <span class="math inline">\(n = 36 \geq 30\)</span>, we could also use <span class="math inline">\(z = 1.96\)</span> as an approximation.)</em></p>
+<p><strong>Step 3 — Confidence Interval:</strong> <span class="math display">\[105.4 \pm 2.030 \times 3.10 = 105.4 \pm 6.29\]</span></p>
+<p><span class="math display">\[\textbf{95\% CI: } (99.1, \; 111.7) \text{ mg/dL}\]</span></p>
+<p><strong>Interpretation:</strong> We are 95% confident that the true mean fasting blood glucose of adults in this population is between <strong>99.1 and 111.7 mg/dL</strong>.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="example-2-95-ci-for-a-proportion" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="example-2-95-ci-for-a-proportion"><span class="header-section-number">10.2</span> Example 2: 95% CI for a Proportion</h2>
+<p>In a survey of <strong>200 adults</strong>, <strong>68 were found to have hypertension</strong>.</p>
+<p>Construct a <strong>95% confidence interval</strong> for the true prevalence of hypertension in this population.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>✅ Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Given:</strong> <span class="math inline">\(n = 200\)</span>, <span class="math inline">\(x = 68\)</span></p>
+<p><strong>Step 1 — Sample proportion:</strong> <span class="math display">\[\hat{p} = \frac{68}{200} = 0.34 \quad (34\%)\]</span></p>
+<p><strong>Step 2 — Check validity:</strong> <span class="math display">\[n\hat{p} = 200 \times 0.34 = 68 \geq 5 \checkmark\]</span> <span class="math display">\[n(1-\hat{p}) = 200 \times 0.66 = 132 \geq 5 \checkmark\]</span></p>
+<p><strong>Step 3 — Standard Error:</strong> <span class="math display">\[SE = \sqrt{\frac{0.34 \times 0.66}{200}} = \sqrt{\frac{0.2244}{200}} = \sqrt{0.001122} = 0.0335\]</span></p>
+<p><strong>Step 4 — Confidence Interval</strong> (using <span class="math inline">\(z_{0.025} = 1.96\)</span>): <span class="math display">\[0.34 \pm 1.96 \times 0.0335 = 0.34 \pm 0.066\]</span></p>
+<p><span class="math display">\[\textbf{95\% CI: } (0.274, \; 0.406) \quad \text{or} \quad (27.4\%, \; 40.6\%)\]</span></p>
+<p><strong>Interpretation:</strong> We are 95% confident that the true prevalence of hypertension in this population is between <strong>27.4% and 40.6%</strong>.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="example-3-effect-of-sample-size-on-ci-width" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="example-3-effect-of-sample-size-on-ci-width"><span class="header-section-number">10.3</span> Example 3: Effect of Sample Size on CI Width</h2>
+<p>Using the same data as Example 1 (<span class="math inline">\(\bar{x} = 105.4\)</span>, <span class="math inline">\(s = 18.6\)</span>), compare the 95% CI when <span class="math inline">\(n = 36\)</span>, <span class="math inline">\(n = 100\)</span>, and <span class="math inline">\(n = 400\)</span>.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>✅ Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ns   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">36</span>, <span class="dv">100</span>, <span class="dv">400</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>se   <span class="ot">&lt;-</span> <span class="fl">18.6</span> <span class="sc">/</span> <span class="fu">sqrt</span>(ns)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>z    <span class="ot">&lt;-</span> <span class="fl">1.96</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>me   <span class="ot">&lt;-</span> z <span class="sc">*</span> se</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>lo   <span class="ot">&lt;-</span> <span class="fl">105.4</span> <span class="sc">-</span> me</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>hi   <span class="ot">&lt;-</span> <span class="fl">105.4</span> <span class="sc">+</span> me</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>wid  <span class="ot">&lt;-</span> hi <span class="sc">-</span> lo</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>ci_tab <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">n     =</span> ns,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">SE    =</span> <span class="fu">round</span>(se, <span class="dv">3</span>),</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">ME    =</span> <span class="fu">round</span>(me, <span class="dv">3</span>),</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">Lower =</span> <span class="fu">round</span>(lo, <span class="dv">2</span>),</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">Upper =</span> <span class="fu">round</span>(hi, <span class="dv">2</span>),</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">Width =</span> <span class="fu">round</span>(wid, <span class="dv">2</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(ci_tab,</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"SE"</span>, <span class="st">"Margin of Error"</span>,</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Lower Bound"</span>, <span class="st">"Upper Bound"</span>, <span class="st">"CI Width"</span>),</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="fu">rep</span>(<span class="st">"c"</span>, <span class="dv">6</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"bordered"</span>),</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">13</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"#2c7bb6"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">6</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ci-width" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ci-width-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;10.1: Effect of Sample Size on CI Width (x̄ = 105.4, s = 18.6, 95% CI)
+</figcaption>
+<div aria-describedby="tbl-ci-width-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-bordered cell caption-top table-sm small">
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">n</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">SE</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Margin of Error</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Lower Bound</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Upper Bound</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">CI Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">36</td>
+<td style="text-align: center;">3.10</td>
+<td style="text-align: center;">6.076</td>
+<td style="text-align: center;">99.32</td>
+<td style="text-align: center;">111.48</td>
+<td style="text-align: center; font-weight: bold;">12.15</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">100</td>
+<td style="text-align: center;">1.86</td>
+<td style="text-align: center;">3.646</td>
+<td style="text-align: center;">101.75</td>
+<td style="text-align: center;">109.05</td>
+<td style="text-align: center; font-weight: bold;">7.29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">400</td>
+<td style="text-align: center;">0.93</td>
+<td style="text-align: center;">1.823</td>
+<td style="text-align: center;">103.58</td>
+<td style="text-align: center;">107.22</td>
+<td style="text-align: center; font-weight: bold;">3.65</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><strong>Conclusion:</strong> Quadrupling the sample size (from 100 to 400) <strong>halves</strong> the CI width — because SE depends on <span class="math inline">\(\sqrt{n}\)</span>, not <span class="math inline">\(n\)</span> directly. To halve the margin of error, you need to <strong>quadruple</strong> the sample size.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="exercises" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Exercises</h1>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>✏️ Exercise 1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A random sample of <strong>25 patients</strong> with chronic kidney disease had their serum creatinine levels measured:</p>
+<p><span class="math display">\[\bar{x} = 3.82 \text{ mg/dL}, \qquad s = 1.14 \text{ mg/dL}\]</span></p>
+<p><strong>(a)</strong> Calculate the standard error of the mean.</p>
+<p><strong>(b)</strong> Find the appropriate critical value for a 95% CI.</p>
+<p><strong>(c)</strong> Construct the <strong>95% confidence interval</strong> for the population mean serum creatinine level.</p>
+<p><strong>(d)</strong> Interpret the confidence interval in plain language.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>✏️ Exercise 2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A hospital records that <strong>45 out of 180 patients</strong> discharged last month were readmitted within 30 days.</p>
+<p><strong>(a)</strong> Calculate the sample proportion of 30-day readmissions.</p>
+<p><strong>(b)</strong> Check whether the large-sample conditions are satisfied.</p>
+<p><strong>(c)</strong> Construct a <strong>95% confidence interval</strong> for the true 30-day readmission rate.</p>
+<p><strong>(d)</strong> The hospital’s target readmission rate is 20%. Based on the confidence interval, is there evidence that the true rate differs from this target? Explain.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>✏️ Exercise 3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A researcher wants to estimate the mean diastolic blood pressure (DBP) of adults in a city. From a pilot study, the SD is estimated to be <strong>12 mmHg</strong>.</p>
+<p>The researcher wants a <strong>95% CI with a margin of error no greater than 2 mmHg</strong>.</p>
+<p>Using the formula: <span class="math display">\[n = \left(\frac{z_{\alpha/2} \cdot \sigma}{E}\right)^2\]</span></p>
+<p>where <span class="math inline">\(E\)</span> is the desired margin of error, calculate the <strong>minimum sample size</strong> required.</p>
+</div>
+</div>
+<hr>
+<p><em>End of Chapter 4</em></p>
+<hr>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>📚 Coming Up Next
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Chapter 5: Statistical Testing</strong> — Instead of estimating a parameter, we will test specific claims about populations using <strong>hypothesis testing</strong> — one of the most powerful tools in health research.</p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./chapter03_probability_distribution.html" class="pagination-link" aria-label="Random Variable and Probability Distribution">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Random Variable and Probability Distribution</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./chapter05_statistical_testing.html" class="pagination-link" aria-label="Statistical Testing">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Testing</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
