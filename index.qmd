@@ -1,0 +1,8 @@
+# Preface {.unnumbered}
+
+This book is an introduction to biostatistics for first-year
+health science students. It covers data types, summarization,
+probability distributions, estimation, hypothesis testing,
+and an introduction to statistical modeling.
+
+All examples use health and clinical contexts.

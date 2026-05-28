@@ -1,0 +1,27 @@
+project:
+  type: book
+
+book:
+  title: "Introduction to Biostatistics"
+  subtitle: "208141"
+  author: "Parichart Pattarapanitchai"
+  date: today
+  chapters:
+    - index.qmd
+    - chapter01_data_in_health_science.qmd
+    - chapter02_data_summarization.qmd
+    - chapter03_probability_distribution.qmd
+    - chapter04_estimation.qmd
+    - chapter05_statistical_testing.qmd
+    - chapter06_statistical_modeling.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    number-sections: true
+  pdf:
+    documentclass: book
+    number-sections: true
+    geometry: margin=1in
+    fontsize: 12pt

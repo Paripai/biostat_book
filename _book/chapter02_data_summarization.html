@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; Data Summarization – Introduction to Biostatistics</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./chapter03_probability_distribution.html" rel="next">
+<link href="./chapter01_data_in_health_science.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./chapter02_data_summarization.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Summarization</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to Biostatistics</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter01_data_in_health_science.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data in Health Science</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter02_data_summarization.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Summarization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter03_probability_distribution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Random Variable and Probability Distribution</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter04_estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter05_statistical_testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Testing</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter06_statistical_modeling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduction to Statistical Modeling</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#numerical-summarization" id="toc-numerical-summarization" class="nav-link" data-scroll-target="#numerical-summarization"><span class="header-section-number">3</span> Numerical Summarization</a>
+  <ul class="collapse">
+  <li><a href="#measures-of-central-tendency" id="toc-measures-of-central-tendency" class="nav-link" data-scroll-target="#measures-of-central-tendency"><span class="header-section-number">3.1</span> Measures of Central Tendency</a>
+  <ul class="collapse">
+  <li><a href="#mean-arithmetic-average" id="toc-mean-arithmetic-average" class="nav-link" data-scroll-target="#mean-arithmetic-average"><span class="header-section-number">3.1.1</span> Mean (Arithmetic Average)</a></li>
+  <li><a href="#median" id="toc-median" class="nav-link" data-scroll-target="#median"><span class="header-section-number">3.1.2</span> Median</a></li>
+  <li><a href="#mode" id="toc-mode" class="nav-link" data-scroll-target="#mode"><span class="header-section-number">3.1.3</span> Mode</a></li>
+  <li><a href="#choosing-the-right-measure" id="toc-choosing-the-right-measure" class="nav-link" data-scroll-target="#choosing-the-right-measure"><span class="header-section-number">3.1.4</span> Choosing the Right Measure</a></li>
+  </ul></li>
+  <li><a href="#measures-of-variability" id="toc-measures-of-variability" class="nav-link" data-scroll-target="#measures-of-variability"><span class="header-section-number">3.2</span> Measures of Variability</a>
+  <ul class="collapse">
+  <li><a href="#range" id="toc-range" class="nav-link" data-scroll-target="#range"><span class="header-section-number">3.2.1</span> Range</a></li>
+  <li><a href="#variance" id="toc-variance" class="nav-link" data-scroll-target="#variance"><span class="header-section-number">3.2.2</span> Variance</a></li>
+  <li><a href="#standard-deviation" id="toc-standard-deviation" class="nav-link" data-scroll-target="#standard-deviation"><span class="header-section-number">3.2.3</span> Standard Deviation</a></li>
+  <li><a href="#summary-numerical-measures" id="toc-summary-numerical-measures" class="nav-link" data-scroll-target="#summary-numerical-measures"><span class="header-section-number">3.2.4</span> Summary: Numerical Measures</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#pictorial-summarization" id="toc-pictorial-summarization" class="nav-link" data-scroll-target="#pictorial-summarization"><span class="header-section-number">4</span> Pictorial Summarization</a>
+  <ul class="collapse">
+  <li><a href="#bar-chart" id="toc-bar-chart" class="nav-link" data-scroll-target="#bar-chart"><span class="header-section-number">4.1</span> Bar Chart</a></li>
+  <li><a href="#histogram" id="toc-histogram" class="nav-link" data-scroll-target="#histogram"><span class="header-section-number">4.2</span> Histogram</a></li>
+  <li><a href="#box-plot-box-and-whisker-plot" id="toc-box-plot-box-and-whisker-plot" class="nav-link" data-scroll-target="#box-plot-box-and-whisker-plot"><span class="header-section-number">4.3</span> Box Plot (Box-and-Whisker Plot)</a></li>
+  <li><a href="#choosing-the-right-chart" id="toc-choosing-the-right-chart" class="nav-link" data-scroll-target="#choosing-the-right-chart"><span class="header-section-number">4.4</span> Choosing the Right Chart</a></li>
+  </ul></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><span class="header-section-number">5</span> Key Takeaways</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">6</span> Examples</a>
+  <ul class="collapse">
+  <li><a href="#example-1-calculating-mean-median-and-sd" id="toc-example-1-calculating-mean-median-and-sd" class="nav-link" data-scroll-target="#example-1-calculating-mean-median-and-sd"><span class="header-section-number">6.1</span> Example 1: Calculating Mean, Median, and SD</a></li>
+  <li><a href="#example-2-choosing-the-right-summary-and-chart" id="toc-example-2-choosing-the-right-summary-and-chart" class="nav-link" data-scroll-target="#example-2-choosing-the-right-summary-and-chart"><span class="header-section-number">6.2</span> Example 2: Choosing the Right Summary and Chart</a></li>
+  </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">7</span> Exercises</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Summarization</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<hr>
+<section id="introduction" class="level1 unnumbered">
+<h1 class="unnumbered">Introduction</h1>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>🏥 Why Does This Matter for Nurses?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Imagine you have blood pressure readings from 80 patients on your ward. Looking at 80 individual numbers tells you very little. But if someone says <em>“the average systolic BP is 138 mmHg and most patients fall between 120 and 155 mmHg”</em> — now you have a clear picture.</p>
+<p><strong>Data summarization</strong> is the process of turning raw data into meaningful, easy-to-understand information using numbers and charts. This is one of the most practical skills in clinical nursing and health research.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="numerical-summarization" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Numerical Summarization</h1>
+<p>Numerical summarization uses <strong>numbers</strong> to describe the key features of data. There are two important aspects we want to describe:</p>
+<ol type="1">
+<li><strong>Central tendency</strong> — Where is the “middle” or “typical” value?</li>
+<li><strong>Variability</strong> — How spread out are the values?</li>
+</ol>
+<hr>
+<section id="measures-of-central-tendency" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="measures-of-central-tendency"><span class="header-section-number">3.1</span> Measures of Central Tendency</h2>
+<section id="mean-arithmetic-average" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="mean-arithmetic-average"><span class="header-section-number">3.1.1</span> Mean (Arithmetic Average)</h3>
+<p>The <strong>mean</strong> is calculated by adding all values and dividing by the number of observations.</p>
+<p><span class="math display">\[\bar{x} = \frac{\sum_{i=1}^{n} x_i}{n} = \frac{x_1 + x_2 + \cdots + x_n}{n}\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(\bar{x}\)</span> = sample mean (read as “x-bar”)</li>
+<li><span class="math inline">\(x_i\)</span> = each individual value</li>
+<li><span class="math inline">\(n\)</span> = total number of observations</li>
+<li><span class="math inline">\(\sum\)</span> = “sum of all”</li>
+</ul>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ When to Use the Mean
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The mean works best for <strong>continuous or discrete numerical data</strong> that is <strong>roughly symmetric</strong> (not heavily skewed) and has <strong>no extreme outliers</strong>. A single extreme value can pull the mean far from the typical value.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="median" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="median"><span class="header-section-number">3.1.2</span> Median</h3>
+<p>The <strong>median</strong> is the <strong>middle value</strong> when all observations are arranged in order.</p>
+<ul>
+<li>If <span class="math inline">\(n\)</span> is <strong>odd</strong>: the median is the value at position <span class="math inline">\(\dfrac{n+1}{2}\)</span></li>
+<li>If <span class="math inline">\(n\)</span> is <strong>even</strong>: the median is the <strong>average of the two middle values</strong> at positions <span class="math inline">\(\dfrac{n}{2}\)</span> and <span class="math inline">\(\dfrac{n}{2}+1\)</span></li>
+</ul>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ When to Use the Median
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The median is preferred when data is <strong>skewed</strong> or has <strong>outliers</strong>, because it is not affected by extreme values. It is also the appropriate measure for <strong>ordinal data</strong>.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="mode" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="mode"><span class="header-section-number">3.1.3</span> Mode</h3>
+<p>The <strong>mode</strong> is the value that appears <strong>most frequently</strong> in the data.</p>
+<ul>
+<li>A dataset can have <strong>one mode</strong> (unimodal), <strong>two modes</strong> (bimodal), or <strong>no mode</strong> (all values appear equally).</li>
+<li>The mode is the only measure of central tendency appropriate for <strong>nominal data</strong>.</li>
+</ul>
+<hr>
+</section>
+<section id="choosing-the-right-measure" class="level3" data-number="3.1.4">
+<h3 data-number="3.1.4" class="anchored" data-anchor-id="choosing-the-right-measure"><span class="header-section-number">3.1.4</span> Choosing the Right Measure</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ct <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Measure =</span> <span class="fu">c</span>(<span class="st">"Mean"</span>, <span class="st">"Median"</span>, <span class="st">"Mode"</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Best For</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Numerical data (continuous or discrete), symmetric distribution"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Numerical data with skewness or outliers; Ordinal data"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Nominal data; finding the most common category"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Nursing Example</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Average patient age, average blood glucose"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Average length of hospital stay (skewed by long-stay patients)"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Most common blood type on a ward, most frequent pain score"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(ct, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Measure"</span>, <span class="st">"Best For"</span>, <span class="st">"Nursing Example"</span>),</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"l"</span>,<span class="st">"l"</span>,<span class="st">"l"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"bordered"</span>),</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>, <span class="at">font_size =</span> <span class="dv">13</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"#2c7bb6"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-central" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-central-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.1: Choosing the Right Measure of Central Tendency
+</figcaption>
+<div aria-describedby="tbl-central-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-bordered cell caption-top table-sm small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Measure</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Best For</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Nursing Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">Mean</td>
+<td style="text-align: left;">Numerical data (continuous or discrete), symmetric distribution</td>
+<td style="text-align: left;">Average patient age, average blood glucose</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">Median</td>
+<td style="text-align: left;">Numerical data with skewness or outliers; Ordinal data</td>
+<td style="text-align: left;">Average length of hospital stay (skewed by long-stay patients)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">Mode</td>
+<td style="text-align: left;">Nominal data; finding the most common category</td>
+<td style="text-align: left;">Most common blood type on a ward, most frequent pain score</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="measures-of-variability" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="measures-of-variability"><span class="header-section-number">3.2</span> Measures of Variability</h2>
+<p>Knowing the average alone is not enough. Two wards might have the same average patient age but very different spreads — one ward may have all patients aged 55–65, another may have patients aged 20–90. Variability tells us how <strong>spread out</strong> the data are.</p>
+<section id="range" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="range"><span class="header-section-number">3.2.1</span> Range</h3>
+<p>The <strong>range</strong> is the simplest measure of spread:</p>
+<p><span class="math display">\[\text{Range} = \text{Maximum value} - \text{Minimum value}\]</span></p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Limitation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The range only uses two values (max and min) and is very sensitive to outliers.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="variance" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="variance"><span class="header-section-number">3.2.2</span> Variance</h3>
+<p>The <strong>variance</strong> measures the average squared distance of each value from the mean.</p>
+<p><strong>Population variance:</strong> <span class="math display">\[\sigma^2 = \frac{\sum_{i=1}^{N}(x_i - \mu)^2}{N}\]</span></p>
+<p><strong>Sample variance</strong> (used more often in practice): <span class="math display">\[s^2 = \frac{\sum_{i=1}^{n}(x_i - \bar{x})^2}{n-1}\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(\mu\)</span> = population mean, <span class="math inline">\(\bar{x}\)</span> = sample mean</li>
+<li><span class="math inline">\(N\)</span> = population size, <span class="math inline">\(n\)</span> = sample size</li>
+<li><span class="math inline">\(n-1\)</span> in the denominator corrects for the fact that we’re using a sample</li>
+</ul>
+<hr>
+</section>
+<section id="standard-deviation" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="standard-deviation"><span class="header-section-number">3.2.3</span> Standard Deviation</h3>
+<p>The <strong>standard deviation (SD)</strong> is the square root of the variance. It is expressed in the <strong>same units as the original data</strong>, making it much easier to interpret than variance.</p>
+<p><span class="math display">\[s = \sqrt{s^2} = \sqrt{\frac{\sum_{i=1}^{n}(x_i - \bar{x})^2}{n-1}}\]</span></p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>💡 Interpreting Standard Deviation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A <strong>small SD</strong> means values are clustered closely around the mean. A <strong>large SD</strong> means values are widely spread.</p>
+<p>In clinical practice, you may see lab reports written as: <strong>Mean ± SD</strong>, for example: Hemoglobin = <strong>12.5 ± 1.8 g/dL</strong></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="summary-numerical-measures" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="summary-numerical-measures"><span class="header-section-number">3.2.4</span> Summary: Numerical Measures</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>vm <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Measure =</span> <span class="fu">c</span>(<span class="st">"Mean"</span>, <span class="st">"Median"</span>, <span class="st">"Mode"</span>, <span class="st">"Range"</span>, <span class="st">"Variance"</span>, <span class="st">"Standard Deviation"</span>),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Symbol =</span> <span class="fu">c</span>(<span class="st">"$</span><span class="sc">\\</span><span class="st">bar{x}$"</span>, <span class="st">"Md"</span>, <span class="st">"Mo"</span>, <span class="st">"Max − Min"</span>, <span class="st">"$s^2$"</span>, <span class="st">"$s$"</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Purpose =</span> <span class="fu">c</span>(<span class="st">"Central tendency"</span>, <span class="st">"Central tendency"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Central tendency"</span>, <span class="st">"Spread"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Spread (squared units)"</span>, <span class="st">"Spread (original units)"</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Data Type</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Numerical"</span>, <span class="st">"Numerical / Ordinal"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"Any"</span>, <span class="st">"Numerical"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"Numerical"</span>, <span class="st">"Numerical"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(vm, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Measure"</span>,<span class="st">"Symbol"</span>,<span class="st">"Purpose"</span>,<span class="st">"Appropriate Data Type"</span>),</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"l"</span>,<span class="st">"c"</span>,<span class="st">"l"</span>,<span class="st">"l"</span>), <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"bordered"</span>),</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>, <span class="at">font_size =</span> <span class="dv">13</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"#2c7bb6"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-variability" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-variability-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.2: Summary of Numerical Summary Measures
+</figcaption>
+<div aria-describedby="tbl-variability-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-bordered cell caption-top table-sm small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Measure</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Symbol</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Purpose</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Appropriate Data Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">Mean</td>
+<td style="text-align: center;">$\bar{x}$</td>
+<td style="text-align: left;">Central tendency</td>
+<td style="text-align: left;">Numerical</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">Median</td>
+<td style="text-align: center;">Md</td>
+<td style="text-align: left;">Central tendency</td>
+<td style="text-align: left;">Numerical / Ordinal</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">Mode</td>
+<td style="text-align: center;">Mo</td>
+<td style="text-align: left;">Central tendency</td>
+<td style="text-align: left;">Any</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">Range</td>
+<td style="text-align: center;">Max − Min</td>
+<td style="text-align: left;">Spread</td>
+<td style="text-align: left;">Numerical</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">Variance</td>
+<td style="text-align: center;">$s^2$</td>
+<td style="text-align: left;">Spread (squared units)</td>
+<td style="text-align: left;">Numerical</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">Standard Deviation</td>
+<td style="text-align: center;">$s$</td>
+<td style="text-align: left;">Spread (original units)</td>
+<td style="text-align: left;">Numerical</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<hr>
+</section>
+</section>
+</section>
+<section id="pictorial-summarization" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Pictorial Summarization</h1>
+<p>Charts and graphs turn numbers into visual stories. The correct chart depends on the <strong>data type</strong>.</p>
+<section id="bar-chart" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="bar-chart"><span class="header-section-number">4.1</span> Bar Chart</h2>
+<p>Used for <strong>categorical data</strong> (nominal or ordinal). Each bar represents a category; the height shows the count or percentage.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>blood <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"AB"</span>, <span class="st">"O"</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">count =</span> <span class="fu">c</span>(<span class="dv">38</span>, <span class="dv">27</span>, <span class="dv">15</span>, <span class="dv">40</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blood, <span class="fu">aes</span>(<span class="at">x =</span> type, <span class="at">y =</span> count, <span class="at">fill =</span> type)) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> count), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">4.5</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#2c7bb6"</span>,<span class="st">"#abd9e9"</span>,<span class="st">"#d7191c"</span>,<span class="st">"#fdae61"</span>)) <span class="sc">+</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Blood Type"</span>, <span class="at">y =</span> <span class="st">"Number of Patients"</span>) <span class="sc">+</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-bar" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="chapter02_data_summarization_files/figure-html/fig-bar-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.1: Bar Chart: Blood Types of 120 Patients in a Medical Ward
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="histogram" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="histogram"><span class="header-section-number">4.2</span> Histogram</h2>
+<p>Used for <strong>continuous numerical data</strong>. Bars are drawn over class intervals (ranges of values); bars touch each other because the data is continuous.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>bp_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">sbp =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">80</span>, <span class="at">mean =</span> <span class="dv">130</span>, <span class="at">sd =</span> <span class="dv">15</span>)))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bp_data, <span class="fu">aes</span>(<span class="at">x =</span> sbp)) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>, <span class="at">fill =</span> <span class="st">"#2c7bb6"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Systolic Blood Pressure (mmHg)"</span>, <span class="at">y =</span> <span class="st">"Number of Patients"</span>) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-hist" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="chapter02_data_summarization_files/figure-html/fig-hist-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.2: Histogram: Systolic Blood Pressure of 80 Patients
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>💡 Bar Chart vs Histogram
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Bar Chart</th>
+<th>Histogram</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Data type</td>
+<td>Categorical</td>
+<td>Continuous numerical</td>
+</tr>
+<tr class="even">
+<td>Bars</td>
+<td>Separated (gaps)</td>
+<td>Touching (no gaps)</td>
+</tr>
+<tr class="odd">
+<td>X-axis</td>
+<td>Categories</td>
+<td>Numerical ranges</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<hr>
+</section>
+<section id="box-plot-box-and-whisker-plot" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="box-plot-box-and-whisker-plot"><span class="header-section-number">4.3</span> Box Plot (Box-and-Whisker Plot)</h2>
+<p>A <strong>box plot</strong> summarizes the <strong>distribution</strong> of numerical data using 5 key values (the <strong>five-number summary</strong>):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Minimum</td>
+<td>Smallest value (excluding outliers)</td>
+</tr>
+<tr class="even">
+<td>Q1</td>
+<td>25th percentile (lower quartile)</td>
+</tr>
+<tr class="odd">
+<td>Median (Q2)</td>
+<td>50th percentile — middle value</td>
+</tr>
+<tr class="even">
+<td>Q3</td>
+<td>75th percentile (upper quartile)</td>
+</tr>
+<tr class="odd">
+<td>Maximum</td>
+<td>Largest value (excluding outliers)</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>Interquartile Range (IQR) = Q3 − Q1</strong> represents the middle 50% of data. Points beyond <strong>1.5 × IQR</strong> from Q1 or Q3 are marked as <strong>outliers (○)</strong>.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">99</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>stay <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">days =</span> <span class="fu">c</span>(<span class="fu">rexp</span>(<span class="dv">50</span>, <span class="fl">0.3</span>), <span class="fu">rexp</span>(<span class="dv">50</span>, <span class="fl">0.5</span>)),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ward =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Medical Ward"</span>, <span class="st">"Surgical Ward"</span>), <span class="at">each =</span> <span class="dv">50</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(stay, <span class="fu">aes</span>(<span class="at">x =</span> ward, <span class="at">y =</span> days, <span class="at">fill =</span> ward)) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">outlier.color =</span> <span class="st">"#d7191c"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">outlier.shape =</span> <span class="dv">1</span>, <span class="at">outlier.size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#abd9e9"</span>,<span class="st">"#fdae61"</span>)) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Length of Stay (days)"</span>) <span class="sc">+</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-boxplot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="chapter02_data_summarization_files/figure-html/fig-boxplot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.3: Box Plot: Comparing Length of Hospital Stay Between Two Wards
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="choosing-the-right-chart" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="choosing-the-right-chart"><span class="header-section-number">4.4</span> Choosing the Right Chart</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>charts <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Chart Type</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Bar Chart"</span>, <span class="st">"Pie Chart"</span>, <span class="st">"Histogram"</span>, <span class="st">"Box Plot"</span>),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Data Type</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Categorical (Nominal/Ordinal)"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"Categorical (Nominal) — proportions"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"Numerical (Continuous)"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"Numerical (Continuous/Discrete)"</span>),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">What It Shows</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Frequency or percentage of each category"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Proportion of each category as a slice of the whole"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Distribution shape, spread, and central tendency"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Median, spread, quartiles, and outliers"</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Nursing Example</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Number of patients by blood type"</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Proportion of patients by diagnosis"</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Distribution of patient ages or blood pressure"</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Comparing recovery time between two wards"</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(charts,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Chart Type"</span>,<span class="st">"Data Type"</span>,<span class="st">"What It Shows"</span>,<span class="st">"Nursing Example"</span>),</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"l"</span>,<span class="st">"l"</span>,<span class="st">"l"</span>,<span class="st">"l"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"bordered"</span>),</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>, <span class="at">font_size =</span> <span class="dv">13</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"#2c7bb6"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-charts" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-charts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.1: Guide to Choosing the Right Chart
+</figcaption>
+<div aria-describedby="tbl-charts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-bordered cell caption-top table-sm small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Chart Type</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Data Type</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">What It Shows</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Nursing Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">Bar Chart</td>
+<td style="text-align: left;">Categorical (Nominal/Ordinal)</td>
+<td style="text-align: left;">Frequency or percentage of each category</td>
+<td style="text-align: left;">Number of patients by blood type</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">Pie Chart</td>
+<td style="text-align: left;">Categorical (Nominal) — proportions</td>
+<td style="text-align: left;">Proportion of each category as a slice of the whole</td>
+<td style="text-align: left;">Proportion of patients by diagnosis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">Histogram</td>
+<td style="text-align: left;">Numerical (Continuous)</td>
+<td style="text-align: left;">Distribution shape, spread, and central tendency</td>
+<td style="text-align: left;">Distribution of patient ages or blood pressure</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">Box Plot</td>
+<td style="text-align: left;">Numerical (Continuous/Discrete)</td>
+<td style="text-align: left;">Median, spread, quartiles, and outliers</td>
+<td style="text-align: left;">Comparing recovery time between two wards</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="key-takeaways" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Key Takeaways</h1>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>📝 Chapter 2 Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p><strong>Numerical summarization</strong> uses measures of <em>central tendency</em> (mean, median, mode) and <em>variability</em> (range, variance, SD) to describe data with numbers.</p></li>
+<li><p>The <strong>mean</strong> is best for symmetric numerical data; the <strong>median</strong> is better when data is skewed or has outliers; the <strong>mode</strong> is used for categorical data.</p></li>
+<li><p>The <strong>standard deviation (SD)</strong> is the most commonly reported measure of spread in clinical research, expressed in the same units as the data.</p></li>
+<li><p><strong>Pictorial summarization</strong> uses charts: bar charts for categorical data, histograms for continuous data, and box plots to compare groups and identify outliers.</p></li>
+<li><p>Always choose the <strong>correct summary measure and chart</strong> based on the <strong>data type</strong> — using the wrong one leads to misleading conclusions.</p></li>
+</ol>
+</div>
+</div>
+<hr>
+</section>
+<section id="examples" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Examples</h1>
+<section id="example-1-calculating-mean-median-and-sd" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="example-1-calculating-mean-median-and-sd"><span class="header-section-number">6.1</span> Example 1: Calculating Mean, Median, and SD</h2>
+<p>A nurse records the resting heart rate (beats per minute) of <strong>9 patients</strong>:</p>
+<p><span class="math display">\[72, \; 68, \; 85, \; 74, \; 90, \; 68, \; 78, \; 72, \; 110\]</span></p>
+<p>Calculate the <strong>(a) mean</strong>, <strong>(b) median</strong>, and <strong>(c) standard deviation</strong>.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>✅ Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Step 1 — Arrange data in order:</strong></p>
+<p><span class="math display">\[68, \; 68, \; 72, \; 72, \; 74, \; 78, \; 85, \; 90, \; 110\]</span></p>
+<hr>
+<p><strong>(a) Mean:</strong></p>
+<p><span class="math display">\[\bar{x} = \frac{68+68+72+72+74+78+85+90+110}{9} = \frac{717}{9} = 79.7 \text{ bpm}\]</span></p>
+<hr>
+<p><strong>(b) Median:</strong></p>
+<p><span class="math inline">\(n = 9\)</span> (odd), so median is at position <span class="math inline">\(\dfrac{9+1}{2} = 5\)</span>th value.</p>
+<p>Counting from the ordered list: the 5th value = <strong>74 bpm</strong></p>
+<p>Notice that the median (74) is lower than the mean (79.7) because the outlier value of 110 pulls the mean upward.</p>
+<hr>
+<p><strong>(c) Standard Deviation:</strong></p>
+<p>First, find each <span class="math inline">\((x_i - \bar{x})^2\)</span>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>hr <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">68</span>, <span class="dv">68</span>, <span class="dv">72</span>, <span class="dv">72</span>, <span class="dv">74</span>, <span class="dv">78</span>, <span class="dv">85</span>, <span class="dv">90</span>, <span class="dv">110</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> <span class="fu">mean</span>(hr)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>sd_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Patient</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">"Patient "</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Heart Rate (xᵢ)</span><span class="st">`</span> <span class="ot">=</span> hr,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">xᵢ − x̄</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(hr <span class="sc">-</span> xbar, <span class="dv">1</span>),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">(xᵢ − x̄)²</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>((hr <span class="sc">-</span> xbar)<span class="sc">^</span><span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(sd_table,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Patient"</span>, <span class="st">"Heart Rate (xᵢ)"</span>, <span class="st">"xᵢ − x̄"</span>, <span class="st">"(xᵢ − x̄)²"</span>),</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"l"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"bordered"</span>),</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">13</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">9</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">background =</span> <span class="st">"#2c7bb6"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-sd-calc" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-sd-calc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6.1: Step-by-step SD calculation
+</figcaption>
+<div aria-describedby="tbl-sd-calc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-bordered cell caption-top table-sm small">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">Patient</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">Heart Rate (xᵢ)</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">xᵢ − x̄</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">| (xᵢ − x̄)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Patient 1</td>
+<td style="text-align: center;">68</td>
+<td style="text-align: center;">-11.7</td>
+<td style="text-align: center;">136.11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Patient 2</td>
+<td style="text-align: center;">68</td>
+<td style="text-align: center;">-11.7</td>
+<td style="text-align: center;">136.11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Patient 3</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">-7.7</td>
+<td style="text-align: center;">58.78</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Patient 4</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">-7.7</td>
+<td style="text-align: center;">58.78</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Patient 5</td>
+<td style="text-align: center;">74</td>
+<td style="text-align: center;">-5.7</td>
+<td style="text-align: center;">32.11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Patient 6</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">-1.7</td>
+<td style="text-align: center;">2.78</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Patient 7</td>
+<td style="text-align: center;">85</td>
+<td style="text-align: center;">5.3</td>
+<td style="text-align: center;">28.44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Patient 8</td>
+<td style="text-align: center;">90</td>
+<td style="text-align: center;">10.3</td>
+<td style="text-align: center;">106.78</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Patient 9</td>
+<td style="text-align: center; font-weight: bold;">110</td>
+<td style="text-align: center; font-weight: bold;">30.3</td>
+<td style="text-align: center; font-weight: bold;">920.11</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><span class="math display">\[\sum(x_i - \bar{x})^2 = 1480\]</span></p>
+<p><span class="math display">\[s^2 = \frac{1480}{9-1} = \frac{1480}{8} = 185\]</span></p>
+<p><span class="math display">\[s = \sqrt{185} = 13.6 \text{ bpm}\]</span></p>
+<p><strong>Interpretation:</strong> The average heart rate is <strong>79.7 ± 13.5 bpm</strong>. The relatively large SD reflects the wide spread, largely influenced by the patient with 110 bpm.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="example-2-choosing-the-right-summary-and-chart" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="example-2-choosing-the-right-summary-and-chart"><span class="header-section-number">6.2</span> Example 2: Choosing the Right Summary and Chart</h2>
+<p>A hospital administrator records the <strong>diagnosis</strong> of 200 patients admitted last month and wants to summarize the data. A research nurse records the <strong>length of stay (days)</strong> for the same 200 patients.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>✅ Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Data Type</th>
+<th>Best Summary Measure</th>
+<th>Best Chart</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Diagnosis</td>
+<td>Categorical – Nominal</td>
+<td>Mode (most common diagnosis)</td>
+<td>Bar Chart</td>
+</tr>
+<tr class="even">
+<td>Length of stay</td>
+<td>Numerical – Continuous (likely skewed)</td>
+<td>Median + IQR</td>
+<td>Box Plot or Histogram</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why median for length of stay?</strong> Hospital stays are almost always right-skewed — most patients stay a few days, but a small number may stay for weeks or months. These long-stay patients would pull the mean upward, making it misleading. The median better represents the “typical” patient.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="exercises" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Exercises</h1>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>✏️ Exercise 1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A nurse records the body temperature (°C) of <strong>10 patients</strong> at 8:00 AM:</p>
+<p><span class="math display">\[37.2, \; 36.8, \; 38.5, \; 37.0, \; 39.1, \; 36.8, \; 37.5, \; 38.0, \; 37.2, \; 40.2\]</span></p>
+<p><strong>(a)</strong> Calculate the <strong>mean</strong> body temperature.</p>
+<p><strong>(b)</strong> Find the <strong>median</strong> body temperature.</p>
+<p><strong>(c)</strong> What is the <strong>mode</strong>?</p>
+<p><strong>(d)</strong> Calculate the <strong>range</strong>.</p>
+<p><strong>(e)</strong> Calculate the <strong>standard deviation</strong>. Show all steps.</p>
+<p><strong>(f)</strong> One patient has a temperature of 40.2°C. How does this value affect the mean compared to the median? Which measure would you report to the physician, and why?</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>✏️ Exercise 2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A community health nurse surveys <strong>50 elderly patients</strong> and records:</p>
+<ul>
+<li><strong>Gender</strong> (Male / Female)</li>
+<li><strong>Systolic blood pressure</strong> (mmHg)</li>
+<li><strong>Self-rated health</strong> (Poor / Fair / Good / Very Good / Excellent)</li>
+</ul>
+<p>For each variable, state:</p>
+<p><strong>(a)</strong> The data type.</p>
+<p><strong>(b)</strong> The most appropriate measure of central tendency.</p>
+<p><strong>(c)</strong> The most appropriate chart to display the data.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>✏️ Exercise 3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The number of patient falls recorded each month over <strong>12 months</strong> in a hospital ward are:</p>
+<p><span class="math display">\[2, \; 0, \; 3, \; 1, \; 4, \; 2, \; 1, \; 0, \; 3, \; 2, \; 5, \; 1\]</span></p>
+<p><strong>(a)</strong> Calculate the mean and median number of falls per month.</p>
+<p><strong>(b)</strong> Draw a <strong>bar chart</strong> (by hand or describe what it would look like) showing the frequency of each number of falls.</p>
+<p><strong>(c)</strong> The ward manager wants to set a monthly target. Should she use the mean or median as the baseline? Explain.</p>
+</div>
+</div>
+<hr>
+<p><em>End of Chapter 2</em></p>
+<hr>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>📚 Coming Up Next
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Chapter 3: Random Variable and Probability Distribution</strong> — We will learn what a random variable is, how probabilities work, and why the <strong>normal distribution</strong> (bell curve) is so important in health science research.</p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./chapter01_data_in_health_science.html" class="pagination-link" aria-label="Data in Health Science">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data in Health Science</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./chapter03_probability_distribution.html" class="pagination-link" aria-label="Random Variable and Probability Distribution">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Random Variable and Probability Distribution</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

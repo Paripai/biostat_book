@@ -1,0 +1,23 @@
+{
+  "index.qmd": {
+    "index.html": "7f115179"
+  },
+  "chapter01_data_in_health_science.qmd": {
+    "chapter01_data_in_health_science.html": "dd58d487"
+  },
+  "chapter02_data_summarization.qmd": {
+    "chapter02_data_summarization.html": "0291d662"
+  },
+  "chapter03_probability_distribution.qmd": {
+    "chapter03_probability_distribution.html": "bf7a4a0e"
+  },
+  "chapter04_estimation.qmd": {
+    "chapter04_estimation.html": "017527e2"
+  },
+  "chapter05_statistical_testing.qmd": {
+    "chapter05_statistical_testing.html": "609e4a32"
+  },
+  "chapter06_statistical_modeling.qmd": {
+    "chapter06_statistical_modeling.html": "4d2b6947"
+  }
+}

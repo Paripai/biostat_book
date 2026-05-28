@@ -1,0 +1,422 @@
+# Data in Health Science
+
+```{r}
+#| label: setup
+#| include: false
+
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+```
+
+---
+
+# Introduction {.unnumbered}
+
+::: {.callout-note icon=false}
+## 🏥 Why Does This Matter for Nurses?
+
+Every day, nurses make decisions based on data — patient vital signs, lab results,
+medication dosages, and clinical outcomes. Understanding **what data is** and
+**how to classify it correctly** is the very first step toward making
+safe, evidence-based decisions in clinical practice.
+
+In this chapter, we lay the foundation for everything that follows in this course.
+:::
+
+---
+
+# Data Types
+
+## What is Data?
+
+**Data** are pieces of information collected from observations or measurements.
+In health science, data come from patients, experiments, surveys, or medical records.
+
+> **Example:** A nurse records the blood pressure, age, gender, pain score,
+> and discharge status of every patient on the ward. Each of these recorded
+> pieces of information is *data*.
+
+Data can be broadly divided into two major types:
+
+- **Categorical Data** — data that represent categories or groups
+- **Numerical Data** — data that represent measurable quantities
+
+---
+
+## Categorical Data
+
+Categorical data place individuals into groups. There are two subtypes:
+
+### Nominal Data
+
+Nominal data have **no natural order** among categories.
+You can only say things are *different*, not *bigger* or *smaller*.
+
+::: {.callout-tip icon=false}
+## 📋 Nominal Examples in Nursing
+- Blood type: A, B, AB, O
+- Gender: Male, Female
+- Disease diagnosis: Diabetes, Hypertension, Asthma
+- Ward type: Medical, Surgical, Pediatric, ICU
+:::
+
+### Ordinal Data
+
+Ordinal data have **a natural order**, but the *distance* between categories
+is not necessarily equal.
+
+::: {.callout-tip icon=false}
+## 📋 Ordinal Examples in Nursing
+- Pain scale: None (0), Mild (1–3), Moderate (4–6), Severe (7–10)
+- Patient satisfaction: Very dissatisfied → Dissatisfied → Neutral → Satisfied → Very satisfied
+- Level of consciousness: Alert → Confused → Drowsy → Unresponsive
+- Education level: Primary → Secondary → Bachelor → Graduate
+:::
+
+---
+
+## Numerical Data
+
+Numerical data represent actual measured or counted quantities. There are two subtypes:
+
+### Discrete Data
+
+Discrete data are **counted** and can only take **whole number** values.
+There are no meaningful values between two consecutive counts.
+
+::: {.callout-tip icon=false}
+## 📋 Discrete Examples in Nursing
+- Number of patients admitted per day: 0, 1, 2, 3, ...
+- Number of medication errors per month
+- Number of children a patient has
+- Number of hospital readmissions
+:::
+
+### Continuous Data
+
+Continuous data are **measured** and can take **any value** within a range,
+including decimals.
+
+::: {.callout-tip icon=false}
+## 📋 Continuous Examples in Nursing
+- Body temperature: 36.5°C, 37.2°C, 38.8°C
+- Blood pressure: 120/80 mmHg, 135/85 mmHg
+- Body weight: 58.3 kg, 72.5 kg
+- Blood glucose level: 95.4 mg/dL
+:::
+
+---
+
+## Summary: Data Type Classification
+
+```{r}
+#| label: fig-data-types
+#| fig-cap: "Classification of Data Types in Health Science"
+#| fig-align: center
+#| fig-height: 4
+#| fig-width: 8
+
+# Simple diagram using ggplot
+library(ggplot2)
+
+df <- data.frame(
+  x =    c(5,   2,   8,   1.2, 2.8,  6.5, 9.5),
+  y =    c(4,   2.5, 2.5, 1,   1,    1,   1),
+  label = c("Data",
+            "Categorical",
+            "Numerical",
+            "Nominal",
+            "Ordinal",
+            "Discrete",
+            "Continuous"),
+  size = c(6, 5, 5, 4, 4, 4, 4)
+)
+
+arrows_df <- data.frame(
+  x =    c(5,   5,   2,   2,   8,   8),
+  xend = c(2,   8,   1.2, 2.8, 6.5, 9.5),
+  y =    c(3.7, 3.7, 2.2, 2.2, 2.2, 2.2),
+  yend = c(2.8, 2.8, 1.3, 1.3, 1.3, 1.3)
+)
+
+ggplot() +
+  geom_segment(data = arrows_df,
+               aes(x = x, xend = xend, y = y, yend = yend),
+               arrow = arrow(length = unit(0.2, "cm")),
+               color = "gray50", linewidth = 0.8) +
+  geom_label(data = df,
+             aes(x = x, y = y, label = label),
+             fill = c("#2c7bb6","#abd9e9","#abd9e9",
+                      "#d7191c","#fdae61","#1a9641","#a6d96a"),
+             color = "white",
+             fontface = "bold",
+             size = df$size - 1,
+             label.r = unit(0.4, "lines"),
+             label.padding = unit(0.5, "lines")) +
+  xlim(0, 11) + ylim(0.3, 4.8) +
+  theme_void()
+```
+
+---
+
+# Population and Sample
+
+## Population
+
+A **population** is the **complete set** of all individuals or observations
+that we are interested in studying.
+
+In health research, populations are usually very large and it is
+**impractical or impossible** to collect data from everyone.
+
+> **Example:** All patients with Type 2 diabetes in Thailand.
+
+## Sample
+
+A **sample** is a **subset** of the population that is actually studied.
+We use the sample to draw conclusions (*make inferences*) about the
+whole population.
+
+> **Example:** 200 patients with Type 2 diabetes selected from 5 hospitals
+> in Bangkok.
+
+::: {.callout-important icon=false}
+## ⚠️ Key Principle
+A good sample must be **representative** of the population —
+meaning it should reflect the characteristics of the whole group,
+not just one part of it.
+:::
+
+---
+
+## Key Terms
+
+```{r}
+#| label: tbl-terms
+#| tbl-cap: "Important Statistical Terms"
+
+terms <- data.frame(
+  Term = c("Population",
+           "Sample",
+           "Parameter",
+           "Statistic",
+           "Variable",
+           "Observation"),
+  Definition = c(
+    "The entire group of interest",
+    "A selected subset of the population",
+    "A numerical summary describing the population (e.g., population mean μ)",
+    "A numerical summary calculated from the sample (e.g., sample mean x̄)",
+    "A characteristic being measured or observed (e.g., age, blood pressure)",
+    "A single recorded value for one individual"
+  ),
+  `Health Example` = c(
+    "All nurses working in Thailand",
+    "500 nurses randomly selected from 10 hospitals",
+    "The true average age of ALL nurses in Thailand",
+    "The average age calculated from our 500 nurses",
+    "Age, gender, years of experience, ward type",
+    "Nurse A: age = 28, female, 3 years experience"
+  )
+)
+
+kable(terms, col.names = c("Term", "Definition", "Health Science Example"),
+      align = c("l","l","l")) |>
+  kable_styling(bootstrap_options = c("striped","hover","bordered"),
+                full_width = TRUE, font_size = 13) |>
+  column_spec(1, bold = TRUE, color = "#2c7bb6")
+```
+
+---
+
+## Population vs. Sample: Visual Concept
+
+```{r}
+#| label: fig-pop-sample
+#| fig-cap: "The sample is drawn from the population and used to make inferences"
+#| fig-align: center
+#| fig-height: 4
+#| fig-width: 7
+
+set.seed(42)
+n_pop <- 200
+pop <- data.frame(
+  x = runif(n_pop, 0, 10),
+  y = runif(n_pop, 0, 10),
+  group = "Population"
+)
+
+sample_idx <- sample(1:n_pop, 30)
+pop$group[sample_idx] <- "Sample"
+
+ggplot(pop, aes(x = x, y = y, color = group, size = group, shape = group)) +
+  geom_point(alpha = 0.8) +
+  scale_color_manual(values = c("Population" = "#b0c4de", "Sample" = "#d7191c")) +
+  scale_size_manual(values = c("Population" = 2, "Sample" = 4)) +
+  scale_shape_manual(values = c("Population" = 16, "Sample" = 17)) +
+  annotate("text", x = 5, y = 10.5,
+           label = "Population (All Patients)",
+           size = 4.5, fontface = "bold", color = "#2c7bb6") +
+  annotate("text", x = 5, y = -0.8,
+           label = "▲ Red triangles = selected sample (n = 30)",
+           size = 3.5, color = "#d7191c") +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "none",
+        axis.text = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid = element_blank(),
+        panel.border = element_rect(color = "#2c7bb6", fill = NA, linewidth = 1.5)) +
+  xlim(-0.5, 10.5) + ylim(-1.2, 11)
+```
+
+---
+
+# Key Takeaways
+
+::: {.callout-note icon=false}
+## 📝 Chapter 1 Summary
+
+1. **Data** are recorded pieces of information collected from patients or research subjects.
+
+2. Data are classified into two main types:
+   - **Categorical**: Nominal (no order) and Ordinal (has order)
+   - **Numerical**: Discrete (counted, whole numbers) and Continuous (measured, any value)
+
+3. Identifying the **correct data type** is critical — it determines which
+   statistical methods are appropriate.
+
+4. A **population** is the entire group of interest; a **sample** is the
+   subset we actually study.
+
+5. We use **statistics** calculated from samples to estimate **parameters**
+   of the population — this is the core idea behind all of biostatistics.
+:::
+
+---
+
+# Examples
+
+## Example 1: Classify Each Variable
+
+A nurse researcher collects the following information from 50 patients
+admitted to a medical ward:
+
+| Variable | Recorded Values |
+|---|---|
+| Patient ID | 001, 002, 003, ... |
+| Age | 45, 62, 38, ... (years) |
+| Gender | Male, Female |
+| Blood type | A, B, AB, O |
+| Systolic blood pressure | 118, 135, 142, ... (mmHg) |
+| Pain score | 0–10 scale |
+| Number of medications | 1, 2, 3, ... |
+| Discharge status | Recovered, Transferred, Deceased |
+
+::: {.callout-tip icon=false}
+## ✅ Solution
+
+| Variable | Data Type | Reason |
+|---|---|---|
+| Patient ID | — (Identifier, not analyzed) | Just a label |
+| Age | **Numerical – Continuous** | Measured, can be 45.5 years |
+| Gender | **Categorical – Nominal** | Two categories, no order |
+| Blood type | **Categorical – Nominal** | Four categories, no order |
+| Systolic BP | **Numerical – Continuous** | Measured in mmHg, any value |
+| Pain score | **Categorical – Ordinal** | Has order (0 < 1 < ... < 10), but gaps unequal |
+| No. of medications | **Numerical – Discrete** | Counted, whole numbers only |
+| Discharge status | **Categorical – Nominal** | Three categories, no natural order |
+:::
+
+---
+
+## Example 2: Population or Sample?
+
+For each situation below, identify whether the group described is a
+**population** or a **sample**:
+
+**(a)** A hospital wants to know the average job satisfaction of all 320 nurses
+working there. The HR department surveys all 320 nurses.
+
+**(b)** A researcher wants to study pain levels in post-operative patients
+across Thailand. She recruits 150 patients from 3 hospitals in Chiang Mai.
+
+**(c)** A nursing student studies the blood glucose levels of the 8 diabetic
+patients currently assigned to her ward.
+
+::: {.callout-tip icon=false}
+## ✅ Solution
+
+**(a)** This is the **Population** — all 320 nurses are surveyed;
+no one is left out. The result is a *parameter*.
+
+**(b)** This is a **Sample** — 150 patients from 3 hospitals cannot
+represent all post-operative patients in Thailand.
+The result is a *statistic* used to estimate the population parameter.
+
+**(c)** This is a **Sample** — the 8 patients on the ward are a
+small subset of all diabetic patients.
+:::
+
+---
+
+# Exercises
+
+::: {.callout-caution icon=false}
+## ✏️ Exercise 1
+
+A public health nurse collects the following data from patients visiting
+a community health clinic:
+
+- Weight (kg)
+- Presence of hypertension (Yes / No)
+- Severity of hypertension (Mild / Moderate / Severe)
+- Number of clinic visits in the past year
+- Ethnicity
+- Body temperature (°C)
+- Diastolic blood pressure (mmHg)
+
+**Classify each variable** into the correct data type and explain your reasoning.
+:::
+
+::: {.callout-caution icon=false}
+## ✏️ Exercise 2
+
+A researcher is studying the prevalence of depression among elderly patients
+in nursing homes across the country. She selects 200 patients from 4 nursing
+homes in the central region.
+
+**(a)** What is the population in this study?
+
+**(b)** What is the sample?
+
+**(c)** If the average depression score of the 200 patients is 14.2,
+is this number a *parameter* or a *statistic*? Explain.
+:::
+
+::: {.callout-caution icon=false}
+## ✏️ Exercise 3
+
+Look at the following list and decide whether each is an example of
+a **discrete** or **continuous** variable:
+
+1. The number of patients who fell during a hospital shift
+2. The time (in minutes) a patient waited before being seen by a doctor
+3. The number of syringes used during a procedure
+4. A patient's oxygen saturation level (SpO₂ %)
+5. The number of newborns delivered in a hospital per week
+:::
+
+---
+
+*End of Chapter 1*
+
+---
+
+::: {.callout-note icon=false}
+## 📚 Coming Up Next
+**Chapter 2: Data Summarization** — How do we make sense of a large set of
+patient data? We will learn to calculate means, medians, standard deviations,
+and draw charts that tell a clear story.
+:::

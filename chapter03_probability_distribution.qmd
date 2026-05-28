@@ -1,0 +1,648 @@
+# Random Variable and Probability Distribution
+
+```{r}
+#| label: setup
+#| include: false
+
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+library(dplyr)
+```
+
+---
+
+# Introduction {.unnumbered}
+
+::: {.callout-note icon=false}
+## 💡 Why Does This Matter?
+
+When we collect data — patient ages, blood pressure readings, test results —
+we rarely get the same value twice. Outcomes vary, and that variation
+follows patterns we can describe mathematically.
+
+Understanding **how data is distributed** allows us to answer questions like:
+
+- What is the probability that a randomly selected patient has a fever above 39°C?
+- What proportion of adults have a BMI in the healthy range?
+- How unusual is a blood pressure reading of 160 mmHg in this population?
+
+In this chapter, we introduce the concepts of **frequency distributions**
+and the **normal distribution** — the most important probability distribution
+in all of biostatistics.
+:::
+
+---
+
+# Frequency Distributions
+
+## What Is a Frequency Distribution?
+
+A **frequency distribution** is a systematic way of organizing raw data
+into a table that shows how often each value (or range of values) occurs.
+
+It answers the simple question: *"How many times does each value appear?"*
+
+---
+
+## Frequency Distribution for Categorical Data
+
+For categorical variables, we simply count how many observations fall
+into each category.
+
+::: {.callout-tip icon=false}
+## 📋 Example
+Blood types of 200 patients admitted to a hospital last month:
+
+```{r}
+#| label: tbl-cat-freq
+#| tbl-cap: "Frequency Distribution: Blood Type of 200 Patients"
+
+blood <- data.frame(
+  `Blood Type` = c("A", "B", "AB", "O", "**Total**"),
+  Frequency = c(76, 54, 30, 40, 200),
+  `Relative Frequency` = c("76/200 = 0.38", "54/200 = 0.27",
+                             "30/200 = 0.15", "40/200 = 0.20",
+                             "200/200 = **1.00**"),
+  Percentage = c("38%", "27%", "15%", "20%", "**100%**")
+)
+
+kable(blood,
+      col.names = c("Blood Type", "Frequency (f)",
+                    "Relative Frequency (f/n)", "Percentage"),
+      align = c("c","c","c","c"), escape = FALSE) |>
+  kable_styling(bootstrap_options = c("striped","hover","bordered"),
+                full_width = FALSE, font_size = 13) |>
+  row_spec(5, bold = TRUE, background = "#f0f0f0") |>
+  column_spec(1, bold = TRUE)
+```
+:::
+
+**Relative frequency** = $\dfrac{f}{n}$, where $f$ is the count for that
+category and $n$ is the total number of observations.
+
+---
+
+## Frequency Distribution for Continuous Data
+
+For continuous variables, we group values into **class intervals**
+(also called *bins*) and count how many observations fall in each interval.
+
+**Steps to construct a frequency distribution table:**
+
+1. Find the **range** = Maximum − Minimum
+2. Choose the **number of classes** (typically 5–10)
+3. Calculate **class width** = $\dfrac{\text{Range}}{\text{Number of classes}}$ (round up)
+4. List the class intervals and count observations in each
+
+::: {.callout-tip icon=false}
+## 📋 Example
+Systolic blood pressure (mmHg) of 80 patients:
+
+```{r}
+#| label: tbl-cont-freq
+#| tbl-cap: "Frequency Distribution: Systolic Blood Pressure of 80 Patients"
+
+set.seed(123)
+sbp <- round(rnorm(80, mean = 130, sd = 15))
+
+breaks <- seq(95, 175, by = 10)
+labels <- paste0(breaks[-length(breaks)], "–", breaks[-1] - 1)
+sbp_cut <- cut(sbp, breaks = breaks, right = FALSE, labels = labels)
+freq_table <- as.data.frame(table(sbp_cut))
+colnames(freq_table) <- c("Class Interval (mmHg)", "Frequency (f)")
+freq_table$`Relative Frequency` <- round(freq_table$`Frequency (f)` / 80, 3)
+freq_table$`Cumulative Frequency` <- cumsum(freq_table$`Frequency (f)`)
+
+kable(freq_table, align = c("c","c","c","c")) |>
+  kable_styling(bootstrap_options = c("striped","hover","bordered"),
+                full_width = FALSE, font_size = 13) |>
+  column_spec(1, bold = TRUE)
+```
+:::
+
+**Cumulative frequency** tells us how many observations fall *at or below*
+the upper boundary of each class — useful for answering questions like
+*"What proportion of patients have SBP below 140 mmHg?"*
+
+---
+
+## Visualizing Frequency Distributions
+
+A frequency distribution table can be visualized as a **histogram**,
+where the height of each bar represents the frequency of that class interval.
+
+```{r}
+#| label: fig-hist-freq
+#| fig-cap: "Histogram of Systolic Blood Pressure (80 patients)"
+#| fig-align: center
+#| fig-height: 4
+#| fig-width: 6
+
+set.seed(123)
+sbp_data <- data.frame(sbp = round(rnorm(80, mean = 130, sd = 15)))
+
+ggplot(sbp_data, aes(x = sbp)) +
+  geom_histogram(breaks = seq(95, 175, by = 10),
+                 fill = "#2c7bb6", color = "white", alpha = 0.85) +
+  labs(x = "Systolic Blood Pressure (mmHg)", y = "Frequency") +
+  scale_x_continuous(breaks = seq(95, 175, by = 10)) +
+  theme_minimal(base_size = 13) +
+  theme(panel.grid.minor = element_blank())
+```
+
+The **shape** of the histogram is important — it tells us about the
+**distribution** of the data, which leads us to the next section.
+
+---
+
+# The Normal Distribution
+
+## What Is the Normal Distribution?
+
+The **normal distribution** (also called the *Gaussian distribution* or
+*bell curve*) is the most important probability distribution in statistics.
+
+Many biological and clinical measurements naturally follow — or approximately
+follow — a normal distribution:
+
+- Adult height and body weight
+- Blood pressure in a healthy population
+- Serum cholesterol levels
+- Birth weight of newborns
+
+```{r}
+#| label: fig-normal-intro
+#| fig-cap: "The Normal Distribution: a symmetric, bell-shaped curve"
+#| fig-align: center
+#| fig-height: 4
+#| fig-width: 7
+
+x <- seq(-4, 4, length = 500)
+y <- dnorm(x)
+df <- data.frame(x = x, y = y)
+
+ggplot(df, aes(x, y)) +
+  geom_line(color = "#2c7bb6", linewidth = 1.4) +
+  geom_area(fill = "#abd9e9", alpha = 0.4) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "#d7191c", linewidth = 1) +
+  annotate("text", x = 0, y = 0.43, label = "Mean = Median = Mode",
+           color = "#d7191c", size = 4, hjust = 0.5) +
+  scale_x_continuous(breaks = -3:3,
+                     labels = c("μ−3σ","μ−2σ","μ−σ","μ","μ+σ","μ+2σ","μ+3σ")) +
+  labs(x = "", y = "Probability Density") +
+  theme_minimal(base_size = 13) +
+  theme(panel.grid.minor = element_blank())
+```
+
+---
+
+## Key Properties of the Normal Distribution
+
+A normal distribution is completely described by just **two parameters**:
+
+| Parameter | Symbol | Meaning |
+|---|:---:|---|
+| Mean | $\mu$ | Center of the distribution (peak of the bell) |
+| Standard deviation | $\sigma$ | Width of the bell — larger σ = wider, flatter curve |
+
+**Key properties:**
+
+1. **Symmetric** around the mean — the left and right halves are mirror images
+2. **Mean = Median = Mode** — all three are equal and located at the center
+3. The **total area** under the curve = 1 (representing 100% of all probability)
+4. The curve extends infinitely in both directions but never touches the x-axis
+
+---
+
+## The 68–95–99.7 Rule (Empirical Rule)
+
+One of the most useful facts about the normal distribution is how much
+of the data falls within 1, 2, or 3 standard deviations of the mean.
+
+```{r}
+#| label: fig-empirical
+#| fig-cap: "The 68–95–99.7 Rule for the Normal Distribution"
+#| fig-align: center
+#| fig-height: 5
+#| fig-width: 8
+
+x <- seq(-3.8, 3.8, length = 1000)
+y <- dnorm(x)
+df <- data.frame(x = x, y = y)
+
+ggplot(df, aes(x, y)) +
+  # 3 SD shading
+  geom_area(data = subset(df, x >= -3 & x <= 3),
+            aes(x, y), fill = "#fdae61", alpha = 0.5) +
+  # 2 SD shading
+  geom_area(data = subset(df, x >= -2 & x <= 2),
+            aes(x, y), fill = "#abd9e9", alpha = 0.6) +
+  # 1 SD shading
+  geom_area(data = subset(df, x >= -1 & x <= 1),
+            aes(x, y), fill = "#2c7bb6", alpha = 0.6) +
+  geom_line(color = "gray30", linewidth = 1.2) +
+  # Vertical lines
+  geom_vline(xintercept = c(-3,-2,-1,0,1,2,3),
+             linetype = "dashed", color = "gray50", linewidth = 0.5) +
+  # Percentage annotations
+  annotate("text", x = 0, y = 0.20,
+           label = "68%", color = "white", size = 5, fontface = "bold") +
+  annotate("text", x = 1.5, y = 0.07,
+           label = "95%", color = "#2c7bb6", size = 4.5, fontface = "bold") +
+  annotate("text", x = 2.5, y = 0.02,
+           label = "99.7%", color = "#d7191c", size = 4, fontface = "bold") +
+  scale_x_continuous(breaks = -3:3,
+                     labels = c("μ−3σ","μ−2σ","μ−σ","μ","μ+σ","μ+2σ","μ+3σ")) +
+  labs(x = "", y = "Probability Density",
+       caption = "Blue = 68% | Blue+Teal = 95% | All shaded = 99.7%") +
+  theme_minimal(base_size = 13) +
+  theme(panel.grid.minor = element_blank())
+```
+
+::: {.callout-important icon=false}
+## 📐 The Empirical Rule
+
+| Range | Proportion of data |
+|---|:---:|
+| Within **1 SD** of the mean: $\mu \pm \sigma$ | **≈ 68%** |
+| Within **2 SD** of the mean: $\mu \pm 2\sigma$ | **≈ 95%** |
+| Within **3 SD** of the mean: $\mu \pm 3\sigma$ | **≈ 99.7%** |
+
+This means only about **5%** of values fall more than 2 SD from the mean,
+and only **0.3%** fall more than 3 SD away — these are considered unusual or extreme.
+:::
+
+---
+
+## The Standard Normal Distribution and Z-Score
+
+### The Z-Score
+
+Different normal distributions have different means and SDs. To compare values
+across different distributions, we **standardize** them using the **Z-score**:
+
+$$z = \frac{x - \mu}{\sigma}$$
+
+Where:
+
+- $x$ = the observed value
+- $\mu$ = the population mean
+- $\sigma$ = the population standard deviation
+- $z$ = the number of standard deviations $x$ is away from the mean
+
+A **positive Z** means the value is above the mean;
+a **negative Z** means it is below the mean.
+
+---
+
+### The Standard Normal Distribution
+
+When we convert all values to Z-scores, the resulting distribution is called
+the **standard normal distribution**, with:
+
+$$\mu = 0 \quad \text{and} \quad \sigma = 1$$
+
+This is written as $Z \sim N(0, 1)$.
+
+```{r}
+#| label: fig-znorm
+#| fig-cap: "Standard Normal Distribution N(0,1)"
+#| fig-align: center
+#| fig-height: 4
+#| fig-width: 7
+
+x <- seq(-3.8, 3.8, length = 500)
+df <- data.frame(x = x, y = dnorm(x))
+
+ggplot(df, aes(x, y)) +
+  geom_area(fill = "#abd9e9", alpha = 0.5) +
+  geom_line(color = "#2c7bb6", linewidth = 1.3) +
+  geom_vline(xintercept = 0, linetype = "dashed",
+             color = "#d7191c", linewidth = 1) +
+  scale_x_continuous(breaks = -3:3) +
+  labs(x = "Z", y = "Probability Density",
+       title = "Standard Normal Distribution: N(0, 1)") +
+  theme_minimal(base_size = 13) +
+  theme(panel.grid.minor = element_blank(),
+        plot.title = element_text(hjust = 0.5, face = "bold"))
+```
+
+---
+
+### Finding Probabilities Using the Z-Table
+
+The **Z-table** (also called the standard normal table) gives us the
+**area to the left** of any Z-score — which equals the **probability**
+that a randomly selected observation falls below that value.
+
+```{r}
+#| label: tbl-ztable
+#| tbl-cap: "Standard Normal Table (area to the LEFT of Z)"
+
+z_vals <- seq(0.0, 2.0, by = 0.1)
+decimals <- seq(0.00, 0.09, by = 0.01)
+
+z_matrix <- outer(z_vals, decimals, function(z, d) {
+  round(pnorm(z + d), 4)
+})
+
+rownames(z_matrix) <- formatC(z_vals, format = "f", digits = 1)
+colnames(z_matrix) <- formatC(decimals, format = "f", digits = 2)
+
+kable(z_matrix, caption = "Area to the left of Z (rows = Z integer + 1st decimal, columns = 2nd decimal)") |>
+  kable_styling(bootstrap_options = c("striped","hover","condensed"),
+                full_width = TRUE, font_size = 11) |>
+  column_spec(1, bold = TRUE, color = "#2c7bb6")
+```
+
+**How to use the table:**
+To find $P(Z < 1.23)$, look at row **1.2** and column **0.03** → read off the value.
+
+---
+
+### Common Z-Table Probability Rules
+
+```{r}
+#| label: fig-z-rules
+#| fig-cap: "Three useful probability rules for the normal distribution"
+#| fig-align: center
+#| fig-height: 3
+#| fig-width: 10
+
+x <- seq(-3.5, 3.5, length = 500)
+y <- dnorm(x)
+df <- data.frame(x = x, y = y)
+z_val <- 1.5
+
+p1 <- ggplot(df, aes(x, y)) +
+  geom_area(data = subset(df, x <= z_val), fill = "#2c7bb6", alpha = 0.6) +
+  geom_line(linewidth = 1) +
+  geom_vline(xintercept = z_val, linetype = "dashed", color = "#d7191c") +
+  annotate("text", x = -1, y = 0.15,
+           label = paste0("P(Z < ", z_val, ")"), size = 3.5, color = "white") +
+  labs(title = "P(Z < z)", x = "Z", y = "") +
+  scale_x_continuous(breaks = c(0, z_val),
+                     labels = c("0", paste0("z=",z_val))) +
+  theme_minimal(base_size = 11) +
+  theme(panel.grid = element_blank())
+
+p2 <- ggplot(df, aes(x, y)) +
+  geom_area(data = subset(df, x >= z_val), fill = "#d7191c", alpha = 0.6) +
+  geom_line(linewidth = 1) +
+  geom_vline(xintercept = z_val, linetype = "dashed", color = "#d7191c") +
+  annotate("text", x = 2.5, y = 0.15,
+           label = paste0("P(Z > ", z_val, ")"), size = 3.5, color = "white") +
+  labs(title = "P(Z > z) = 1 − P(Z < z)", x = "Z", y = "") +
+  scale_x_continuous(breaks = c(0, z_val),
+                     labels = c("0", paste0("z=",z_val))) +
+  theme_minimal(base_size = 11) +
+  theme(panel.grid = element_blank())
+
+p3 <- ggplot(df, aes(x, y)) +
+  geom_area(data = subset(df, x >= -z_val & x <= z_val),
+            fill = "#1a9641", alpha = 0.6) +
+  geom_line(linewidth = 1) +
+  geom_vline(xintercept = c(-z_val, z_val),
+             linetype = "dashed", color = "#d7191c") +
+  annotate("text", x = 0, y = 0.15,
+           label = "P(−z < Z < z)", size = 3.5, color = "white") +
+  labs(title = "P(z₁ < Z < z₂)", x = "Z", y = "") +
+  scale_x_continuous(breaks = c(-z_val, 0, z_val),
+                     labels = c(paste0("-",z_val), "0", z_val)) +
+  theme_minimal(base_size = 11) +
+  theme(panel.grid = element_blank())
+
+library(patchwork)
+p1 + p2 + p3
+```
+
+::: {.callout-important icon=false}
+## 📐 Key Probability Rules
+
+| Situation | Formula |
+|---|---|
+| Probability **below** z | $P(Z < z)$ — read directly from Z-table |
+| Probability **above** z | $P(Z > z) = 1 - P(Z < z)$ |
+| Probability **between** two values | $P(z_1 < Z < z_2) = P(Z < z_2) - P(Z < z_1)$ |
+:::
+
+---
+
+# Key Takeaways
+
+::: {.callout-note icon=false}
+## 📝 Chapter 3 Summary
+
+1. A **frequency distribution** organizes data into a table showing how often
+   each value or range of values occurs. It can show absolute frequency,
+   relative frequency, or cumulative frequency.
+
+2. The **normal distribution** is a symmetric, bell-shaped distribution
+   described by its mean ($\mu$) and standard deviation ($\sigma$).
+
+3. The **68–95–99.7 rule**: approximately 68%, 95%, and 99.7% of values
+   fall within 1, 2, and 3 standard deviations of the mean, respectively.
+
+4. A **Z-score** measures how many standard deviations a value is from the mean:
+   $z = \dfrac{x - \mu}{\sigma}$
+
+5. The **Z-table** gives the probability (area) to the left of any Z-score,
+   allowing us to find the probability that a measurement falls in any range.
+:::
+
+---
+
+# Examples
+
+## Example 1: Constructing a Frequency Distribution Table
+
+The following are the ages (in years) of 20 patients:
+
+$$45, 62, 38, 55, 71, 48, 60, 33, 52, 67,$$
+$$41, 58, 74, 50, 65, 44, 57, 69, 36, 53$$
+
+Construct a frequency distribution table using **5 class intervals**.
+
+::: {.callout-tip icon=false}
+## ✅ Solution
+
+**Step 1 — Find the range:**
+$$\text{Range} = 74 - 33 = 41$$
+
+**Step 2 — Calculate class width:**
+$$\text{Class width} = \frac{41}{5} = 8.2 \rightarrow \text{round up to } 9$$
+
+**Step 3 — Construct the table** (starting from 33):
+
+```{r}
+#| label: tbl-ex1
+#| tbl-cap: "Frequency Distribution of Patient Ages (n = 20)"
+
+ages <- c(45,62,38,55,71,48,60,33,52,67,41,58,74,50,65,44,57,69,36,53)
+breaks2 <- c(33, 42, 51, 60, 69, 78)
+labels2 <- c("33–41","42–50","51–59","60–68","69–77")
+age_cut <- cut(ages, breaks = breaks2, right = TRUE, labels = labels2,
+               include.lowest = TRUE)
+ft <- as.data.frame(table(age_cut))
+colnames(ft) <- c("Age Group (years)", "Frequency (f)")
+ft$`Relative Frequency` <- round(ft$`Frequency (f)` / 20, 2)
+ft$Percentage <- paste0(ft$`Relative Frequency` * 100, "%")
+ft$`Cumulative Frequency` <- cumsum(ft$`Frequency (f)`)
+
+kable(ft, align = c("c","c","c","c","c")) |>
+  kable_styling(bootstrap_options = c("striped","hover","bordered"),
+                full_width = FALSE, font_size = 13) |>
+  column_spec(1, bold = TRUE)
+```
+
+**Interpretation:** The largest group of patients is aged **51–59 years** (6 patients, 30%).
+Half of all patients (cumulative frequency = 10) are aged 50 years or younger.
+:::
+
+---
+
+## Example 2: Applying the Empirical Rule
+
+The systolic blood pressure (SBP) of adults in a community follows a normal
+distribution with **mean = 125 mmHg** and **SD = 14 mmHg**.
+
+**(a)** Between what two values does the SBP of the **middle 95%** of adults fall?
+
+**(b)** What percentage of adults have SBP **above 153 mmHg**?
+
+::: {.callout-tip icon=false}
+## ✅ Solution
+
+**(a)** The middle 95% falls within $\mu \pm 2\sigma$:
+
+$$125 - 2(14) = 97 \text{ mmHg} \quad \text{to} \quad 125 + 2(14) = 153 \text{ mmHg}$$
+
+So **95% of adults** have SBP between **97 and 153 mmHg**.
+
+**(b)** SBP = 153 mmHg is exactly $\mu + 2\sigma$.
+Since 95% of values fall *within* 2 SD, the remaining 5% fall *outside*.
+By symmetry, **2.5%** fall above 153 mmHg and 2.5% fall below 97 mmHg.
+
+**Answer:** Approximately **2.5%** of adults have SBP above 153 mmHg.
+:::
+
+---
+
+## Example 3: Using Z-Scores and the Z-Table
+
+Body weight of adult males in a region is approximately normally distributed
+with **mean = 70 kg** and **SD = 10 kg**.
+
+**(a)** What is the probability that a randomly selected adult male weighs
+**less than 85 kg**?
+
+**(b)** What is the probability that he weighs **more than 55 kg**?
+
+**(c)** What is the probability that he weighs **between 60 and 80 kg**?
+
+::: {.callout-tip icon=false}
+## ✅ Solution
+
+**(a) P(X < 85):**
+
+$$z = \frac{85 - 70}{10} = \frac{15}{10} = 1.50$$
+
+From Z-table: $P(Z < 1.50) = \mathbf{0.9332}$
+
+**93.3%** of adult males weigh less than 85 kg.
+
+---
+
+**(b) P(X > 55):**
+
+$$z = \frac{55 - 70}{10} = \frac{-15}{10} = -1.50$$
+
+$$P(Z > -1.50) = 1 - P(Z < -1.50) = 1 - 0.0668 = \mathbf{0.9332}$$
+
+**93.3%** of adult males weigh more than 55 kg.
+*(This makes sense by symmetry — 55 and 85 are equidistant from the mean.)*
+
+---
+
+**(c) P(60 < X < 80):**
+
+$$z_1 = \frac{60 - 70}{10} = -1.00 \qquad z_2 = \frac{80 - 70}{10} = 1.00$$
+
+$$P(-1.00 < Z < 1.00) = P(Z < 1.00) - P(Z < -1.00)$$
+$$= 0.8413 - 0.1587 = \mathbf{0.6826}$$
+
+**68.3%** of adult males weigh between 60 and 80 kg —
+consistent with the 68–95–99.7 rule.
+:::
+
+---
+
+# Exercises
+
+::: {.callout-caution icon=false}
+## ✏️ Exercise 1
+
+The fasting blood glucose levels (mg/dL) of 25 patients are:
+
+$$95, 112, 88, 134, 102, 119, 145, 97, 108, 125,$$
+$$91, 130, 103, 116, 88, 142, 99, 121, 107, 138,$$
+$$94, 115, 126, 100, 111$$
+
+**(a)** Construct a frequency distribution table with **5 class intervals**.
+Include columns for frequency, relative frequency, percentage, and
+cumulative frequency.
+
+**(b)** Which class interval contains the most patients?
+
+**(c)** What percentage of patients have a blood glucose level below 120 mg/dL?
+:::
+
+::: {.callout-caution icon=false}
+## ✏️ Exercise 2
+
+The birth weight of full-term newborns is approximately normally distributed
+with **mean = 3,300 g** and **SD = 400 g**.
+
+Using the **68–95–99.7 rule**:
+
+**(a)** What range of birth weights includes the **middle 68%** of newborns?
+
+**(b)** What range includes the **middle 99.7%** of newborns?
+
+**(c)** A newborn weighing less than **2,500 g** is classified as low birth weight.
+Based on the empirical rule, is this an unusual outcome? Explain.
+:::
+
+::: {.callout-caution icon=false}
+## ✏️ Exercise 3
+
+The resting heart rate of healthy adults follows a normal distribution
+with **mean = 72 bpm** and **SD = 8 bpm**.
+
+Find the following probabilities using the Z-table. Show the Z-score
+calculation and draw a sketch of the normal curve for each part.
+
+**(a)** $P(\text{heart rate} < 80)$
+
+**(b)** $P(\text{heart rate} > 88)$
+
+**(c)** $P(64 < \text{heart rate} < 88)$
+
+**(d)** A heart rate below 60 bpm is considered **bradycardia**.
+What proportion of healthy adults would be classified as having bradycardia
+based on this distribution?
+:::
+
+---
+
+*End of Chapter 3*
+
+---
+
+::: {.callout-note icon=false}
+## 📚 Coming Up Next
+**Chapter 4: Estimation** — Using what we know about the normal distribution,
+we will learn how to estimate population parameters from sample data
+and construct **confidence intervals** that quantify our uncertainty.
+:::
