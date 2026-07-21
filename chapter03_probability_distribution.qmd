@@ -59,18 +59,18 @@ Blood types of 200 patients admitted to a hospital last month:
 #| tbl-cap: "Frequency Distribution: Blood Type of 200 Patients"
 
 blood <- data.frame(
-  `Blood Type` = c("A", "B", "AB", "O", "**Total**"),
+  `Blood Type` = c("A", "B", "AB", "O", "Total"),
   Frequency = c(76, 54, 30, 40, 200),
   `Relative Frequency` = c("76/200 = 0.38", "54/200 = 0.27",
                              "30/200 = 0.15", "40/200 = 0.20",
-                             "200/200 = **1.00**"),
-  Percentage = c("38%", "27%", "15%", "20%", "**100%**")
+                             "200/200 = 1.00"),
+  Percentage = c("38%", "27%", "15%", "20%", "100%")
 )
 
 kable(blood,
       col.names = c("Blood Type", "Frequency (f)",
                     "Relative Frequency (f/n)", "Percentage"),
-      align = c("c","c","c","c"), escape = FALSE) |>
+      align = c("c","c","c","c")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
                 full_width = FALSE, font_size = 13) |>
   row_spec(5, bold = TRUE, background = "#f0f0f0") |>
