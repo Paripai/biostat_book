@@ -15,7 +15,7 @@ library(dplyr)
 # Introduction {.unnumbered}
 
 ::: {.callout-note icon=false}
-## 💡 Why Does This Matter?
+## Why Does This Matter?
 
 When we collect data — patient ages, blood pressure readings, test results —
 we rarely get the same value twice. Outcomes vary, and that variation
@@ -51,7 +51,7 @@ For categorical variables, we simply count how many observations fall
 into each category.
 
 ::: {.callout-tip icon=false}
-## 📋 Example
+## Example
 Blood types of 200 patients admitted to a hospital last month:
 
 ```{r}
@@ -96,7 +96,7 @@ For continuous variables, we group values into **class intervals**
 4. List the class intervals and count observations in each
 
 ::: {.callout-tip icon=false}
-## 📋 Example
+## Example
 Systolic blood pressure (mmHg) of 80 patients:
 
 ```{r}
@@ -261,7 +261,7 @@ ggplot(df, aes(x, y)) +
 ```
 
 ::: {.callout-important icon=false}
-## 📐 The Empirical Rule
+## The Empirical Rule
 
 | Range | Proportion of data |
 |---|:---:|
@@ -357,7 +357,7 @@ kable(z_matrix, caption = "Area to the left of Z (rows = Z integer + 1st decimal
 ```
 
 **How to use the table:**
-To find $P(Z < 1.23)$, look at row **1.2** and column **0.03** → read off the value.
+To find $P(Z < 1.23)$, look at row **1.2** and column **0.03** read off the value.
 
 ---
 
@@ -418,7 +418,7 @@ p1 + p2 + p3
 ```
 
 ::: {.callout-important icon=false}
-## 📐 Key Probability Rules
+## Key Probability Rules
 
 | Situation | Formula |
 |---|---|
@@ -432,7 +432,7 @@ p1 + p2 + p3
 # Key Takeaways
 
 ::: {.callout-note icon=false}
-## 📝 Chapter 3 Summary
+## Chapter 3 Summary
 
 1. A **frequency distribution** organizes data into a table showing how often
    each value or range of values occurs. It can show absolute frequency,
@@ -465,7 +465,7 @@ $$41, 58, 74, 50, 65, 44, 57, 69, 36, 53$$
 Construct a frequency distribution table using **5 class intervals**.
 
 ::: {.callout-tip icon=false}
-## ✅ Solution
+## Solution
 
 **Step 1 — Find the range:**
 $$\text{Range} = 74 - 33 = 41$$
@@ -512,7 +512,7 @@ distribution with **mean = 125 mmHg** and **SD = 14 mmHg**.
 **(b)** What percentage of adults have SBP **above 153 mmHg**?
 
 ::: {.callout-tip icon=false}
-## ✅ Solution
+## Solution
 
 **(a)** The middle 95% falls within $\mu \pm 2\sigma$:
 
@@ -542,7 +542,7 @@ with **mean = 70 kg** and **SD = 10 kg**.
 **(c)** What is the probability that he weighs **between 60 and 80 kg**?
 
 ::: {.callout-tip icon=false}
-## ✅ Solution
+## Solution
 
 **(a) P(X < 85):**
 
@@ -581,7 +581,7 @@ consistent with the 68–95–99.7 rule.
 # Exercises
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 1
+## Exercise 1
 
 The fasting blood glucose levels (mg/dL) of 25 patients are:
 
@@ -599,7 +599,7 @@ cumulative frequency.
 :::
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 2
+## Exercise 2
 
 The birth weight of full-term newborns is approximately normally distributed
 with **mean = 3,300 g** and **SD = 400 g**.
@@ -615,7 +615,7 @@ Based on the empirical rule, is this an unusual outcome? Explain.
 :::
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 3
+## Exercise 3
 
 The resting heart rate of healthy adults follows a normal distribution
 with **mean = 72 bpm** and **SD = 8 bpm**.
@@ -641,7 +641,7 @@ based on this distribution?
 ---
 
 ::: {.callout-note icon=false}
-## 📚 Coming Up Next
+## Coming Up Next
 **Chapter 4: Estimation** — Using what we know about the normal distribution,
 we will learn how to estimate population parameters from sample data
 and construct **confidence intervals** that quantify our uncertainty.

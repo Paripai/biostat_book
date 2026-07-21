@@ -15,7 +15,7 @@ library(patchwork)
 # Introduction {.unnumbered}
 
 ::: {.callout-note icon=false}
-## 💡 Why Does This Matter?
+## Why Does This Matter?
 
 In practice, we almost never have access to an entire population.
 We collect data from a **sample** and use it to draw conclusions about
@@ -68,7 +68,7 @@ $$\text{Point Estimate} \pm \text{Margin of Error}$$
 This range is called a **confidence interval (CI)**.
 
 ::: {.callout-important icon=false}
-## 🔑 Key Concept: Confidence Level
+## Key Concept: Confidence Level
 
 The **confidence level** (commonly **90%, 95%, or 99%**) tells us:
 
@@ -98,7 +98,7 @@ Where $s$ is the sample standard deviation and $n$ is the sample size.
 $$SE_{\hat{p}} = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
 
 ::: {.callout-tip icon=false}
-## 💡 SE vs. SD — What Is the Difference?
+## SE vs. SD — What Is the Difference?
 
 | | Standard Deviation (SD) | Standard Error (SE) |
 |---|---|---|
@@ -145,9 +145,11 @@ If the population standard deviation $\sigma$ is known and either
 (a) the population is normal, or (b) the sample size is large ($n \geq 30$),
 we use the **Z-interval**:
 
-$$\bar{x} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}$$
+$$\bar{x} \pm z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}$$
 
-The **critical value** $z_{\alpha/2}$ depends on the confidence level:
+The **critical value** $z_{1-\alpha/2}$ is written using the **left cumulative
+probability** (the area to the *left* of the value, matching the standard
+normal table and SPSS `IDF.NORMAL`). It depends on the confidence level:
 
 ```{r}
 #| label: tbl-z-critical
@@ -156,12 +158,12 @@ The **critical value** $z_{\alpha/2}$ depends on the confidence level:
 crit <- data.frame(
   `Confidence Level` = c("90%", "95%", "99%"),
   `α` = c("0.10", "0.05", "0.01"),
-  `α/2` = c("0.05", "0.025", "0.005"),
-  `z(α/2)` = c("1.645", "1.960", "2.576")
+  `1 − α/2` = c("0.950", "0.975", "0.995"),
+  `z(1−α/2)` = c("1.645", "1.960", "2.576")
 )
 
 kable(crit,
-      col.names = c("Confidence Level", "α", "α/2", "z(α/2)"),
+      col.names = c("Confidence Level", "α", "1 − α/2 (left area)", "z(1−α/2)"),
       align = c("c","c","c","c")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
                 full_width = FALSE, font_size = 13) |>
@@ -170,8 +172,8 @@ kable(crit,
 ```
 
 ::: {.callout-tip icon=false}
-## 💡 The Most Used Value
-In health research, the 95% CI with $z_{0.025} = 1.96$ is by far the
+## The Most Used Value
+In health research, the 95% CI with $z_{0.975} = 1.96$ is by far the
 most commonly reported. You will see it in almost every clinical paper.
 :::
 
@@ -182,10 +184,11 @@ most commonly reported. You will see it in almost every clinical paper.
 In practice, $\sigma$ is almost never known. When we use the sample SD $s$
 as an estimate, we must use the **t-distribution** instead of the Z-distribution:
 
-$$\bar{x} \pm t_{\alpha/2,\, n-1} \cdot \frac{s}{\sqrt{n}}$$
+$$\bar{x} \pm t_{1-\alpha/2,\, n-1} \cdot \frac{s}{\sqrt{n}}$$
 
-Where $t_{\alpha/2,\, n-1}$ is the critical value from the **t-distribution**
-with $n - 1$ **degrees of freedom (df)**.
+Where $t_{1-\alpha/2,\, n-1}$ is the critical value from the **t-distribution**
+with $n - 1$ **degrees of freedom (df)**. As with $z$, the subscript
+$1-\alpha/2$ is the **left cumulative probability** (e.g., $0.975$ for a 95% CI).
 
 ### The t-Distribution
 
@@ -227,7 +230,7 @@ ggplot(df_plot, aes(x = x, y = y, color = dist, linetype = dist)) +
 
 ```{r}
 #| label: tbl-t-critical
-#| tbl-cap: "Selected t Critical Values (95% CI, two-tailed: α/2 = 0.025)"
+#| tbl-cap: "Selected t Critical Values (95% CI, two-tailed: left cumulative probability = 0.975)"
 
 df_vals <- c(5, 10, 15, 20, 25, 30, 40, 60, 120, Inf)
 t_vals  <- qt(0.975, df = df_vals)
@@ -238,7 +241,7 @@ t_tab <- data.frame(
   t  = round(t_vals, 3)
 )
 
-kable(t_tab, col.names = c("Degrees of Freedom (df = n−1)", "t(0.025, df)"),
+kable(t_tab, col.names = c("Degrees of Freedom (df = n−1)", "t(0.975, df)"),
       align = c("c","c")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
                 full_width = FALSE, font_size = 13) |>
@@ -256,13 +259,13 @@ For $n \geq 30$, the difference is small and Z is often used as an approximation
 When the outcome of interest is a **proportion** (e.g., prevalence of a disease,
 percentage of patients who respond to treatment), we use:
 
-$$\hat{p} \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
+$$\hat{p} \pm z_{1-\alpha/2} \cdot \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
 
 Where $\hat{p} = \dfrac{x}{n}$ is the sample proportion
 ($x$ = number with the characteristic, $n$ = total sample size).
 
 ::: {.callout-warning icon=false}
-## ⚠️ When Is This Formula Valid?
+## When Is This Formula Valid?
 This formula requires a **sufficiently large sample**. A common rule of thumb is:
 
 $$n\hat{p} \geq 5 \quad \text{and} \quad n(1-\hat{p}) \geq 5$$
@@ -275,7 +278,7 @@ If this condition is not met, special methods are needed (not covered in this co
 # Interpreting a Confidence Interval
 
 ::: {.callout-important icon=false}
-## ✅ Correct Interpretation
+## Correct Interpretation
 
 > *"We are 95% confident that the true population mean lies between
 > [lower bound] and [upper bound]."*
@@ -341,7 +344,7 @@ this is expected and not an error.
 # Key Takeaways
 
 ::: {.callout-note icon=false}
-## 📝 Chapter 4 Summary
+## Chapter 4 Summary
 
 1. A **point estimate** gives a single best-guess value for a population
    parameter; an **interval estimate** gives a range of plausible values.
@@ -355,7 +358,7 @@ this is expected and not an error.
    with $df = n - 1$.
 
 4. The **95% CI** is the standard in health research, using
-   $z_{0.025} = 1.96$.
+   $z_{0.975} = 1.96$.
 
 5. A wider CI means less precision; a larger sample size $n$ always
    produces a narrower (more precise) CI.
@@ -379,7 +382,7 @@ $$\bar{x} = 105.4 \text{ mg/dL}, \qquad s = 18.6 \text{ mg/dL}$$
 Construct a **95% confidence interval** for the population mean blood glucose.
 
 ::: {.callout-tip icon=false}
-## ✅ Solution
+## Solution
 
 **Given:** $n = 36$, $\bar{x} = 105.4$, $s = 18.6$, confidence level = 95%
 
@@ -388,8 +391,8 @@ $$SE = \frac{s}{\sqrt{n}} = \frac{18.6}{\sqrt{36}} = \frac{18.6}{6} = 3.10$$
 
 **Step 2 — Critical value:**
 
-$df = n - 1 = 35$. From the t-table at $\alpha/2 = 0.025$:
-$t_{0.025,\, 35} = 2.030$
+$df = n - 1 = 35$. From the t-table at left cumulative probability
+$1 - \alpha/2 = 0.975$: $t_{0.975,\, 35} = 2.030$
 
 *(Since $n = 36 \geq 30$, we could also use $z = 1.96$ as an approximation.)*
 
@@ -412,7 +415,7 @@ Construct a **95% confidence interval** for the true prevalence of
 hypertension in this population.
 
 ::: {.callout-tip icon=false}
-## ✅ Solution
+## Solution
 
 **Given:** $n = 200$, $x = 68$
 
@@ -426,7 +429,7 @@ $$n(1-\hat{p}) = 200 \times 0.66 = 132 \geq 5 \checkmark$$
 **Step 3 — Standard Error:**
 $$SE = \sqrt{\frac{0.34 \times 0.66}{200}} = \sqrt{\frac{0.2244}{200}} = \sqrt{0.001122} = 0.0335$$
 
-**Step 4 — Confidence Interval** (using $z_{0.025} = 1.96$):
+**Step 4 — Confidence Interval** (using $z_{0.975} = 1.96$):
 $$0.34 \pm 1.96 \times 0.0335 = 0.34 \pm 0.066$$
 
 $$\textbf{95\% CI: } (0.274, \; 0.406) \quad \text{or} \quad (27.4\%, \; 40.6\%)$$
@@ -443,7 +446,7 @@ Using the same data as Example 1 ($\bar{x} = 105.4$, $s = 18.6$),
 compare the 95% CI when $n = 36$, $n = 100$, and $n = 400$.
 
 ::: {.callout-tip icon=false}
-## ✅ Solution
+## Solution
 
 ```{r}
 #| label: tbl-ci-width
@@ -486,7 +489,7 @@ To halve the margin of error, you need to **quadruple** the sample size.
 # Exercises
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 1
+## Exercise 1
 
 A random sample of **25 patients** with chronic kidney disease had their
 serum creatinine levels measured:
@@ -504,7 +507,7 @@ serum creatinine level.
 :::
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 2
+## Exercise 2
 
 A hospital records that **45 out of 180 patients** discharged last month
 were readmitted within 30 days.
@@ -522,7 +525,7 @@ differs from this target? Explain.
 :::
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 3
+## Exercise 3
 
 A researcher wants to estimate the mean diastolic blood pressure (DBP)
 of adults in a city. From a pilot study, the SD is estimated to be
@@ -532,7 +535,7 @@ The researcher wants a **95% CI with a margin of error no greater than
 2 mmHg**.
 
 Using the formula:
-$$n = \left(\frac{z_{\alpha/2} \cdot \sigma}{E}\right)^2$$
+$$n = \left(\frac{z_{1-\alpha/2} \cdot \sigma}{E}\right)^2$$
 
 where $E$ is the desired margin of error, calculate the **minimum sample
 size** required.
@@ -545,7 +548,7 @@ size** required.
 ---
 
 ::: {.callout-note icon=false}
-## 📚 Coming Up Next
+## Coming Up Next
 **Chapter 5: Statistical Testing** — Instead of estimating a parameter,
 we will test specific claims about populations using
 **hypothesis testing** — one of the most powerful tools in health research.

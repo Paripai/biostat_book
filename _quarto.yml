@@ -6,6 +6,7 @@ book:
   subtitle: "208141"
   author: "Parichart Pattarapanitchai"
   date: today
+  downloads: [pdf]
   chapters:
     - index.qmd
     - chapter01_data_in_health_science.qmd
@@ -15,13 +16,20 @@ book:
     - chapter05_statistical_testing.qmd
     - chapter06_statistical_modeling.qmd
 
+execute:
+  echo: false
+  warning: false
+  message: false
+
 format:
   html:
     theme: cosmo
     toc: true
     number-sections: true
   pdf:
-    documentclass: book
-    number-sections: true
+    pdf-engine: xelatex
+    documentclass: scrreprt
+    toc: true
+    number-sections: false
     geometry: margin=1in
     fontsize: 12pt

@@ -15,7 +15,7 @@ library(patchwork)
 # Introduction {.unnumbered}
 
 ::: {.callout-note icon=false}
-## 💡 Why Does This Matter?
+## Why Does This Matter?
 
 In health research, we constantly ask questions that require a decision:
 
@@ -103,7 +103,7 @@ kable(tails, col.names = c("Test Type", "H₁", "Use When"),
 ```
 
 ::: {.callout-tip icon=false}
-## 💡 Practical Advice
+## Practical Advice
 In most health research, use a **two-tailed test** unless you have a
 strong, pre-specified reason to test in only one direction.
 Two-tailed tests are more conservative and more widely accepted.
@@ -119,8 +119,8 @@ as those observed*, assuming the null hypothesis is true.
 $$p\text{-value} = P(\text{observed result or more extreme} \mid H_0 \text{ is true})$$
 
 - A **small p-value** means the observed data would be very unlikely if
-  $H_0$ were true → evidence against $H_0$
-- A **large p-value** means the observed data are consistent with $H_0$ →
+ $H_0$ were true evidence against $H_0$
+- A **large p-value** means the observed data are consistent with $H_0$
   insufficient evidence to reject $H_0$
 
 ---
@@ -138,7 +138,7 @@ The most common choice in health research is $\alpha = 0.05$.
 | If $p\text{-value} > \alpha$ | **Fail to reject $H_0$** — insufficient evidence |
 
 ::: {.callout-warning icon=false}
-## ⚠️ Common Misinterpretations
+## Common Misinterpretations
 
 **"Failing to reject $H_0$" is NOT the same as proving $H_0$ is true.**
 It simply means the data do not provide strong enough evidence against it.
@@ -160,10 +160,10 @@ When making a decision about $H_0$, two types of errors are possible:
 
 errors <- data.frame(
   ` ` = c("**Reject H₀**", "**Fail to reject H₀**"),
-  `H₀ is actually TRUE` = c("❌ Type I Error (α)\n(False Positive)",
-                              "✅ Correct Decision"),
-  `H₀ is actually FALSE` = c("✅ Correct Decision\n(Power = 1 − β)",
-                               "❌ Type II Error (β)\n(False Negative)")
+ `H₀ is actually TRUE` = c(" Type I Error (α)\n(False Positive)",
+ " Correct Decision"),
+ `H₀ is actually FALSE` = c(" Correct Decision\n(Power = 1 − β)",
+ " Type II Error (β)\n(False Negative)")
 )
 
 kable(errors, col.names = c("Our Decision", "H₀ is TRUE", "H₀ is FALSE"),
@@ -185,7 +185,7 @@ kable(errors, col.names = c("Our Decision", "H₀ is TRUE", "H₀ is FALSE"),
 ## General Steps in Hypothesis Testing
 
 ::: {.callout-important icon=false}
-## 📋 The 5-Step Framework
+## The 5-Step Framework
 
 **Step 1 — State the hypotheses:** Write $H_0$ and $H_1$ clearly.
 
@@ -247,7 +247,7 @@ $df = (\text{rows} - 1) \times (\text{columns} - 1)$.
 For a $2 \times 2$ table: $df = (2-1)(2-1) = 1$.
 
 ::: {.callout-warning icon=false}
-## ⚠️ Condition for Valid Chi-Square Test
+## Condition for Valid Chi-Square Test
 All **expected frequencies** must be $\geq 5$.
 If this condition is violated, use **Fisher's exact test** instead
 (available in SPSS).
@@ -305,7 +305,7 @@ of observations between the two groups.
 5. Compare to the critical value or obtain the p-value from software (SPSS).
 
 ::: {.callout-tip icon=false}
-## 💡 Intuition Behind the Test
+## Intuition Behind the Test
 If the two groups come from the same distribution, their ranks should be
 **randomly mixed** between the groups — neither group should consistently
 have higher or lower ranks. A significant result means one group
@@ -422,10 +422,10 @@ tests <- data.frame(
                       "Mann-Whitney U test",
                       "Independent samples t-test",
                       "Paired samples t-test"),
-  `SPSS Procedure` = c("Analyze → Descriptive Statistics → Crosstabs",
-                        "Analyze → Nonparametric → Legacy Dialogs → 2 Independent Samples",
-                        "Analyze → Compare Means → Independent Samples T Test",
-                        "Analyze → Compare Means → Paired Samples T Test")
+ `SPSS Procedure` = c("Analyze Descriptive Statistics Crosstabs",
+ "Analyze Nonparametric Legacy Dialogs 2 Independent Samples",
+ "Analyze Compare Means Independent Samples T Test",
+ "Analyze Compare Means Paired Samples T Test")
 )
 
 kable(tests,
@@ -544,7 +544,7 @@ ggplot() +
 # Key Takeaways
 
 ::: {.callout-note icon=false}
-## 📝 Chapter 5 Summary
+## Chapter 5 Summary
 
 1. Hypothesis testing uses sample data to decide between two competing
    claims: the **null hypothesis ($H_0$)** and the
@@ -591,7 +591,7 @@ A study investigates whether **smoking status** is associated with
 Test at $\alpha = 0.05$ whether smoking is associated with hypertension.
 
 ::: {.callout-tip icon=false}
-## ✅ Solution
+## Solution
 
 **Step 1 — Hypotheses:**
 
@@ -632,7 +632,7 @@ kable(result_tab,
   column_spec(1, bold = TRUE)
 ```
 
-All expected frequencies $\geq 5$ ✓
+All expected frequencies $\geq 5$
 
 **Step 4 — Test statistic:**
 
@@ -673,7 +673,7 @@ Test at $\alpha = 0.05$ whether the new drug produces a greater mean
 reduction in SBP than placebo.
 
 ::: {.callout-tip icon=false}
-## ✅ Solution
+## Solution
 
 **Step 1 — Hypotheses:**
 
@@ -750,7 +750,7 @@ kable(pair_tab,
 Test at $\alpha = 0.05$ whether the intervention significantly reduces DBP.
 
 ::: {.callout-tip icon=false}
-## ✅ Solution
+## Solution
 
 **Step 1 — Hypotheses:**
 
@@ -790,7 +790,7 @@ The mean reduction was **`r mean(d)` mmHg**.
 # Exercises
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 1 — Chi-Square Test
+## Exercise 1 — Chi-Square Test
 
 A researcher investigates whether **physical activity level** is associated
 with **diabetes status** in 300 adults:
@@ -814,7 +814,7 @@ condition is met.
 :::
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 2 — Independent Samples t-Test
+## Exercise 2 — Independent Samples t-Test
 
 A study compares the **mean hemoglobin levels (g/dL)** between
 male and female patients:
@@ -834,7 +834,7 @@ male and female patients:
 :::
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 3 — Paired Samples t-Test
+## Exercise 3 — Paired Samples t-Test
 
 A pain management study measures the **pain score (0–10)** of 8 patients
 **before** and **one hour after** receiving an analgesic:
@@ -855,7 +855,7 @@ State your conclusion clearly.
 :::
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 4 — Choosing the Right Test
+## Exercise 4 — Choosing the Right Test
 
 For each scenario below, state which statistical test is most appropriate
 and briefly explain why:
@@ -881,7 +881,7 @@ strongly right-skewed.
 ---
 
 ::: {.callout-note icon=false}
-## 📚 Coming Up Next
+## Coming Up Next
 **Chapter 6: Introduction to Statistical Modeling** — We take our first
 steps beyond comparing two groups, exploring how one variable can be used
 to explain or predict another through **linear regression**.
