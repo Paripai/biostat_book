@@ -14,7 +14,7 @@ library(kableExtra)
 # Introduction {.unnumbered}
 
 ::: {.callout-note icon=false}
-## 🏥 Why Does This Matter for Nurses?
+## Why Does This Matter for Nurses?
 
 Every day, nurses make decisions based on data — patient vital signs, lab results,
 medication dosages, and clinical outcomes. Understanding **what data is** and
@@ -54,7 +54,7 @@ Nominal data have **no natural order** among categories.
 You can only say things are *different*, not *bigger* or *smaller*.
 
 ::: {.callout-tip icon=false}
-## 📋 Nominal Examples in Nursing
+## Nominal Examples in Nursing
 - Blood type: A, B, AB, O
 - Gender: Male, Female
 - Disease diagnosis: Diabetes, Hypertension, Asthma
@@ -67,11 +67,11 @@ Ordinal data have **a natural order**, but the *distance* between categories
 is not necessarily equal.
 
 ::: {.callout-tip icon=false}
-## 📋 Ordinal Examples in Nursing
+## Ordinal Examples in Nursing
 - Pain scale: None (0), Mild (1–3), Moderate (4–6), Severe (7–10)
-- Patient satisfaction: Very dissatisfied → Dissatisfied → Neutral → Satisfied → Very satisfied
-- Level of consciousness: Alert → Confused → Drowsy → Unresponsive
-- Education level: Primary → Secondary → Bachelor → Graduate
+- Patient satisfaction: Very dissatisfied Dissatisfied Neutral Satisfied Very satisfied
+- Level of consciousness: Alert Confused Drowsy Unresponsive
+- Education level: Primary Secondary Bachelor Graduate
 :::
 
 ---
@@ -86,7 +86,7 @@ Discrete data are **counted** and can only take **whole number** values.
 There are no meaningful values between two consecutive counts.
 
 ::: {.callout-tip icon=false}
-## 📋 Discrete Examples in Nursing
+## Discrete Examples in Nursing
 - Number of patients admitted per day: 0, 1, 2, 3, ...
 - Number of medication errors per month
 - Number of children a patient has
@@ -99,7 +99,7 @@ Continuous data are **measured** and can take **any value** within a range,
 including decimals.
 
 ::: {.callout-tip icon=false}
-## 📋 Continuous Examples in Nursing
+## Continuous Examples in Nursing
 - Body temperature: 36.5°C, 37.2°C, 38.8°C
 - Blood pressure: 120/80 mmHg, 135/85 mmHg
 - Body weight: 58.3 kg, 72.5 kg
@@ -182,7 +182,7 @@ whole population.
 > in Bangkok.
 
 ::: {.callout-important icon=false}
-## ⚠️ Key Principle
+## Key Principle
 A good sample must be **representative** of the population —
 meaning it should reflect the characteristics of the whole group,
 not just one part of it.
@@ -259,7 +259,7 @@ ggplot(pop, aes(x = x, y = y, color = group, size = group, shape = group)) +
            label = "Population (All Patients)",
            size = 4.5, fontface = "bold", color = "#2c7bb6") +
   annotate("text", x = 5, y = -0.8,
-           label = "▲ Red triangles = selected sample (n = 30)",
+ label = " Red triangles = selected sample (n = 30)",
            size = 3.5, color = "#d7191c") +
   theme_minimal(base_size = 12) +
   theme(legend.position = "none",
@@ -276,7 +276,7 @@ ggplot(pop, aes(x = x, y = y, color = group, size = group, shape = group)) +
 # Key Takeaways
 
 ::: {.callout-note icon=false}
-## 📝 Chapter 1 Summary
+## Chapter 1 Summary
 
 1. **Data** are recorded pieces of information collected from patients or research subjects.
 
@@ -315,7 +315,7 @@ admitted to a medical ward:
 | Discharge status | Recovered, Transferred, Deceased |
 
 ::: {.callout-tip icon=false}
-## ✅ Solution
+## Solution
 
 | Variable | Data Type | Reason |
 |---|---|---|
@@ -346,7 +346,7 @@ across Thailand. She recruits 150 patients from 3 hospitals in Chiang Mai.
 patients currently assigned to her ward.
 
 ::: {.callout-tip icon=false}
-## ✅ Solution
+## Solution
 
 **(a)** This is the **Population** — all 320 nurses are surveyed;
 no one is left out. The result is a *parameter*.
@@ -364,7 +364,7 @@ small subset of all diabetic patients.
 # Exercises
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 1
+## Exercise 1
 
 A public health nurse collects the following data from patients visiting
 a community health clinic:
@@ -381,7 +381,7 @@ a community health clinic:
 :::
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 2
+## Exercise 2
 
 A researcher is studying the prevalence of depression among elderly patients
 in nursing homes across the country. She selects 200 patients from 4 nursing
@@ -396,7 +396,7 @@ is this number a *parameter* or a *statistic*? Explain.
 :::
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 3
+## Exercise 3
 
 Look at the following list and decide whether each is an example of
 a **discrete** or **continuous** variable:
@@ -415,7 +415,7 @@ a **discrete** or **continuous** variable:
 ---
 
 ::: {.callout-note icon=false}
-## 📚 Coming Up Next
+## Coming Up Next
 **Chapter 2: Data Summarization** — How do we make sense of a large set of
 patient data? We will learn to calculate means, medians, standard deviations,
 and draw charts that tell a clear story.

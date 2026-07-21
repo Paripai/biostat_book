@@ -15,7 +15,7 @@ library(patchwork)
 # Introduction {.unnumbered}
 
 ::: {.callout-note icon=false}
-## 💡 Why Does This Matter?
+## Why Does This Matter?
 
 So far we have described data, estimated population parameters, and tested
 whether two groups differ. But many real-world health questions go beyond
@@ -147,7 +147,7 @@ kable(r_tab, col.names = c("|r| value", "Strength", "Note"),
 ```
 
 ::: {.callout-warning icon=false}
-## ⚠️ Correlation Is Not Causation
+## Correlation Is Not Causation
 
 A high correlation between $X$ and $Y$ does **not** mean that $X$
 *causes* $Y$. Both variables may be influenced by a third variable,
@@ -327,7 +327,7 @@ kable(model_sum,
   row_spec(0, bold = TRUE, color = "white", background = "#2c7bb6")
 ```
 
-→ **R = 0.821** (strong positive correlation); **R² = 0.674** (67.4% of
+ **R = 0.821** (strong positive correlation); **R² = 0.674** (67.4% of
 variation in Y explained by X).
 
 ```{r}
@@ -352,7 +352,7 @@ kable(anova_tab,
   row_spec(1, bold = TRUE)
 ```
 
-→ **F = 78.62, p < 0.001** — the overall regression model is
+ **F = 78.62, p < 0.001** — the overall regression model is
 statistically significant.
 
 ```{r}
@@ -377,9 +377,9 @@ kable(coef_tab,
   row_spec(2, bold = TRUE, background = "#eaf4fb")
 ```
 
-→ **Regression equation:** $\hat{Y} = 32.15 + 0.87X$
+ **Regression equation:** $\hat{Y} = 32.15 + 0.87X$
 
-→ The slope **B = 0.87** is statistically significant ($p < 0.001$):
+ The slope **B = 0.87** is statistically significant ($p < 0.001$):
 for each one-unit increase in $X$, $Y$ increases by **0.87 units** on average.
 
 ---
@@ -387,7 +387,7 @@ for each one-unit increase in $X$, $Y$ increases by **0.87 units** on average.
 # Key Takeaways
 
 ::: {.callout-note icon=false}
-## 📝 Chapter 6 Summary
+## Chapter 6 Summary
 
 1. **Statistical modeling** describes the mathematical relationship between
    an outcome variable $Y$ and one or more predictor variables $X$.
@@ -446,7 +446,7 @@ kable(ex1, col.names = c("Subject", "Age (years)", "SBP (mmHg)"),
 **(d)** Interpret $R^2$.
 
 ::: {.callout-tip icon=false}
-## ✅ Solution
+## Solution
 
 ```{r}
 #| label: tbl-ex1-calc
@@ -574,7 +574,7 @@ The following output is obtained:
 | BMI | 2.91 | 0.46 | 6.33 | < 0.001 |
 
 ::: {.callout-tip icon=false}
-## ✅ Interpretation
+## Interpretation
 
 **Correlation:** $r = 0.612$ — a **moderate-to-strong positive**
 relationship between BMI and fasting blood glucose.
@@ -606,7 +606,7 @@ $$\hat{Y} = 48.32 + 2.91 \times 28 = 48.32 + 81.48 = 129.8 \text{ mg/dL}$$
 # Exercises
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 1
+## Exercise 1
 
 A study records the **hours of sleep per night** ($X$) and
 **systolic blood pressure (mmHg)** ($Y$) for 6 adults:
@@ -632,7 +632,7 @@ A study records the **hours of sleep per night** ($X$) and
 :::
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 2
+## Exercise 2
 
 A researcher uses SPSS to study the relationship between a patient's
 **age (years)** and **total cholesterol (mg/dL)**.
@@ -661,7 +661,7 @@ How do you know?
 :::
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 3 — Reflection Questions
+## Exercise 3 — Reflection Questions
 
 Answer the following in 2–3 sentences each:
 
@@ -686,7 +686,7 @@ original data?
 ---
 
 ::: {.callout-note icon=false}
-## 🎓 End of Course
+## End of Course
 
 Congratulations on completing all six chapters of Introduction to Biostatistics!
 

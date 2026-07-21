@@ -15,7 +15,7 @@ library(dplyr)
 # Introduction {.unnumbered}
 
 ::: {.callout-note icon=false}
-## 🏥 Why Does This Matter for Nurses?
+## Why Does This Matter for Nurses?
 
 Imagine you have blood pressure readings from 80 patients on your ward.
 Looking at 80 individual numbers tells you very little. But if someone says
@@ -55,7 +55,7 @@ Where:
 - $\sum$ = "sum of all"
 
 ::: {.callout-warning icon=false}
-## ⚠️ When to Use the Mean
+## When to Use the Mean
 The mean works best for **continuous or discrete numerical data**
 that is **roughly symmetric** (not heavily skewed) and has **no extreme outliers**.
 A single extreme value can pull the mean far from the typical value.
@@ -72,7 +72,7 @@ The **median** is the **middle value** when all observations are arranged in ord
   at positions $\dfrac{n}{2}$ and $\dfrac{n}{2}+1$
 
 ::: {.callout-warning icon=false}
-## ⚠️ When to Use the Median
+## When to Use the Median
 The median is preferred when data is **skewed** or has **outliers**,
 because it is not affected by extreme values.
 It is also the appropriate measure for **ordinal data**.
@@ -133,7 +133,7 @@ The **range** is the simplest measure of spread:
 $$\text{Range} = \text{Maximum value} - \text{Minimum value}$$
 
 ::: {.callout-warning icon=false}
-## ⚠️ Limitation
+## Limitation
 The range only uses two values (max and min) and is very sensitive to outliers.
 :::
 
@@ -166,7 +166,7 @@ much easier to interpret than variance.
 $$s = \sqrt{s^2} = \sqrt{\frac{\sum_{i=1}^{n}(x_i - \bar{x})^2}{n-1}}$$
 
 ::: {.callout-tip icon=false}
-## 💡 Interpreting Standard Deviation
+## Interpreting Standard Deviation
 
 A **small SD** means values are clustered closely around the mean.
 A **large SD** means values are widely spread.
@@ -261,7 +261,7 @@ ggplot(bp_data, aes(x = sbp)) +
 ```
 
 ::: {.callout-tip icon=false}
-## 💡 Bar Chart vs Histogram
+## Bar Chart vs Histogram
 | | Bar Chart | Histogram |
 |---|---|---|
 | Data type | Categorical | Continuous numerical |
@@ -285,7 +285,7 @@ A **box plot** summarizes the **distribution** of numerical data using
 | Maximum | Largest value (excluding outliers) |
 
 The **Interquartile Range (IQR) = Q3 − Q1** represents the middle 50% of data.
-Points beyond **1.5 × IQR** from Q1 or Q3 are marked as **outliers (○)**.
+Points beyond **1.5 × IQR** from Q1 or Q3 are marked as **outliers ()**.
 
 ```{r}
 #| label: fig-boxplot
@@ -351,7 +351,7 @@ kable(charts,
 # Key Takeaways
 
 ::: {.callout-note icon=false}
-## 📝 Chapter 2 Summary
+## Chapter 2 Summary
 
 1. **Numerical summarization** uses measures of *central tendency*
    (mean, median, mode) and *variability* (range, variance, SD) to
@@ -385,7 +385,7 @@ $$72, \; 68, \; 85, \; 74, \; 90, \; 68, \; 78, \; 72, \; 110$$
 Calculate the **(a) mean**, **(b) median**, and **(c) standard deviation**.
 
 ::: {.callout-tip icon=false}
-## ✅ Solution
+## Solution
 
 **Step 1 — Arrange data in order:**
 
@@ -457,7 +457,7 @@ last month and wants to summarize the data. A research nurse records the
 **length of stay (days)** for the same 200 patients.
 
 ::: {.callout-tip icon=false}
-## ✅ Solution
+## Solution
 
 | Variable | Data Type | Best Summary Measure | Best Chart |
 |---|---|---|---|
@@ -476,7 +476,7 @@ represents the "typical" patient.
 # Exercises
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 1
+## Exercise 1
 
 A nurse records the body temperature (°C) of **10 patients** at 8:00 AM:
 
@@ -498,7 +498,7 @@ report to the physician, and why?
 :::
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 2
+## Exercise 2
 
 A community health nurse surveys **50 elderly patients** and records:
 
@@ -516,7 +516,7 @@ For each variable, state:
 :::
 
 ::: {.callout-caution icon=false}
-## ✏️ Exercise 3
+## Exercise 3
 
 The number of patient falls recorded each month over **12 months**
 in a hospital ward are:
@@ -539,7 +539,7 @@ Should she use the mean or median as the baseline? Explain.
 ---
 
 ::: {.callout-note icon=false}
-## 📚 Coming Up Next
+## Coming Up Next
 **Chapter 3: Random Variable and Probability Distribution** —
 We will learn what a random variable is, how probabilities work,
 and why the **normal distribution** (bell curve) is so important

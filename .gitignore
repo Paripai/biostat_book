@@ -1,0 +1,14 @@
+# Quarto build artifacts
+/_book/
+/.quarto/
+*.tex
+*.aux
+*.log
+*.toc
+*.out
+*.synctex.gz
+/site_libs/
+.Rproj.user
+.Rhistory
+
+**/*.quarto_ipynb
