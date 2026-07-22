@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6&nbsp; Introduction to Statistical Modeling – Introduction to Biostatistics</title>
+<title>Introduction to Statistical Modeling – Introduction to Biostatistics</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,41 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -75,10 +40,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-2c0d7fd69a0b621d88a5e19f0a8bb3ab.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -107,9 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -152,7 +115,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./chapter06_statistical_modeling.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduction to Statistical Modeling</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./chapter06_statistical_modeling.html"><span class="chapter-title">Introduction to Statistical Modeling</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -168,6 +131,9 @@ window.Quarto = {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Introduction to Biostatistics</a> 
+        <div class="sidebar-tools-main">
+    <a href="./Introduction-to-Biostatistics.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -185,38 +151,32 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapter01_data_in_health_science.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data in Health Science</span></span></a>
+  <a href="./chapter01_data_in_health_science.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data in Health Science</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapter02_data_summarization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Summarization</span></span></a>
+  <a href="./chapter02_data_summarization.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data Summarization</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapter03_probability_distribution.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Random Variable and Probability Distribution</span></span></a>
+  <a href="./chapter03_probability_distribution.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Random Variable and Probability Distribution</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapter04_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
+  <a href="./chapter04_estimation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapter05_statistical_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Testing</span></span></a>
+  <a href="./chapter05_statistical_testing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Statistical Testing</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapter06_statistical_modeling.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduction to Statistical Modeling</span></span></a>
+  <a href="./chapter06_statistical_modeling.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Introduction to Statistical Modeling</span></a>
   </div>
 </li>
     </ul>
@@ -226,36 +186,36 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+    <h2 id="toc-title">Contents</h2>
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#what-is-a-statistical-model" id="toc-what-is-a-statistical-model" class="nav-link" data-scroll-target="#what-is-a-statistical-model"><span class="header-section-number">7</span> What Is a Statistical Model?</a></li>
-  <li><a href="#correlation-measuring-the-relationship" id="toc-correlation-measuring-the-relationship" class="nav-link" data-scroll-target="#correlation-measuring-the-relationship"><span class="header-section-number">8</span> Correlation: Measuring the Relationship</a>
+  <li><a href="#what-is-a-statistical-model" id="toc-what-is-a-statistical-model" class="nav-link" data-scroll-target="#what-is-a-statistical-model">What Is a Statistical Model?</a></li>
+  <li><a href="#correlation-measuring-the-relationship" id="toc-correlation-measuring-the-relationship" class="nav-link" data-scroll-target="#correlation-measuring-the-relationship">Correlation: Measuring the Relationship</a>
   <ul class="collapse">
-  <li><a href="#the-scatter-plot" id="toc-the-scatter-plot" class="nav-link" data-scroll-target="#the-scatter-plot"><span class="header-section-number">8.1</span> The Scatter Plot</a></li>
-  <li><a href="#pearsons-correlation-coefficient-r" id="toc-pearsons-correlation-coefficient-r" class="nav-link" data-scroll-target="#pearsons-correlation-coefficient-r"><span class="header-section-number">8.2</span> Pearson’s Correlation Coefficient (<span class="math inline">\(r\)</span>)</a>
+  <li><a href="#the-scatter-plot" id="toc-the-scatter-plot" class="nav-link" data-scroll-target="#the-scatter-plot">The Scatter Plot</a></li>
+  <li><a href="#pearsons-correlation-coefficient-r" id="toc-pearsons-correlation-coefficient-r" class="nav-link" data-scroll-target="#pearsons-correlation-coefficient-r">Pearson’s Correlation Coefficient (<span class="math inline">\(r\)</span>)</a>
   <ul class="collapse">
-  <li><a href="#properties-of-r" id="toc-properties-of-r" class="nav-link" data-scroll-target="#properties-of-r"><span class="header-section-number">8.2.1</span> Properties of <span class="math inline">\(r\)</span></a></li>
-  <li><a href="#interpreting-the-magnitude-of-r" id="toc-interpreting-the-magnitude-of-r" class="nav-link" data-scroll-target="#interpreting-the-magnitude-of-r"><span class="header-section-number">8.2.2</span> Interpreting the Magnitude of <span class="math inline">\(r\)</span></a></li>
+  <li><a href="#properties-of-r" id="toc-properties-of-r" class="nav-link" data-scroll-target="#properties-of-r">Properties of <span class="math inline">\(r\)</span></a></li>
+  <li><a href="#interpreting-the-magnitude-of-r" id="toc-interpreting-the-magnitude-of-r" class="nav-link" data-scroll-target="#interpreting-the-magnitude-of-r">Interpreting the Magnitude of <span class="math inline">\(r\)</span></a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link" data-scroll-target="#simple-linear-regression"><span class="header-section-number">9</span> Simple Linear Regression</a>
+  <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link" data-scroll-target="#simple-linear-regression">Simple Linear Regression</a>
   <ul class="collapse">
-  <li><a href="#the-regression-equation" id="toc-the-regression-equation" class="nav-link" data-scroll-target="#the-regression-equation"><span class="header-section-number">9.1</span> The Regression Equation</a></li>
-  <li><a href="#estimating-the-coefficients" id="toc-estimating-the-coefficients" class="nav-link" data-scroll-target="#estimating-the-coefficients"><span class="header-section-number">9.2</span> Estimating the Coefficients</a></li>
-  <li><a href="#the-coefficient-of-determination-r2" id="toc-the-coefficient-of-determination-r2" class="nav-link" data-scroll-target="#the-coefficient-of-determination-r2"><span class="header-section-number">9.3</span> The Coefficient of Determination (<span class="math inline">\(R^2\)</span>)</a></li>
-  <li><a href="#testing-the-significance-of-the-regression" id="toc-testing-the-significance-of-the-regression" class="nav-link" data-scroll-target="#testing-the-significance-of-the-regression"><span class="header-section-number">9.4</span> Testing the Significance of the Regression</a></li>
-  <li><a href="#assumptions-of-linear-regression" id="toc-assumptions-of-linear-regression" class="nav-link" data-scroll-target="#assumptions-of-linear-regression"><span class="header-section-number">9.5</span> Assumptions of Linear Regression</a></li>
-  <li><a href="#reading-spss-regression-output" id="toc-reading-spss-regression-output" class="nav-link" data-scroll-target="#reading-spss-regression-output"><span class="header-section-number">9.6</span> Reading SPSS Regression Output</a></li>
+  <li><a href="#the-regression-equation" id="toc-the-regression-equation" class="nav-link" data-scroll-target="#the-regression-equation">The Regression Equation</a></li>
+  <li><a href="#estimating-the-coefficients" id="toc-estimating-the-coefficients" class="nav-link" data-scroll-target="#estimating-the-coefficients">Estimating the Coefficients</a></li>
+  <li><a href="#the-coefficient-of-determination-r2" id="toc-the-coefficient-of-determination-r2" class="nav-link" data-scroll-target="#the-coefficient-of-determination-r2">The Coefficient of Determination (<span class="math inline">\(R^2\)</span>)</a></li>
+  <li><a href="#testing-the-significance-of-the-regression" id="toc-testing-the-significance-of-the-regression" class="nav-link" data-scroll-target="#testing-the-significance-of-the-regression">Testing the Significance of the Regression</a></li>
+  <li><a href="#assumptions-of-linear-regression" id="toc-assumptions-of-linear-regression" class="nav-link" data-scroll-target="#assumptions-of-linear-regression">Assumptions of Linear Regression</a></li>
+  <li><a href="#reading-spss-regression-output" id="toc-reading-spss-regression-output" class="nav-link" data-scroll-target="#reading-spss-regression-output">Reading SPSS Regression Output</a></li>
   </ul></li>
-  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><span class="header-section-number">10</span> Key Takeaways</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">11</span> Examples</a>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
   <ul class="collapse">
-  <li><a href="#example-1-calculating-correlation-and-regression" id="toc-example-1-calculating-correlation-and-regression" class="nav-link" data-scroll-target="#example-1-calculating-correlation-and-regression"><span class="header-section-number">11.1</span> Example 1: Calculating Correlation and Regression</a></li>
-  <li><a href="#example-2-interpreting-spss-output" id="toc-example-2-interpreting-spss-output" class="nav-link" data-scroll-target="#example-2-interpreting-spss-output"><span class="header-section-number">11.2</span> Example 2: Interpreting SPSS Output</a></li>
+  <li><a href="#example-1-calculating-correlation-and-regression" id="toc-example-1-calculating-correlation-and-regression" class="nav-link" data-scroll-target="#example-1-calculating-correlation-and-regression">Example 1: Calculating Correlation and Regression</a></li>
+  <li><a href="#example-2-interpreting-spss-output" id="toc-example-2-interpreting-spss-output" class="nav-link" data-scroll-target="#example-2-interpreting-spss-output">Example 2: Interpreting SPSS Output</a></li>
   </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">12</span> Exercises</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -264,7 +224,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduction to Statistical Modeling</span></h1>
+<h1 class="title"><span class="chapter-title">Introduction to Statistical Modeling</span></h1>
 </div>
 
 
@@ -290,7 +250,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>💡 Why Does This Matter?
+<span class="screen-reader-only">Note</span>Why Does This Matter?
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -306,8 +266,8 @@ window.Quarto = {
 </div>
 <hr>
 </section>
-<section id="what-is-a-statistical-model" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> What Is a Statistical Model?</h1>
+<section id="what-is-a-statistical-model" class="level1">
+<h1>What Is a Statistical Model?</h1>
 <p>A <strong>statistical model</strong> is a mathematical equation that describes the relationship between:</p>
 <ul>
 <li>An <strong>outcome variable</strong> (also called the <em>dependent variable</em>, <em>response variable</em>, or <span class="math inline">\(Y\)</span>) — the variable we want to explain or predict.</li>
@@ -316,47 +276,13 @@ window.Quarto = {
 <p>In this chapter we study <strong>simple linear regression</strong> — one outcome <span class="math inline">\(Y\)</span> and one predictor <span class="math inline">\(X\)</span>, with a straight-line relationship.</p>
 <hr>
 </section>
-<section id="correlation-measuring-the-relationship" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Correlation: Measuring the Relationship</h1>
+<section id="correlation-measuring-the-relationship" class="level1">
+<h1>Correlation: Measuring the Relationship</h1>
 <p>Before building a model, we first ask: <em>Is there a relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, and how strong is it?</em></p>
-<section id="the-scatter-plot" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="the-scatter-plot"><span class="header-section-number">8.1</span> The Scatter Plot</h2>
+<section id="the-scatter-plot" class="level2">
+<h2 class="anchored" data-anchor-id="the-scatter-plot">The Scatter Plot</h2>
 <p>A <strong>scatter plot</strong> displays pairs of values <span class="math inline">\((x_i, y_i)\)</span> as points on a graph. The pattern of points reveals the <strong>direction</strong> and <strong>strength</strong> of the relationship.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">80</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(n), <span class="at">y =</span> <span class="fl">0.8</span><span class="sc">*</span><span class="fu">rnorm</span>(n, <span class="at">mean=</span><span class="dv">0</span>) <span class="sc">+</span> <span class="fu">rnorm</span>(n,<span class="at">sd=</span><span class="fl">0.5</span>),</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">type =</span> <span class="st">"Strong positive"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>d1<span class="sc">$</span>y <span class="ot">&lt;-</span> d1<span class="sc">$</span>x <span class="sc">*</span> <span class="fl">0.9</span> <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd=</span><span class="fl">0.3</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(n), <span class="at">y =</span> <span class="sc">-</span><span class="fl">0.9</span><span class="sc">*</span><span class="fu">rnorm</span>(n) <span class="sc">+</span> <span class="fu">rnorm</span>(n,<span class="at">sd=</span><span class="fl">0.3</span>),</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">type =</span> <span class="st">"Strong negative"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>d2<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="sc">-</span>d2<span class="sc">$</span>x <span class="sc">*</span> <span class="fl">0.9</span> <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd=</span><span class="fl">0.3</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(n), <span class="at">y =</span> <span class="fl">0.4</span><span class="sc">*</span><span class="fu">rnorm</span>(n) <span class="sc">+</span> <span class="fu">rnorm</span>(n,<span class="at">sd=</span><span class="fl">0.9</span>),</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">type =</span> <span class="st">"Weak positive"</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>d3<span class="sc">$</span>y <span class="ot">&lt;-</span> d3<span class="sc">$</span>x <span class="sc">*</span> <span class="fl">0.3</span> <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd=</span><span class="fl">0.9</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(n), <span class="at">y =</span> <span class="fu">rnorm</span>(n),</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                 <span class="at">type =</span> <span class="st">"No relationship"</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>all_d <span class="ot">&lt;-</span> <span class="fu">rbind</span>(d1, d2, d3, d4)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>all_d<span class="sc">$</span>type <span class="ot">&lt;-</span> <span class="fu">factor</span>(all_d<span class="sc">$</span>type,</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Strong positive"</span>,<span class="st">"Strong negative"</span>,</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Weak positive"</span>,<span class="st">"No relationship"</span>))</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(all_d, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"#2c7bb6"</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"#d7191c"</span>,</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>              <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">formula =</span> y <span class="sc">~</span> x) <span class="sc">+</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> type, <span class="at">nrow =</span> <span class="dv">1</span>, <span class="at">scales =</span> <span class="st">"free"</span>) <span class="sc">+</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">11</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-scatter-types" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
@@ -372,13 +298,13 @@ Figure&nbsp;8.1: Four possible relationships between two variables
 </div>
 <hr>
 </section>
-<section id="pearsons-correlation-coefficient-r" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="pearsons-correlation-coefficient-r"><span class="header-section-number">8.2</span> Pearson’s Correlation Coefficient (<span class="math inline">\(r\)</span>)</h2>
+<section id="pearsons-correlation-coefficient-r" class="level2">
+<h2 class="anchored" data-anchor-id="pearsons-correlation-coefficient-r">Pearson’s Correlation Coefficient (<span class="math inline">\(r\)</span>)</h2>
 <p>The <strong>Pearson correlation coefficient</strong> <span class="math inline">\(r\)</span> quantifies the <strong>strength</strong> and <strong>direction</strong> of the <em>linear</em> relationship between two continuous variables.</p>
 <p><span class="math display">\[r = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}
            {\sqrt{\sum_{i=1}^{n}(x_i-\bar{x})^2 \cdot \sum_{i=1}^{n}(y_i-\bar{y})^2}}\]</span></p>
-<section id="properties-of-r" class="level3" data-number="8.2.1">
-<h3 data-number="8.2.1" class="anchored" data-anchor-id="properties-of-r"><span class="header-section-number">8.2.1</span> Properties of <span class="math inline">\(r\)</span></h3>
+<section id="properties-of-r" class="level3">
+<h3 class="anchored" data-anchor-id="properties-of-r">Properties of <span class="math inline">\(r\)</span></h3>
 <ul>
 <li><span class="math inline">\(r\)</span> always lies between <strong>−1 and +1</strong></li>
 <li><span class="math inline">\(r = +1\)</span>: perfect positive linear relationship</li>
@@ -386,24 +312,9 @@ Figure&nbsp;8.1: Four possible relationships between two variables
 <li><span class="math inline">\(r = 0\)</span>: no linear relationship</li>
 </ul>
 </section>
-<section id="interpreting-the-magnitude-of-r" class="level3" data-number="8.2.2">
-<h3 data-number="8.2.2" class="anchored" data-anchor-id="interpreting-the-magnitude-of-r"><span class="header-section-number">8.2.2</span> Interpreting the Magnitude of <span class="math inline">\(r\)</span></h3>
+<section id="interpreting-the-magnitude-of-r" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-the-magnitude-of-r">Interpreting the Magnitude of <span class="math inline">\(r\)</span></h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>r_tab <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">|r| range</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"0.00 – 0.19"</span>, <span class="st">"0.20 – 0.39"</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"0.40 – 0.59"</span>, <span class="st">"0.60 – 0.79"</span>, <span class="st">"0.80 – 1.00"</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Strength =</span> <span class="fu">c</span>(<span class="st">"Negligible"</span>, <span class="st">"Weak"</span>, <span class="st">"Moderate"</span>, <span class="st">"Strong"</span>, <span class="st">"Very strong"</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Direction =</span> <span class="fu">c</span>(<span class="st">"—"</span>, <span class="st">"Positive or negative depending on sign"</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Positive or negative depending on sign"</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Positive or negative depending on sign"</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Positive or negative depending on sign"</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(r_tab, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"|r| value"</span>, <span class="st">"Strength"</span>, <span class="st">"Note"</span>),</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"c"</span>,<span class="st">"l"</span>,<span class="st">"l"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"bordered"</span>),</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">13</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"#2c7bb6"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-r-interpret" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-r-interpret-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -421,27 +332,27 @@ Table&nbsp;8.1: General guidelines for interpreting the correlation coefficient
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">0.00 – 0.19</td>
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">0.00 - 0.19</td>
 <td style="text-align: left;">Negligible</td>
-<td style="text-align: left;">—</td>
+<td style="text-align: left;">-</td>
 </tr>
 <tr class="even">
-<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">0.20 – 0.39</td>
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">0.20 - 0.39</td>
 <td style="text-align: left;">Weak</td>
 <td style="text-align: left;">Positive or negative depending on sign</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">0.40 – 0.59</td>
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">0.40 - 0.59</td>
 <td style="text-align: left;">Moderate</td>
 <td style="text-align: left;">Positive or negative depending on sign</td>
 </tr>
 <tr class="even">
-<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">0.60 – 0.79</td>
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">0.60 - 0.79</td>
 <td style="text-align: left;">Strong</td>
 <td style="text-align: left;">Positive or negative depending on sign</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">0.80 – 1.00</td>
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">0.80 - 1.00</td>
 <td style="text-align: left;">Very strong</td>
 <td style="text-align: left;">Positive or negative depending on sign</td>
 </tr>
@@ -458,7 +369,7 @@ Table&nbsp;8.1: General guidelines for interpreting the correlation coefficient
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ Correlation Is Not Causation
+<span class="screen-reader-only">Warning</span>Correlation Is Not Causation
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -469,10 +380,10 @@ Table&nbsp;8.1: General guidelines for interpreting the correlation coefficient
 </section>
 </section>
 </section>
-<section id="simple-linear-regression" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Simple Linear Regression</h1>
-<section id="the-regression-equation" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="the-regression-equation"><span class="header-section-number">9.1</span> The Regression Equation</h2>
+<section id="simple-linear-regression" class="level1">
+<h1>Simple Linear Regression</h1>
+<section id="the-regression-equation" class="level2">
+<h2 class="anchored" data-anchor-id="the-regression-equation">The Regression Equation</h2>
 <p>Simple linear regression models the relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> as a straight line:</p>
 <p><span class="math display">\[\hat{Y} = b_0 + b_1 X\]</span></p>
 <p>Where:</p>
@@ -513,8 +424,8 @@ Table&nbsp;8.1: General guidelines for interpreting the correlation coefficient
 <p><span class="math display">\[\varepsilon_i = Y_i - \hat{Y}_i\]</span></p>
 <hr>
 </section>
-<section id="estimating-the-coefficients" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="estimating-the-coefficients"><span class="header-section-number">9.2</span> Estimating the Coefficients</h2>
+<section id="estimating-the-coefficients" class="level2">
+<h2 class="anchored" data-anchor-id="estimating-the-coefficients">Estimating the Coefficients</h2>
 <p>The values of <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are chosen to minimize the <strong>sum of squared residuals</strong> — this method is called <strong>Ordinary Least Squares (OLS)</strong>:</p>
 <p><span class="math display">\[\text{Minimize: } \sum_{i=1}^{n}(Y_i - \hat{Y}_i)^2 = \sum_{i=1}^{n}\varepsilon_i^2\]</span></p>
 <p>The OLS formulas are:</p>
@@ -523,24 +434,6 @@ Table&nbsp;8.1: General guidelines for interpreting the correlation coefficient
        = r \cdot \frac{s_y}{s_x}\]</span></p>
 <p><span class="math display">\[b_0 = \bar{y} - b_1 \bar{x}\]</span></p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="at">length =</span> <span class="dv">20</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">60</span> <span class="sc">+</span> <span class="fl">0.9</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df_ols <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">yhat =</span> <span class="fu">fitted</span>(fit),</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">resid =</span> <span class="fu">residuals</span>(fit))</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_ols, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> x, <span class="at">yend =</span> yhat),</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"#d7191c"</span>, <span class="at">linewidth =</span> <span class="fl">0.7</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"#2c7bb6"</span>,</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">linewidth =</span> <span class="fl">1.3</span>, <span class="at">formula =</span> y <span class="sc">~</span> x) <span class="sc">+</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"#2c7bb6"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"X (Predictor)"</span>, <span class="at">y =</span> <span class="st">"Y (Outcome)"</span>,</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Red dashed lines = residuals (ε = Y − Ŷ)"</span>) <span class="sc">+</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-ols" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
@@ -556,8 +449,8 @@ Figure&nbsp;9.1: Least squares regression line minimizes the sum of squared resi
 </div>
 <hr>
 </section>
-<section id="the-coefficient-of-determination-r2" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="the-coefficient-of-determination-r2"><span class="header-section-number">9.3</span> The Coefficient of Determination (<span class="math inline">\(R^2\)</span>)</h2>
+<section id="the-coefficient-of-determination-r2" class="level2">
+<h2 class="anchored" data-anchor-id="the-coefficient-of-determination-r2">The Coefficient of Determination (<span class="math inline">\(R^2\)</span>)</h2>
 <p><strong><span class="math inline">\(R^2\)</span></strong> (R-squared) measures how well the regression line fits the data — specifically, the <strong>proportion of the total variation in <span class="math inline">\(Y\)</span> that is explained by <span class="math inline">\(X\)</span></strong>:</p>
 <p><span class="math display">\[R^2 = r^2 \quad \text{(in simple linear regression)}\]</span></p>
 <p><span class="math display">\[R^2 = \frac{\text{Variation explained by the model}}{\text{Total variation in } Y}\]</span></p>
@@ -568,8 +461,8 @@ Figure&nbsp;9.1: Least squares regression line minimizes the sum of squared resi
 </ul>
 <hr>
 </section>
-<section id="testing-the-significance-of-the-regression" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="testing-the-significance-of-the-regression"><span class="header-section-number">9.4</span> Testing the Significance of the Regression</h2>
+<section id="testing-the-significance-of-the-regression" class="level2">
+<h2 class="anchored" data-anchor-id="testing-the-significance-of-the-regression">Testing the Significance of the Regression</h2>
 <p>Before using the regression equation for interpretation or prediction, we should test whether the slope <span class="math inline">\(b_1\)</span> is significantly different from zero. If <span class="math inline">\(b_1 = 0\)</span>, then <span class="math inline">\(X\)</span> provides no information about <span class="math inline">\(Y\)</span>.</p>
 <p><strong>Hypotheses:</strong></p>
 <p><span class="math display">\[H_0: \beta_1 = 0 \quad \text{(X is not a useful predictor of Y)}\]</span> <span class="math display">\[H_1: \beta_1 \neq 0 \quad \text{(X is a useful predictor of Y)}\]</span></p>
@@ -579,34 +472,10 @@ Figure&nbsp;9.1: Least squares regression line minimizes the sum of squared resi
 <p>SPSS reports this p-value automatically in the <strong>Coefficients table</strong> of the regression output.</p>
 <hr>
 </section>
-<section id="assumptions-of-linear-regression" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="assumptions-of-linear-regression"><span class="header-section-number">9.5</span> Assumptions of Linear Regression</h2>
+<section id="assumptions-of-linear-regression" class="level2">
+<h2 class="anchored" data-anchor-id="assumptions-of-linear-regression">Assumptions of Linear Regression</h2>
 <p>The regression model is valid only when the following assumptions are met:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>assump <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Assumption =</span> <span class="fu">c</span>(<span class="st">"Linearity"</span>,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"Independence"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"Homoscedasticity"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"Normality of residuals"</span>),</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Meaning =</span> <span class="fu">c</span>(</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The relationship between X and Y is linear (a straight line is appropriate)"</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Observations are independent of each other"</span>,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The spread of residuals is roughly constant across all values of X"</span>,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Residuals are approximately normally distributed"</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">How to Check</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Scatter plot of X vs. Y; residual plot"</span>,</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Study design — satisfied by random sampling"</span>,</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Plot of residuals vs. fitted values — no funnel shape"</span>,</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Histogram or Q-Q plot of residuals"</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(assump, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Assumption"</span>, <span class="st">"Meaning"</span>, <span class="st">"How to Check"</span>),</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"l"</span>,<span class="st">"l"</span>,<span class="st">"l"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"bordered"</span>),</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>, <span class="at">font_size =</span> <span class="dv">13</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"#2c7bb6"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-assumptions" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-assumptions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -624,22 +493,22 @@ Table&nbsp;9.1: Assumptions of Simple Linear Regression
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">Linearity</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Linearity</td>
 <td style="text-align: left;">The relationship between X and Y is linear (a straight line is appropriate)</td>
 <td style="text-align: left;">Scatter plot of X vs. Y; residual plot</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">Independence</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Independence</td>
 <td style="text-align: left;">Observations are independent of each other</td>
-<td style="text-align: left;">Study design — satisfied by random sampling</td>
+<td style="text-align: left;">Study design - satisfied by random sampling</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">Homoscedasticity</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Homoscedasticity</td>
 <td style="text-align: left;">The spread of residuals is roughly constant across all values of X</td>
-<td style="text-align: left;">Plot of residuals vs. fitted values — no funnel shape</td>
+<td style="text-align: left;">Plot of residuals vs. fitted values - no funnel shape</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">Normality of residuals</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Normality of residuals</td>
 <td style="text-align: left;">Residuals are approximately normally distributed</td>
 <td style="text-align: left;">Histogram or Q-Q plot of residuals</td>
 </tr>
@@ -652,23 +521,10 @@ Table&nbsp;9.1: Assumptions of Simple Linear Regression
 </div>
 <hr>
 </section>
-<section id="reading-spss-regression-output" class="level2" data-number="9.6">
-<h2 data-number="9.6" class="anchored" data-anchor-id="reading-spss-regression-output"><span class="header-section-number">9.6</span> Reading SPSS Regression Output</h2>
+<section id="reading-spss-regression-output" class="level2">
+<h2 class="anchored" data-anchor-id="reading-spss-regression-output">Reading SPSS Regression Output</h2>
 <p>SPSS produces three key tables for simple linear regression. Here is how to read them:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model_sum <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">R =</span> <span class="st">"0.821"</span>,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">R2 =</span> <span class="st">"0.674"</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Adjusted R²</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"0.666"</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Std. Error of the Estimate</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"8.432"</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(model_sum,</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"R"</span>, <span class="st">"R²"</span>, <span class="st">"Adjusted R²"</span>, <span class="st">"Std. Error of the Estimate"</span>),</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="fu">rep</span>(<span class="st">"c"</span>,<span class="dv">4</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"bordered"</span>),</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">13</span>) <span class="sc">|&gt;</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">background =</span> <span class="st">"#2c7bb6"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-spss-model" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-spss-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -679,10 +535,10 @@ Table&nbsp;9.2: SPSS Output: Model Summary
 <table class="table table-bordered cell caption-top table-sm table-striped small">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">R</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">R²</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">Adjusted R²</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">Std. Error of the Estimate</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">R</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">R2</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Adjusted R2</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Std. Error of the Estimate</th>
 </tr>
 </thead>
 <tbody>
@@ -699,24 +555,8 @@ Table&nbsp;9.2: SPSS Output: Model Summary
 </figure>
 </div>
 </div>
-<p>→ <strong>R = 0.821</strong> (strong positive correlation); <strong>R² = 0.674</strong> (67.4% of variation in Y explained by X).</p>
+<p><strong>R = 0.821</strong> (strong positive correlation); <strong>R² = 0.674</strong> (67.4% of variation in Y explained by X).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>anova_tab <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Source =</span> <span class="fu">c</span>(<span class="st">"Regression"</span>, <span class="st">"Residual"</span>, <span class="st">"Total"</span>),</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">SS =</span> <span class="fu">c</span>(<span class="st">"5621.4"</span>, <span class="st">"2718.6"</span>, <span class="st">"8340.0"</span>),</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">df =</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"38"</span>, <span class="st">"39"</span>),</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">MS =</span> <span class="fu">c</span>(<span class="st">"5621.4"</span>, <span class="st">"71.5"</span>, <span class="st">""</span>),</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">F =</span> <span class="fu">c</span>(<span class="st">"78.62"</span>, <span class="st">""</span>, <span class="st">""</span>),</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Sig =</span> <span class="fu">c</span>(<span class="st">"&lt; 0.001"</span>, <span class="st">""</span>, <span class="st">""</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(anova_tab,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"Sum of Squares"</span>, <span class="st">"df"</span>, <span class="st">"Mean Square"</span>, <span class="st">"F"</span>, <span class="st">"Sig."</span>),</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"l"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"bordered"</span>),</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">13</span>) <span class="sc">|&gt;</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">background =</span> <span class="st">"#2c7bb6"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-spss-anova" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-spss-anova-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -727,12 +567,12 @@ Table&nbsp;9.3: SPSS Output: ANOVA Table
 <table class="table table-bordered cell caption-top table-sm table-striped small">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;"></th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">Sum of Squares</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">df</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">Mean Square</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">F</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">Sig.</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;"></th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Sum of Squares</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">df</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Mean Square</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">F</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Sig.</th>
 </tr>
 </thead>
 <tbody>
@@ -767,24 +607,8 @@ Table&nbsp;9.3: SPSS Output: ANOVA Table
 </figure>
 </div>
 </div>
-<p>→ <strong>F = 78.62, p &lt; 0.001</strong> — the overall regression model is statistically significant.</p>
+<p><strong>F = 78.62, p &lt; 0.001</strong> — the overall regression model is statistically significant.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>coef_tab <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at"> </span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"(Constant)"</span>, <span class="st">"X (predictor)"</span>),</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">B =</span> <span class="fu">c</span>(<span class="st">"32.15"</span>, <span class="st">"0.87"</span>),</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">SE =</span> <span class="fu">c</span>(<span class="st">"6.24"</span>, <span class="st">"0.10"</span>),</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Beta =</span> <span class="fu">c</span>(<span class="st">"—"</span>, <span class="st">"0.821"</span>),</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">t =</span> <span class="fu">c</span>(<span class="st">"5.15"</span>, <span class="st">"8.87"</span>),</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Sig =</span> <span class="fu">c</span>(<span class="st">"&lt; 0.001"</span>, <span class="st">"&lt; 0.001"</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(coef_tab,</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"B"</span>, <span class="st">"Std. Error"</span>, <span class="st">"Beta (standardized)"</span>, <span class="st">"t"</span>, <span class="st">"Sig."</span>),</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"l"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"bordered"</span>),</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">13</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">background =</span> <span class="st">"#2c7bb6"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">2</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">background =</span> <span class="st">"#eaf4fb"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-spss-coef" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-spss-coef-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -795,30 +619,30 @@ Table&nbsp;9.4: SPSS Output: Coefficients Table
 <table class="table table-bordered cell caption-top table-sm table-striped small">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;"></th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">B</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">Std. Error</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">Beta (standardized)</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">t</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">Sig.</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;"></th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">B</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Std. Error</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Beta (standardized)</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">t</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Sig.</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">(Constant)</td>
+<td style="text-align: left;">Constant</td>
 <td style="text-align: center;">32.15</td>
 <td style="text-align: center;">6.24</td>
-<td style="text-align: center;">—</td>
+<td style="text-align: center;">-</td>
 <td style="text-align: center;">5.15</td>
 <td style="text-align: center;">&lt; 0.001</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; font-weight: bold; background-color: rgba(234, 244, 251, 255) !important;">X (predictor)</td>
-<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 255) !important;">0.87</td>
-<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 255) !important;">0.10</td>
-<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 255) !important;">0.821</td>
-<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 255) !important;">8.87</td>
-<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 255) !important;">&lt; 0.001</td>
+<td style="text-align: left; font-weight: bold;">X (predictor)</td>
+<td style="text-align: center; font-weight: bold;">0.87</td>
+<td style="text-align: center; font-weight: bold;">0.10</td>
+<td style="text-align: center; font-weight: bold;">0.821</td>
+<td style="text-align: center; font-weight: bold;">8.87</td>
+<td style="text-align: center; font-weight: bold;">&lt; 0.001</td>
 </tr>
 </tbody>
 </table>
@@ -827,20 +651,20 @@ Table&nbsp;9.4: SPSS Output: Coefficients Table
 </figure>
 </div>
 </div>
-<p>→ <strong>Regression equation:</strong> <span class="math inline">\(\hat{Y} = 32.15 + 0.87X\)</span></p>
-<p>→ The slope <strong>B = 0.87</strong> is statistically significant (<span class="math inline">\(p &lt; 0.001\)</span>): for each one-unit increase in <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span> increases by <strong>0.87 units</strong> on average.</p>
+<p><strong>Regression equation:</strong> <span class="math inline">\(\hat{Y} = 32.15 + 0.87X\)</span></p>
+<p>The slope <strong>B = 0.87</strong> is statistically significant (<span class="math inline">\(p &lt; 0.001\)</span>): for each one-unit increase in <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span> increases by <strong>0.87 units</strong> on average.</p>
 <hr>
 </section>
 </section>
-<section id="key-takeaways" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> Key Takeaways</h1>
+<section id="key-takeaways" class="level1">
+<h1>Key Takeaways</h1>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>📝 Chapter 6 Summary
+<span class="screen-reader-only">Note</span>Chapter 6 Summary
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -857,21 +681,12 @@ Table&nbsp;9.4: SPSS Output: Coefficients Table
 </div>
 <hr>
 </section>
-<section id="examples" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> Examples</h1>
-<section id="example-1-calculating-correlation-and-regression" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="example-1-calculating-correlation-and-regression"><span class="header-section-number">11.1</span> Example 1: Calculating Correlation and Regression</h2>
+<section id="examples" class="level1">
+<h1>Examples</h1>
+<section id="example-1-calculating-correlation-and-regression" class="level2">
+<h2 class="anchored" data-anchor-id="example-1-calculating-correlation-and-regression">Example 1: Calculating Correlation and Regression</h2>
 <p>A researcher records the <strong>age (years)</strong> and <strong>systolic blood pressure (mmHg)</strong> of 8 adults:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>age <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">32</span>, <span class="dv">40</span>, <span class="dv">48</span>, <span class="dv">55</span>, <span class="dv">62</span>, <span class="dv">70</span>, <span class="dv">78</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sbp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">115</span>, <span class="dv">120</span>, <span class="dv">128</span>, <span class="dv">135</span>, <span class="dv">142</span>, <span class="dv">148</span>, <span class="dv">158</span>, <span class="dv">165</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>ex1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Subject =</span> <span class="fu">paste0</span>(<span class="st">"S"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>), <span class="at">Age =</span> age, <span class="at">SBP =</span> sbp)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(ex1, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Subject"</span>, <span class="st">"Age (years)"</span>, <span class="st">"SBP (mmHg)"</span>),</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"bordered"</span>),</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">13</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-ex1-data" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ex1-data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -945,44 +760,11 @@ Table&nbsp;11.1: Age and Systolic Blood Pressure of 8 Adults
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>✅ Solution
+<span class="screen-reader-only">Tip</span>Solution
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> <span class="fu">mean</span>(age)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ybar <span class="ot">&lt;-</span> <span class="fu">mean</span>(sbp)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>calc <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Subject =</span> <span class="fu">paste0</span>(<span class="st">"S"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>),</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> age,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> sbp,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">xdev =</span> <span class="fu">round</span>(age <span class="sc">-</span> xbar, <span class="dv">2</span>),</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">ydev =</span> <span class="fu">round</span>(sbp <span class="sc">-</span> ybar, <span class="dv">2</span>),</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">xdev2 =</span> <span class="fu">round</span>((age <span class="sc">-</span> xbar)<span class="sc">^</span><span class="dv">2</span>, <span class="dv">2</span>),</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ydev2 =</span> <span class="fu">round</span>((sbp <span class="sc">-</span> ybar)<span class="sc">^</span><span class="dv">2</span>, <span class="dv">2</span>),</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">xydev =</span> <span class="fu">round</span>((age <span class="sc">-</span> xbar)<span class="sc">*</span>(sbp <span class="sc">-</span> ybar), <span class="dv">2</span>)</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>totrow <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">Subject =</span> <span class="st">"**Total**"</span>,</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="cn">NA</span>, <span class="at">y =</span> <span class="cn">NA</span>,</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">xdev =</span> <span class="cn">NA</span>, <span class="at">ydev =</span> <span class="cn">NA</span>,</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">xdev2 =</span> <span class="fu">round</span>(<span class="fu">sum</span>((age<span class="sc">-</span>xbar)<span class="sc">^</span><span class="dv">2</span>), <span class="dv">2</span>),</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">ydev2 =</span> <span class="fu">round</span>(<span class="fu">sum</span>((sbp<span class="sc">-</span>ybar)<span class="sc">^</span><span class="dv">2</span>), <span class="dv">2</span>),</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">xydev =</span> <span class="fu">round</span>(<span class="fu">sum</span>((age<span class="sc">-</span>xbar)<span class="sc">*</span>(sbp<span class="sc">-</span>ybar)), <span class="dv">2</span>)</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>calc_all <span class="ot">&lt;-</span> <span class="fu">rbind</span>(calc, totrow)</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(calc_all,</span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Subject"</span>,<span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"x−x̄"</span>,<span class="st">"y−ȳ"</span>,</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"(x−x̄)²"</span>,<span class="st">"(y−ȳ)²"</span>,<span class="st">"(x−x̄)(y−ȳ)"</span>),</span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="fu">rep</span>(<span class="st">"c"</span>, <span class="dv">8</span>), <span class="at">escape =</span> <span class="cn">FALSE</span>, <span class="at">na_print =</span> <span class="st">"—"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"bordered"</span>),</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>, <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">9</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">background =</span> <span class="st">"#eaf4fb"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">background =</span> <span class="st">"#2c7bb6"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-ex1-calc" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ex1-calc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -993,14 +775,14 @@ Table&nbsp;11.2: Calculation Table for Correlation and Regression
 <table class="table table-striped table-hover table-bordered cell caption-top table-sm small">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">Subject</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">x</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">y</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">x−x̄</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">| y−ȳ</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">| (x−x̄)²</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">| (y−ȳ)²</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 255) !important;">| (x−x̄)(y−</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Subject</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">x</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">y</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">x-xbar</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">y-ybar</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">(x-xbar)2</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">(y-ybar)2</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">(x-xbar)(y-ybar)</th>
 </tr>
 </thead>
 <tbody>
@@ -1085,14 +867,14 @@ Table&nbsp;11.2: Calculation Table for Correlation and Regression
 <td style="text-align: center;">698.84</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 255) !important;">**Total**</td>
-<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 255) !important;">NA</td>
-<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 255) !important;">NA</td>
-<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 255) !important;">NA</td>
-<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 255) !important;">NA</td>
-<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 255) !important;">2393.50</td>
-<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 255) !important;">2200.88</td>
-<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 255) !important;">2292.25</td>
+<td style="text-align: center; font-weight: bold;">**Total**</td>
+<td style="text-align: center; font-weight: bold;">NA</td>
+<td style="text-align: center; font-weight: bold;">NA</td>
+<td style="text-align: center; font-weight: bold;">NA</td>
+<td style="text-align: center; font-weight: bold;">NA</td>
+<td style="text-align: center; font-weight: bold;">2393.50</td>
+<td style="text-align: center; font-weight: bold;">2200.88</td>
+<td style="text-align: center; font-weight: bold;">2292.25</td>
 </tr>
 </tbody>
 </table>
@@ -1128,22 +910,6 @@ Table&nbsp;11.2: Calculation Table for Correlation and Regression
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(sbp <span class="sc">~</span> age)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df1  <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">age =</span> age, <span class="at">sbp =</span> sbp)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df1, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> sbp)) <span class="sc">+</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">"#2c7bb6"</span>) <span class="sc">+</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"#d7191c"</span>,</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">"#fdae61"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">formula =</span> y <span class="sc">~</span> x) <span class="sc">+</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">30</span>, <span class="at">y =</span> <span class="dv">162</span>,</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"Ŷ = "</span>, <span class="fu">round</span>(<span class="fu">coef</span>(fit1)[<span class="dv">1</span>],<span class="dv">2</span>),</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                          <span class="st">" + "</span>, <span class="fu">round</span>(<span class="fu">coef</span>(fit1)[<span class="dv">2</span>],<span class="dv">3</span>), <span class="st">"X</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"r = "</span>, <span class="fu">round</span>(<span class="fu">cor</span>(age,sbp),<span class="dv">3</span>),</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>                          <span class="st">",  R² = "</span>, <span class="fu">round</span>(<span class="fu">cor</span>(age,sbp)<span class="sc">^</span><span class="dv">2</span>,<span class="dv">3</span>)),</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"#d7191c"</span>) <span class="sc">+</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Age (years)"</span>, <span class="at">y =</span> <span class="st">"Systolic Blood Pressure (mmHg)"</span>) <span class="sc">+</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-ex1-fit" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1159,8 +925,8 @@ Figure&nbsp;11.1: Scatter plot with fitted regression line: Age vs.&nbsp;Systoli
 </div>
 <hr>
 </section>
-<section id="example-2-interpreting-spss-output" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="example-2-interpreting-spss-output"><span class="header-section-number">11.2</span> Example 2: Interpreting SPSS Output</h2>
+<section id="example-2-interpreting-spss-output" class="level2">
+<h2 class="anchored" data-anchor-id="example-2-interpreting-spss-output">Example 2: Interpreting SPSS Output</h2>
 <p>A researcher uses SPSS to examine the relationship between <strong>BMI (kg/m²)</strong> and <strong>fasting blood glucose (mg/dL)</strong> in 60 adults. The following output is obtained:</p>
 <p><strong>Model Summary:</strong></p>
 <table class="caption-top table">
@@ -1194,7 +960,7 @@ Figure&nbsp;11.1: Scatter plot with fitted regression line: Age vs.&nbsp;Systoli
 </thead>
 <tbody>
 <tr class="odd">
-<td>(Constant)</td>
+<td>Constant</td>
 <td style="text-align: center;">48.32</td>
 <td style="text-align: center;">11.45</td>
 <td style="text-align: center;">4.22</td>
@@ -1215,7 +981,7 @@ Figure&nbsp;11.1: Scatter plot with fitted regression line: Age vs.&nbsp;Systoli
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>✅ Interpretation
+<span class="screen-reader-only">Tip</span>Interpretation
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1231,15 +997,15 @@ Figure&nbsp;11.1: Scatter plot with fitted regression line: Age vs.&nbsp;Systoli
 <hr>
 </section>
 </section>
-<section id="exercises" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> Exercises</h1>
+<section id="exercises" class="level1">
+<h1>Exercises</h1>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>✏️ Exercise 1
+<span class="screen-reader-only">Caution</span>Exercise 1
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1298,7 +1064,7 @@ Figure&nbsp;11.1: Scatter plot with fitted regression line: Age vs.&nbsp;Systoli
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>✏️ Exercise 2
+<span class="screen-reader-only">Caution</span>Exercise 2
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1317,7 +1083,7 @@ Figure&nbsp;11.1: Scatter plot with fitted regression line: Age vs.&nbsp;Systoli
 </thead>
 <tbody>
 <tr class="odd">
-<td>(Constant)</td>
+<td>Constant</td>
 <td style="text-align: center;">120.4</td>
 <td style="text-align: center;">18.6</td>
 <td style="text-align: center;">6.47</td>
@@ -1345,7 +1111,7 @@ Figure&nbsp;11.1: Scatter plot with fitted regression line: Age vs.&nbsp;Systoli
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>✏️ Exercise 3 — Reflection Questions
+<span class="screen-reader-only">Caution</span>Exercise 3 — Reflection Questions
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1364,7 +1130,7 @@ Figure&nbsp;11.1: Scatter plot with fitted regression line: Age vs.&nbsp;Systoli
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>🎓 End of Course
+<span class="screen-reader-only">Note</span>End of Course
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1781,7 +1547,7 @@ Figure&nbsp;11.1: Scatter plot with fitted regression line: Age vs.&nbsp;Systoli
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./chapter05_statistical_testing.html" class="pagination-link" aria-label="Statistical Testing">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Testing</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Statistical Testing</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

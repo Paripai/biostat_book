@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Random Variable and Probability Distribution – Introduction to Biostatistics</title>
+<title>Random Variable and Probability Distribution – Introduction to Biostatistics</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,41 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -76,10 +41,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-2c0d7fd69a0b621d88a5e19f0a8bb3ab.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -108,9 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -153,7 +116,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./chapter03_probability_distribution.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Random Variable and Probability Distribution</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./chapter03_probability_distribution.html"><span class="chapter-title">Random Variable and Probability Distribution</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -169,6 +132,9 @@ window.Quarto = {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Introduction to Biostatistics</a> 
+        <div class="sidebar-tools-main">
+    <a href="./Introduction-to-Biostatistics.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -186,38 +152,32 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapter01_data_in_health_science.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data in Health Science</span></span></a>
+  <a href="./chapter01_data_in_health_science.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data in Health Science</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapter02_data_summarization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Summarization</span></span></a>
+  <a href="./chapter02_data_summarization.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data Summarization</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapter03_probability_distribution.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Random Variable and Probability Distribution</span></span></a>
+  <a href="./chapter03_probability_distribution.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Random Variable and Probability Distribution</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapter04_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
+  <a href="./chapter04_estimation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapter05_statistical_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Testing</span></span></a>
+  <a href="./chapter05_statistical_testing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Statistical Testing</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapter06_statistical_modeling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduction to Statistical Modeling</span></span></a>
+  <a href="./chapter06_statistical_modeling.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to Statistical Modeling</span></a>
   </div>
 </li>
     </ul>
@@ -227,38 +187,38 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+    <h2 id="toc-title">Contents</h2>
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#frequency-distributions" id="toc-frequency-distributions" class="nav-link" data-scroll-target="#frequency-distributions"><span class="header-section-number">4</span> Frequency Distributions</a>
+  <li><a href="#frequency-distributions" id="toc-frequency-distributions" class="nav-link" data-scroll-target="#frequency-distributions">Frequency Distributions</a>
   <ul class="collapse">
-  <li><a href="#what-is-a-frequency-distribution" id="toc-what-is-a-frequency-distribution" class="nav-link" data-scroll-target="#what-is-a-frequency-distribution"><span class="header-section-number">4.1</span> What Is a Frequency Distribution?</a></li>
-  <li><a href="#frequency-distribution-for-categorical-data" id="toc-frequency-distribution-for-categorical-data" class="nav-link" data-scroll-target="#frequency-distribution-for-categorical-data"><span class="header-section-number">4.2</span> Frequency Distribution for Categorical Data</a></li>
-  <li><a href="#frequency-distribution-for-continuous-data" id="toc-frequency-distribution-for-continuous-data" class="nav-link" data-scroll-target="#frequency-distribution-for-continuous-data"><span class="header-section-number">4.3</span> Frequency Distribution for Continuous Data</a></li>
-  <li><a href="#visualizing-frequency-distributions" id="toc-visualizing-frequency-distributions" class="nav-link" data-scroll-target="#visualizing-frequency-distributions"><span class="header-section-number">4.4</span> Visualizing Frequency Distributions</a></li>
+  <li><a href="#what-is-a-frequency-distribution" id="toc-what-is-a-frequency-distribution" class="nav-link" data-scroll-target="#what-is-a-frequency-distribution">What Is a Frequency Distribution?</a></li>
+  <li><a href="#frequency-distribution-for-categorical-data" id="toc-frequency-distribution-for-categorical-data" class="nav-link" data-scroll-target="#frequency-distribution-for-categorical-data">Frequency Distribution for Categorical Data</a></li>
+  <li><a href="#frequency-distribution-for-continuous-data" id="toc-frequency-distribution-for-continuous-data" class="nav-link" data-scroll-target="#frequency-distribution-for-continuous-data">Frequency Distribution for Continuous Data</a></li>
+  <li><a href="#visualizing-frequency-distributions" id="toc-visualizing-frequency-distributions" class="nav-link" data-scroll-target="#visualizing-frequency-distributions">Visualizing Frequency Distributions</a></li>
   </ul></li>
-  <li><a href="#the-normal-distribution" id="toc-the-normal-distribution" class="nav-link" data-scroll-target="#the-normal-distribution"><span class="header-section-number">5</span> The Normal Distribution</a>
+  <li><a href="#the-normal-distribution" id="toc-the-normal-distribution" class="nav-link" data-scroll-target="#the-normal-distribution">The Normal Distribution</a>
   <ul class="collapse">
-  <li><a href="#what-is-the-normal-distribution" id="toc-what-is-the-normal-distribution" class="nav-link" data-scroll-target="#what-is-the-normal-distribution"><span class="header-section-number">5.1</span> What Is the Normal Distribution?</a></li>
-  <li><a href="#key-properties-of-the-normal-distribution" id="toc-key-properties-of-the-normal-distribution" class="nav-link" data-scroll-target="#key-properties-of-the-normal-distribution"><span class="header-section-number">5.2</span> Key Properties of the Normal Distribution</a></li>
-  <li><a href="#the-689599.7-rule-empirical-rule" id="toc-the-689599.7-rule-empirical-rule" class="nav-link" data-scroll-target="#the-689599.7-rule-empirical-rule"><span class="header-section-number">5.3</span> The 68–95–99.7 Rule (Empirical Rule)</a></li>
-  <li><a href="#the-standard-normal-distribution-and-z-score" id="toc-the-standard-normal-distribution-and-z-score" class="nav-link" data-scroll-target="#the-standard-normal-distribution-and-z-score"><span class="header-section-number">5.4</span> The Standard Normal Distribution and Z-Score</a>
+  <li><a href="#what-is-the-normal-distribution" id="toc-what-is-the-normal-distribution" class="nav-link" data-scroll-target="#what-is-the-normal-distribution">What Is the Normal Distribution?</a></li>
+  <li><a href="#key-properties-of-the-normal-distribution" id="toc-key-properties-of-the-normal-distribution" class="nav-link" data-scroll-target="#key-properties-of-the-normal-distribution">Key Properties of the Normal Distribution</a></li>
+  <li><a href="#the-689599.7-rule-empirical-rule" id="toc-the-689599.7-rule-empirical-rule" class="nav-link" data-scroll-target="#the-689599.7-rule-empirical-rule">The 68–95–99.7 Rule (Empirical Rule)</a></li>
+  <li><a href="#the-standard-normal-distribution-and-z-score" id="toc-the-standard-normal-distribution-and-z-score" class="nav-link" data-scroll-target="#the-standard-normal-distribution-and-z-score">The Standard Normal Distribution and Z-Score</a>
   <ul class="collapse">
-  <li><a href="#the-z-score" id="toc-the-z-score" class="nav-link" data-scroll-target="#the-z-score"><span class="header-section-number">5.4.1</span> The Z-Score</a></li>
-  <li><a href="#the-standard-normal-distribution" id="toc-the-standard-normal-distribution" class="nav-link" data-scroll-target="#the-standard-normal-distribution"><span class="header-section-number">5.4.2</span> The Standard Normal Distribution</a></li>
-  <li><a href="#finding-probabilities-using-the-z-table" id="toc-finding-probabilities-using-the-z-table" class="nav-link" data-scroll-target="#finding-probabilities-using-the-z-table"><span class="header-section-number">5.4.3</span> Finding Probabilities Using the Z-Table</a></li>
-  <li><a href="#common-z-table-probability-rules" id="toc-common-z-table-probability-rules" class="nav-link" data-scroll-target="#common-z-table-probability-rules"><span class="header-section-number">5.4.4</span> Common Z-Table Probability Rules</a></li>
+  <li><a href="#the-z-score" id="toc-the-z-score" class="nav-link" data-scroll-target="#the-z-score">The Z-Score</a></li>
+  <li><a href="#the-standard-normal-distribution" id="toc-the-standard-normal-distribution" class="nav-link" data-scroll-target="#the-standard-normal-distribution">The Standard Normal Distribution</a></li>
+  <li><a href="#finding-probabilities-using-the-z-table" id="toc-finding-probabilities-using-the-z-table" class="nav-link" data-scroll-target="#finding-probabilities-using-the-z-table">Finding Probabilities Using the Z-Table</a></li>
+  <li><a href="#common-z-table-probability-rules" id="toc-common-z-table-probability-rules" class="nav-link" data-scroll-target="#common-z-table-probability-rules">Common Z-Table Probability Rules</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><span class="header-section-number">6</span> Key Takeaways</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">7</span> Examples</a>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
   <ul class="collapse">
-  <li><a href="#example-1-constructing-a-frequency-distribution-table" id="toc-example-1-constructing-a-frequency-distribution-table" class="nav-link" data-scroll-target="#example-1-constructing-a-frequency-distribution-table"><span class="header-section-number">7.1</span> Example 1: Constructing a Frequency Distribution Table</a></li>
-  <li><a href="#example-2-applying-the-empirical-rule" id="toc-example-2-applying-the-empirical-rule" class="nav-link" data-scroll-target="#example-2-applying-the-empirical-rule"><span class="header-section-number">7.2</span> Example 2: Applying the Empirical Rule</a></li>
-  <li><a href="#example-3-using-z-scores-and-the-z-table" id="toc-example-3-using-z-scores-and-the-z-table" class="nav-link" data-scroll-target="#example-3-using-z-scores-and-the-z-table"><span class="header-section-number">7.3</span> Example 3: Using Z-Scores and the Z-Table</a></li>
+  <li><a href="#example-1-constructing-a-frequency-distribution-table" id="toc-example-1-constructing-a-frequency-distribution-table" class="nav-link" data-scroll-target="#example-1-constructing-a-frequency-distribution-table">Example 1: Constructing a Frequency Distribution Table</a></li>
+  <li><a href="#example-2-applying-the-empirical-rule" id="toc-example-2-applying-the-empirical-rule" class="nav-link" data-scroll-target="#example-2-applying-the-empirical-rule">Example 2: Applying the Empirical Rule</a></li>
+  <li><a href="#example-3-using-z-scores-and-the-z-table" id="toc-example-3-using-z-scores-and-the-z-table" class="nav-link" data-scroll-target="#example-3-using-z-scores-and-the-z-table">Example 3: Using Z-Scores and the Z-Table</a></li>
   </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">8</span> Exercises</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -267,7 +227,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Random Variable and Probability Distribution</span></h1>
+<h1 class="title"><span class="chapter-title">Random Variable and Probability Distribution</span></h1>
 </div>
 
 
@@ -293,7 +253,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>💡 Why Does This Matter?
+<span class="screen-reader-only">Note</span>Why Does This Matter?
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -309,16 +269,16 @@ window.Quarto = {
 </div>
 <hr>
 </section>
-<section id="frequency-distributions" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Frequency Distributions</h1>
-<section id="what-is-a-frequency-distribution" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="what-is-a-frequency-distribution"><span class="header-section-number">4.1</span> What Is a Frequency Distribution?</h2>
+<section id="frequency-distributions" class="level1">
+<h1>Frequency Distributions</h1>
+<section id="what-is-a-frequency-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-frequency-distribution">What Is a Frequency Distribution?</h2>
 <p>A <strong>frequency distribution</strong> is a systematic way of organizing raw data into a table that shows how often each value (or range of values) occurs.</p>
 <p>It answers the simple question: <em>“How many times does each value appear?”</em></p>
 <hr>
 </section>
-<section id="frequency-distribution-for-categorical-data" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="frequency-distribution-for-categorical-data"><span class="header-section-number">4.2</span> Frequency Distribution for Categorical Data</h2>
+<section id="frequency-distribution-for-categorical-data" class="level2">
+<h2 class="anchored" data-anchor-id="frequency-distribution-for-categorical-data">Frequency Distribution for Categorical Data</h2>
 <p>For categorical variables, we simply count how many observations fall into each category.</p>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -326,29 +286,12 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>📋 Example
+<span class="screen-reader-only">Tip</span>Example
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Blood types of 200 patients admitted to a hospital last month:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>blood <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Blood Type</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"AB"</span>, <span class="st">"O"</span>, <span class="st">"**Total**"</span>),</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frequency =</span> <span class="fu">c</span>(<span class="dv">76</span>, <span class="dv">54</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">200</span>),</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Relative Frequency</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"76/200 = 0.38"</span>, <span class="st">"54/200 = 0.27"</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"30/200 = 0.15"</span>, <span class="st">"40/200 = 0.20"</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"200/200 = **1.00**"</span>),</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Percentage =</span> <span class="fu">c</span>(<span class="st">"38%"</span>, <span class="st">"27%"</span>, <span class="st">"15%"</span>, <span class="st">"20%"</span>, <span class="st">"**100%**"</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(blood,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Blood Type"</span>, <span class="st">"Frequency (f)"</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Relative Frequency (f/n)"</span>, <span class="st">"Percentage"</span>),</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>), <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"bordered"</span>),</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">13</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">5</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">background =</span> <span class="st">"#f0f0f0"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-cat-freq" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-cat-freq-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -391,10 +334,10 @@ Table&nbsp;4.1: Frequency Distribution: Blood Type of 200 Patients
 <td style="text-align: center;">20%</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center; font-weight: bold; background-color: rgba(240, 240, 240, 255) !important; font-weight: bold;">**Total**</td>
-<td style="text-align: center; font-weight: bold; background-color: rgba(240, 240, 240, 255) !important;">200</td>
-<td style="text-align: center; font-weight: bold; background-color: rgba(240, 240, 240, 255) !important;">200/200 = **1.00**</td>
-<td style="text-align: center; font-weight: bold; background-color: rgba(240, 240, 240, 255) !important;">**100%**</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(240, 240, 240, 1) !important; font-weight: bold;">Total</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(240, 240, 240, 1) !important;">200</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(240, 240, 240, 1) !important;">200/200 = 1.00</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(240, 240, 240, 1) !important;">100%</td>
 </tr>
 </tbody>
 </table>
@@ -408,8 +351,8 @@ Table&nbsp;4.1: Frequency Distribution: Blood Type of 200 Patients
 <p><strong>Relative frequency</strong> = <span class="math inline">\(\dfrac{f}{n}\)</span>, where <span class="math inline">\(f\)</span> is the count for that category and <span class="math inline">\(n\)</span> is the total number of observations.</p>
 <hr>
 </section>
-<section id="frequency-distribution-for-continuous-data" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="frequency-distribution-for-continuous-data"><span class="header-section-number">4.3</span> Frequency Distribution for Continuous Data</h2>
+<section id="frequency-distribution-for-continuous-data" class="level2">
+<h2 class="anchored" data-anchor-id="frequency-distribution-for-continuous-data">Frequency Distribution for Continuous Data</h2>
 <p>For continuous variables, we group values into <strong>class intervals</strong> (also called <em>bins</em>) and count how many observations fall in each interval.</p>
 <p><strong>Steps to construct a frequency distribution table:</strong></p>
 <ol type="1">
@@ -424,27 +367,12 @@ Table&nbsp;4.1: Frequency Distribution: Blood Type of 200 Patients
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>📋 Example
+<span class="screen-reader-only">Tip</span>Example
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Systolic blood pressure (mmHg) of 80 patients:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sbp <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">80</span>, <span class="at">mean =</span> <span class="dv">130</span>, <span class="at">sd =</span> <span class="dv">15</span>))</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>breaks <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">95</span>, <span class="dv">175</span>, <span class="at">by =</span> <span class="dv">10</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">paste0</span>(breaks[<span class="sc">-</span><span class="fu">length</span>(breaks)], <span class="st">"–"</span>, breaks[<span class="sc">-</span><span class="dv">1</span>] <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>sbp_cut <span class="ot">&lt;-</span> <span class="fu">cut</span>(sbp, <span class="at">breaks =</span> breaks, <span class="at">right =</span> <span class="cn">FALSE</span>, <span class="at">labels =</span> labels)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>freq_table <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(sbp_cut))</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(freq_table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Class Interval (mmHg)"</span>, <span class="st">"Frequency (f)"</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>freq_table<span class="sc">$</span><span class="st">`</span><span class="at">Relative Frequency</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">round</span>(freq_table<span class="sc">$</span><span class="st">`</span><span class="at">Frequency (f)</span><span class="st">`</span> <span class="sc">/</span> <span class="dv">80</span>, <span class="dv">3</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>freq_table<span class="sc">$</span><span class="st">`</span><span class="at">Cumulative Frequency</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(freq_table<span class="sc">$</span><span class="st">`</span><span class="at">Frequency (f)</span><span class="st">`</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(freq_table, <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"bordered"</span>),</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">13</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-cont-freq" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-cont-freq-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -463,49 +391,49 @@ Table&nbsp;4.2: Frequency Distribution: Systolic Blood Pressure of 80 Patients
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center; font-weight: bold;">95–104</td>
+<td style="text-align: center; font-weight: bold;">95-104</td>
 <td style="text-align: center;">2</td>
 <td style="text-align: center;">0.025</td>
 <td style="text-align: center;">2</td>
 </tr>
 <tr class="even">
-<td style="text-align: center; font-weight: bold;">105–114</td>
+<td style="text-align: center; font-weight: bold;">105-114</td>
 <td style="text-align: center;">9</td>
 <td style="text-align: center;">0.112</td>
 <td style="text-align: center;">11</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center; font-weight: bold;">115–124</td>
+<td style="text-align: center; font-weight: bold;">115-124</td>
 <td style="text-align: center;">17</td>
 <td style="text-align: center;">0.212</td>
 <td style="text-align: center;">28</td>
 </tr>
 <tr class="even">
-<td style="text-align: center; font-weight: bold;">125–134</td>
+<td style="text-align: center; font-weight: bold;">125-134</td>
 <td style="text-align: center;">22</td>
 <td style="text-align: center;">0.275</td>
 <td style="text-align: center;">50</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center; font-weight: bold;">135–144</td>
+<td style="text-align: center; font-weight: bold;">135-144</td>
 <td style="text-align: center;">18</td>
 <td style="text-align: center;">0.225</td>
 <td style="text-align: center;">68</td>
 </tr>
 <tr class="even">
-<td style="text-align: center; font-weight: bold;">145–154</td>
+<td style="text-align: center; font-weight: bold;">145-154</td>
 <td style="text-align: center;">8</td>
 <td style="text-align: center;">0.100</td>
 <td style="text-align: center;">76</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center; font-weight: bold;">155–164</td>
+<td style="text-align: center; font-weight: bold;">155-164</td>
 <td style="text-align: center;">4</td>
 <td style="text-align: center;">0.050</td>
 <td style="text-align: center;">80</td>
 </tr>
 <tr class="even">
-<td style="text-align: center; font-weight: bold;">165–174</td>
+<td style="text-align: center; font-weight: bold;">165-174</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0.000</td>
 <td style="text-align: center;">80</td>
@@ -522,20 +450,10 @@ Table&nbsp;4.2: Frequency Distribution: Systolic Blood Pressure of 80 Patients
 <p><strong>Cumulative frequency</strong> tells us how many observations fall <em>at or below</em> the upper boundary of each class — useful for answering questions like <em>“What proportion of patients have SBP below 140 mmHg?”</em></p>
 <hr>
 </section>
-<section id="visualizing-frequency-distributions" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="visualizing-frequency-distributions"><span class="header-section-number">4.4</span> Visualizing Frequency Distributions</h2>
+<section id="visualizing-frequency-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-frequency-distributions">Visualizing Frequency Distributions</h2>
 <p>A frequency distribution table can be visualized as a <strong>histogram</strong>, where the height of each bar represents the frequency of that class interval.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>sbp_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">sbp =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">80</span>, <span class="at">mean =</span> <span class="dv">130</span>, <span class="at">sd =</span> <span class="dv">15</span>)))</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sbp_data, <span class="fu">aes</span>(<span class="at">x =</span> sbp)) <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">95</span>, <span class="dv">175</span>, <span class="at">by =</span> <span class="dv">10</span>),</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill =</span> <span class="st">"#2c7bb6"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Systolic Blood Pressure (mmHg)"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">95</span>, <span class="dv">175</span>, <span class="at">by =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-hist-freq" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
@@ -553,10 +471,10 @@ Figure&nbsp;4.1: Histogram of Systolic Blood Pressure (80 patients)
 <hr>
 </section>
 </section>
-<section id="the-normal-distribution" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> The Normal Distribution</h1>
-<section id="what-is-the-normal-distribution" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="what-is-the-normal-distribution"><span class="header-section-number">5.1</span> What Is the Normal Distribution?</h2>
+<section id="the-normal-distribution" class="level1">
+<h1>The Normal Distribution</h1>
+<section id="what-is-the-normal-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-the-normal-distribution">What Is the Normal Distribution?</h2>
 <p>The <strong>normal distribution</strong> (also called the <em>Gaussian distribution</em> or <em>bell curve</em>) is the most important probability distribution in statistics.</p>
 <p>Many biological and clinical measurements naturally follow — or approximately follow — a normal distribution:</p>
 <ul>
@@ -566,21 +484,6 @@ Figure&nbsp;4.1: Histogram of Systolic Blood Pressure (80 patients)
 <li>Birth weight of newborns</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">length =</span> <span class="dv">500</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#2c7bb6"</span>, <span class="at">linewidth =</span> <span class="fl">1.4</span>) <span class="sc">+</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">fill =</span> <span class="st">"#abd9e9"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"#d7191c"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="fl">0.43</span>, <span class="at">label =</span> <span class="st">"Mean = Median = Mode"</span>,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"#d7191c"</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="sc">-</span><span class="dv">3</span><span class="sc">:</span><span class="dv">3</span>,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"μ−3σ"</span>,<span class="st">"μ−2σ"</span>,<span class="st">"μ−σ"</span>,<span class="st">"μ"</span>,<span class="st">"μ+σ"</span>,<span class="st">"μ+2σ"</span>,<span class="st">"μ+3σ"</span>)) <span class="sc">+</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Probability Density"</span>) <span class="sc">+</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-normal-intro" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
@@ -596,8 +499,8 @@ Figure&nbsp;5.1: The Normal Distribution: a symmetric, bell-shaped curve
 </div>
 <hr>
 </section>
-<section id="key-properties-of-the-normal-distribution" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="key-properties-of-the-normal-distribution"><span class="header-section-number">5.2</span> Key Properties of the Normal Distribution</h2>
+<section id="key-properties-of-the-normal-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="key-properties-of-the-normal-distribution">Key Properties of the Normal Distribution</h2>
 <p>A normal distribution is completely described by just <strong>two parameters</strong>:</p>
 <table class="caption-top table">
 <colgroup>
@@ -634,41 +537,10 @@ Figure&nbsp;5.1: The Normal Distribution: a symmetric, bell-shaped curve
 </ol>
 <hr>
 </section>
-<section id="the-689599.7-rule-empirical-rule" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="the-689599.7-rule-empirical-rule"><span class="header-section-number">5.3</span> The 68–95–99.7 Rule (Empirical Rule)</h2>
+<section id="the-689599.7-rule-empirical-rule" class="level2">
+<h2 class="anchored" data-anchor-id="the-689599.7-rule-empirical-rule">The 68–95–99.7 Rule (Empirical Rule)</h2>
 <p>One of the most useful facts about the normal distribution is how much of the data falls within 1, 2, or 3 standard deviations of the mean.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">3.8</span>, <span class="fl">3.8</span>, <span class="at">length =</span> <span class="dv">1000</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 3 SD shading</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">subset</span>(df, x <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">3</span> <span class="sc">&amp;</span> x <span class="sc">&lt;=</span> <span class="dv">3</span>),</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(x, y), <span class="at">fill =</span> <span class="st">"#fdae61"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 2 SD shading</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">subset</span>(df, x <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">&amp;</span> x <span class="sc">&lt;=</span> <span class="dv">2</span>),</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(x, y), <span class="at">fill =</span> <span class="st">"#abd9e9"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 1 SD shading</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">subset</span>(df, x <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">&amp;</span> x <span class="sc">&lt;=</span> <span class="dv">1</span>),</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(x, y), <span class="at">fill =</span> <span class="st">"#2c7bb6"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"gray30"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Vertical lines</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="sc">-</span><span class="dv">2</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray50"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Percentage annotations</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="fl">0.20</span>,</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"68%"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">y =</span> <span class="fl">0.07</span>,</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"95%"</span>, <span class="at">color =</span> <span class="st">"#2c7bb6"</span>, <span class="at">size =</span> <span class="fl">4.5</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">2.5</span>, <span class="at">y =</span> <span class="fl">0.02</span>,</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"99.7%"</span>, <span class="at">color =</span> <span class="st">"#d7191c"</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="sc">-</span><span class="dv">3</span><span class="sc">:</span><span class="dv">3</span>,</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"μ−3σ"</span>,<span class="st">"μ−2σ"</span>,<span class="st">"μ−σ"</span>,<span class="st">"μ"</span>,<span class="st">"μ+σ"</span>,<span class="st">"μ+2σ"</span>,<span class="st">"μ+3σ"</span>)) <span class="sc">+</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Probability Density"</span>,</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Blue = 68% | Blue+Teal = 95% | All shaded = 99.7%"</span>) <span class="sc">+</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-empirical" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
@@ -688,7 +560,7 @@ Figure&nbsp;5.2: The 68–95–99.7 Rule for the Normal Distribution
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>📐 The Empirical Rule
+<span class="screen-reader-only">Important</span>The Empirical Rule
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -719,10 +591,10 @@ Figure&nbsp;5.2: The 68–95–99.7 Rule for the Normal Distribution
 </div>
 <hr>
 </section>
-<section id="the-standard-normal-distribution-and-z-score" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="the-standard-normal-distribution-and-z-score"><span class="header-section-number">5.4</span> The Standard Normal Distribution and Z-Score</h2>
-<section id="the-z-score" class="level3" data-number="5.4.1">
-<h3 data-number="5.4.1" class="anchored" data-anchor-id="the-z-score"><span class="header-section-number">5.4.1</span> The Z-Score</h3>
+<section id="the-standard-normal-distribution-and-z-score" class="level2">
+<h2 class="anchored" data-anchor-id="the-standard-normal-distribution-and-z-score">The Standard Normal Distribution and Z-Score</h2>
+<section id="the-z-score" class="level3">
+<h3 class="anchored" data-anchor-id="the-z-score">The Z-Score</h3>
 <p>Different normal distributions have different means and SDs. To compare values across different distributions, we <strong>standardize</strong> them using the <strong>Z-score</strong>:</p>
 <p><span class="math display">\[z = \frac{x - \mu}{\sigma}\]</span></p>
 <p>Where:</p>
@@ -735,26 +607,12 @@ Figure&nbsp;5.2: The 68–95–99.7 Rule for the Normal Distribution
 <p>A <strong>positive Z</strong> means the value is above the mean; a <strong>negative Z</strong> means it is below the mean.</p>
 <hr>
 </section>
-<section id="the-standard-normal-distribution" class="level3" data-number="5.4.2">
-<h3 data-number="5.4.2" class="anchored" data-anchor-id="the-standard-normal-distribution"><span class="header-section-number">5.4.2</span> The Standard Normal Distribution</h3>
+<section id="the-standard-normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="the-standard-normal-distribution">The Standard Normal Distribution</h3>
 <p>When we convert all values to Z-scores, the resulting distribution is called the <strong>standard normal distribution</strong>, with:</p>
 <p><span class="math display">\[\mu = 0 \quad \text{and} \quad \sigma = 1\]</span></p>
 <p>This is written as <span class="math inline">\(Z \sim N(0, 1)\)</span>.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">3.8</span>, <span class="fl">3.8</span>, <span class="at">length =</span> <span class="dv">500</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">dnorm</span>(x))</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">fill =</span> <span class="st">"#abd9e9"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#2c7bb6"</span>, <span class="at">linewidth =</span> <span class="fl">1.3</span>) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"#d7191c"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="sc">-</span><span class="dv">3</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Z"</span>, <span class="at">y =</span> <span class="st">"Probability Density"</span>,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Standard Normal Distribution: N(0, 1)"</span>) <span class="sc">+</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-znorm" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
@@ -770,24 +628,10 @@ Figure&nbsp;5.3: Standard Normal Distribution N(0,1)
 </div>
 <hr>
 </section>
-<section id="finding-probabilities-using-the-z-table" class="level3" data-number="5.4.3">
-<h3 data-number="5.4.3" class="anchored" data-anchor-id="finding-probabilities-using-the-z-table"><span class="header-section-number">5.4.3</span> Finding Probabilities Using the Z-Table</h3>
+<section id="finding-probabilities-using-the-z-table" class="level3">
+<h3 class="anchored" data-anchor-id="finding-probabilities-using-the-z-table">Finding Probabilities Using the Z-Table</h3>
 <p>The <strong>Z-table</strong> (also called the standard normal table) gives us the <strong>area to the left</strong> of any Z-score — which equals the <strong>probability</strong> that a randomly selected observation falls below that value.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>z_vals <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.0</span>, <span class="fl">2.0</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>decimals <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.00</span>, <span class="fl">0.09</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>z_matrix <span class="ot">&lt;-</span> <span class="fu">outer</span>(z_vals, decimals, <span class="cf">function</span>(z, d) {</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="fu">pnorm</span>(z <span class="sc">+</span> d), <span class="dv">4</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(z_matrix) <span class="ot">&lt;-</span> <span class="fu">formatC</span>(z_vals, <span class="at">format =</span> <span class="st">"f"</span>, <span class="at">digits =</span> <span class="dv">1</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(z_matrix) <span class="ot">&lt;-</span> <span class="fu">formatC</span>(decimals, <span class="at">format =</span> <span class="st">"f"</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(z_matrix, <span class="at">caption =</span> <span class="st">"Area to the left of Z (rows = Z integer + 1st decimal, columns = 2nd decimal)"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"condensed"</span>),</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>, <span class="at">font_size =</span> <span class="dv">11</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"#2c7bb6"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-ztable" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ztable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -814,7 +658,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">0.0</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">0.0</td>
 <td style="text-align: right;">0.5000</td>
 <td style="text-align: right;">0.5040</td>
 <td style="text-align: right;">0.5080</td>
@@ -827,7 +671,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.5359</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">0.1</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">0.1</td>
 <td style="text-align: right;">0.5398</td>
 <td style="text-align: right;">0.5438</td>
 <td style="text-align: right;">0.5478</td>
@@ -840,7 +684,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.5753</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">0.2</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">0.2</td>
 <td style="text-align: right;">0.5793</td>
 <td style="text-align: right;">0.5832</td>
 <td style="text-align: right;">0.5871</td>
@@ -853,7 +697,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.6141</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">0.3</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">0.3</td>
 <td style="text-align: right;">0.6179</td>
 <td style="text-align: right;">0.6217</td>
 <td style="text-align: right;">0.6255</td>
@@ -866,7 +710,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.6517</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">0.4</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">0.4</td>
 <td style="text-align: right;">0.6554</td>
 <td style="text-align: right;">0.6591</td>
 <td style="text-align: right;">0.6628</td>
@@ -879,7 +723,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.6879</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">0.5</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">0.5</td>
 <td style="text-align: right;">0.6915</td>
 <td style="text-align: right;">0.6950</td>
 <td style="text-align: right;">0.6985</td>
@@ -892,7 +736,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.7224</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">0.6</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">0.6</td>
 <td style="text-align: right;">0.7257</td>
 <td style="text-align: right;">0.7291</td>
 <td style="text-align: right;">0.7324</td>
@@ -905,7 +749,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.7549</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">0.7</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">0.7</td>
 <td style="text-align: right;">0.7580</td>
 <td style="text-align: right;">0.7611</td>
 <td style="text-align: right;">0.7642</td>
@@ -918,7 +762,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.7852</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">0.8</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">0.8</td>
 <td style="text-align: right;">0.7881</td>
 <td style="text-align: right;">0.7910</td>
 <td style="text-align: right;">0.7939</td>
@@ -931,7 +775,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.8133</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">0.9</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">0.9</td>
 <td style="text-align: right;">0.8159</td>
 <td style="text-align: right;">0.8186</td>
 <td style="text-align: right;">0.8212</td>
@@ -944,7 +788,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.8389</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">1.0</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">1.0</td>
 <td style="text-align: right;">0.8413</td>
 <td style="text-align: right;">0.8438</td>
 <td style="text-align: right;">0.8461</td>
@@ -957,7 +801,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.8621</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">1.1</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">1.1</td>
 <td style="text-align: right;">0.8643</td>
 <td style="text-align: right;">0.8665</td>
 <td style="text-align: right;">0.8686</td>
@@ -970,7 +814,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.8830</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">1.2</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">1.2</td>
 <td style="text-align: right;">0.8849</td>
 <td style="text-align: right;">0.8869</td>
 <td style="text-align: right;">0.8888</td>
@@ -983,7 +827,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.9015</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">1.3</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">1.3</td>
 <td style="text-align: right;">0.9032</td>
 <td style="text-align: right;">0.9049</td>
 <td style="text-align: right;">0.9066</td>
@@ -996,7 +840,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.9177</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">1.4</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">1.4</td>
 <td style="text-align: right;">0.9192</td>
 <td style="text-align: right;">0.9207</td>
 <td style="text-align: right;">0.9222</td>
@@ -1009,7 +853,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.9319</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">1.5</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">1.5</td>
 <td style="text-align: right;">0.9332</td>
 <td style="text-align: right;">0.9345</td>
 <td style="text-align: right;">0.9357</td>
@@ -1022,7 +866,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.9441</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">1.6</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">1.6</td>
 <td style="text-align: right;">0.9452</td>
 <td style="text-align: right;">0.9463</td>
 <td style="text-align: right;">0.9474</td>
@@ -1035,7 +879,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.9545</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">1.7</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">1.7</td>
 <td style="text-align: right;">0.9554</td>
 <td style="text-align: right;">0.9564</td>
 <td style="text-align: right;">0.9573</td>
@@ -1048,7 +892,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.9633</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">1.8</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">1.8</td>
 <td style="text-align: right;">0.9641</td>
 <td style="text-align: right;">0.9649</td>
 <td style="text-align: right;">0.9656</td>
@@ -1061,7 +905,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.9706</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">1.9</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">1.9</td>
 <td style="text-align: right;">0.9713</td>
 <td style="text-align: right;">0.9719</td>
 <td style="text-align: right;">0.9726</td>
@@ -1074,7 +918,7 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 <td style="text-align: right;">0.9767</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 255) !important;">2.0</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">2.0</td>
 <td style="text-align: right;">0.9772</td>
 <td style="text-align: right;">0.9778</td>
 <td style="text-align: right;">0.9783</td>
@@ -1093,57 +937,12 @@ Table&nbsp;5.1: Standard Normal Table (area to the LEFT of Z)
 </figure>
 </div>
 </div>
-<p><strong>How to use the table:</strong> To find <span class="math inline">\(P(Z &lt; 1.23)\)</span>, look at row <strong>1.2</strong> and column <strong>0.03</strong> → read off the value.</p>
+<p><strong>How to use the table:</strong> To find <span class="math inline">\(P(Z &lt; 1.23)\)</span>, look at row <strong>1.2</strong> and column <strong>0.03</strong> read off the value.</p>
 <hr>
 </section>
-<section id="common-z-table-probability-rules" class="level3" data-number="5.4.4">
-<h3 data-number="5.4.4" class="anchored" data-anchor-id="common-z-table-probability-rules"><span class="header-section-number">5.4.4</span> Common Z-Table Probability Rules</h3>
+<section id="common-z-table-probability-rules" class="level3">
+<h3 class="anchored" data-anchor-id="common-z-table-probability-rules">Common Z-Table Probability Rules</h3>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>, <span class="at">length =</span> <span class="dv">500</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>z_val <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">subset</span>(df, x <span class="sc">&lt;=</span> z_val), <span class="at">fill =</span> <span class="st">"#2c7bb6"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> z_val, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"#d7191c"</span>) <span class="sc">+</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">y =</span> <span class="fl">0.15</span>,</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"P(Z &lt; "</span>, z_val, <span class="st">")"</span>), <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"P(Z &lt; z)"</span>, <span class="at">x =</span> <span class="st">"Z"</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, z_val),</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="fu">paste0</span>(<span class="st">"z="</span>,z_val))) <span class="sc">+</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">subset</span>(df, x <span class="sc">&gt;=</span> z_val), <span class="at">fill =</span> <span class="st">"#d7191c"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> z_val, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"#d7191c"</span>) <span class="sc">+</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">2.5</span>, <span class="at">y =</span> <span class="fl">0.15</span>,</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"P(Z &gt; "</span>, z_val, <span class="st">")"</span>), <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"P(Z &gt; z) = 1 − P(Z &lt; z)"</span>, <span class="at">x =</span> <span class="st">"Z"</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, z_val),</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="fu">paste0</span>(<span class="st">"z="</span>,z_val))) <span class="sc">+</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">subset</span>(df, x <span class="sc">&gt;=</span> <span class="sc">-</span>z_val <span class="sc">&amp;</span> x <span class="sc">&lt;=</span> z_val),</span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">"#1a9641"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(<span class="sc">-</span>z_val, z_val),</span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"#d7191c"</span>) <span class="sc">+</span></span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="fl">0.15</span>,</span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"P(−z &lt; Z &lt; z)"</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"P(z₁ &lt; Z &lt; z₂)"</span>, <span class="at">x =</span> <span class="st">"Z"</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span>z_val, <span class="dv">0</span>, z_val),</span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="fu">paste0</span>(<span class="st">"-"</span>,z_val), <span class="st">"0"</span>, z_val)) <span class="sc">+</span></span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
-<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-z-rules" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1163,7 +962,7 @@ Figure&nbsp;5.4: Three useful probability rules for the normal distribution
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>📐 Key Probability Rules
+<span class="screen-reader-only">Important</span>Key Probability Rules
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1199,15 +998,15 @@ Figure&nbsp;5.4: Three useful probability rules for the normal distribution
 </section>
 </section>
 </section>
-<section id="key-takeaways" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Key Takeaways</h1>
+<section id="key-takeaways" class="level1">
+<h1>Key Takeaways</h1>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>📝 Chapter 3 Summary
+<span class="screen-reader-only">Note</span>Chapter 3 Summary
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1222,10 +1021,10 @@ Figure&nbsp;5.4: Three useful probability rules for the normal distribution
 </div>
 <hr>
 </section>
-<section id="examples" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Examples</h1>
-<section id="example-1-constructing-a-frequency-distribution-table" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="example-1-constructing-a-frequency-distribution-table"><span class="header-section-number">7.1</span> Example 1: Constructing a Frequency Distribution Table</h2>
+<section id="examples" class="level1">
+<h1>Examples</h1>
+<section id="example-1-constructing-a-frequency-distribution-table" class="level2">
+<h2 class="anchored" data-anchor-id="example-1-constructing-a-frequency-distribution-table">Example 1: Constructing a Frequency Distribution Table</h2>
 <p>The following are the ages (in years) of 20 patients:</p>
 <p><span class="math display">\[45, 62, 38, 55, 71, 48, 60, 33, 52, 67,\]</span> <span class="math display">\[41, 58, 74, 50, 65, 44, 57, 69, 36, 53\]</span></p>
 <p>Construct a frequency distribution table using <strong>5 class intervals</strong>.</p>
@@ -1235,7 +1034,7 @@ Figure&nbsp;5.4: Three useful probability rules for the normal distribution
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>✅ Solution
+<span class="screen-reader-only">Tip</span>Solution
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1243,21 +1042,6 @@ Figure&nbsp;5.4: Three useful probability rules for the normal distribution
 <p><strong>Step 2 — Calculate class width:</strong> <span class="math display">\[\text{Class width} = \frac{41}{5} = 8.2 \rightarrow \text{round up to } 9\]</span></p>
 <p><strong>Step 3 — Construct the table</strong> (starting from 33):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">45</span>,<span class="dv">62</span>,<span class="dv">38</span>,<span class="dv">55</span>,<span class="dv">71</span>,<span class="dv">48</span>,<span class="dv">60</span>,<span class="dv">33</span>,<span class="dv">52</span>,<span class="dv">67</span>,<span class="dv">41</span>,<span class="dv">58</span>,<span class="dv">74</span>,<span class="dv">50</span>,<span class="dv">65</span>,<span class="dv">44</span>,<span class="dv">57</span>,<span class="dv">69</span>,<span class="dv">36</span>,<span class="dv">53</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>breaks2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">33</span>, <span class="dv">42</span>, <span class="dv">51</span>, <span class="dv">60</span>, <span class="dv">69</span>, <span class="dv">78</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>labels2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"33–41"</span>,<span class="st">"42–50"</span>,<span class="st">"51–59"</span>,<span class="st">"60–68"</span>,<span class="st">"69–77"</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>age_cut <span class="ot">&lt;-</span> <span class="fu">cut</span>(ages, <span class="at">breaks =</span> breaks2, <span class="at">right =</span> <span class="cn">TRUE</span>, <span class="at">labels =</span> labels2,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>ft <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(age_cut))</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(ft) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Age Group (years)"</span>, <span class="st">"Frequency (f)"</span>)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>ft<span class="sc">$</span><span class="st">`</span><span class="at">Relative Frequency</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">round</span>(ft<span class="sc">$</span><span class="st">`</span><span class="at">Frequency (f)</span><span class="st">`</span> <span class="sc">/</span> <span class="dv">20</span>, <span class="dv">2</span>)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>ft<span class="sc">$</span>Percentage <span class="ot">&lt;-</span> <span class="fu">paste0</span>(ft<span class="sc">$</span><span class="st">`</span><span class="at">Relative Frequency</span><span class="st">`</span> <span class="sc">*</span> <span class="dv">100</span>, <span class="st">"%"</span>)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>ft<span class="sc">$</span><span class="st">`</span><span class="at">Cumulative Frequency</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(ft<span class="sc">$</span><span class="st">`</span><span class="at">Frequency (f)</span><span class="st">`</span>)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(ft, <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>,<span class="st">"hover"</span>,<span class="st">"bordered"</span>),</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">13</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-ex1" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ex1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1277,35 +1061,35 @@ Table&nbsp;7.1: Frequency Distribution of Patient Ages (n = 20)
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center; font-weight: bold;">33–41</td>
+<td style="text-align: center; font-weight: bold;">33-41</td>
 <td style="text-align: center;">4</td>
 <td style="text-align: center;">0.2</td>
 <td style="text-align: center;">20%</td>
 <td style="text-align: center;">4</td>
 </tr>
 <tr class="even">
-<td style="text-align: center; font-weight: bold;">42–50</td>
+<td style="text-align: center; font-weight: bold;">42-50</td>
 <td style="text-align: center;">4</td>
 <td style="text-align: center;">0.2</td>
 <td style="text-align: center;">20%</td>
 <td style="text-align: center;">8</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center; font-weight: bold;">51–59</td>
+<td style="text-align: center; font-weight: bold;">51-59</td>
 <td style="text-align: center;">6</td>
 <td style="text-align: center;">0.3</td>
 <td style="text-align: center;">30%</td>
 <td style="text-align: center;">14</td>
 </tr>
 <tr class="even">
-<td style="text-align: center; font-weight: bold;">60–68</td>
+<td style="text-align: center; font-weight: bold;">60-68</td>
 <td style="text-align: center;">4</td>
 <td style="text-align: center;">0.2</td>
 <td style="text-align: center;">20%</td>
 <td style="text-align: center;">18</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center; font-weight: bold;">69–77</td>
+<td style="text-align: center; font-weight: bold;">69-77</td>
 <td style="text-align: center;">2</td>
 <td style="text-align: center;">0.1</td>
 <td style="text-align: center;">10%</td>
@@ -1323,8 +1107,8 @@ Table&nbsp;7.1: Frequency Distribution of Patient Ages (n = 20)
 </div>
 <hr>
 </section>
-<section id="example-2-applying-the-empirical-rule" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="example-2-applying-the-empirical-rule"><span class="header-section-number">7.2</span> Example 2: Applying the Empirical Rule</h2>
+<section id="example-2-applying-the-empirical-rule" class="level2">
+<h2 class="anchored" data-anchor-id="example-2-applying-the-empirical-rule">Example 2: Applying the Empirical Rule</h2>
 <p>The systolic blood pressure (SBP) of adults in a community follows a normal distribution with <strong>mean = 125 mmHg</strong> and <strong>SD = 14 mmHg</strong>.</p>
 <p><strong>(a)</strong> Between what two values does the SBP of the <strong>middle 95%</strong> of adults fall?</p>
 <p><strong>(b)</strong> What percentage of adults have SBP <strong>above 153 mmHg</strong>?</p>
@@ -1334,7 +1118,7 @@ Table&nbsp;7.1: Frequency Distribution of Patient Ages (n = 20)
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>✅ Solution
+<span class="screen-reader-only">Tip</span>Solution
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1347,8 +1131,8 @@ Table&nbsp;7.1: Frequency Distribution of Patient Ages (n = 20)
 </div>
 <hr>
 </section>
-<section id="example-3-using-z-scores-and-the-z-table" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="example-3-using-z-scores-and-the-z-table"><span class="header-section-number">7.3</span> Example 3: Using Z-Scores and the Z-Table</h2>
+<section id="example-3-using-z-scores-and-the-z-table" class="level2">
+<h2 class="anchored" data-anchor-id="example-3-using-z-scores-and-the-z-table">Example 3: Using Z-Scores and the Z-Table</h2>
 <p>Body weight of adult males in a region is approximately normally distributed with <strong>mean = 70 kg</strong> and <strong>SD = 10 kg</strong>.</p>
 <p><strong>(a)</strong> What is the probability that a randomly selected adult male weighs <strong>less than 85 kg</strong>?</p>
 <p><strong>(b)</strong> What is the probability that he weighs <strong>more than 55 kg</strong>?</p>
@@ -1359,7 +1143,7 @@ Table&nbsp;7.1: Frequency Distribution of Patient Ages (n = 20)
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>✅ Solution
+<span class="screen-reader-only">Tip</span>Solution
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1382,15 +1166,15 @@ Table&nbsp;7.1: Frequency Distribution of Patient Ages (n = 20)
 <hr>
 </section>
 </section>
-<section id="exercises" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Exercises</h1>
+<section id="exercises" class="level1">
+<h1>Exercises</h1>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>✏️ Exercise 1
+<span class="screen-reader-only">Caution</span>Exercise 1
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1407,7 +1191,7 @@ Table&nbsp;7.1: Frequency Distribution of Patient Ages (n = 20)
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>✏️ Exercise 2
+<span class="screen-reader-only">Caution</span>Exercise 2
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1424,7 +1208,7 @@ Table&nbsp;7.1: Frequency Distribution of Patient Ages (n = 20)
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>✏️ Exercise 3
+<span class="screen-reader-only">Caution</span>Exercise 3
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1445,7 +1229,7 @@ Table&nbsp;7.1: Frequency Distribution of Patient Ages (n = 20)
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>📚 Coming Up Next
+<span class="screen-reader-only">Note</span>Coming Up Next
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1860,12 +1644,12 @@ Table&nbsp;7.1: Frequency Distribution of Patient Ages (n = 20)
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./chapter02_data_summarization.html" class="pagination-link" aria-label="Data Summarization">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Summarization</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Data Summarization</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./chapter04_estimation.html" class="pagination-link" aria-label="Estimation">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estimation</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-title">Estimation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
