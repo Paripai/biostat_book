@@ -423,13 +423,13 @@ xbar <- mean(hr)
 
 sd_table <- data.frame(
   `Patient` = paste0("Patient ", 1:9),
-  `Heart Rate (xᵢ)` = hr,
-  `xᵢ − x̄` = round(hr - xbar, 1),
-  `(xᵢ − x̄)²` = round((hr - xbar)^2, 2)
+  `Heart Rate (x)` = hr,
+  `x − x̄` = round(hr - xbar, 1),
+  `(x − x̄)²` = round((hr - xbar)^2, 2)
 )
 
 kable(sd_table,
-      col.names = c("Patient", "Heart Rate (xᵢ)", "xᵢ − x̄", "(xᵢ − x̄)²"),
+      col.names = c("Patient", "Heart Rate (x)", "x − x̄", "(x − x̄)²"),
       align = c("l","c","c","c")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
                 full_width = FALSE, font_size = 13) |>

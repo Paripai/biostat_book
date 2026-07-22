@@ -33,3 +33,6 @@ format:
     number-sections: false
     geometry: margin=1in
     fontsize: 12pt
+    mainfont: "DejaVu Serif"
+    sansfont: "DejaVu Sans"
+    monofont: "DejaVu Sans Mono"
