@@ -86,7 +86,7 @@ The alternative hypothesis can be **directional** or **non-directional**:
 
 tails <- data.frame(
   Type = c("Two-tailed", "One-tailed (right)", "One-tailed (left)"),
-  `H₁` = c("μ ≠ μ₀  (different from)", "μ > μ₀  (greater than)", "μ < μ₀  (less than)"),
+  `H1` = c("mu != mu0  (different from)", "mu > mu0  (greater than)", "mu < mu0  (less than)"),
   `Use When` = c(
     "You want to detect a difference in either direction (most common)",
     "You specifically expect the value to be higher",
@@ -94,7 +94,7 @@ tails <- data.frame(
   )
 )
 
-kable(tails, col.names = c("Test Type", "H₁", "Use When"),
+kable(tails, col.names = c("Test Type", "H1", "Use When"),
       align = c("l","l","l")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
                 full_width = FALSE, font_size = 13) |>
@@ -159,14 +159,14 @@ When making a decision about $H_0$, two types of errors are possible:
 #| tbl-cap: "Type I and Type II Errors in Hypothesis Testing"
 
 errors <- data.frame(
-  ` ` = c("Reject H₀", "Fail to reject H₀"),
- `H₀ is actually TRUE` = c("Type I Error (α) — False Positive",
+  ` ` = c("Reject H0", "Fail to reject H0"),
+ `H0 is actually TRUE` = c("Type I Error (alpha) - False Positive",
                             "Correct Decision"),
-  `H₀ is actually FALSE` = c("Correct Decision (Power = 1 − β)",
-                             "Type II Error (β) — False Negative")
+  `H0 is actually FALSE` = c("Correct Decision (Power = 1 - beta)",
+                             "Type II Error (beta) - False Negative")
 )
 
-kable(errors, col.names = c("Our Decision", "H₀ is TRUE", "H₀ is FALSE"),
+kable(errors, col.names = c("Our Decision", "H0 is TRUE", "H0 is FALSE"),
       align = c("l","c","c")) |>
   kable_styling(bootstrap_options = c("bordered"),
                 full_width = FALSE, font_size = 13) |>
@@ -257,14 +257,14 @@ If this condition is violated, use **Fisher's exact test** instead
 
 ```{r}
 #| label: tbl-chisq
-#| tbl-cap: "Chi-Square Critical Values at α = 0.05"
+#| tbl-cap: "Chi-Square Critical Values at alpha = 0.05"
 
 df_chi  <- 1:10
 cv_chi  <- round(qchisq(0.95, df = df_chi), 3)
 
 chi_tab <- data.frame(df = df_chi, critical = cv_chi)
 
-kable(chi_tab, col.names = c("Degrees of Freedom (df)", "χ² critical value (α = 0.05)"),
+kable(chi_tab, col.names = c("Degrees of Freedom (df)", "chi2 critical value (alpha = 0.05)"),
       align = c("c","c")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
                 full_width = FALSE, font_size = 13) |>
@@ -739,7 +739,7 @@ pair_tab <- data.frame(
 
 kable(pair_tab,
       col.names = c("Patient", "DBP Before (mmHg)",
-                    "DBP After (mmHg)", "Difference d = Before − After"),
+                    "DBP After (mmHg)", "Difference d = Before - After"),
       align = c("l","c","c","c")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
                 full_width = FALSE, font_size = 13) |>

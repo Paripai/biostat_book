@@ -206,8 +206,8 @@ terms <- data.frame(
   Definition = c(
     "The entire group of interest",
     "A selected subset of the population",
-    "A numerical summary describing the population (e.g., population mean μ)",
-    "A numerical summary calculated from the sample (e.g., sample mean x̄)",
+    "A numerical summary describing the population (e.g., population mean mu)",
+    "A numerical summary calculated from the sample (e.g., sample mean xbar)",
     "A characteristic being measured or observed (e.g., age, blood pressure)",
     "A single recorded value for one individual"
   ),

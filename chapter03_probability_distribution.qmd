@@ -107,7 +107,7 @@ set.seed(123)
 sbp <- round(rnorm(80, mean = 130, sd = 15))
 
 breaks <- seq(95, 175, by = 10)
-labels <- paste0(breaks[-length(breaks)], "–", breaks[-1] - 1)
+labels <- paste0(breaks[-length(breaks)], "-", breaks[-1] - 1)
 sbp_cut <- cut(sbp, breaks = breaks, right = FALSE, labels = labels)
 freq_table <- as.data.frame(table(sbp_cut))
 colnames(freq_table) <- c("Class Interval (mmHg)", "Frequency (f)")
@@ -481,7 +481,7 @@ $$\text{Class width} = \frac{41}{5} = 8.2 \rightarrow \text{round up to } 9$$
 
 ages <- c(45,62,38,55,71,48,60,33,52,67,41,58,74,50,65,44,57,69,36,53)
 breaks2 <- c(33, 42, 51, 60, 69, 78)
-labels2 <- c("33–41","42–50","51–59","60–68","69–77")
+labels2 <- c("33-41","42-50","51-59","60-68","69-77")
 age_cut <- cut(ages, breaks = breaks2, right = TRUE, labels = labels2,
                include.lowest = TRUE)
 ft <- as.data.frame(table(age_cut))

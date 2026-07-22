@@ -157,13 +157,13 @@ normal table and SPSS `IDF.NORMAL`). It depends on the confidence level:
 
 crit <- data.frame(
   `Confidence Level` = c("90%", "95%", "99%"),
-  `α` = c("0.10", "0.05", "0.01"),
-  `1 − α/2` = c("0.950", "0.975", "0.995"),
-  `z(1−α/2)` = c("1.645", "1.960", "2.576")
+  `alpha` = c("0.10", "0.05", "0.01"),
+  `1 - alpha/2` = c("0.950", "0.975", "0.995"),
+  `z(1-alpha/2)` = c("1.645", "1.960", "2.576")
 )
 
 kable(crit,
-      col.names = c("Confidence Level", "α", "1 − α/2 (left area)", "z(1−α/2)"),
+      col.names = c("Confidence Level", "alpha", "1 - alpha/2 (left area)", "z(1-alpha/2)"),
       align = c("c","c","c","c")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
                 full_width = FALSE, font_size = 13) |>
@@ -237,11 +237,11 @@ t_vals  <- qt(0.975, df = df_vals)
 t_vals[length(t_vals)] <- 1.960
 
 t_tab <- data.frame(
-  df = c(as.character(df_vals[-length(df_vals)]), "∞ (Z)"),
+  df = c(as.character(df_vals[-length(df_vals)]), "Inf (Z)"),
   t  = round(t_vals, 3)
 )
 
-kable(t_tab, col.names = c("Degrees of Freedom (df = n−1)", "t(0.975, df)"),
+kable(t_tab, col.names = c("Degrees of Freedom (df = n-1)", "t(0.975, df)"),
       align = c("c","c")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
                 full_width = FALSE, font_size = 13) |>
@@ -450,7 +450,7 @@ compare the 95% CI when $n = 36$, $n = 100$, and $n = 400$.
 
 ```{r}
 #| label: tbl-ci-width
-#| tbl-cap: "Effect of Sample Size on CI Width (x̄ = 105.4, s = 18.6, 95% CI)"
+#| tbl-cap: "Effect of Sample Size on CI Width (xbar = 105.4, s = 18.6, 95% CI)"
 
 ns   <- c(36, 100, 400)
 se   <- 18.6 / sqrt(ns)

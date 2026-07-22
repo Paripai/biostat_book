@@ -185,7 +185,7 @@ In clinical practice, you may see lab reports written as:
 
 vm <- data.frame(
   Measure = c("Mean", "Median", "Mode", "Range", "Variance", "Standard Deviation"),
-  Symbol = c("x̄", "Md", "Mo", "Max − Min", "s²", "s"),
+  Symbol = c("xbar", "Md", "Mo", "Max - Min", "s2", "s"),
   Purpose = c("Central tendency", "Central tendency",
                "Central tendency", "Spread",
                "Spread (squared units)", "Spread (original units)"),
@@ -321,7 +321,7 @@ ggplot(stay, aes(x = ward, y = days, fill = ward)) +
 charts <- data.frame(
   `Chart Type` = c("Bar Chart", "Pie Chart", "Histogram", "Box Plot"),
   `Data Type` = c("Categorical (Nominal/Ordinal)",
-                   "Categorical (Nominal) — proportions",
+                   "Categorical (Nominal) - proportions",
                    "Numerical (Continuous)",
                    "Numerical (Continuous/Discrete)"),
   `What It Shows` = c(
@@ -424,12 +424,12 @@ xbar <- mean(hr)
 sd_table <- data.frame(
   `Patient` = paste0("Patient ", 1:9),
   `Heart Rate (x)` = hr,
-  `x − x̄` = round(hr - xbar, 1),
-  `(x − x̄)²` = round((hr - xbar)^2, 2)
+  `x - xbar` = round(hr - xbar, 1),
+  `(x - xbar)2` = round((hr - xbar)^2, 2)
 )
 
 kable(sd_table,
-      col.names = c("Patient", "Heart Rate (x)", "x − x̄", "(x − x̄)²"),
+      col.names = c("Patient", "Heart Rate (x)", "x - xbar", "(x - xbar)2"),
       align = c("l","c","c","c")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
                 full_width = FALSE, font_size = 13) |>
