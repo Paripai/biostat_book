@@ -10,3 +10,5 @@
 /site_libs/
 .Rproj.user
 .Rhistory
+
+**/*.quarto_ipynb

@@ -360,7 +360,7 @@ statistically significant.
 #| tbl-cap: "SPSS Output: Coefficients Table"
 
 coef_tab <- data.frame(
-  ` ` = c("(Constant)", "X (predictor)"),
+  ` ` = c("Constant", "X (predictor)"),
   B = c("32.15", "0.87"),
   SE = c("6.24", "0.10"),
   Beta = c("-", "0.821"),
@@ -374,7 +374,7 @@ kable(coef_tab,
   kable_styling(bootstrap_options = c("bordered"),
                 full_width = FALSE, font_size = 13) |>
   row_spec(0, bold = TRUE, color = "white", background = "#2c7bb6") |>
-  row_spec(2, bold = TRUE, background = "#eaf4fb")
+  row_spec(2, bold = TRUE)
 ```
 
  **Regression equation:** $\hat{Y} = 32.15 + 0.87X$
@@ -483,7 +483,7 @@ kable(calc_all,
       align = rep("c", 8), na_print = "-") |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
                 full_width = FALSE, font_size = 12) |>
-  row_spec(9, bold = TRUE, background = "#eaf4fb") |>
+  row_spec(9, bold = TRUE) |>
   row_spec(0, bold = TRUE, color = "white", background = "#2c7bb6")
 ```
 
@@ -570,7 +570,7 @@ The following output is obtained:
 
 | | B | Std. Error | t | Sig. |
 |---|:---:|:---:|:---:|:---:|
-| (Constant) | 48.32 | 11.45 | 4.22 | < 0.001 |
+| Constant | 48.32 | 11.45 | 4.22 | < 0.001 |
 | BMI | 2.91 | 0.46 | 6.33 | < 0.001 |
 
 ::: {.callout-tip icon=false}
@@ -644,7 +644,7 @@ The SPSS output gives the following results:
 
 | | B | Std. Error | t | Sig. |
 |---|:---:|:---:|:---:|:---:|
-| (Constant) | 120.4 | 18.6 | 6.47 | < 0.001 |
+| Constant | 120.4 | 18.6 | 6.47 | < 0.001 |
 | Age | 1.85 | 0.31 | 5.97 | < 0.001 |
 
 **(a)** Write the regression equation.
