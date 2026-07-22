@@ -97,7 +97,7 @@ tails <- data.frame(
 kable(tails, col.names = c("Test Type", "H₁", "Use When"),
       align = c("l","l","l")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = TRUE, font_size = 13) |>
+                full_width = FALSE, font_size = 13) |>
   column_spec(1, bold = TRUE, color = "#2c7bb6") |>
   row_spec(1, background = "#eaf4fb")
 ```
@@ -159,17 +159,17 @@ When making a decision about $H_0$, two types of errors are possible:
 #| tbl-cap: "Type I and Type II Errors in Hypothesis Testing"
 
 errors <- data.frame(
-  ` ` = c("**Reject H₀**", "**Fail to reject H₀**"),
- `H₀ is actually TRUE` = c(" Type I Error (α)\n(False Positive)",
- " Correct Decision"),
- `H₀ is actually FALSE` = c(" Correct Decision\n(Power = 1 − β)",
- " Type II Error (β)\n(False Negative)")
+  ` ` = c("Reject H₀", "Fail to reject H₀"),
+ `H₀ is actually TRUE` = c("Type I Error (α) — False Positive",
+                            "Correct Decision"),
+  `H₀ is actually FALSE` = c("Correct Decision (Power = 1 − β)",
+                             "Type II Error (β) — False Negative")
 )
 
 kable(errors, col.names = c("Our Decision", "H₀ is TRUE", "H₀ is FALSE"),
       align = c("l","c","c"), escape = FALSE) |>
   kable_styling(bootstrap_options = c("bordered"),
-                full_width = TRUE, font_size = 13) |>
+                full_width = FALSE, font_size = 13) |>
   column_spec(1, bold = TRUE) |>
   column_spec(2, background = c("#fde0d9","#d9f0d3")) |>
   column_spec(3, background = c("#d9f0d3","#fde0d9"))
@@ -433,7 +433,7 @@ kable(tests,
                     "Statistical Test", "SPSS Procedure"),
       align = c("l","l","l","l")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = TRUE, font_size = 12) |>
+                full_width = FALSE, font_size = 12) |>
   column_spec(3, bold = TRUE, color = "#2c7bb6")
 ```
 

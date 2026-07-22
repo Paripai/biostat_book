@@ -113,7 +113,7 @@ ct <- data.frame(
 kable(ct, col.names = c("Measure", "Best For", "Nursing Example"),
       align = c("l","l","l")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = TRUE, font_size = 13) |>
+                full_width = FALSE, font_size = 13) |>
   column_spec(1, bold = TRUE, color = "#2c7bb6")
 ```
 
@@ -197,7 +197,7 @@ vm <- data.frame(
 kable(vm, col.names = c("Measure","Symbol","Purpose","Appropriate Data Type"),
       align = c("l","c","l","l"), escape = FALSE) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = TRUE, font_size = 13) |>
+                full_width = FALSE, font_size = 13) |>
   column_spec(1, bold = TRUE, color = "#2c7bb6")
 ```
 
@@ -342,7 +342,7 @@ kable(charts,
       col.names = c("Chart Type","Data Type","What It Shows","Nursing Example"),
       align = c("l","l","l","l")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = TRUE, font_size = 13) |>
+                full_width = FALSE, font_size = 13) |>
   column_spec(1, bold = TRUE, color = "#2c7bb6")
 ```
 

@@ -297,7 +297,7 @@ assump <- data.frame(
 kable(assump, col.names = c("Assumption", "Meaning", "How to Check"),
       align = c("l","l","l")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = TRUE, font_size = 13) |>
+                full_width = FALSE, font_size = 13) |>
   column_spec(1, bold = TRUE, color = "#2c7bb6")
 ```
 
@@ -482,7 +482,7 @@ kable(calc_all,
                     "(x−x̄)²","(y−ȳ)²","(x−x̄)(y−ȳ)"),
       align = rep("c", 8), escape = FALSE, na_print = "—") |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = TRUE, font_size = 12) |>
+                full_width = FALSE, font_size = 12) |>
   row_spec(9, bold = TRUE, background = "#eaf4fb") |>
   row_spec(0, bold = TRUE, color = "white", background = "#2c7bb6")
 ```
