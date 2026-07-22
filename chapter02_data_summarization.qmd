@@ -185,7 +185,7 @@ In clinical practice, you may see lab reports written as:
 
 vm <- data.frame(
   Measure = c("Mean", "Median", "Mode", "Range", "Variance", "Standard Deviation"),
-  Symbol = c("$\\bar{x}$", "Md", "Mo", "Max − Min", "$s^2$", "$s$"),
+  Symbol = c("x̄", "Md", "Mo", "Max − Min", "s²", "s"),
   Purpose = c("Central tendency", "Central tendency",
                "Central tendency", "Spread",
                "Spread (squared units)", "Spread (original units)"),
@@ -195,7 +195,7 @@ vm <- data.frame(
 )
 
 kable(vm, col.names = c("Measure","Symbol","Purpose","Appropriate Data Type"),
-      align = c("l","c","l","l"), escape = FALSE) |>
+      align = c("l","c","l","l")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
                 full_width = FALSE, font_size = 13) |>
   column_spec(1, bold = TRUE, color = "#2c7bb6")

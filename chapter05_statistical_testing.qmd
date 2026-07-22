@@ -167,7 +167,7 @@ errors <- data.frame(
 )
 
 kable(errors, col.names = c("Our Decision", "H₀ is TRUE", "H₀ is FALSE"),
-      align = c("l","c","c"), escape = FALSE) |>
+      align = c("l","c","c")) |>
   kable_styling(bootstrap_options = c("bordered"),
                 full_width = FALSE, font_size = 13) |>
   column_spec(1, bold = TRUE) |>

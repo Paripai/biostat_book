@@ -1,12 +1,16 @@
 project:
   type: book
 
+knitr:
+  opts_chunk:
+    dev: "ragg_png"
+
 book:
   title: "Introduction to Biostatistics"
   subtitle: "208141"
   author: "Parichart Pattarapanitchai"
-  date: today
   downloads: [pdf]
+  date: "today"
   chapters:
     - index.qmd
     - chapter01_data_in_health_science.qmd
@@ -16,16 +20,16 @@ book:
     - chapter05_statistical_testing.qmd
     - chapter06_statistical_modeling.qmd
 
-execute:
-  echo: false
-  warning: false
-  message: false
-
 format:
   html:
-    theme: cosmo
     toc: true
-    number-sections: true
+    toc-depth: 3
+    toc-title: "Contents"
+    theme: cosmo
+    highlight-style: github
+    number-sections: false
+    fig-width: 8
+    fig-height: 5
   pdf:
     pdf-engine: xelatex
     documentclass: scrreprt
@@ -33,6 +37,8 @@ format:
     number-sections: false
     geometry: margin=1in
     fontsize: 12pt
-    mainfont: "DejaVu Serif"
-    sansfont: "DejaVu Sans"
-    monofont: "DejaVu Sans Mono"
+
+execute:
+  echo: false
+  warning: false
+  message: false

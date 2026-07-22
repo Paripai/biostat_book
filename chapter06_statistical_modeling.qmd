@@ -480,7 +480,7 @@ calc_all <- rbind(calc, totrow)
 kable(calc_all,
       col.names = c("Subject","x","y","x−x̄","y−ȳ",
                     "(x−x̄)²","(y−ȳ)²","(x−x̄)(y−ȳ)"),
-      align = rep("c", 8), escape = FALSE, na_print = "—") |>
+      align = rep("c", 8), na_print = "-") |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
                 full_width = FALSE, font_size = 12) |>
   row_spec(9, bold = TRUE, background = "#eaf4fb") |>
