@@ -326,6 +326,107 @@ for groups 1 and 2 respectively.
 For large samples, $U$ is approximately normally distributed and a Z-score
 can be computed. In practice, **SPSS computes the p-value directly**.
 
+## Wilcoxon Signed-Ranks Test for Two Related Groups
+
+### When to Use
+
+The **Wilcoxon signed-ranks test** (also called the Wilcoxon matched-pairs
+test) is the non-parametric alternative to the **paired samples t-test**.
+It is used when:
+
+- The outcome variable is **ordinal**, or
+- The **differences** between pairs are **not normally distributed**
+  (especially with small samples)
+- The two sets of measurements are **related (paired)** — for example,
+  the same patients measured before and after treatment, or two
+  measurements taken on the same blood sample
+
+::: {.callout-important icon=false}
+## Mann-Whitney or Wilcoxon?
+Both tests work with ranks, so they are easy to confuse. The difference
+is the **study design**, exactly as with the two t-tests:
+
+- **Two independent groups** (different people in each group)
+  $\rightarrow$ **Mann-Whitney U test**
+- **Two related groups** (the same people measured twice)
+  $\rightarrow$ **Wilcoxon signed-ranks test**
+:::
+
+### How It Works
+
+The Wilcoxon test looks at the **differences within each pair**, and then
+ranks the **sizes** of those differences.
+
+**Steps:**
+
+1. For each pair, calculate the difference $d_i = x_{i,1} - x_{i,2}$.
+2. **Discard** any pair whose difference is zero.
+3. Rank the **absolute** differences $|d_i|$ from smallest to largest,
+   assigning average ranks to ties.
+4. Attach to each rank the **sign** of its original difference.
+5. Add the ranks belonging to the positive differences ($W^{+}$) and the
+   ranks belonging to the negative differences ($W^{-}$).
+
+### The Test Statistic
+
+$$W = \min(W^{+},\; W^{-})$$
+
+If the two conditions really are the same, the positive and negative
+ranks should roughly balance, so $W^{+}$ and $W^{-}$ should be similar.
+A **small** value of $W$ means the differences fall mostly in one
+direction, which is evidence against $H_0$.
+
+For larger samples the test statistic is converted to a Z-score, and this
+is what **SPSS reports** together with the p-value:
+
+$$H_0: \text{the two related measurements are equal}$$
+$$H_1: \text{the two related measurements are different}$$
+
+::: {.callout-tip icon=false}
+## Reading the SPSS Output
+Choose **Analyze** $\rightarrow$ **Nonparametric Tests** $\rightarrow$
+**2 Related Samples**, and tick **Wilcoxon**. The *Test Statistics*
+table reports $Z$ and the 2-tailed significance. As always, decide by
+comparing the p-value with $\alpha$ — the sign of $Z$ only indicates the
+direction of the ranks, not the importance of the result.
+:::
+
+### Worked Example
+
+Blood clotting time was measured for **8 patients** using two solutions.
+Blood was taken from each patient and divided into two parts, so the two
+measurements are **paired**.
+
+```{r}
+#| label: tbl-wilcoxon
+#| tbl-cap: "Blood clotting time using two solutions (n = 8 patients)"
+
+pt   <- 1:8
+sol1 <- c(3, 5, 5, 4, 3, 7, 8, 7)
+gsol <- c(7, 6, 3, 8, 5, 9, 7, 9)
+dif  <- sol1 - gsol
+
+wil <- data.frame(Patient = pt, Shrimp = sol1, Standard = gsol, d = dif)
+
+kable(wil,
+      col.names = c("Patient", "Shrimp-shell extract",
+                    "Standard solution", "Difference d"),
+      align = c("c","c","c","c")) |>
+  kable_styling(bootstrap_options = c("striped","hover","bordered"),
+                full_width = FALSE, font_size = 12) |>
+  row_spec(0, bold = TRUE, color = "white", background = "#2c7bb6")
+```
+
+Because the sample is small ($n = 8$) and the outcome is a clotting time
+that need not be normally distributed, the **Wilcoxon signed-ranks test**
+is used rather than the paired t-test. SPSS reports:
+
+$$Z = -1.706, \qquad p\text{-value} = 0.088$$
+
+Since $p = 0.088 > \alpha = 0.05$, we **do not reject** $H_0$. There is
+not enough evidence to say that the clotting times produced by the two
+solutions differ, at the 0.05 level of significance.
+
 ---
 
 # Statistical Testing on Quantitative Data
@@ -412,18 +513,22 @@ The test statistic follows a **t-distribution** with $df = n - 1$.
 tests <- data.frame(
   `Data Type` = c("Categorical (Nominal)",
                    "Ordinal or non-normal continuous",
+                   "Ordinal or non-normal continuous",
                    "Continuous (normal)",
                    "Continuous (normal)"),
   `Groups` = c("2 independent groups",
                 "2 independent groups",
+                "2 related (paired) groups",
                 "2 independent groups",
                 "2 related (paired) groups"),
   `Correct Test` = c("Chi-square test",
                       "Mann-Whitney U test",
+                      "Wilcoxon signed-ranks test",
                       "Independent samples t-test",
                       "Paired samples t-test"),
  `SPSS Procedure` = c("Analyze Descriptive Statistics Crosstabs",
  "Analyze Nonparametric Legacy Dialogs 2 Independent Samples",
+ "Analyze Nonparametric Legacy Dialogs 2 Related Samples",
  "Analyze Compare Means Independent Samples T Test",
  "Analyze Compare Means Paired Samples T Test")
 )
@@ -441,101 +546,50 @@ kable(tests,
 #| label: fig-test-flowchart
 #| fig-cap: "Decision flowchart for selecting the correct test (two-group comparisons)"
 #| fig-align: center
-#| fig-height: 5
+#| fig-height: 5.4
 #| fig-width: 9
 
-nodes <- data.frame(
-  x     = c(5,   5,   2,   8,   1,   3,   6,   6,   8  ),
-  y     = c(9,   7,   5,   5,   3,   3,   6,   4,   3  ),
-  label = c("Comparing\n2 groups",
-            "What type of\noutcome variable?",
-            "Categorical\n(Nominal)",
-            "Continuous\nor Ordinal",
-            "Chi-square\ntest",
-            "Chi-square\ntest",
-            "Are groups\nindependent\nor paired?",
-            "Is data\nnormally\ndistributed?",
-            "Mann-Whitney\nU test"),
-  fill  = c("#e0e0e0","#e0e0e0",
-            "#abd9e9","#abd9e9",
-            "#2c7bb6","#2c7bb6",
-            "#e0e0e0","#e0e0e0",
-            "#fdae61")
-)
-
-# Simplified clean flowchart using ggplot
-flow <- data.frame(
-  x =     c(5,   5,   5,   2,   8,   8,   8),
-  xend =  c(5,   2,   8,   2,   8,   6,   8),
-  y =     c(8.6, 7,   7,   5,   5,   5,   5),
-  yend =  c(7.4, 5.4, 5.4, 3.6, 6.4, 3.6, 3.6),
-  label = c("","Categorical","Continuous/Ordinal",
-            "","","Independent","Normal dist.")
-)
-
 boxes <- data.frame(
-  x = c(5, 5, 2, 8, 2, 8, 6, 8, 6),
-  y = c(9, 7, 5, 5.5, 3, 3, 6.5, 6.5, 4),
-  label = c("Comparing 2 Groups",
-            "Outcome variable type?",
-            "Nominal\n(Categorical)",
-            "Continuous\nor Ordinal",
-            "Chi-square\nTest",
-            "Mann-Whitney\nU Test",
-            "Groups\nindependent\nor paired?",
-            "Normal\ndistribution?",
-            "Independent\nt-test"),
-  fill = c("#dce8f5","#dce8f5",
-           "#abd9e9","#abd9e9",
-           "#2c7bb6","#fdae61",
-           "#dce8f5","#dce8f5",
-           "#1a9641"),
-  col = c("black","black","black","black",
-          "white","black","black","black","white")
+  x = c(5.5, 5.5, 2.0, 8.0, 2.0, 8.0, 5.6, 9.4, 4.2, 6.6, 8.6, 10.4),
+  y = c(9.2, 7.7, 6.1, 6.1, 4.3, 4.3, 2.6, 2.6, 0.8, 0.8, 0.8, 0.8),
+  label = c("Comparing 2 Groups", "Outcome variable type?",
+            "Nominal\n(Categorical)", "Continuous\nor Ordinal",
+            "Chi-square\nTest", "Groups independent\nor paired?",
+            "Normal\ndistribution?", "Normal\ndistribution?",
+            "Independent\nt-test", "Mann-Whitney\nU Test",
+            "Paired\nt-test", "Wilcoxon\nsigned-ranks"),
+  fill = c("#dce8f5","#dce8f5","#abd9e9","#abd9e9","#2c7bb6","#dce8f5",
+           "#dce8f5","#dce8f5","#1a9641","#fdae61","#d7191c","#fdae61"),
+  col  = c("black","black","black","black","white","black",
+           "black","black","white","black","white","black")
 )
 
-paired_box <- data.frame(
-  x = 6, y = 2.2, label = "Paired\nt-test",
-  fill = "#d7191c", col = "white"
+seg <- data.frame(
+  x    = c(5.5, 5.5, 5.5, 2.0, 8.0, 8.0, 9.4, 5.6, 5.6, 9.4, 9.4),
+  xend = c(5.5, 2.2, 7.8, 2.0, 8.0, 5.8, 9.4, 4.4, 6.5, 8.7, 10.3),
+  y    = c(8.9, 7.35, 7.35, 5.6, 5.6, 3.9, 3.9, 2.2, 2.2, 2.2, 2.2),
+  yend = c(8.0, 6.6,  6.6,  4.7, 4.7, 3.0, 3.0, 1.2, 1.2, 1.2, 1.2)
+)
+
+edge_lab <- data.frame(
+  x = c(3.4, 7.7, 6.4, 9.8, 4.3, 6.6, 8.5, 10.5),
+  y = c(7.1, 7.1, 3.6, 3.6, 1.8, 1.8, 1.8, 1.8),
+  label = c("Nominal","Continuous/\nOrdinal","Independent","Paired",
+            "Yes","No","Yes","No")
 )
 
 ggplot() +
-  # arrows
-  annotate("segment", x=5, xend=5, y=8.65, yend=7.35,
-           arrow=arrow(length=unit(0.2,"cm")), color="gray40") +
-  annotate("segment", x=5, xend=2.1, y=6.65, yend=5.35,
-           arrow=arrow(length=unit(0.2,"cm")), color="gray40") +
-  annotate("segment", x=5, xend=7.8, y=6.65, yend=5.85,
-           arrow=arrow(length=unit(0.2,"cm")), color="gray40") +
-  annotate("segment", x=2, xend=2, y=4.65, yend=3.35,
-           arrow=arrow(length=unit(0.2,"cm")), color="gray40") +
-  annotate("segment", x=8, xend=6.2, y=5.15, yend=6.15,
-           arrow=arrow(length=unit(0.2,"cm")), color="gray40") +
-  annotate("segment", x=6, xend=6, y=6.15, yend=4.35,
-           arrow=arrow(length=unit(0.2,"cm")), color="gray40") +
-  annotate("segment", x=6, xend=6, y=3.65, yend=2.55,
-           arrow=arrow(length=unit(0.2,"cm")), color="gray40") +
-  annotate("segment", x=8, xend=8, y=6.15, yend=3.35,
-           arrow=arrow(length=unit(0.2,"cm")), color="gray40") +
-  # edge labels
-  annotate("text", x=3.8, y=6.2, label="Nominal", size=3, color="gray30") +
-  annotate("text", x=7.0, y=6.5, label="Continuous/\nOrdinal", size=3, color="gray30") +
-  annotate("text", x=5.3, y=5.6, label="Indep.", size=3, color="gray30") +
-  annotate("text", x=7.1, y=5.6, label="Paired", size=3, color="gray30") +
-  annotate("text", x=5.3, y=4.0, label="Yes\n(normal)", size=3, color="gray30") +
-  annotate("text", x=7.0, y=4.0, label="No\n(non-normal)", size=3, color="gray30") +
-  # boxes
-  geom_label(data=boxes,
-             aes(x=x, y=y, label=label, fill=fill, color=col),
-             size=3, label.r=unit(0.3,"lines"),
-             label.padding=unit(0.4,"lines"), show.legend=FALSE) +
-  geom_label(data=paired_box,
-             aes(x=x, y=y, label=label, fill=fill, color=col),
-             size=3, label.r=unit(0.3,"lines"),
-             label.padding=unit(0.4,"lines"), show.legend=FALSE) +
-  scale_fill_identity() +
-  scale_color_identity() +
-  xlim(0.5, 9.5) + ylim(1.5, 9.8) +
+  geom_segment(data = seg, aes(x = x, xend = xend, y = y, yend = yend),
+               arrow = arrow(length = unit(0.18, "cm")), color = "gray40") +
+  geom_text(data = edge_lab, aes(x = x, y = y, label = label),
+            size = 2.6, color = "gray30") +
+  geom_label(data = boxes,
+             aes(x = x, y = y, label = label, fill = fill, color = col),
+             size = 2.8, label.r = unit(0.3, "lines"),
+             label.padding = unit(0.35, "lines"), show.legend = FALSE) +
+  scale_fill_identity() + scale_color_identity() +
+  scale_x_continuous(limits = c(0.6, 11.6)) +
+  scale_y_continuous(limits = c(0.1, 9.8)) +
   theme_void()
 ```
 
@@ -563,14 +617,21 @@ ggplot() +
 5. **Mann-Whitney U test:** for comparing two independent groups when the
    outcome is ordinal or the normality assumption is not met.
 
-6. **Independent samples t-test:** for comparing means of two independent
+6. **Wilcoxon signed-ranks test:** for comparing two **related** measurements
+   when the outcome is ordinal or the differences are not normally
+   distributed. It is the non-parametric alternative to the paired t-test.
+
+7. **Independent samples t-test:** for comparing means of two independent
    groups with continuous, approximately normal data.
 
-7. **Paired samples t-test:** for comparing means of two related measurements
+8. **Paired samples t-test:** for comparing means of two related measurements
    (before/after, or matched pairs) with continuous data.
 
-8. Always choose the test based on **data type** and **study design** —
-   using the wrong test leads to invalid conclusions.
+9. The two rank tests differ by **design**: Mann-Whitney for *independent*
+   groups, Wilcoxon signed-ranks for *related* pairs.
+
+10. Always choose the test based on **data type** and **study design** —
+    using the wrong test leads to invalid conclusions.
 :::
 
 ---
@@ -872,6 +933,10 @@ each participant's weight before and after a 12-week program.
 **(d)** Comparing the mean length of hospital stay (days) between two
 age groups (under 60 vs. 60 and over), where length-of-stay data is
 strongly right-skewed.
+
+**(e)** Comparing pain scores (rated 0--10) recorded for the **same**
+patients before and 24 hours after starting a new analgesic, where the
+differences are clearly not normally distributed.
 :::
 
 ---
