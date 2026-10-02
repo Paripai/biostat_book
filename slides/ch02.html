@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="ch02_files/libs/clipboard/clipboard.min.js"></script>
+<script src="ch02_files/libs/quarto-html/tabby.min.js"></script>
+<script src="ch02_files/libs/quarto-html/popper.min.js"></script>
+<script src="ch02_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="ch02_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ch02_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="ch02_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <title>Chapter 2: Data Summarization</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="ch02_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="ch02_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="ch02_files/libs/revealjs/dist/theme/quarto-f6742514887cbd978b8a1f78ade553e4.css">
+  <link href="ch02_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="ch02_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="ch02_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="ch02_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="ch02_files/libs/kePrint-0.0.1/kePrint.js"></script>
+  <link href="ch02_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="data-summarization" class="title-slide slide level1 center">
+<h1>Data Summarization</h1>
+
+</section>
+
+<section id="introduction" class="title-slide slide level1 unnumbered center">
+<h1>Introduction</h1>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Why Does This Matter for Nurses?</strong></p>
+</div>
+<div class="callout-content">
+<p>Imagine you have blood pressure readings from 80 patients on your ward. Looking at 80 individual numbers tells you very little. But if someone says <em>“the average systolic BP is 138 mmHg and most patients fall between 120 and 155 mmHg”</em> — now you have a clear picture.</p>
+<p><strong>Data summarization</strong> is the process of turning raw data into meaningful, easy-to-understand information using numbers and charts. This is one of the most practical skills in clinical nursing and health research.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<section id="numerical-summarization" class="title-slide slide level1 center scrollable">
+<h1>Numerical Summarization</h1>
+<p>Numerical summarization uses <strong>numbers</strong> to describe the key features of data. There are two important aspects we want to describe:</p>
+<ol type="1">
+<li><strong>Central tendency</strong> — Where is the “middle” or “typical” value?</li>
+<li><strong>Variability</strong> — How spread out are the values?</li>
+</ol>
+</section>
+<section id="measures-of-central-tendency" class="slide level2">
+<h2>Measures of Central Tendency</h2>
+<h3 id="mean-arithmetic-average">Mean (Arithmetic Average)</h3>
+<p>The <strong>mean</strong> is calculated by adding all values and dividing by the number of observations.</p>
+<p><span class="math display">\[\bar{x} = \frac{\sum_{i=1}^{n} x_i}{n} = \frac{x_1 + x_2 + \cdots + x_n}{n}\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(\bar{x}\)</span> = sample mean (read as “x-bar”)</li>
+<li><span class="math inline">\(x_i\)</span> = each individual value</li>
+<li><span class="math inline">\(n\)</span> = total number of observations</li>
+<li><span class="math inline">\(\sum\)</span> = “sum of all”</li>
+</ul>
+<div class="callout callout-warning no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>When to Use the Mean</strong></p>
+</div>
+<div class="callout-content">
+<p>The mean works best for <strong>continuous or discrete numerical data</strong> that is <strong>roughly symmetric</strong> (not heavily skewed) and has <strong>no extreme outliers</strong>. A single extreme value can pull the mean far from the typical value.</p>
+</div>
+</div>
+</div>
+<h3 id="median">Median</h3>
+<p>The <strong>median</strong> is the <strong>middle value</strong> when all observations are arranged in order.</p>
+<ul>
+<li>If <span class="math inline">\(n\)</span> is <strong>odd</strong>: the median is the value at position <span class="math inline">\(\dfrac{n+1}{2}\)</span></li>
+<li>If <span class="math inline">\(n\)</span> is <strong>even</strong>: the median is the <strong>average of the two middle values</strong> at positions <span class="math inline">\(\dfrac{n}{2}\)</span> and <span class="math inline">\(\dfrac{n}{2}+1\)</span></li>
+</ul>
+<div class="callout callout-warning no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>When to Use the Median</strong></p>
+</div>
+<div class="callout-content">
+<p>The median is preferred when data is <strong>skewed</strong> or has <strong>outliers</strong>, because it is not affected by extreme values. It is also the appropriate measure for <strong>ordinal data</strong>.</p>
+</div>
+</div>
+</div>
+<h3 id="mode">Mode</h3>
+<p>The <strong>mode</strong> is the value that appears <strong>most frequently</strong> in the data.</p>
+<ul>
+<li>A dataset can have <strong>one mode</strong> (unimodal), <strong>two modes</strong> (bimodal), or <strong>no mode</strong> (all values appear equally).</li>
+<li>The mode is the only measure of central tendency appropriate for <strong>nominal data</strong>.</li>
+</ul>
+<h3 id="choosing-the-right-measure">Choosing the Right Measure</h3>
+<div class="cell">
+<div id="tbl-central" class="cell quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-central-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Choosing the Right Measure of Central Tendency
+</figcaption>
+<div aria-describedby="tbl-central-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-bordered cell caption-top" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Measure</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Best For</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Nursing Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Mean</td>
+<td style="text-align: left;">Numerical data (continuous or discrete), symmetric distribution</td>
+<td style="text-align: left;">Average patient age, average blood glucose</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Median</td>
+<td style="text-align: left;">Numerical data with skewness or outliers; Ordinal data</td>
+<td style="text-align: left;">Average length of hospital stay (skewed by long-stay patients)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Mode</td>
+<td style="text-align: left;">Nominal data; finding the most common category</td>
+<td style="text-align: left;">Most common blood type on a ward, most frequent pain score</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="measures-of-variability" class="slide level2">
+<h2>Measures of Variability</h2>
+<p>Knowing the average alone is not enough. Two wards might have the same average patient age but very different spreads — one ward may have all patients aged 55–65, another may have patients aged 20–90. Variability tells us how <strong>spread out</strong> the data are.</p>
+<h3 id="range">Range</h3>
+<p>The <strong>range</strong> is the simplest measure of spread:</p>
+<p><span class="math display">\[\text{Range} = \text{Maximum value} - \text{Minimum value}\]</span></p>
+<div class="callout callout-warning no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Limitation</strong></p>
+</div>
+<div class="callout-content">
+<p>The range only uses two values (max and min) and is very sensitive to outliers.</p>
+</div>
+</div>
+</div>
+<h3 id="variance">Variance</h3>
+<p>The <strong>variance</strong> measures the average squared distance of each value from the mean.</p>
+<p><strong>Population variance:</strong> <span class="math display">\[\sigma^2 = \frac{\sum_{i=1}^{N}(x_i - \mu)^2}{N}\]</span></p>
+<p><strong>Sample variance</strong> (used more often in practice): <span class="math display">\[s^2 = \frac{\sum_{i=1}^{n}(x_i - \bar{x})^2}{n-1}\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(\mu\)</span> = population mean, <span class="math inline">\(\bar{x}\)</span> = sample mean</li>
+<li><span class="math inline">\(N\)</span> = population size, <span class="math inline">\(n\)</span> = sample size</li>
+<li><span class="math inline">\(n-1\)</span> in the denominator corrects for the fact that we’re using a sample</li>
+</ul>
+<h3 id="standard-deviation">Standard Deviation</h3>
+<p>The <strong>standard deviation (SD)</strong> is the square root of the variance. It is expressed in the <strong>same units as the original data</strong>, making it much easier to interpret than variance.</p>
+<p><span class="math display">\[s = \sqrt{s^2} = \sqrt{\frac{\sum_{i=1}^{n}(x_i - \bar{x})^2}{n-1}}\]</span></p>
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Interpreting Standard Deviation</strong></p>
+</div>
+<div class="callout-content">
+<p>A <strong>small SD</strong> means values are clustered closely around the mean. A <strong>large SD</strong> means values are widely spread.</p>
+<p>In clinical practice, you may see lab reports written as: <strong>Mean ± SD</strong>, for example: Hemoglobin = <strong>12.5 ± 1.8 g/dL</strong></p>
+</div>
+</div>
+</div>
+<h3 id="summary-numerical-measures">Summary: Numerical Measures</h3>
+<div class="cell">
+<div id="tbl-variability" class="cell quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-variability-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Summary of Numerical Summary Measures
+</figcaption>
+<div aria-describedby="tbl-variability-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-bordered cell caption-top" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Measure</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Symbol</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Purpose</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Appropriate Data Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Mean</td>
+<td style="text-align: center;">xbar</td>
+<td style="text-align: left;">Central tendency</td>
+<td style="text-align: left;">Numerical</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Median</td>
+<td style="text-align: center;">Md</td>
+<td style="text-align: left;">Central tendency</td>
+<td style="text-align: left;">Numerical / Ordinal</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Mode</td>
+<td style="text-align: center;">Mo</td>
+<td style="text-align: left;">Central tendency</td>
+<td style="text-align: left;">Any</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Range</td>
+<td style="text-align: center;">Max - Min</td>
+<td style="text-align: left;">Spread</td>
+<td style="text-align: left;">Numerical</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Variance</td>
+<td style="text-align: center;">s2</td>
+<td style="text-align: left;">Spread (squared units)</td>
+<td style="text-align: left;">Numerical</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Standard Deviation</td>
+<td style="text-align: center;">s</td>
+<td style="text-align: left;">Spread (original units)</td>
+<td style="text-align: left;">Numerical</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section></section>
+<section>
+<section id="pictorial-summarization" class="title-slide slide level1 center">
+<h1>Pictorial Summarization</h1>
+<p>Charts and graphs turn numbers into visual stories. The correct chart depends on the <strong>data type</strong>.</p>
+</section>
+<section id="bar-chart" class="slide level2">
+<h2>Bar Chart</h2>
+<p>Used for <strong>categorical data</strong> (nominal or ordinal). Each bar represents a category; the height shows the count or percentage.</p>
+
+<img data-src="ch02_files/figure-revealjs/fig-bar-1.png" class="quarto-figure quarto-figure-center r-stretch" width="576" id="fig-bar"><p class="caption">
+Figure&nbsp;1: Bar Chart: Blood Types of 120 Patients in a Medical Ward
+</p></section>
+<section id="histogram" class="slide level2">
+<h2>Histogram</h2>
+<p>Used for <strong>continuous numerical data</strong>. Bars are drawn over class intervals (ranges of values); bars touch each other because the data is continuous.</p>
+
+<img data-src="ch02_files/figure-revealjs/fig-hist-1.png" class="quarto-figure quarto-figure-center r-stretch" width="576" id="fig-hist"><p class="caption">
+Figure&nbsp;2: Histogram: Systolic Blood Pressure of 80 Patients
+</p><div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Bar Chart vs Histogram</strong></p>
+</div>
+<div class="callout-content">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>Bar Chart</th>
+<th>Histogram</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Data type</td>
+<td>Categorical</td>
+<td>Continuous numerical</td>
+</tr>
+<tr class="even">
+<td>Bars</td>
+<td>Separated (gaps)</td>
+<td>Touching (no gaps)</td>
+</tr>
+<tr class="odd">
+<td>X-axis</td>
+<td>Categories</td>
+<td>Numerical ranges</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="box-plot-box-and-whisker-plot" class="slide level2">
+<h2>Box Plot (Box-and-Whisker Plot)</h2>
+<p>A <strong>box plot</strong> summarizes the <strong>distribution</strong> of numerical data using 5 key values (the <strong>five-number summary</strong>):</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Minimum</td>
+<td>Smallest value (excluding outliers)</td>
+</tr>
+<tr class="even">
+<td>Q1</td>
+<td>25th percentile (lower quartile)</td>
+</tr>
+<tr class="odd">
+<td>Median (Q2)</td>
+<td>50th percentile — middle value</td>
+</tr>
+<tr class="even">
+<td>Q3</td>
+<td>75th percentile (upper quartile)</td>
+</tr>
+<tr class="odd">
+<td>Maximum</td>
+<td>Largest value (excluding outliers)</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>Interquartile Range (IQR) = Q3 − Q1</strong> represents the middle 50% of data. Points beyond <strong>1.5 × IQR</strong> from Q1 or Q3 are marked as <strong>outliers ()</strong>.</p>
+
+<img data-src="ch02_files/figure-revealjs/fig-boxplot-1.png" class="quarto-figure quarto-figure-center r-stretch" width="576" id="fig-boxplot"><p class="caption">
+Figure&nbsp;3: Box Plot: Comparing Length of Hospital Stay Between Two Wards
+</p></section>
+<section id="choosing-the-right-chart" class="slide level2">
+<h2>Choosing the Right Chart</h2>
+<div class="cell">
+<div id="tbl-charts" class="cell quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-charts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Guide to Choosing the Right Chart
+</figcaption>
+<div aria-describedby="tbl-charts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-bordered cell caption-top" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Chart Type</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Data Type</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">What It Shows</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Nursing Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Bar Chart</td>
+<td style="text-align: left;">Categorical (Nominal/Ordinal)</td>
+<td style="text-align: left;">Frequency or percentage of each category</td>
+<td style="text-align: left;">Number of patients by blood type</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Pie Chart</td>
+<td style="text-align: left;">Categorical (Nominal) - proportions</td>
+<td style="text-align: left;">Proportion of each category as a slice of the whole</td>
+<td style="text-align: left;">Proportion of patients by diagnosis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Histogram</td>
+<td style="text-align: left;">Numerical (Continuous)</td>
+<td style="text-align: left;">Distribution shape, spread, and central tendency</td>
+<td style="text-align: left;">Distribution of patient ages or blood pressure</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Box Plot</td>
+<td style="text-align: left;">Numerical (Continuous/Discrete)</td>
+<td style="text-align: left;">Median, spread, quartiles, and outliers</td>
+<td style="text-align: left;">Comparing recovery time between two wards</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section></section>
+<section id="key-takeaways" class="title-slide slide level1 center scrollable">
+<h1>Key Takeaways</h1>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Chapter 2 Summary</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><p><strong>Numerical summarization</strong> uses measures of <em>central tendency</em> (mean, median, mode) and <em>variability</em> (range, variance, SD) to describe data with numbers.</p></li>
+<li><p>The <strong>mean</strong> is best for symmetric numerical data; the <strong>median</strong> is better when data is skewed or has outliers; the <strong>mode</strong> is used for categorical data.</p></li>
+<li><p>The <strong>standard deviation (SD)</strong> is the most commonly reported measure of spread in clinical research, expressed in the same units as the data.</p></li>
+<li><p><strong>Pictorial summarization</strong> uses charts: bar charts for categorical data, histograms for continuous data, and box plots to compare groups and identify outliers.</p></li>
+<li><p>Always choose the <strong>correct summary measure and chart</strong> based on the <strong>data type</strong> — using the wrong one leads to misleading conclusions.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<section id="examples" class="title-slide slide level1 center">
+<h1>Examples</h1>
+
+</section>
+<section id="example-1-calculating-mean-median-and-sd" class="slide level2">
+<h2>Example 1: Calculating Mean, Median, and SD</h2>
+<p>A nurse records the resting heart rate (beats per minute) of <strong>9 patients</strong>:</p>
+<p><span class="math display">\[72, \; 68, \; 85, \; 74, \; 90, \; 68, \; 78, \; 72, \; 110\]</span></p>
+<p>Calculate the <strong>(a) mean</strong>, <strong>(b) median</strong>, and <strong>(c) standard deviation</strong>.</p>
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Solution</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Step 1 — Arrange data in order:</strong></p>
+<p><span class="math display">\[68, \; 68, \; 72, \; 72, \; 74, \; 78, \; 85, \; 90, \; 110\]</span></p>
+<p><strong>(a) Mean:</strong></p>
+<p><span class="math display">\[\bar{x} = \frac{68+68+72+72+74+78+85+90+110}{9} = \frac{717}{9} = 79.7 \text{ bpm}\]</span></p>
+<p><strong>(b) Median:</strong></p>
+<p><span class="math inline">\(n = 9\)</span> (odd), so median is at position <span class="math inline">\(\dfrac{9+1}{2} = 5\)</span>th value.</p>
+<p>Counting from the ordered list: the 5th value = <strong>74 bpm</strong></p>
+<p>Notice that the median (74) is lower than the mean (79.7) because the outlier value of 110 pulls the mean upward.</p>
+<p><strong>(c) Standard Deviation:</strong></p>
+<p>First, find each <span class="math inline">\((x_i - \bar{x})^2\)</span>:</p>
+<div class="cell">
+<div id="tbl-sd-calc" class="cell quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-sd-calc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Step-by-step SD calculation
+</figcaption>
+<div aria-describedby="tbl-sd-calc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-bordered cell caption-top" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Patient</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Heart Rate (x)</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">x - xbar</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">(x - xbar)2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Patient 1</td>
+<td style="text-align: center;">68</td>
+<td style="text-align: center;">-11.7</td>
+<td style="text-align: center;">136.11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Patient 2</td>
+<td style="text-align: center;">68</td>
+<td style="text-align: center;">-11.7</td>
+<td style="text-align: center;">136.11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Patient 3</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">-7.7</td>
+<td style="text-align: center;">58.78</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Patient 4</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">-7.7</td>
+<td style="text-align: center;">58.78</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Patient 5</td>
+<td style="text-align: center;">74</td>
+<td style="text-align: center;">-5.7</td>
+<td style="text-align: center;">32.11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Patient 6</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">-1.7</td>
+<td style="text-align: center;">2.78</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Patient 7</td>
+<td style="text-align: center;">85</td>
+<td style="text-align: center;">5.3</td>
+<td style="text-align: center;">28.44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Patient 8</td>
+<td style="text-align: center;">90</td>
+<td style="text-align: center;">10.3</td>
+<td style="text-align: center;">106.78</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Patient 9</td>
+<td style="text-align: center; font-weight: bold;">110</td>
+<td style="text-align: center; font-weight: bold;">30.3</td>
+<td style="text-align: center; font-weight: bold;">920.11</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><span class="math display">\[\sum(x_i - \bar{x})^2 = 1480\]</span></p>
+<p><span class="math display">\[s^2 = \frac{1480}{9-1} = \frac{1480}{8} = 185\]</span></p>
+<p><span class="math display">\[s = \sqrt{185} = 13.6 \text{ bpm}\]</span></p>
+<p><strong>Interpretation:</strong> The average heart rate is <strong>79.7 ± 13.5 bpm</strong>. The relatively large SD reflects the wide spread, largely influenced by the patient with 110 bpm.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="example-2-choosing-the-right-summary-and-chart" class="slide level2">
+<h2>Example 2: Choosing the Right Summary and Chart</h2>
+<p>A hospital administrator records the <strong>diagnosis</strong> of 200 patients admitted last month and wants to summarize the data. A research nurse records the <strong>length of stay (days)</strong> for the same 200 patients.</p>
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Solution</strong></p>
+</div>
+<div class="callout-content">
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Data Type</th>
+<th>Best Summary Measure</th>
+<th>Best Chart</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Diagnosis</td>
+<td>Categorical – Nominal</td>
+<td>Mode (most common diagnosis)</td>
+<td>Bar Chart</td>
+</tr>
+<tr class="even">
+<td>Length of stay</td>
+<td>Numerical – Continuous (likely skewed)</td>
+<td>Median + IQR</td>
+<td>Box Plot or Histogram</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why median for length of stay?</strong> Hospital stays are almost always right-skewed — most patients stay a few days, but a small number may stay for weeks or months. These long-stay patients would pull the mean upward, making it misleading. The median better represents the “typical” patient.</p>
+</div>
+</div>
+</div>
+</section></section>
+<section id="exercises" class="title-slide slide level1 center">
+<h1>Exercises</h1>
+<div class="callout callout-caution no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Exercise 1</strong></p>
+</div>
+<div class="callout-content">
+<p>A nurse records the body temperature (°C) of <strong>10 patients</strong> at 8:00 AM:</p>
+<p><span class="math display">\[37.2, \; 36.8, \; 38.5, \; 37.0, \; 39.1, \; 36.8, \; 37.5, \; 38.0, \; 37.2, \; 40.2\]</span></p>
+<p><strong>(a)</strong> Calculate the <strong>mean</strong> body temperature.</p>
+<p><strong>(b)</strong> Find the <strong>median</strong> body temperature.</p>
+<p><strong>(c)</strong> What is the <strong>mode</strong>?</p>
+<p><strong>(d)</strong> Calculate the <strong>range</strong>.</p>
+<p><strong>(e)</strong> Calculate the <strong>standard deviation</strong>. Show all steps.</p>
+<p><strong>(f)</strong> One patient has a temperature of 40.2°C. How does this value affect the mean compared to the median? Which measure would you report to the physician, and why?</p>
+</div>
+</div>
+</div>
+<div class="callout callout-caution no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Exercise 2</strong></p>
+</div>
+<div class="callout-content">
+<p>A community health nurse surveys <strong>50 elderly patients</strong> and records:</p>
+<ul>
+<li><strong>Gender</strong> (Male / Female)</li>
+<li><strong>Systolic blood pressure</strong> (mmHg)</li>
+<li><strong>Self-rated health</strong> (Poor / Fair / Good / Very Good / Excellent)</li>
+</ul>
+<p>For each variable, state:</p>
+<p><strong>(a)</strong> The data type.</p>
+<p><strong>(b)</strong> The most appropriate measure of central tendency.</p>
+<p><strong>(c)</strong> The most appropriate chart to display the data.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-caution no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Exercise 3</strong></p>
+</div>
+<div class="callout-content">
+<p>The number of patient falls recorded each month over <strong>12 months</strong> in a hospital ward are:</p>
+<p><span class="math display">\[2, \; 0, \; 3, \; 1, \; 4, \; 2, \; 1, \; 0, \; 3, \; 2, \; 5, \; 1\]</span></p>
+<p><strong>(a)</strong> Calculate the mean and median number of falls per month.</p>
+<p><strong>(b)</strong> Draw a <strong>bar chart</strong> (by hand or describe what it would look like) showing the frequency of each number of falls.</p>
+<p><strong>(c)</strong> The ward manager wants to set a monthly target. Should she use the mean or median as the baseline? Explain.</p>
+</div>
+</div>
+</div>
+<p><em>End of Chapter 2</em></p>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Coming Up Next</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Chapter 3: Random Variable and Probability Distribution</strong> — We will learn what a random variable is, how probabilities work, and why the <strong>normal distribution</strong> (bell curve) is so important in health science research.</p>
+</div>
+</div>
+</div>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="ch02_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="ch02_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="ch02_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="ch02_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="ch02_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="ch02_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="ch02_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="ch02_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="ch02_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="ch02_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
