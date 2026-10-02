@@ -6,7 +6,7 @@ knitr:
     dev: "ragg_png"
 
 filters:
-  - remove-hr.lua
+  - slides.lua
 
 format:
   revealjs:
