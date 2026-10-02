@@ -1,0 +1,6 @@
+/*-- scss:rules --*/
+
+// Quarto shrinks callouts to 0.7em on slides; keep them close to body size
+.reveal .slides section div.callout.callout {
+  font-size: 0.95em;
+}

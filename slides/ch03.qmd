@@ -1,0 +1,5 @@
+---
+pagetitle: "Chapter 3: Random Variable and Probability Distribution"
+---
+
+{{< include ../chapter03_probability_distribution.qmd >}}

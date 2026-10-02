@@ -1,0 +1,5 @@
+---
+pagetitle: "Chapter 6: Introduction to Statistical Modeling"
+---
+
+{{< include ../chapter06_statistical_modeling.qmd >}}

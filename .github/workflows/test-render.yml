@@ -59,6 +59,13 @@ jobs:
       - name: Render PDF
         run: quarto render --to pdf
 
+      # Slides are a separate Quarto project in slides/
+      - name: Render slides
+        run: |
+          quarto render slides
+          mkdir -p _book/slides
+          cp -r slides/_site/* _book/slides/
+
       # If the PDF fails, upload the LaTeX log so the exact failing line
       # can be inspected without guessing
       - name: Upload LaTeX log on failure

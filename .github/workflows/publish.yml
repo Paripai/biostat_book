@@ -52,9 +52,24 @@ jobs:
       - name: Install TinyTeX
         run: quarto install tinytex --update-path
 
-      - name: Render and Publish
+      # Book first (HTML + PDF), then the slides as a separate project.
+      - name: Render book
+        run: quarto render
+
+      - name: Render slides
+        run: quarto render slides
+
+      # Put the slides inside the book output so both deploy together:
+      # https://paripai.github.io/biostat_book/slides/ch01.html
+      - name: Copy slides into book output
+        run: |
+          mkdir -p _book/slides
+          cp -r slides/_site/* _book/slides/
+
+      - name: Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
+          render: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

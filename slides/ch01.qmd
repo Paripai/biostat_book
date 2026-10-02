@@ -1,0 +1,5 @@
+---
+pagetitle: "Chapter 1: Data in Health Science"
+---
+
+{{< include ../chapter01_data_in_health_science.qmd >}}

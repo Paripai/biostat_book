@@ -1,0 +1,5 @@
+---
+pagetitle: "Chapter 5: Statistical Testing"
+---
+
+{{< include ../chapter05_statistical_testing.qmd >}}

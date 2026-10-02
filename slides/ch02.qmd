@@ -1,0 +1,5 @@
+---
+pagetitle: "Chapter 2: Data Summarization"
+---
+
+{{< include ../chapter02_data_summarization.qmd >}}

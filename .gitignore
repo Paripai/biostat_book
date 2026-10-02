@@ -8,6 +8,8 @@
 *.out
 *.synctex.gz
 /site_libs/
+/slides/_site/
+/slides/.quarto/
 .Rproj.user
 .Rhistory
 

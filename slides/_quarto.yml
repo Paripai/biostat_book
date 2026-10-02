@@ -1,0 +1,23 @@
+project:
+  output-dir: _site
+
+knitr:
+  opts_chunk:
+    dev: "ragg_png"
+
+filters:
+  - remove-hr.lua
+
+format:
+  revealjs:
+    scrollable: true
+    slide-number: true
+    slide-level: 2
+    theme: [default, custom.scss]
+    fig-width: 8
+    fig-height: 5
+
+execute:
+  echo: false
+  warning: false
+  message: false
