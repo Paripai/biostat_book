@@ -6,10 +6,11 @@
 <script src="ch01_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="ch01_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="ch01_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="ch01_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.10.18">
+<link href="ch01_files/libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.19">
 
-  <title>Chapter 1: Data in Health Science</title>
+  <meta name="author" content="Asst. Prof.&nbsp;Dr.&nbsp;Parichart Pattarapanitchai">
+  <title>Data in Health Science</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -34,12 +35,13 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="ch01_files/libs/revealjs/dist/theme/quarto-818da21322452c4f27f355e80635ed71.css">
+  <link rel="stylesheet" href="ch01_files/libs/revealjs/dist/theme/quarto-ae7e42f4f0a9bc7cad33dd64a10b9b31.css">
   <link href="ch01_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="ch01_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="ch01_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
   <link href="ch01_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
   <link href="ch01_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="ch01_files/libs/revealjs/plugin/reveal-pointer/pointer.css" rel="stylesheet">
   <link href="ch01_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -136,10 +138,17 @@
   <div class="reveal">
     <div class="slides">
 
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Data in Health Science</h1>
+  <p class="subtitle">Chapter 1 | 208141 Introduction to Biostatistics</p>
 
-<section>
-<section id="data-in-health-science" class="title-slide slide level1 center">
-<h1>Data in Health Science</h1>
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Asst. Prof.&nbsp;Dr.&nbsp;Parichart Pattarapanitchai
+</div>
+</div>
+</div>
 
 </section>
 <section id="introduction" class="slide level2 unnumbered">
@@ -155,7 +164,7 @@
 </div>
 </div>
 </div>
-</section></section>
+</section>
 <section>
 <section id="data-types" class="title-slide slide level1 center">
 <h1>Data Types</h1>
@@ -619,6 +628,7 @@ Figure&nbsp;2: The sample is drawn from the population and used to make inferenc
   <script src="ch01_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="ch01_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
   <script src="ch01_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="ch01_files/libs/revealjs/plugin/reveal-pointer/pointer.js"></script>
   <script src="ch01_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -642,6 +652,7 @@ Figure&nbsp;2: The sample is drawn from the population and used to make inferenc
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true,"theme":"whiteboard","boardmarkerWidth":4},
+'pointer': {"key":"q","color":"red","pointerSize":18,"alwaysVisible":false},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -812,7 +823,7 @@ Figure&nbsp;2: The sample is drawn from the population and used to make inferenc
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, RevealPointer, QuartoSupport,
 
           RevealMath,
           RevealNotes,
@@ -820,6 +831,40 @@ Figure&nbsp;2: The sample is drawn from the population and used to make inferenc
           RevealZoom
         ]
       });
+    </script>
+    <script>
+    // Adds a clickable laser-pointer button next to the chalkboard buttons.
+    // It sends the same "q" key press that the pointer plugin listens for.
+    (function () {
+      function pressQ() {
+        var ev = new KeyboardEvent("keydown", { key: "q", bubbles: true });
+        Object.defineProperty(ev, "keyCode", { get: function () { return 81; } });
+        Object.defineProperty(ev, "which",   { get: function () { return 81; } });
+        document.dispatchEvent(ev);
+      }
+      function addButton() {
+        var bar = document.querySelector(".slide-chalkboard-buttons");
+        if (!bar || document.querySelector(".slide-pointer-button")) return;
+        var btn = document.createElement("span");
+        btn.className = "slide-pointer-button";
+        btn.title = "Toggle laser pointer (q)";
+        btn.innerHTML = '<span class="dot"></span>';
+        btn.addEventListener("click", function (e) {
+          e.preventDefault(); e.stopPropagation(); pressQ();
+        });
+        bar.appendChild(btn);
+      }
+      // keep the button's look in step with the pointer, however it was toggled
+      document.addEventListener("keydown", function (e) {
+        if (e.keyCode === 81 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+          var b = document.querySelector(".slide-pointer-button");
+          if (b) b.classList.toggle("active");
+        }
+      });
+      if (window.Reveal && Reveal.isReady && Reveal.isReady()) addButton();
+      else if (window.Reveal) Reveal.on("ready", addButton);
+      window.addEventListener("load", addButton);
+    })();
     </script>
     
     <script>
