@@ -34,10 +34,12 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="ch05_files/libs/revealjs/dist/theme/quarto-f6742514887cbd978b8a1f78ade553e4.css">
+  <link rel="stylesheet" href="ch05_files/libs/revealjs/dist/theme/quarto-818da21322452c4f27f355e80635ed71.css">
   <link href="ch05_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="ch05_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="ch05_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="ch05_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="ch05_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
   <link href="ch05_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -207,17 +209,17 @@ Table&nbsp;1: One-tailed vs.&nbsp;Two-tailed Tests
 <tr class="odd">
 <td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important; background-color: rgba(234, 244, 251, 1) !important;">Two-tailed</td>
 <td style="text-align: left; background-color: rgba(234, 244, 251, 1) !important;">mu != mu0 (different from)</td>
-<td style="text-align: left; background-color: rgba(234, 244, 251, 1) !important;">You want to detect a difference in either direction (most common)</td>
+<td style="text-align: left; background-color: rgba(234, 244, 251, 1) !important;">Either direction (most common)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">One-tailed (right)</td>
 <td style="text-align: left;">mu &gt; mu0 (greater than)</td>
-<td style="text-align: left;">You specifically expect the value to be higher</td>
+<td style="text-align: left;">Only an increase is of interest</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">One-tailed (left)</td>
 <td style="text-align: left;">mu &lt; mu0 (less than)</td>
-<td style="text-align: left;">You specifically expect the value to be lower</td>
+<td style="text-align: left;">Only a decrease is of interest</td>
 </tr>
 </tbody>
 </table>
@@ -232,18 +234,29 @@ Table&nbsp;1: One-tailed vs.&nbsp;Two-tailed Tests
 <p><strong>Practical Advice</strong></p>
 </div>
 <div class="callout-content">
-<p>In most health research, use a <strong>two-tailed test</strong> unless you have a strong, pre-specified reason to test in only one direction. Two-tailed tests are more conservative and more widely accepted.</p>
+<p>In most health research, use a <strong>two-tailed test</strong> unless you have a strong, pre-specified reason to test in only one direction. Two-tailed tests are more conservative and more widely accepted. SPSS reports two-tailed p-values (“Sig. (2-tailed)”), and <strong>all tests in this course are two-tailed</strong>.</p>
+<p>After a significant two-tailed test, we still say <strong>which direction</strong> the difference goes by looking at the sample means (or mean ranks).</p>
 </div>
 </div>
 </div>
+</section>
+<section id="the-test-statistic" class="slide level2">
+<h2>The Test Statistic</h2>
+<p>A <strong>test statistic</strong> is a single number calculated from the sample that measures <strong>how far the data are from what <span class="math inline">\(H_0\)</span> predicts</strong>. For the t-tests it has the same form as the Z-score in Chapter 3:</p>
+<p><span class="math display">\[\text{test statistic} = \frac{\text{what we observed} - \text{what } H_0 \text{ predicts}}{\text{standard error}}\]</span></p>
+<ul>
+<li>A test statistic <strong>close to 0</strong> means the data agree with <span class="math inline">\(H_0\)</span>.</li>
+<li>A test statistic <strong>far from 0</strong> means the data are surprising if <span class="math inline">\(H_0\)</span> is true.</li>
+</ul>
+<p>Each test in this chapter has its own test statistic (<span class="math inline">\(t\)</span>, <span class="math inline">\(\chi^2\)</span>, <span class="math inline">\(U\)</span>, <span class="math inline">\(W\)</span>) and its own formula, but the idea is the same: the further the data are from what <span class="math inline">\(H_0\)</span> predicts, the more extreme the test statistic.</p>
 </section>
 <section id="the-p-value" class="slide level2">
 <h2>The p-value</h2>
 <p>The <strong>p-value</strong> is the probability of obtaining results <em>at least as extreme as those observed</em>, assuming the null hypothesis is true.</p>
 <p><span class="math display">\[p\text{-value} = P(\text{observed result or more extreme} \mid H_0 \text{ is true})\]</span></p>
 <ul>
-<li>A <strong>small p-value</strong> means the observed data would be very unlikely if <span class="math inline">\(H_0\)</span> were true evidence against <span class="math inline">\(H_0\)</span></li>
-<li>A <strong>large p-value</strong> means the observed data are consistent with <span class="math inline">\(H_0\)</span> insufficient evidence to reject <span class="math inline">\(H_0\)</span></li>
+<li>A <strong>small p-value</strong> means the observed data would be very unlikely if <span class="math inline">\(H_0\)</span> were true <span class="math inline">\(\rightarrow\)</span> <strong>evidence against <span class="math inline">\(H_0\)</span></strong></li>
+<li>A <strong>large p-value</strong> means the observed data are consistent with <span class="math inline">\(H_0\)</span> <span class="math inline">\(\rightarrow\)</span> <strong>insufficient evidence to reject <span class="math inline">\(H_0\)</span></strong></li>
 </ul>
 </section>
 <section id="the-significance-level-α" class="slide level2">
@@ -283,6 +296,32 @@ Table&nbsp;1: One-tailed vs.&nbsp;Two-tailed Tests
 </div>
 </div>
 </div>
+</section>
+<section id="two-ways-to-make-the-decision-critical-value-or-p-value" class="slide level2">
+<h2>Two Ways to Make the Decision: Critical Value or p-value</h2>
+<p>There are two equivalent ways to decide whether to reject <span class="math inline">\(H_0\)</span>. They <strong>always give the same decision</strong>.</p>
+<p><strong>1. Critical value approach (calculating by hand).</strong> The <strong>critical value</strong> is the cut-off from a statistical table (Z, t or <span class="math inline">\(\chi^2\)</span>) that marks the most extreme <span class="math inline">\(\alpha\)</span> of the distribution. We use the same left-cumulative notation as in Chapter 4. For a two-tailed test at <span class="math inline">\(\alpha = 0.05\)</span> the cut-off is at <span class="math inline">\(1 - \alpha/2 = 0.975\)</span>, for example <span class="math inline">\(t_{0.975,\,9} = 2.262\)</span>.</p>
+<ul>
+<li>If <span class="math inline">\(|\text{test statistic}| &gt;\)</span> critical value <span class="math inline">\(\rightarrow\)</span> <strong>reject <span class="math inline">\(H_0\)</span></strong></li>
+<li>If <span class="math inline">\(|\text{test statistic}| \leq\)</span> critical value <span class="math inline">\(\rightarrow\)</span> <strong>do not reject <span class="math inline">\(H_0\)</span></strong></li>
+</ul>
+<p><em>(The rank tests later in this chapter also use this rule: we convert their test statistic to a Z-score first.)</em></p>
+<p><strong>2. p-value approach (reading SPSS output).</strong> An exact p-value is hard to find by hand, but SPSS calculates it for us (the column <strong>Sig.</strong>). We compare it with <span class="math inline">\(\alpha\)</span> as in the table above.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-critical" class="quarto-float quarto-figure quarto-figure-center" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-critical-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="ch05_files/figure-revealjs/fig-critical-1.png" class="quarto-figure quarto-figure-center" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-critical-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Two-tailed test at alpha = 0.05 with df = 9: reject H0 when the test statistic falls in a red tail beyond the critical value 2.262
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>In this book, worked examples use the <strong>critical value</strong> for the hand calculation and then show the <strong>p-value</strong> that SPSS would report, so you can see that both lead to the same conclusion. In the lab, you will use the p-value.</p>
 </section>
 <section id="type-i-and-type-ii-errors" class="slide level2">
 <h2>Type I and Type II Errors</h2>
@@ -336,9 +375,9 @@ Table&nbsp;2: Type I and Type II Errors in Hypothesis Testing
 <div class="callout-content">
 <p><strong>Step 1 — State the hypotheses:</strong> Write <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span> clearly.</p>
 <p><strong>Step 2 — Choose the significance level:</strong> Usually <span class="math inline">\(\alpha = 0.05\)</span>.</p>
-<p><strong>Step 3 — Select and compute the test statistic:</strong> A number calculated from the sample that measures how far the data are from what <span class="math inline">\(H_0\)</span> predicts.</p>
-<p><strong>Step 4 — Find the p-value:</strong> The probability of getting a test statistic this extreme if <span class="math inline">\(H_0\)</span> is true.</p>
-<p><strong>Step 5 — Make a decision and interpret:</strong> Compare p-value to α. State your conclusion in the context of the problem.</p>
+<p><strong>Step 3 — Select and compute the test statistic:</strong> Choose the test that matches the data type and study design, and calculate its test statistic.</p>
+<p><strong>Step 4 — Compare:</strong> By hand, compare the test statistic with the <strong>critical value</strong> from the table; with SPSS, read the <strong>p-value</strong> (Sig.).</p>
+<p><strong>Step 5 — Make a decision and interpret:</strong> Reject or do not reject <span class="math inline">\(H_0\)</span>, then state your conclusion in the context of the problem — including the <strong>direction</strong> of any difference.</p>
 </div>
 </div>
 </div>
@@ -348,7 +387,7 @@ Table&nbsp;2: Type I and Type II Errors in Hypothesis Testing
 <h1>Statistical Testing on Categorical Data</h1>
 
 </section>
-<section id="chi-square-test-for-two-independent-groups" class="slide level2">
+<section id="chi-square-test-for-two-independent-groups" class="slide level2 scrollable">
 <h2>Chi-Square Test for Two Independent Groups</h2>
 <h3 id="when-to-use">When to Use</h3>
 <p>The <strong>chi-square test of independence</strong> is used when:</p>
@@ -369,12 +408,17 @@ Table&nbsp;2: Type I and Type II Errors in Hypothesis Testing
 \textbf{Column Total} &amp; a+c &amp; b+d &amp; n \\
 \hline
 \end{array}\]</span></p>
-<h3 id="the-test-statistic">The Test Statistic</h3>
+<h3 id="the-test-statistic-1">The Test Statistic</h3>
 <p><span class="math display">\[\chi^2 = \sum \frac{(O - E)^2}{E}\]</span></p>
-<p>Where: - <span class="math inline">\(O\)</span> = observed frequency (actual count in each cell) - <span class="math inline">\(E\)</span> = expected frequency = <span class="math inline">\(\dfrac{\text{Row total} \times \text{Column total}}{n}\)</span></p>
-<p>The sum is taken over <strong>all cells</strong> in the table.</p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(O\)</span> = observed frequency (actual count in each cell)</li>
+<li><span class="math inline">\(E\)</span> = expected frequency = <span class="math inline">\(\dfrac{\text{Row total} \times \text{Column total}}{n}\)</span></li>
+</ul>
+<p>The sum is taken over <strong>all cells</strong> in the table. The expected frequency is the count we would expect in a cell <strong>if <span class="math inline">\(H_0\)</span> were true</strong> (no association), so a large <span class="math inline">\(\chi^2\)</span> means the observed counts are far from what <span class="math inline">\(H_0\)</span> predicts.</p>
 <p>The test statistic follows a <strong>chi-square distribution</strong> with <span class="math inline">\(df = (\text{rows} - 1) \times (\text{columns} - 1)\)</span>.</p>
 <p>For a <span class="math inline">\(2 \times 2\)</span> table: <span class="math inline">\(df = (2-1)(2-1) = 1\)</span>.</p>
+<p>Because <span class="math inline">\(\chi^2\)</span> is a sum of squares, it is never negative, and only <strong>large</strong> values are evidence against <span class="math inline">\(H_0\)</span>. The critical value therefore uses the left cumulative probability <span class="math inline">\(1 - \alpha\)</span>: at <span class="math inline">\(\alpha = 0.05\)</span> and <span class="math inline">\(df = 1\)</span>, <span class="math inline">\(\chi^2_{0.95,\,1} = 3.841\)</span>.</p>
 <div class="callout callout-warning no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -390,7 +434,7 @@ Table&nbsp;2: Type I and Type II Errors in Hypothesis Testing
 <div id="tbl-chisq" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-chisq-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;3: Chi-Square Critical Values at alpha = 0.05
+Table&nbsp;3: Chi-Square Critical Values at alpha = 0.05 (left cumulative probability 0.95)
 </figcaption>
 <div aria-describedby="tbl-chisq-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -398,7 +442,7 @@ Table&nbsp;3: Chi-Square Critical Values at alpha = 0.05
 <thead>
 <tr class="header">
 <th style="text-align: center;" data-quarto-table-cell-role="th">Degrees of Freedom (df)</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">chi2 critical value (alpha = 0.05)</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">chi2(0.95, df)</th>
 </tr>
 </thead>
 <tbody>
@@ -449,271 +493,26 @@ Table&nbsp;3: Chi-Square Critical Values at alpha = 0.05
 </figure>
 </div>
 </div>
-</section></section>
-<section>
-<section id="statistical-testing-on-rank-data" class="title-slide slide level1 center">
-<h1>Statistical Testing on Rank Data</h1>
-
-</section>
-<section id="mann-whitney-u-test-for-two-independent-groups" class="slide level2 scrollable">
-<h2>Mann-Whitney U Test for Two Independent Groups</h2>
-<h3 id="when-to-use-1">When to Use</h3>
-<p>The <strong>Mann-Whitney U test</strong> (also called the Wilcoxon rank-sum test) is used when:</p>
-<ul>
-<li>The outcome variable is <strong>ordinal</strong>, or</li>
-<li>The outcome is <strong>continuous but not normally distributed</strong> (especially with small samples or obvious skewness)</li>
-<li>We are comparing <strong>two independent groups</strong></li>
-</ul>
-<p>It is a <strong>non-parametric</strong> test — it does not assume the data follow any particular distribution.</p>
-<h3 id="how-it-works">How It Works</h3>
-<p>Instead of comparing means, the Mann-Whitney test compares the <strong>ranks</strong> of observations between the two groups.</p>
-<p><strong>Steps:</strong></p>
-<ol type="1">
-<li>Combine all observations from both groups and <strong>rank them</strong> from smallest (rank 1) to largest.</li>
-<li>If there are <strong>tied values</strong>, assign the average rank to each tied observation.</li>
-<li>Calculate the <strong>sum of ranks</strong> for each group: <span class="math inline">\(W_1\)</span> and <span class="math inline">\(W_2\)</span>.</li>
-<li>The test statistic <span class="math inline">\(U\)</span> is computed from the rank sums.</li>
-<li>Compare to the critical value or obtain the p-value from software (SPSS).</li>
-</ol>
 <div class="callout callout-tip no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>Intuition Behind the Test</strong></p>
+<p><strong>Reading the SPSS Output (Crosstabs)</strong></p>
 </div>
 <div class="callout-content">
-<p>If the two groups come from the same distribution, their ranks should be <strong>randomly mixed</strong> between the groups — neither group should consistently have higher or lower ranks. A significant result means one group consistently has higher ranks (i.e., higher values) than the other.</p>
-</div>
-</div>
-</div>
-<h3 id="the-u-statistic">The U Statistic</h3>
-<p><span class="math display">\[U_1 = n_1 n_2 + \frac{n_1(n_1+1)}{2} - W_1\]</span></p>
-<p><span class="math display">\[U_2 = n_1 n_2 + \frac{n_2(n_2+1)}{2} - W_2\]</span></p>
-<p><span class="math display">\[U = \min(U_1, U_2)\]</span></p>
-<p>Where <span class="math inline">\(n_1\)</span>, <span class="math inline">\(n_2\)</span> are the sample sizes and <span class="math inline">\(W_1\)</span>, <span class="math inline">\(W_2\)</span> are the rank sums for groups 1 and 2 respectively.</p>
-<p>For large samples, <span class="math inline">\(U\)</span> is approximately normally distributed and a Z-score can be computed. In practice, <strong>SPSS computes the p-value directly</strong>.</p>
-</section>
-<section id="wilcoxon-signed-ranks-test-for-two-related-groups" class="slide level2 scrollable">
-<h2>Wilcoxon Signed-Ranks Test for Two Related Groups</h2>
-<h3 id="when-to-use-2">When to Use</h3>
-<p>The <strong>Wilcoxon signed-ranks test</strong> (also called the Wilcoxon matched-pairs test) is the non-parametric alternative to the <strong>paired samples t-test</strong>. It is used when:</p>
-<ul>
-<li>The outcome variable is <strong>ordinal</strong>, or</li>
-<li>The <strong>differences</strong> between pairs are <strong>not normally distributed</strong> (especially with small samples)</li>
-<li>The two sets of measurements are <strong>related (paired)</strong> — for example, the same patients measured before and after treatment, or two measurements taken on the same blood sample</li>
-</ul>
-<div class="callout callout-important no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Mann-Whitney or Wilcoxon?</strong></p>
-</div>
-<div class="callout-content">
-<p>Both tests work with ranks, so they are easy to confuse. The difference is the <strong>study design</strong>, exactly as with the two t-tests:</p>
-<ul>
-<li><strong>Two independent groups</strong> (different people in each group) <span class="math inline">\(\rightarrow\)</span> <strong>Mann-Whitney U test</strong></li>
-<li><strong>Two related groups</strong> (the same people measured twice) <span class="math inline">\(\rightarrow\)</span> <strong>Wilcoxon signed-ranks test</strong></li>
-</ul>
-</div>
-</div>
-</div>
-<h3 id="how-it-works-1">How It Works</h3>
-<p>The Wilcoxon test looks at the <strong>differences within each pair</strong>, and then ranks the <strong>sizes</strong> of those differences.</p>
-<p><strong>Steps:</strong></p>
+<p>SPSS prints several rows in the <strong>Chi-Square Tests</strong> table. In this course:</p>
 <ol type="1">
-<li>For each pair, calculate the difference <span class="math inline">\(d_i = x_{i,1} - x_{i,2}\)</span>.</li>
-<li><strong>Discard</strong> any pair whose difference is zero.</li>
-<li>Rank the <strong>absolute</strong> differences <span class="math inline">\(|d_i|\)</span> from smallest to largest, assigning average ranks to ties.</li>
-<li>Attach to each rank the <strong>sign</strong> of its original difference.</li>
-<li>Add the ranks belonging to the positive differences (<span class="math inline">\(W^{+}\)</span>) and the ranks belonging to the negative differences (<span class="math inline">\(W^{-}\)</span>).</li>
+<li>First read the <strong>footnote</strong> under the table, e.g. <em>“0 cells (0.0%) have expected count less than 5.”</em></li>
+<li>If <strong>no</strong> cell has an expected count below 5 <span class="math inline">\(\rightarrow\)</span> read the <strong>Pearson Chi-Square</strong> row (Value, df, Asymp. Sig.).</li>
+<li>If <strong>any</strong> cell has an expected count below 5 <span class="math inline">\(\rightarrow\)</span> read the <strong>Fisher’s Exact Test</strong> row instead (Exact Sig. 2-sided).</li>
 </ol>
-<h3 id="the-test-statistic-1">The Test Statistic</h3>
-<p><span class="math display">\[W = \min(W^{+},\; W^{-})\]</span></p>
-<p>If the two conditions really are the same, the positive and negative ranks should roughly balance, so <span class="math inline">\(W^{+}\)</span> and <span class="math inline">\(W^{-}\)</span> should be similar. A <strong>small</strong> value of <span class="math inline">\(W\)</span> means the differences fall mostly in one direction, which is evidence against <span class="math inline">\(H_0\)</span>.</p>
-<p>For larger samples the test statistic is converted to a Z-score, and this is what <strong>SPSS reports</strong> together with the p-value:</p>
-<p><span class="math display">\[H_0: \text{the two related measurements are equal}\]</span> <span class="math display">\[H_1: \text{the two related measurements are different}\]</span></p>
-<div class="callout callout-tip no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Reading the SPSS Output</strong></p>
-</div>
-<div class="callout-content">
-<p>Choose <strong>Analyze</strong> <span class="math inline">\(\rightarrow\)</span> <strong>Nonparametric Tests</strong> <span class="math inline">\(\rightarrow\)</span> <strong>2 Related Samples</strong>, and tick <strong>Wilcoxon</strong>. The <em>Test Statistics</em> table reports <span class="math inline">\(Z\)</span> and the 2-tailed significance. As always, decide by comparing the p-value with <span class="math inline">\(\alpha\)</span> — the sign of <span class="math inline">\(Z\)</span> only indicates the direction of the ranks, not the importance of the result.</p>
+<p>The other rows (Continuity Correction, Likelihood Ratio, Linear-by-Linear Association) are not used in this course.</p>
 </div>
 </div>
 </div>
-<h3 id="worked-example">Worked Example</h3>
-<p>Blood clotting time was measured for <strong>8 patients</strong> using two solutions. Blood was taken from each patient and divided into two parts, so the two measurements are <strong>paired</strong>.</p>
-<div class="cell">
-<div id="tbl-wilcoxon" class="cell quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-tbl">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-wilcoxon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;4: Blood clotting time using two solutions (n = 8 patients)
-</figcaption>
-<div aria-describedby="tbl-wilcoxon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output-display">
-<table class="table table-striped table-hover table-bordered cell caption-top" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Patient</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Shrimp-shell extract</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Standard solution</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Difference d</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">7</td>
-<td style="text-align: center;">-4</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">2</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">6</td>
-<td style="text-align: center;">-1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">8</td>
-<td style="text-align: center;">-4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">-2</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">6</td>
-<td style="text-align: center;">7</td>
-<td style="text-align: center;">9</td>
-<td style="text-align: center;">-2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">7</td>
-<td style="text-align: center;">8</td>
-<td style="text-align: center;">7</td>
-<td style="text-align: center;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">8</td>
-<td style="text-align: center;">7</td>
-<td style="text-align: center;">9</td>
-<td style="text-align: center;">-2</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</figure>
-</div>
-</div>
-<p>Because the sample is small (<span class="math inline">\(n = 8\)</span>) and the outcome is a clotting time that need not be normally distributed, the <strong>Wilcoxon signed-ranks test</strong> is used rather than the paired t-test. SPSS reports:</p>
-<p><span class="math display">\[Z = -1.706, \qquad p\text{-value} = 0.088\]</span></p>
-<p>Since <span class="math inline">\(p = 0.088 &gt; \alpha = 0.05\)</span>, we <strong>do not reject</strong> <span class="math inline">\(H_0\)</span>. There is not enough evidence to say that the clotting times produced by the two solutions differ, at the 0.05 level of significance.</p>
-</section></section>
-<section>
-<section id="statistical-testing-on-quantitative-data" class="title-slide slide level1 center">
-<h1>Statistical Testing on Quantitative Data</h1>
-
-</section>
-<section id="independent-samples-t-test" class="slide level2">
-<h2>Independent Samples t-Test</h2>
-<h3 id="when-to-use-3">When to Use</h3>
-<p>The <strong>independent samples t-test</strong> is used when:</p>
-<ul>
-<li>The outcome variable is <strong>continuous (numerical)</strong></li>
-<li>We are comparing the <strong>means of two independent groups</strong></li>
-<li>The data are approximately <strong>normally distributed</strong> in each group (or sample sizes are large enough, <span class="math inline">\(n \geq 30\)</span> per group)</li>
-</ul>
-<h3 id="hypotheses">Hypotheses</h3>
-<p><span class="math display">\[H_0: \mu_1 = \mu_2 \quad \text{(no difference in population means)}\]</span> <span class="math display">\[H_1: \mu_1 \neq \mu_2 \quad \text{(the population means differ)}\]</span></p>
-<h3 id="the-test-statistic-2">The Test Statistic</h3>
-<p><span class="math display">\[t = \frac{\bar{x}_1 - \bar{x}_2}{SE_{\bar{x}_1 - \bar{x}_2}}\]</span></p>
-<p>The standard error of the difference depends on whether the two groups have <strong>equal or unequal variances</strong> — SPSS performs <strong>Levene’s test</strong> automatically to help you decide which version to use.</p>
-<p><strong>Equal variances assumed (pooled):</strong></p>
-<p><span class="math display">\[SE = s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}, \qquad
-s_p = \sqrt{\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2}}\]</span></p>
-<p><strong>Equal variances not assumed (Welch’s):</strong></p>
-<p><span class="math display">\[SE = \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}\]</span></p>
-<p>The test statistic follows a <strong>t-distribution</strong> with <span class="math inline">\(df = n_1 + n_2 - 2\)</span> (equal variances) or an approximated df (Welch’s).</p>
-</section>
-<section id="paired-samples-t-test" class="slide level2">
-<h2>Paired Samples t-Test</h2>
-<h3 id="when-to-use-4">When to Use</h3>
-<p>The <strong>paired samples t-test</strong> is used when:</p>
-<ul>
-<li>The outcome variable is <strong>continuous (numerical)</strong></li>
-<li>Observations come in <strong>natural pairs</strong> — the same subject measured twice (e.g., before and after treatment), or matched pairs of subjects</li>
-<li>We want to test whether the <strong>mean difference</strong> within pairs is zero</li>
-</ul>
-<h3 id="hypotheses-1">Hypotheses</h3>
-<p><span class="math display">\[H_0: \mu_d = 0 \quad \text{(mean difference is zero)}\]</span> <span class="math display">\[H_1: \mu_d \neq 0 \quad \text{(mean difference is not zero)}\]</span></p>
-<p>Where <span class="math inline">\(\mu_d\)</span> is the population mean of the within-pair differences.</p>
-<h3 id="the-test-statistic-3">The Test Statistic</h3>
-<p>For each pair <span class="math inline">\(i\)</span>, compute the difference: <span class="math inline">\(d_i = x_{1i} - x_{2i}\)</span></p>
-<p>Then:</p>
-<p><span class="math display">\[t = \frac{\bar{d}}{s_d / \sqrt{n}}\]</span></p>
-<p>Where: - <span class="math inline">\(\bar{d}\)</span> = mean of the differences - <span class="math inline">\(s_d\)</span> = standard deviation of the differences - <span class="math inline">\(n\)</span> = number of pairs</p>
-<p>The test statistic follows a <strong>t-distribution</strong> with <span class="math inline">\(df = n - 1\)</span>.</p>
-</section>
-<section id="choosing-the-right-test" class="slide level2">
-<h2>Choosing the Right Test</h2>
-
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div id="fig-test-flowchart" class="quarto-float quarto-figure quarto-figure-center" data-fig-align="center">
-<figure class="quarto-float quarto-float-fig">
-
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-test-flowchart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Decision flowchart for selecting the correct test (two-group comparisons)
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<img data-src="ch05_files/figure-revealjs/fig-test-flowchart-1.png" class="quarto-figure quarto-figure-center r-stretch" width="864" id="tbl-test-choice"><p class="caption">
-Figure&nbsp;1: Decision flowchart for selecting the correct test (two-group comparisons)
-</p></section>
-<section id="key-takeaways" class="slide level2 scrollable">
-<h2>Key Takeaways</h2>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Chapter 5 Summary</strong></p>
-</div>
-<div class="callout-content">
-<ol type="1">
-<li><p>Hypothesis testing uses sample data to decide between two competing claims: the <strong>null hypothesis (<span class="math inline">\(H_0\)</span>)</strong> and the <strong>alternative hypothesis (<span class="math inline">\(H_1\)</span>)</strong>.</p></li>
-<li><p>The <strong>p-value</strong> is the probability of the observed data (or more extreme) if <span class="math inline">\(H_0\)</span> is true. A p-value <span class="math inline">\(\leq \alpha\)</span> (usually 0.05) leads us to <strong>reject <span class="math inline">\(H_0\)</span></strong>.</p></li>
-<li><p><strong>Type I error (α):</strong> rejecting a true <span class="math inline">\(H_0\)</span> (false positive). <strong>Type II error (β):</strong> failing to reject a false <span class="math inline">\(H_0\)</span> (false negative).</p></li>
-<li><p><strong>Chi-square test:</strong> for association between two categorical (nominal) variables in independent groups.</p></li>
-<li><p><strong>Mann-Whitney U test:</strong> for comparing two independent groups when the outcome is ordinal or the normality assumption is not met.</p></li>
-<li><p><strong>Wilcoxon signed-ranks test:</strong> for comparing two <strong>related</strong> measurements when the outcome is ordinal or the differences are not normally distributed. It is the non-parametric alternative to the paired t-test.</p></li>
-<li><p><strong>Independent samples t-test:</strong> for comparing means of two independent groups with continuous, approximately normal data.</p></li>
-<li><p><strong>Paired samples t-test:</strong> for comparing means of two related measurements (before/after, or matched pairs) with continuous data.</p></li>
-<li><p>The two rank tests differ by <strong>design</strong>: Mann-Whitney for <em>independent</em> groups, Wilcoxon signed-ranks for <em>related</em> pairs.</p></li>
-<li><p>Always choose the test based on <strong>data type</strong> and <strong>study design</strong> — using the wrong test leads to invalid conclusions.</p></li>
-</ol>
-</div>
-</div>
-</div>
-</section></section>
-<section>
-<section id="examples" class="title-slide slide level1 center">
-<h1>Examples</h1>
-
 </section>
 <section id="example-1-chi-square-test" class="slide level2">
 <h2>Example 1: Chi-Square Test</h2>
-<p>A study investigates whether <strong>smoking status</strong> is associated with <strong>hypertension</strong> in a sample of 200 adults.</p>
+<p>A cross-sectional study investigates whether <strong>smoking status</strong> is associated with <strong>hypertension</strong> in a sample of 200 adults.</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -755,13 +554,13 @@ Figure&nbsp;1: Decision flowchart for selecting the correct test (two-group comp
 <p><span class="math inline">\(H_0\)</span>: Smoking status and hypertension are independent (no association).</p>
 <p><span class="math inline">\(H_1\)</span>: Smoking status and hypertension are associated.</p>
 <p><strong>Step 2 —</strong> <span class="math inline">\(\alpha = 0.05\)</span></p>
-<p><strong>Step 3 — Expected frequencies:</strong></p>
+<p><strong>Step 3 — Expected frequencies and test statistic:</strong></p>
 <p><span class="math display">\[E = \frac{\text{Row total} \times \text{Column total}}{n}\]</span></p>
 <div class="cell">
 <div id="tbl-expected" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-expected-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;6: Observed (O) and Expected (E) Frequencies
+Table&nbsp;4: Observed (O) and Expected (E) Frequencies
 </figcaption>
 <div aria-describedby="tbl-expected-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -797,21 +596,102 @@ Table&nbsp;6: Observed (O) and Expected (E) Frequencies
 </figure>
 </div>
 </div>
-<p>All expected frequencies <span class="math inline">\(\geq 5\)</span></p>
-<p><strong>Step 4 — Test statistic:</strong></p>
+<p>All expected frequencies are <span class="math inline">\(\geq 5\)</span>, so the chi-square test is valid.</p>
 <p><span class="math display">\[\chi^2 = \frac{(45-35)^2}{35} + \frac{(55-65)^2}{65} +
            \frac{(25-35)^2}{35} + \frac{(75-65)^2}{65}\]</span></p>
 <p><span class="math display">\[= \frac{100}{35} + \frac{100}{65} + \frac{100}{35} + \frac{100}{65}
 = 2.857 + 1.538 + 2.857 + 1.538 = \mathbf{8.791}\]</span></p>
 <p><span class="math inline">\(df = (2-1)(2-1) = 1\)</span></p>
-<p><strong>Step 5 — Decision:</strong></p>
-<p>From the chi-square table: <span class="math inline">\(\chi^2_{\text{critical}} = 3.841\)</span> at <span class="math inline">\(df=1\)</span>, <span class="math inline">\(\alpha=0.05\)</span>.</p>
-<p>Since <span class="math inline">\(8.791 &gt; 3.841\)</span>, we <strong>reject <span class="math inline">\(H_0\)</span></strong>.</p>
-<p>The p-value <span class="math inline">\(= 0.003 &lt; 0.05\)</span>.</p>
-<p><strong>Conclusion:</strong> There is a statistically significant association between smoking status and hypertension (<span class="math inline">\(\chi^2 = 8.79\)</span>, <span class="math inline">\(df = 1\)</span>, <span class="math inline">\(p = 0.003\)</span>). Smokers have a higher prevalence of hypertension than non-smokers.</p>
+<p><strong>Step 4 — Compare:</strong></p>
+<p>Critical value from the chi-square table: <span class="math inline">\(\chi^2_{0.95,\,1} = 3.841\)</span>. Since <span class="math inline">\(8.791 &gt; 3.841\)</span>, the test statistic falls in the rejection region.</p>
+<p>SPSS (Pearson Chi-Square row) would report <span class="math inline">\(p = 0.003\)</span>, which is <span class="math inline">\(&lt; 0.05\)</span> — the same decision.</p>
+<p><strong>Step 5 — Decision and interpretation:</strong></p>
+<p>We <strong>reject <span class="math inline">\(H_0\)</span></strong>. There is a statistically significant association between smoking status and hypertension (<span class="math inline">\(\chi^2 = 8.79\)</span>, <span class="math inline">\(df = 1\)</span>, <span class="math inline">\(p = 0.003\)</span>). Smokers have a higher prevalence of hypertension (45%) than non-smokers (25%).</p>
+<p><em>Because this is a cross-sectional study, the result shows an <strong>association</strong>, not that smoking <strong>causes</strong> hypertension.</em></p>
 </div>
 </div>
 </div>
+</section>
+<section id="statistical-testing-on-quantitative-data" class="slide level2">
+<h2>Statistical Testing on Quantitative Data</h2>
+<p>The two t-tests in this section compare <strong>means</strong>. Like the confidence intervals in Chapter 4, they rely on the data (or the sample means) being approximately <strong>normal</strong>.</p>
+</section>
+<section id="checking-the-normality-assumption" class="slide level2">
+<h2>Checking the Normality Assumption</h2>
+<p>Before using a t-test, check whether the outcome is approximately normal:</p>
+<ul>
+<li><p><strong>Graphs:</strong> a histogram should look roughly bell-shaped, and the points on a <strong>normal Q–Q plot</strong> should lie close to the straight line.</p></li>
+<li><p><strong>Tests:</strong> SPSS <em>Explore</em> reports the <strong>Kolmogorov–Smirnov</strong> and <strong>Shapiro–Wilk</strong> tests (you practise these in the lab). Their hypotheses are</p>
+<p><span class="math inline">\(H_0\)</span>: the data come from a normal distribution</p>
+<p><span class="math inline">\(H_1\)</span>: the data do not come from a normal distribution</p>
+<p>so <strong>Sig. &gt; 0.05</strong> means <em>no evidence against normality</em> <span class="math inline">\(\rightarrow\)</span> a t-test is appropriate; <strong>Sig. <span class="math inline">\(\leq\)</span> 0.05</strong> means the data are not normal <span class="math inline">\(\rightarrow\)</span> consider a rank test (later in this chapter).</p></li>
+</ul>
+<p>What to check depends on the design:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Test</th>
+<th>Check normality of</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Independent samples t-test</td>
+<td>The outcome <strong>in each group separately</strong></td>
+</tr>
+<tr class="even">
+<td>Paired samples t-test</td>
+<td>The <strong>differences</strong> <span class="math inline">\(d_i\)</span> within pairs</td>
+</tr>
+</tbody>
+</table>
+<p>With large samples (<span class="math inline">\(n \geq 30\)</span> per group) the <strong>Central Limit Theorem</strong> (Chapter 4) makes the t-test robust even if the data are somewhat skewed.</p>
+</section>
+<section id="independent-samples-t-test" class="slide level2">
+<h2>Independent Samples t-Test</h2>
+<h3 id="when-to-use-1">When to Use</h3>
+<p>The <strong>independent samples t-test</strong> is used when:</p>
+<ul>
+<li>The outcome variable is <strong>continuous (numerical)</strong></li>
+<li>We are comparing the <strong>means of two independent groups</strong></li>
+<li>The data are approximately <strong>normally distributed</strong> in each group (or sample sizes are large enough, <span class="math inline">\(n \geq 30\)</span> per group)</li>
+</ul>
+<h3 id="hypotheses">Hypotheses</h3>
+<p><span class="math display">\[H_0: \mu_1 = \mu_2 \quad \text{(no difference in population means)}\]</span> <span class="math display">\[H_1: \mu_1 \neq \mu_2 \quad \text{(the population means differ)}\]</span></p>
+<h3 id="the-test-statistic-2">The Test Statistic</h3>
+<p><span class="math display">\[t = \frac{\bar{x}_1 - \bar{x}_2}{SE_{\bar{x}_1 - \bar{x}_2}}\]</span></p>
+<p>The standard error of the difference depends on whether the two groups have <strong>equal or unequal variances</strong>.</p>
+<p><strong>Equal variances assumed (pooled):</strong></p>
+<p><span class="math display">\[SE = s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}, \qquad
+s_p = \sqrt{\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2}}\]</span></p>
+<p><strong>Equal variances not assumed (Welch’s):</strong></p>
+<p><span class="math display">\[SE = \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}\]</span></p>
+<p>The test statistic follows a <strong>t-distribution</strong> with <span class="math inline">\(df = n_1 + n_2 - 2\)</span> (equal variances) or an approximated df (Welch’s, calculated by SPSS).</p>
+<h3 id="which-version-levenes-test">Which Version? Levene’s Test</h3>
+<p>SPSS decides between the two versions with <strong>Levene’s test for equality of variances</strong>, printed in the first columns of the <em>Independent Samples Test</em> table:</p>
+<p><span class="math inline">\(H_0: \sigma_1^2 = \sigma_2^2\)</span> (the two variances are equal)</p>
+<p><span class="math inline">\(H_1: \sigma_1^2 \neq \sigma_2^2\)</span> (the variances differ)</p>
+<div class="callout callout-important no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Reading the Independent Samples Test Table — Two Steps</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Step 1 — Levene’s test (Sig. in the Levene columns):</strong></p>
+<ul>
+<li>Sig. <strong>&gt; 0.05</strong> <span class="math inline">\(\rightarrow\)</span> no evidence that the variances differ <span class="math inline">\(\rightarrow\)</span> read the <strong>top row</strong>, <em>“Equal variances assumed”</em>.</li>
+<li>Sig. <strong><span class="math inline">\(\leq\)</span> 0.05</strong> <span class="math inline">\(\rightarrow\)</span> the variances differ <span class="math inline">\(\rightarrow\)</span> read the <strong>bottom row</strong>, <em>“Equal variances not assumed”</em>.</li>
+</ul>
+<p><strong>Step 2 — the t-test (Sig. (2-tailed) in the row you chose):</strong> compare with <span class="math inline">\(\alpha\)</span> to decide whether the <strong>means</strong> differ.</p>
+<p>Do not confuse the two Sig. values: the first is about <strong>variances</strong>, the second is about <strong>means</strong>.</p>
+</div>
+</div>
+</div>
+<p>When you calculate by hand in this course, the question will either give you the Levene’s test result or state whether the variances can be assumed equal. You do not need to decide this yourself from the SDs.</p>
 </section>
 <section id="example-2-independent-samples-t-test" class="slide level2">
 <h2>Example 2: Independent Samples t-Test</h2>
@@ -840,7 +720,7 @@ Table&nbsp;6: Observed (O) and Expected (E) Frequencies
 </tr>
 </tbody>
 </table>
-<p>Test at <span class="math inline">\(\alpha = 0.05\)</span> whether the new drug produces a greater mean reduction in SBP than placebo.</p>
+<p>Assume the two population variances are <strong>equal</strong>. Test at <span class="math inline">\(\alpha = 0.05\)</span> whether the mean reduction in SBP differs between the new drug and placebo.</p>
 <div class="callout callout-tip no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -851,22 +731,58 @@ Table&nbsp;6: Observed (O) and Expected (E) Frequencies
 <p><span class="math inline">\(H_0: \mu_1 = \mu_2\)</span> (no difference in mean reduction)</p>
 <p><span class="math inline">\(H_1: \mu_1 \neq \mu_2\)</span> (two-tailed; difference exists)</p>
 <p><strong>Step 2 —</strong> <span class="math inline">\(\alpha = 0.05\)</span></p>
-<p><strong>Step 3 — Pooled standard error</strong> (assuming equal variances):</p>
-<p><span class="math display">\[s_p = \sqrt{\frac{(40-1)(6.8)^2 + (40-1)(7.2)^2}{40+40-2}}
-= \sqrt{\frac{39(46.24) + 39(51.84)}{78}}
-= \sqrt{\frac{1803.36 + 2021.76}{78}}
-= \sqrt{49.041} = 7.003\]</span></p>
+<p><strong>Step 3 — Pooled standard error.</strong> The question states that the variances are equal, so we use the pooled (equal variances) formula.</p>
+<p><span class="math display">\[\begin{aligned}
+s_p &amp;= \sqrt{\frac{(40-1)(6.8)^2 + (40-1)(7.2)^2}{40+40-2}}
+     = \sqrt{\frac{39(46.24) + 39(51.84)}{78}} \\
+    &amp;= \sqrt{\frac{1803.36 + 2021.76}{78}}
+     = \sqrt{49.041} = 7.003
+\end{aligned}\]</span></p>
 <p><span class="math display">\[SE = 7.003 \times \sqrt{\frac{1}{40}+\frac{1}{40}}
 = 7.003 \times \sqrt{0.05}
 = 7.003 \times 0.2236 = 1.566\]</span></p>
-<p><strong>Step 4 — Test statistic:</strong></p>
 <p><span class="math display">\[t = \frac{12.4 - 7.1}{1.566} = \frac{5.3}{1.566} = \mathbf{3.384}\]</span></p>
 <p><span class="math inline">\(df = 40 + 40 - 2 = 78\)</span></p>
-<p><strong>Step 5 — Decision:</strong></p>
-<p><span class="math inline">\(t_{\text{critical}} = 1.991\)</span> at <span class="math inline">\(df = 78\)</span>, <span class="math inline">\(\alpha = 0.05\)</span> (two-tailed).</p>
-<p>Since <span class="math inline">\(3.384 &gt; 1.991\)</span>, we <strong>reject <span class="math inline">\(H_0\)</span></strong>.</p>
-<p>The p-value <span class="math inline">\(= 0.001 &lt; 0.05\)</span>.</p>
-<p><strong>Conclusion:</strong> The new drug produces a significantly greater reduction in systolic blood pressure compared to placebo (<span class="math inline">\(t = 3.38\)</span>, <span class="math inline">\(df = 78\)</span>, <span class="math inline">\(p = 0.001\)</span>). The mean difference is 5.3 mmHg (95% CI: 2.2 to 8.4 mmHg).</p>
+<p><strong>Step 4 — Compare:</strong></p>
+<p><span class="math inline">\(df = 78\)</span> is not listed in the t-table, so we use the next smaller df, 70: <span class="math inline">\(t_{0.975,\,70} = 1.994\)</span> (the exact value for <span class="math inline">\(df = 78\)</span> is 1.991).</p>
+<p>Since <span class="math inline">\(3.384 &gt; 1.994\)</span>, the test statistic falls in the rejection region. SPSS would report <span class="math inline">\(p = 0.001\)</span>, which is <span class="math inline">\(&lt; 0.05\)</span>.</p>
+<p><strong>Step 5 — Decision and interpretation:</strong></p>
+<p>We <strong>reject <span class="math inline">\(H_0\)</span></strong>. The mean reduction in systolic blood pressure differs significantly between the two groups (<span class="math inline">\(t = 3.38\)</span>, <span class="math inline">\(df = 78\)</span>, <span class="math inline">\(p = 0.001\)</span>). The new drug group had the <strong>larger</strong> mean reduction: 12.4 vs.&nbsp;7.1 mmHg, a difference of 5.3 mmHg (95% CI: 2.2 to 8.4 mmHg).</p>
+</div>
+</div>
+</div>
+</section>
+<section id="paired-samples-t-test" class="slide level2">
+<h2>Paired Samples t-Test</h2>
+<h3 id="when-to-use-2">When to Use</h3>
+<p>The <strong>paired samples t-test</strong> is used when:</p>
+<ul>
+<li>The outcome variable is <strong>continuous (numerical)</strong></li>
+<li>Observations come in <strong>natural pairs</strong> — the same subject measured twice (e.g., before and after treatment), or matched pairs of subjects</li>
+<li>We want to test whether the <strong>mean difference</strong> within pairs is zero</li>
+<li>The <strong>differences</strong> are approximately normally distributed</li>
+</ul>
+<h3 id="hypotheses-1">Hypotheses</h3>
+<p><span class="math display">\[H_0: \mu_d = 0 \quad \text{(mean difference is zero)}\]</span> <span class="math display">\[H_1: \mu_d \neq 0 \quad \text{(mean difference is not zero)}\]</span></p>
+<p>Where <span class="math inline">\(\mu_d\)</span> is the population mean of the within-pair differences.</p>
+<h3 id="the-test-statistic-3">The Test Statistic</h3>
+<p>For each pair <span class="math inline">\(i\)</span>, compute the difference: <span class="math inline">\(d_i = x_{1i} - x_{2i}\)</span></p>
+<p>Then:</p>
+<p><span class="math display">\[t = \frac{\bar{d}}{s_d / \sqrt{n}}\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(\bar{d}\)</span> = mean of the differences</li>
+<li><span class="math inline">\(s_d\)</span> = standard deviation of the differences</li>
+<li><span class="math inline">\(n\)</span> = number of pairs</li>
+</ul>
+<p>The test statistic follows a <strong>t-distribution</strong> with <span class="math inline">\(df = n - 1\)</span>.</p>
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Why Not Use the Independent t-Test for Paired Data?</strong></p>
+</div>
+<div class="callout-content">
+<p>Each patient is compared <strong>with themselves</strong>, so differences between patients (age, weight, baseline health) cancel out. Working with the differences <span class="math inline">\(d_i\)</span> turns two columns of data into <strong>one</strong>, and the test becomes a one-sample test of whether the mean difference is 0.</p>
 </div>
 </div>
 </div>
@@ -878,7 +794,7 @@ Table&nbsp;6: Observed (O) and Expected (E) Frequencies
 <div id="tbl-paired" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-paired-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;7: DBP Before and After Lifestyle Intervention (n = 10 patients)
+Table&nbsp;5: DBP Before and After Lifestyle Intervention (n = 10 patients)
 </figcaption>
 <div aria-describedby="tbl-paired-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -959,7 +875,7 @@ Table&nbsp;7: DBP Before and After Lifestyle Intervention (n = 10 patients)
 </figure>
 </div>
 </div>
-<p>Test at <span class="math inline">\(\alpha = 0.05\)</span> whether the intervention significantly reduces DBP.</p>
+<p>Test at <span class="math inline">\(\alpha = 0.05\)</span> whether the mean DBP changed after the intervention. Assume the differences are approximately normally distributed.</p>
 <div class="callout callout-tip no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -970,20 +886,665 @@ Table&nbsp;7: DBP Before and After Lifestyle Intervention (n = 10 patients)
 <p><span class="math inline">\(H_0: \mu_d = 0\)</span> (no mean change in DBP)</p>
 <p><span class="math inline">\(H_1: \mu_d \neq 0\)</span> (mean DBP has changed)</p>
 <p><strong>Step 2 —</strong> <span class="math inline">\(\alpha = 0.05\)</span></p>
-<p><strong>Step 3 — Compute <span class="math inline">\(\bar{d}\)</span> and <span class="math inline">\(s_d\)</span>:</strong></p>
+<p><strong>Step 3 — Compute <span class="math inline">\(\bar{d}\)</span>, <span class="math inline">\(s_d\)</span> and the test statistic:</strong></p>
 <p><span class="math display">\[\bar{d} = \frac{68}{10} = 6.8 \text{ mmHg}\]</span></p>
 <p><span class="math display">\[s_d = \sqrt{\frac{\sum(d_i - \bar{d})^2}{n-1}} = 1.476\]</span></p>
-<p><strong>Step 4 — Test statistic:</strong></p>
 <p><span class="math display">\[t = \frac{\bar{d}}{s_d/\sqrt{n}} = \frac{6.8}{1.476/\sqrt{10}}
 = \frac{6.8}{0.467} = 14.571\]</span></p>
 <p><span class="math inline">\(df = n - 1 = 9\)</span></p>
-<p><strong>Step 5 — Decision:</strong></p>
-<p><span class="math inline">\(t_{\text{critical}} = 2.262\)</span> at <span class="math inline">\(df = 9\)</span>, <span class="math inline">\(\alpha = 0.05\)</span> (two-tailed).</p>
-<p>Since <span class="math inline">\(14.571 &gt; 2.262\)</span>, we <strong>reject <span class="math inline">\(H_0\)</span></strong>.</p>
-<p><strong>Conclusion:</strong> The lifestyle intervention produced a statistically significant reduction in diastolic blood pressure (<span class="math inline">\(t = 14.57\)</span>, <span class="math inline">\(df = 9\)</span>, <span class="math inline">\(p &lt; 0.05\)</span>). The mean reduction was <strong>6.8 mmHg</strong>.</p>
+<p><strong>Step 4 — Compare:</strong></p>
+<p><span class="math inline">\(t_{0.975,\,9} = 2.262\)</span>. Since <span class="math inline">\(14.571 &gt; 2.262\)</span>, the test statistic falls in the rejection region. SPSS would report <span class="math inline">\(p &lt; 0.001\)</span>.</p>
+<p><strong>Step 5 — Decision and interpretation:</strong></p>
+<p>We <strong>reject <span class="math inline">\(H_0\)</span></strong>. Mean diastolic blood pressure changed significantly after the intervention (<span class="math inline">\(t = 14.57\)</span>, <span class="math inline">\(df = 9\)</span>, <span class="math inline">\(p &lt; 0.001\)</span>). Because <span class="math inline">\(\bar{d}\)</span> = Before − After is positive, DBP <strong>decreased</strong>, by <strong>6.8 mmHg</strong> on average.</p>
 </div>
 </div>
 </div>
+</section>
+<section id="statistical-testing-on-rank-data" class="slide level2">
+<h2>Statistical Testing on Rank Data</h2>
+<p>The t-tests need <strong>numerical</strong> data that are approximately <strong>normal</strong>. When the outcome is <strong>ordinal</strong> (such as a pain score) or the normality check fails, we use <strong>rank tests</strong> instead. Rank tests replace each value by its <strong>rank</strong> (1st, 2nd, 3rd, …) and do not assume any particular distribution — they are called <strong>non-parametric</strong> tests.</p>
+<p>Each t-test has a rank-test partner:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Design</th>
+<th>Numerical, normal</th>
+<th>Ordinal, or not normal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Two <strong>independent</strong> groups</td>
+<td>Independent samples t-test</td>
+<td><strong>Mann-Whitney U test</strong></td>
+</tr>
+<tr class="even">
+<td>Two <strong>related</strong> (paired) measurements</td>
+<td>Paired samples t-test</td>
+<td><strong>Wilcoxon signed-ranks test</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-important no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Rank Tests Use the Z-Table You Already Know</strong></p>
+</div>
+<div class="callout-content">
+<p>The rank tests have their own statistics (<span class="math inline">\(U\)</span> and <span class="math inline">\(W\)</span>), but we do not need a new table. We convert <span class="math inline">\(U\)</span> or <span class="math inline">\(W\)</span> to a <strong>Z-score</strong> — exactly what SPSS does — and then use the same rule as in Chapter 3 and Chapter 4:</p>
+<p><span class="math display">\[\text{reject } H_0 \text{ if } |z| &gt; z_{0.975} = 1.96 \quad (\alpha = 0.05,\ \text{two-tailed})\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="mann-whitney-u-test-for-two-independent-groups" class="slide level2 scrollable">
+<h2>Mann-Whitney U Test for Two Independent Groups</h2>
+<h3 id="when-to-use-3">When to Use</h3>
+<p>The <strong>Mann-Whitney U test</strong> (also called the Wilcoxon rank-sum test) is used when:</p>
+<ul>
+<li>The outcome variable is <strong>ordinal</strong>, or</li>
+<li>The outcome is <strong>continuous but not normally distributed</strong> (especially with small samples or obvious skewness)</li>
+<li>We are comparing <strong>two independent groups</strong></li>
+</ul>
+<p>It is the non-parametric alternative to the <strong>independent samples t-test</strong>.</p>
+<h3 id="hypotheses-2">Hypotheses</h3>
+<p><span class="math inline">\(H_0\)</span>: the outcome values in the two groups are equal (the two groups come from the same distribution)</p>
+<p><span class="math inline">\(H_1\)</span>: the outcome values in the two groups are different</p>
+<h3 id="how-it-works">How It Works</h3>
+<p>Instead of comparing means, the Mann-Whitney test compares the <strong>ranks</strong> of observations between the two groups.</p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Combine all observations from both groups and <strong>rank them</strong> from smallest (rank 1) to largest.</li>
+<li>If there are <strong>tied values</strong>, assign the average rank to each tied observation.</li>
+<li>Calculate the <strong>sum of ranks</strong> for each group: <span class="math inline">\(W_1\)</span> and <span class="math inline">\(W_2\)</span>.</li>
+<li>Calculate the test statistic <span class="math inline">\(U\)</span> from the rank sums (formula below).</li>
+<li>Convert <span class="math inline">\(U\)</span> to a <strong>Z-score</strong> (below) and compare <span class="math inline">\(|z|\)</span> with 1.96. SPSS reports this Z-score and its p-value.</li>
+</ol>
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Intuition Behind the Test</strong></p>
+</div>
+<div class="callout-content">
+<p>If the two groups come from the same distribution, their ranks should be <strong>randomly mixed</strong> between the groups — neither group should consistently have higher or lower ranks. A significant result means one group consistently has higher ranks (i.e., higher values) than the other.</p>
+</div>
+</div>
+</div>
+<h3 id="the-u-statistic">The U Statistic</h3>
+<p><span class="math display">\[U_1 = n_1 n_2 + \frac{n_1(n_1+1)}{2} - W_1\]</span></p>
+<p><span class="math display">\[U_2 = n_1 n_2 + \frac{n_2(n_2+1)}{2} - W_2\]</span></p>
+<p><span class="math display">\[U = \min(U_1, U_2)\]</span></p>
+<p>Where <span class="math inline">\(n_1\)</span>, <span class="math inline">\(n_2\)</span> are the sample sizes and <span class="math inline">\(W_1\)</span>, <span class="math inline">\(W_2\)</span> are the rank sums for groups 1 and 2 respectively. As a check, <span class="math inline">\(U_1 + U_2 = n_1 n_2\)</span>.</p>
+<p>A <strong>small</strong> <span class="math inline">\(U\)</span> means the two groups hardly overlap — evidence against <span class="math inline">\(H_0\)</span>.</p>
+<h3 id="converting-u-to-a-z-score">Converting U to a Z-Score</h3>
+<p>If <span class="math inline">\(H_0\)</span> is true, <span class="math inline">\(U\)</span> is centred at <span class="math inline">\(n_1 n_2 / 2\)</span> (half of the largest possible value). We standardise it like any Z-score — <em>(value − mean) / SD</em>:</p>
+<p><span class="math display">\[\mu_U = \frac{n_1 n_2}{2}, \qquad
+\sigma_U = \sqrt{\frac{n_1 n_2 (n_1 + n_2 + 1)}{12}}, \qquad
+z = \frac{U - \mu_U}{\sigma_U}\]</span></p>
+<ul>
+<li><strong>Decision:</strong> reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(|z| &gt; 1.96\)</span>.</li>
+<li><strong>p-value (optional):</strong> <span class="math inline">\(p = 2 \times P(Z &lt; -|z|) = 2\,[\,1 - P(Z &lt; |z|)\,]\)</span>, read from the Z-table.</li>
+</ul>
+<p>Because <span class="math inline">\(U = \min(U_1, U_2)\)</span> is the smaller value, <span class="math inline">\(z\)</span> is always zero or negative. SPSS prints the same Z-score in its <em>Test Statistics</em> table.</p>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Why Your Z May Differ Slightly From SPSS</strong></p>
+</div>
+<div class="callout-content">
+<p>When there are <strong>tied values</strong>, SPSS adjusts <span class="math inline">\(\sigma_U\)</span> for the ties, so its Z-score can differ from the hand calculation in the second decimal place. The decision is the same in practice. The Z-approximation is most accurate when each group has about 10 or more observations; SPSS uses the same approximation for its <em>Asymp. Sig.</em> value.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="example-4-mann-whitney-u-test" class="slide level2">
+<h2>Example 4: Mann-Whitney U Test</h2>
+<p>Pain score (0–10, <strong>ordinal</strong>) was recorded 24 hours after surgery in <strong>12 patients</strong>: 6 received the standard analgesic regimen and 6 received a new regimen. The two groups are different patients, so they are <strong>independent</strong>.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Regimen</th>
+<th>Pain scores</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Standard</td>
+<td>6, 7, 5, 8, 6, 7</td>
+</tr>
+<tr class="even">
+<td>New</td>
+<td>3, 4, 5, 2, 4, 6</td>
+</tr>
+</tbody>
+</table>
+<p>Test at <span class="math inline">\(\alpha = 0.05\)</span> whether pain scores differ between the two regimens.</p>
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Solution</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Hypotheses:</strong> <span class="math inline">\(H_0\)</span>: pain scores in the two groups are equal; <span class="math inline">\(H_1\)</span>: pain scores in the two groups are different. <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<div class="cell">
+<div id="tbl-mw-ranks" class="cell quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mw-ranks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6: Pain scores and their ranks (n1 = n2 = 6)
+</figcaption>
+<div aria-describedby="tbl-mw-ranks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-bordered cell caption-top" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Group</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Pain score</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Rank (combined)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">New</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">New</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">New</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">New</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Standard</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">New</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Standard</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">8.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Standard</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">8.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">New</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">8.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Standard</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">10.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Standard</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">10.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Standard</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">12.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><strong>Step 1 — Rank all 12 scores together.</strong> Ties share the average rank: the two 4s occupy ranks 3 and 4, so each gets 3.5; the three 6s occupy ranks 7, 8 and 9, so each gets 8.</p>
+<p><strong>Step 2 — Sum the ranks in each group:</strong></p>
+<p><span class="math display">\[W_{\text{Standard}} = 8 + 10.5 + 5.5 + 12 + 8 + 10.5 = 54.5\]</span> <span class="math display">\[W_{\text{New}} = 2 + 3.5 + 5.5 + 1 + 3.5 + 8 = 23.5\]</span></p>
+<p>(Check: the total of ranks 1 to 12 is <span class="math inline">\(12 \times 13 / 2 = 78 = 54.5 + 23.5\)</span>.)</p>
+<p><strong>Step 3 — Calculate U</strong> with <span class="math inline">\(n_1 = n_2 = 6\)</span>:</p>
+<p><span class="math display">\[U_1 = 36 + \frac{6 \times 7}{2} - 54.5 = 36 + 21 - 54.5 = 2.5\]</span> <span class="math display">\[U_2 = 36 + 21 - 23.5 = 33.5\]</span> <span class="math display">\[U = \min(2.5,\; 33.5) = 2.5\]</span></p>
+<p><strong>Step 4 — Convert U to a Z-score</strong> with <span class="math inline">\(n_1 = n_2 = 6\)</span>:</p>
+<p><span class="math display">\[\mu_U = \frac{6 \times 6}{2} = 18, \qquad
+\sigma_U = \sqrt{\frac{6 \times 6 \times 13}{12}} = \sqrt{39} = 6.245\]</span></p>
+<p><span class="math display">\[z = \frac{2.5 - 18}{6.245} = -2.48\]</span></p>
+<p>Since <span class="math inline">\(|z| = 2.48 &gt; 1.96\)</span>, the result is significant. From the Z-table, <span class="math inline">\(p = 2 \times (1 - 0.9934) = 0.013\)</span>.</p>
+<p>SPSS reports <span class="math inline">\(Z = -2.513\)</span> and <span class="math inline">\(p\)</span> (Asymp. Sig. 2-tailed) <span class="math inline">\(= 0.012\)</span> — the same decision (the small difference is the tie adjustment).</p>
+<p><strong>Step 5 — Decision.</strong> We <strong>reject <span class="math inline">\(H_0\)</span></strong>. Pain scores differ significantly between the two regimens. The mean rank of the new regimen (<span class="math inline">\(23.5 / 6 = 3.9\)</span>) is lower than that of the standard regimen (<span class="math inline">\(54.5 / 6 = 9.1\)</span>), so patients on the <strong>new regimen reported less pain</strong>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="wilcoxon-signed-ranks-test-for-two-related-groups" class="slide level2 scrollable">
+<h2>Wilcoxon Signed-Ranks Test for Two Related Groups</h2>
+<h3 id="when-to-use-4">When to Use</h3>
+<p>The <strong>Wilcoxon signed-ranks test</strong> (also called the Wilcoxon matched-pairs test) is the non-parametric alternative to the <strong>paired samples t-test</strong>. It is used when:</p>
+<ul>
+<li>The outcome variable is <strong>ordinal</strong>, or</li>
+<li>The <strong>differences</strong> between pairs are <strong>not normally distributed</strong> (especially with small samples)</li>
+<li>The two sets of measurements are <strong>related (paired)</strong> — for example, the same patients measured before and after treatment, or two measurements taken on the same blood sample</li>
+</ul>
+<div class="callout callout-important no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Mann-Whitney or Wilcoxon?</strong></p>
+</div>
+<div class="callout-content">
+<p>Both tests work with ranks, so they are easy to confuse. The difference is the <strong>study design</strong>, exactly as with the two t-tests:</p>
+<ul>
+<li><strong>Two independent groups</strong> (different people in each group) <span class="math inline">\(\rightarrow\)</span> <strong>Mann-Whitney U test</strong></li>
+<li><strong>Two related groups</strong> (the same people measured twice) <span class="math inline">\(\rightarrow\)</span> <strong>Wilcoxon signed-ranks test</strong></li>
+</ul>
+</div>
+</div>
+</div>
+<h3 id="hypotheses-3">Hypotheses</h3>
+<p><span class="math inline">\(H_0\)</span>: the two related measurements are equal</p>
+<p><span class="math inline">\(H_1\)</span>: the two related measurements are different</p>
+<h3 id="how-it-works-1">How It Works</h3>
+<p>The Wilcoxon test looks at the <strong>differences within each pair</strong>, and then ranks the <strong>sizes</strong> of those differences.</p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>For each pair, calculate the difference <span class="math inline">\(d_i = x_{i,1} - x_{i,2}\)</span>.</li>
+<li><strong>Discard</strong> any pair whose difference is zero.</li>
+<li>Rank the <strong>absolute</strong> differences <span class="math inline">\(|d_i|\)</span> from smallest to largest, assigning average ranks to ties.</li>
+<li>Attach to each rank the <strong>sign</strong> of its original difference.</li>
+<li>Add the ranks belonging to the positive differences (<span class="math inline">\(W^{+}\)</span>) and the ranks belonging to the negative differences (<span class="math inline">\(W^{-}\)</span>).</li>
+</ol>
+<h3 id="the-test-statistic-4">The Test Statistic</h3>
+<p><span class="math display">\[W = \min(W^{+},\; W^{-})\]</span></p>
+<p>If the two conditions really are the same, the positive and negative ranks should roughly balance, so <span class="math inline">\(W^{+}\)</span> and <span class="math inline">\(W^{-}\)</span> should be similar. A <strong>small</strong> value of <span class="math inline">\(W\)</span> means the differences fall mostly in one direction, which is evidence against <span class="math inline">\(H_0\)</span>.</p>
+<h3 id="converting-w-to-a-z-score">Converting W to a Z-Score</h3>
+<p><span class="math inline">\(n\)</span> is the number of pairs <strong>after discarding zero differences</strong>. If <span class="math inline">\(H_0\)</span> is true, <span class="math inline">\(W\)</span> is centred at half of the total of all ranks:</p>
+<p><span class="math display">\[\mu_W = \frac{n(n+1)}{4}, \qquad
+\sigma_W = \sqrt{\frac{n(n+1)(2n+1)}{24}}, \qquad
+z = \frac{W - \mu_W}{\sigma_W}\]</span></p>
+<p>As with Mann-Whitney: <strong>reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(|z| &gt; 1.96\)</span></strong>, and SPSS reports this Z-score (adjusted for ties) in its <em>Test Statistics</em> table.</p>
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Reading the SPSS Output</strong></p>
+</div>
+<div class="callout-content">
+<p>Choose <strong>Analyze</strong> <span class="math inline">\(\rightarrow\)</span> <strong>Nonparametric Tests</strong> <span class="math inline">\(\rightarrow\)</span> <strong>Legacy Dialogs</strong> <span class="math inline">\(\rightarrow\)</span> <strong>2 Related Samples</strong>, and tick <strong>Wilcoxon</strong> (older SPSS versions, as in the lab manual, have no <em>Legacy Dialogs</em> step). The <em>Ranks</em> table shows the sum of the negative and positive ranks, and the <em>Test Statistics</em> table reports <span class="math inline">\(Z\)</span> and the 2-tailed significance. As always, decide by comparing the p-value with <span class="math inline">\(\alpha\)</span> — the sign of <span class="math inline">\(Z\)</span> only indicates the direction of the ranks, not the importance of the result.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="example-5-wilcoxon-signed-ranks-test" class="slide level2">
+<h2>Example 5: Wilcoxon Signed-Ranks Test</h2>
+<p>Blood clotting time (minutes) was measured for <strong>8 patients</strong> using two solutions: an extract from shrimp shells (“Shrimp”) and the standard solution (“Standard”). Blood was taken from each patient and divided into two parts, so the two measurements are <strong>paired</strong>.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Patient</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">8</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Shrimp</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">7</td>
+</tr>
+<tr class="even">
+<td>Standard</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">9</td>
+</tr>
+</tbody>
+</table>
+<p>The sample is small (<span class="math inline">\(n = 8\)</span>), so we cannot rely on the normality of the differences. Test at <span class="math inline">\(\alpha = 0.05\)</span> whether the clotting times differ, using the <strong>Wilcoxon signed-ranks test</strong>.</p>
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Solution</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Hypotheses:</strong> <span class="math inline">\(H_0\)</span>: the clotting times with the two solutions are equal; <span class="math inline">\(H_1\)</span>: they are different. <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<div class="cell">
+<div id="tbl-wilcoxon" class="cell quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-wilcoxon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7: Blood clotting time using two solutions (n = 8 patients), with signed ranks
+</figcaption>
+<div aria-describedby="tbl-wilcoxon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-bordered cell caption-top" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Patient</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Shrimp</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Standard</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">d</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">abs(d)</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Rank of abs(d)</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Signed rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">-4</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">7.5</td>
+<td style="text-align: center;">-7.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1.5</td>
+<td style="text-align: center;">-1.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4.5</td>
+<td style="text-align: center;">4.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">-4</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">7.5</td>
+<td style="text-align: center;">-7.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">-2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4.5</td>
+<td style="text-align: center;">-4.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">-2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4.5</td>
+<td style="text-align: center;">-4.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1.5</td>
+<td style="text-align: center;">1.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">-2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4.5</td>
+<td style="text-align: center;">-4.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><strong>Step 1 — Differences</strong> <span class="math inline">\(d = \text{Shrimp} - \text{Standard}\)</span>: none is zero, so all 8 pairs are kept.</p>
+<p><strong>Step 2 — Rank <span class="math inline">\(|d|\)</span> with average ranks for ties:</strong> the two 1s share ranks 1–2 (each 1.5); the four 2s share ranks 3–6 (each 4.5); the two 4s share ranks 7–8 (each 7.5).</p>
+<p><strong>Step 3 — Sum the signed ranks:</strong></p>
+<p><span class="math display">\[W^{+} = 4.5 \;(\text{patient } 3) + 1.5 \;(\text{patient } 7) = 6\]</span> <span class="math display">\[W^{-} = 7.5 + 1.5 + 7.5 + 4.5 + 4.5 + 4.5 = 30 \quad (\text{patients } 1, 2, 4, 5, 6, 8)\]</span></p>
+<p>(Check: <span class="math inline">\(W^{+} + W^{-} = 8 \times 9 / 2 = 36\)</span>.)</p>
+<p><span class="math display">\[W = \min(6,\; 30) = 6\]</span></p>
+<p><strong>Step 4 — Convert W to a Z-score</strong> with <span class="math inline">\(n = 8\)</span> pairs:</p>
+<p><span class="math display">\[\mu_W = \frac{8 \times 9}{4} = 18, \qquad
+\sigma_W = \sqrt{\frac{8 \times 9 \times 17}{24}} = \sqrt{51} = 7.141\]</span></p>
+<p><span class="math display">\[z = \frac{6 - 18}{7.141} = -1.68\]</span></p>
+<p>Since <span class="math inline">\(|z| = 1.68 \leq 1.96\)</span>, the result is not significant. From the Z-table, <span class="math inline">\(p = 2 \times (1 - 0.9535) = 0.093\)</span>.</p>
+<p>SPSS reports <span class="math inline">\(Z = -1.706\)</span> and <span class="math inline">\(p = 0.088\)</span> — the same decision. <em>(SPSS calculates the difference as Standard − Shrimp, so its Ranks table lists the 6 and the 30 the other way round; <span class="math inline">\(W\)</span> and the p-value are the same.)</em></p>
+<p><strong>Step 5 — Decision.</strong> We <strong>do not reject</strong> <span class="math inline">\(H_0\)</span>. There is not enough evidence to say that the clotting times produced by the two solutions differ, at the 0.05 level of significance.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="choosing-the-right-test" class="slide level2">
+<h2>Choosing the Right Test</h2>
+<div class="cell">
+<div id="tbl-test-choice" class="cell quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-test-choice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8: Guide to Choosing the Correct Statistical Test (Two Groups)
+</figcaption>
+<div aria-describedby="tbl-test-choice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-bordered cell caption-top" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Outcome Data Type</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Study Design</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Statistical Test</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">SPSS Procedure</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Categorical (Nominal)</td>
+<td style="text-align: left;">2 independent groups</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Chi-square test</td>
+<td style="text-align: left;">Analyze -&gt; Descriptive Statistics -&gt; Crosstabs</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Continuous (normal)</td>
+<td style="text-align: left;">2 independent groups</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Independent samples t-test</td>
+<td style="text-align: left;">Analyze -&gt; Compare Means -&gt; Independent-Samples T Test</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Continuous (normal)</td>
+<td style="text-align: left;">2 related (paired) groups</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Paired samples t-test</td>
+<td style="text-align: left;">Analyze -&gt; Compare Means -&gt; Paired-Samples T Test</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ordinal or non-normal continuous</td>
+<td style="text-align: left;">2 independent groups</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Mann-Whitney U test</td>
+<td style="text-align: left;">Analyze -&gt; Nonparametric Tests -&gt; Legacy Dialogs -&gt; 2 Independent Samples</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ordinal or non-normal continuous</td>
+<td style="text-align: left;">2 related (paired) groups</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Wilcoxon signed-ranks test</td>
+<td style="text-align: left;">Analyze -&gt; Nonparametric Tests -&gt; Legacy Dialogs -&gt; 2 Related Samples</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-test-flowchart" class="quarto-float quarto-figure quarto-figure-center" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-test-flowchart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="ch05_files/figure-revealjs/fig-test-flowchart-1.png" class="quarto-figure quarto-figure-center" width="864">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-test-flowchart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Decision flowchart for selecting the correct test (two-group comparisons)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-warning no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Ordinal Outcomes Always Go to a Rank Test</strong></p>
+</div>
+<div class="callout-content">
+<p>An ordinal outcome — such as a <strong>pain score</strong>, a satisfaction rating or a stage of disease — is never analysed with a t-test, even if it is written as numbers. Use the Mann-Whitney U test (independent groups) or the Wilcoxon signed-ranks test (paired).</p>
+</div>
+</div>
+</div>
+</section>
+<section id="key-takeaways" class="slide level2 scrollable">
+<h2>Key Takeaways</h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Chapter 5 Summary</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><p>Hypothesis testing uses sample data to decide between two competing claims: the <strong>null hypothesis (<span class="math inline">\(H_0\)</span>)</strong> and the <strong>alternative hypothesis (<span class="math inline">\(H_1\)</span>)</strong>.</p></li>
+<li><p>The <strong>test statistic</strong> measures how far the data are from <span class="math inline">\(H_0\)</span>. By hand we compare it with a <strong>critical value</strong>; in SPSS we compare the <strong>p-value</strong> with <span class="math inline">\(\alpha\)</span>. Both give the same decision.</p></li>
+<li><p>The <strong>p-value</strong> is the probability of the observed data (or more extreme) if <span class="math inline">\(H_0\)</span> is true. A p-value <span class="math inline">\(\leq \alpha\)</span> (usually 0.05) leads us to <strong>reject <span class="math inline">\(H_0\)</span></strong>.</p></li>
+<li><p><strong>Type I error (α):</strong> rejecting a true <span class="math inline">\(H_0\)</span> (false positive). <strong>Type II error (β):</strong> failing to reject a false <span class="math inline">\(H_0\)</span> (false negative).</p></li>
+<li><p><strong>Chi-square test:</strong> for association between two categorical (nominal) variables in independent groups. Read the Pearson row, or Fisher’s exact test if any expected count is below 5.</p></li>
+<li><p><strong>Independent samples t-test:</strong> for comparing means of two independent groups with continuous, approximately normal data. Read <strong>Levene’s test</strong> first to choose the row.</p></li>
+<li><p><strong>Paired samples t-test:</strong> for comparing means of two related measurements (before/after, or matched pairs) when the differences are approximately normal.</p></li>
+<li><p><strong>Mann-Whitney U test:</strong> for comparing two independent groups when the outcome is ordinal or the normality assumption is not met.</p></li>
+<li><p><strong>Wilcoxon signed-ranks test:</strong> for comparing two <strong>related</strong> measurements when the outcome is ordinal or the differences are not normally distributed. It is the non-parametric alternative to the paired t-test. For both rank tests, convert <span class="math inline">\(U\)</span> or <span class="math inline">\(W\)</span> to a <strong>Z-score</strong> and <strong>reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(|z| &gt; 1.96\)</span></strong> — the same Z-score that SPSS reports.</p></li>
+<li><p>Always choose the test based on <strong>data type</strong> and <strong>study design</strong> — using the wrong test leads to invalid conclusions.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="formula-summary" class="slide level2">
+<h2>Formula Summary</h2>
+<table class="table-striped caption-top">
+<caption>Formulas in this chapter</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 50%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Quantity</th>
+<th style="text-align: left;">Formula</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Decision with SPSS</td>
+<td style="text-align: left;">Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(p \leq \alpha\)</span></td>
+<td style="text-align: left;">Usually <span class="math inline">\(\alpha = 0.05\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Expected frequency</td>
+<td style="text-align: left;"><span class="math inline">\(E = \dfrac{\text{Row total} \times \text{Column total}}{n}\)</span></td>
+<td style="text-align: left;">All <span class="math inline">\(E \geq 5\)</span>, otherwise Fisher’s exact test</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Chi-square</td>
+<td style="text-align: left;"><span class="math inline">\(\chi^2 = \sum \dfrac{(O - E)^2}{E}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(df = (r-1)(c-1)\)</span>; reject if <span class="math inline">\(\chi^2 &gt; \chi^2_{0.95,\,df}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pooled SD</td>
+<td style="text-align: left;"><span class="math inline">\(s_p = \sqrt{\dfrac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}}\)</span></td>
+<td style="text-align: left;">Equal variances (Levene Sig. <span class="math inline">\(&gt; 0.05\)</span>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Independent t</td>
+<td style="text-align: left;"><span class="math inline">\(t = \dfrac{\bar{x}_1 - \bar{x}_2}{s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(df = n_1 + n_2 - 2\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Welch SE</td>
+<td style="text-align: left;"><span class="math inline">\(SE = \sqrt{\dfrac{s_1^2}{n_1} + \dfrac{s_2^2}{n_2}}\)</span></td>
+<td style="text-align: left;">Unequal variances; df from SPSS</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Paired t</td>
+<td style="text-align: left;"><span class="math inline">\(t = \dfrac{\bar{d}}{s_d / \sqrt{n}}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(d_i = x_{1i} - x_{2i}\)</span>; <span class="math inline">\(df = n - 1\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Decision for t</td>
+<td style="text-align: left;">Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(|t| &gt; t_{0.975,\,df}\)</span></td>
+<td style="text-align: left;">Two-tailed, <span class="math inline">\(\alpha = 0.05\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mann-Whitney U</td>
+<td style="text-align: left;"><span class="math inline">\(U_1 = n_1 n_2 + \dfrac{n_1(n_1+1)}{2} - W_1\)</span>, <span class="math inline">\(U = \min(U_1, U_2)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(W_1\)</span> = rank sum of group 1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">U to Z</td>
+<td style="text-align: left;"><span class="math inline">\(z = \dfrac{U - n_1 n_2 / 2}{\sqrt{n_1 n_2 (n_1 + n_2 + 1)/12}}\)</span></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Wilcoxon W</td>
+<td style="text-align: left;"><span class="math inline">\(W = \min(W^{+}, W^{-})\)</span></td>
+<td style="text-align: left;">Drop zero differences first</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">W to Z</td>
+<td style="text-align: left;"><span class="math inline">\(z = \dfrac{W - n(n+1)/4}{\sqrt{n(n+1)(2n+1)/24}}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(n\)</span> = number of non-zero pairs</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Decision for U and W</td>
+<td style="text-align: left;">Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(|z| &gt; 1.96\)</span></td>
+<td style="text-align: left;">Same Z as SPSS (up to ties)</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="exercises" class="slide level2">
 <h2>Exercises</h2>
@@ -1063,10 +1624,12 @@ Table&nbsp;7: DBP Before and After Lifestyle Intervention (n = 10 patients)
 </tr>
 </tbody>
 </table>
+<p>In SPSS, Levene’s test for these data gives Sig. = 0.41.</p>
 <p><strong>(a)</strong> State <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span> (two-tailed).</p>
-<p><strong>(b)</strong> Calculate the pooled standard error.</p>
-<p><strong>(c)</strong> Calculate the t test statistic.</p>
-<p><strong>(d)</strong> At <span class="math inline">\(\alpha = 0.05\)</span> with appropriate df, state your conclusion.</p>
+<p><strong>(b)</strong> Based on Levene’s test, should you use the “Equal variances assumed” or the “Equal variances not assumed” version? Why?</p>
+<p><strong>(c)</strong> Calculate the pooled standard error.</p>
+<p><strong>(d)</strong> Calculate the t test statistic.</p>
+<p><strong>(e)</strong> At <span class="math inline">\(\alpha = 0.05\)</span> with appropriate df, state your conclusion.</p>
 </div>
 </div>
 </div>
@@ -1076,7 +1639,7 @@ Table&nbsp;7: DBP Before and After Lifestyle Intervention (n = 10 patients)
 <p><strong>Exercise 3 — Paired Samples t-Test</strong></p>
 </div>
 <div class="callout-content">
-<p>A pain management study measures the <strong>pain score (0–10)</strong> of 8 patients <strong>before</strong> and <strong>one hour after</strong> receiving an analgesic:</p>
+<p>A diabetes clinic measures the <strong>capillary blood glucose (mg/dL)</strong> of 8 patients with type 2 diabetes <strong>before</strong> and <strong>2 hours after</strong> a structured 30-minute walking session:</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -1094,47 +1657,136 @@ Table&nbsp;7: DBP Before and After Lifestyle Intervention (n = 10 patients)
 <tbody>
 <tr class="odd">
 <td>Before</td>
-<td style="text-align: center;">7</td>
-<td style="text-align: center;">8</td>
-<td style="text-align: center;">6</td>
-<td style="text-align: center;">9</td>
-<td style="text-align: center;">7</td>
-<td style="text-align: center;">8</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">9</td>
+<td style="text-align: center;">182</td>
+<td style="text-align: center;">165</td>
+<td style="text-align: center;">210</td>
+<td style="text-align: center;">148</td>
+<td style="text-align: center;">195</td>
+<td style="text-align: center;">172</td>
+<td style="text-align: center;">160</td>
+<td style="text-align: center;">188</td>
 </tr>
 <tr class="even">
 <td>After</td>
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">6</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">6</td>
+<td style="text-align: center;">160</td>
+<td style="text-align: center;">150</td>
+<td style="text-align: center;">182</td>
+<td style="text-align: center;">141</td>
+<td style="text-align: center;">170</td>
+<td style="text-align: center;">158</td>
+<td style="text-align: center;">152</td>
+<td style="text-align: center;">165</td>
 </tr>
 </tbody>
 </table>
-<p><strong>(a)</strong> Calculate the difference <span class="math inline">\(d_i\)</span> for each patient.</p>
+<p>Assume the differences are approximately normally distributed.</p>
+<p><strong>(a)</strong> Calculate the difference <span class="math inline">\(d_i\)</span> = Before − After for each patient.</p>
 <p><strong>(b)</strong> Calculate <span class="math inline">\(\bar{d}\)</span> and <span class="math inline">\(s_d\)</span>.</p>
 <p><strong>(c)</strong> Calculate the paired t statistic.</p>
-<p><strong>(d)</strong> At <span class="math inline">\(\alpha = 0.05\)</span>, is the analgesic effective in reducing pain? State your conclusion clearly.</p>
+<p><strong>(d)</strong> At <span class="math inline">\(\alpha = 0.05\)</span>, did blood glucose change significantly after the walking session? In which direction? State your conclusion clearly.</p>
+<p><strong>(e)</strong> Which variable would you check for normality in SPSS before using this test, and which SPSS procedure would you use?</p>
 </div>
 </div>
 </div>
 <div class="callout callout-caution no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>Exercise 4 — Choosing the Right Test</strong></p>
+<p><strong>Exercise 4 — Mann-Whitney U Test</strong></p>
+</div>
+<div class="callout-content">
+<p>A physiotherapy team records the <strong>time to first walk after knee surgery (hours)</strong>, which is strongly right-skewed, for two independent groups of patients:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Group</th>
+<th>Time to first walk (hours)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Early mobilisation programme</td>
+<td>12, 18, 9, 30, 15</td>
+</tr>
+<tr class="even">
+<td>Usual care</td>
+<td>22, 35, 28, 40, 26, 48</td>
+</tr>
+</tbody>
+</table>
+<p><strong>(a)</strong> Explain why the Mann-Whitney U test is used rather than the independent samples t-test.</p>
+<p><strong>(b)</strong> Rank all 11 values together and find the rank sums <span class="math inline">\(W_1\)</span> and <span class="math inline">\(W_2\)</span>.</p>
+<p><strong>(c)</strong> Calculate <span class="math inline">\(U_1\)</span>, <span class="math inline">\(U_2\)</span> and <span class="math inline">\(U\)</span>.</p>
+<p><strong>(d)</strong> Convert <span class="math inline">\(U\)</span> to a Z-score and state your conclusion at <span class="math inline">\(\alpha = 0.05\)</span>. Use the Z-table to find the approximate p-value.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-caution no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Exercise 5 — Wilcoxon Signed-Ranks Test</strong></p>
+</div>
+<div class="callout-content">
+<p>An anxiety score (0–20, <strong>ordinal</strong>) was recorded for 9 patients before and after a pre-operative education session:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Patient</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">8</th>
+<th style="text-align: center;">9</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Before</td>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">17</td>
+</tr>
+<tr class="even">
+<td>After</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">7</td>
+</tr>
+</tbody>
+</table>
+<p><strong>(a)</strong> Calculate <span class="math inline">\(d\)</span> = Before − After for each patient.</p>
+<p><strong>(b)</strong> Rank <span class="math inline">\(|d|\)</span> (use average ranks for ties) and find <span class="math inline">\(W^{+}\)</span>, <span class="math inline">\(W^{-}\)</span> and <span class="math inline">\(W\)</span>.</p>
+<p><strong>(c)</strong> Convert <span class="math inline">\(W\)</span> to a Z-score and state your conclusion at <span class="math inline">\(\alpha = 0.05\)</span>. Did anxiety go up or down?</p>
+</div>
+</div>
+</div>
+<div class="callout callout-caution no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Exercise 6 — Choosing the Right Test</strong></p>
 </div>
 <div class="callout-content">
 <p>For each scenario below, state which statistical test is most appropriate and briefly explain why:</p>
 <p><strong>(a)</strong> Comparing the proportion of post-operative complications between patients who received standard care vs.&nbsp;enhanced recovery protocol.</p>
 <p><strong>(b)</strong> Comparing patient satisfaction scores (rated: Poor / Fair / Good / Excellent) between two hospital wards.</p>
-<p><strong>(c)</strong> Measuring the effect of a new diet on body weight by recording each participant’s weight before and after a 12-week program.</p>
+<p><strong>(c)</strong> Measuring the effect of a new diet on body weight by recording each participant’s weight before and after a 12-week program (the differences are approximately normal).</p>
 <p><strong>(d)</strong> Comparing the mean length of hospital stay (days) between two age groups (under 60 vs.&nbsp;60 and over), where length-of-stay data is strongly right-skewed.</p>
-<p><strong>(e)</strong> Comparing pain scores (rated 0–10) recorded for the <strong>same</strong> patients before and 24 hours after starting a new analgesic, where the differences are clearly not normally distributed.</p>
+<p><strong>(e)</strong> Comparing pain scores (0–10, ordinal) recorded for the <strong>same</strong> patients before and 24 hours after starting a new analgesic.</p>
 </div>
 </div>
 </div>
@@ -1165,6 +1817,7 @@ Table&nbsp;7: DBP Before and After Lifestyle Intervention (n = 10 patients)
   <script src="ch05_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="ch05_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="ch05_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="ch05_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
   <script src="ch05_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -1186,7 +1839,8 @@ Table&nbsp;7: DBP Before and After Lifestyle Intervention (n = 10 patients)
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true,"theme":"whiteboard","boardmarkerWidth":4},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -1357,7 +2011,7 @@ Table&nbsp;7: DBP Before and After Lifestyle Intervention (n = 10 patients)
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
 
           RevealMath,
           RevealNotes,

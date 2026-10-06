@@ -34,10 +34,12 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="ch04_files/libs/revealjs/dist/theme/quarto-f6742514887cbd978b8a1f78ade553e4.css">
+  <link rel="stylesheet" href="ch04_files/libs/revealjs/dist/theme/quarto-818da21322452c4f27f355e80635ed71.css">
   <link href="ch04_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="ch04_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="ch04_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="ch04_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="ch04_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
   <link href="ch04_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -220,9 +222,34 @@
 </div>
 </div>
 </section>
+<section id="the-sampling-distribution-of-the-mean" class="slide level2 scrollable">
+<h2>The Sampling Distribution of the Mean</h2>
+<p>If we take <strong>one</strong> sample of 40 patients and calculate <span class="math inline">\(\bar{x}\)</span>, we get one number. If a colleague takes a <strong>different</strong> sample of 40 patients from the same population, she will get a slightly different <span class="math inline">\(\bar{x}\)</span>. The sample mean itself varies from sample to sample.</p>
+<p>Imagine repeating this many times and drawing a histogram of all the sample means. This histogram is called the <strong>sampling distribution of the mean</strong>. It has three important features:</p>
+<ol type="1">
+<li>It is <strong>centred at the population mean</strong> <span class="math inline">\(\mu\)</span>.</li>
+<li>Its spread is <strong>smaller</strong> than the spread of individual values: its standard deviation is <span class="math inline">\(\sigma / \sqrt{n}\)</span>.</li>
+<li><strong>Central Limit Theorem:</strong> if the sample size is large enough (a common rule of thumb is <span class="math inline">\(n \geq 30\)</span>), the sampling distribution of <span class="math inline">\(\bar{x}\)</span> is <strong>approximately normal</strong> — <em>even when the individual values are skewed</em>. If the individual values are already normal, it is normal for any <span class="math inline">\(n\)</span>.</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-clt" class="quarto-float quarto-figure quarto-figure-center" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-clt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="ch04_files/figure-revealjs/fig-clt-1.png" class="quarto-figure quarto-figure-center" width="864">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-clt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Left: length of stay of individual patients is right-skewed. Right: the means of many samples of 40 patients are approximately normal.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>This is why we can use the <strong>normal distribution</strong> (Chapter 3) to build confidence intervals for a mean, and why the rule “<span class="math inline">\(n \geq 30\)</span>” appears in the conditions below.</p>
+</section>
 <section id="the-role-of-the-standard-error" class="slide level2">
 <h2>The Role of the Standard Error</h2>
-<p>Before constructing a confidence interval, we need to understand the <strong>standard error (SE)</strong> — a measure of how much the sample estimate varies from sample to sample.</p>
+<p>The standard deviation of the sampling distribution has its own name: the <strong>standard error (SE)</strong>. It measures how much the sample estimate varies from sample to sample. Because we rarely know <span class="math inline">\(\sigma\)</span>, we replace it with the sample SD <span class="math inline">\(s\)</span>.</p>
 <h3 id="standard-error-of-the-mean">Standard Error of the Mean</h3>
 <p><span class="math display">\[SE_{\bar{x}} = \frac{s}{\sqrt{n}}\]</span></p>
 <p>Where <span class="math inline">\(s\)</span> is the sample standard deviation and <span class="math inline">\(n\)</span> is the sample size.</p>
@@ -269,10 +296,21 @@
 </div>
 </div>
 </div>
-
-<img data-src="ch04_files/figure-revealjs/fig-se-1.png" class="quarto-figure quarto-figure-center r-stretch" width="576" id="fig-se"><p class="caption">
-Figure&nbsp;1: As sample size increases, the standard error decreases and estimates become more precise
-</p></section></section>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-se" class="quarto-float quarto-figure quarto-figure-center" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-se-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="ch04_files/figure-revealjs/fig-se-1.png" class="quarto-figure quarto-figure-center" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-se-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: As sample size increases, the standard error decreases and estimates become more precise
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section></section>
 <section>
 <section id="confidence-interval-for-a-mean" class="title-slide slide level1 center">
 <h1>Confidence Interval for a Mean</h1>
@@ -344,65 +382,325 @@ Table&nbsp;1: Critical Values for Common Confidence Levels
 <p>Where <span class="math inline">\(t_{1-\alpha/2,\, n-1}\)</span> is the critical value from the <strong>t-distribution</strong> with <span class="math inline">\(n - 1\)</span> <strong>degrees of freedom (df)</strong>. As with <span class="math inline">\(z\)</span>, the subscript <span class="math inline">\(1-\alpha/2\)</span> is the <strong>left cumulative probability</strong> (e.g., <span class="math inline">\(0.975\)</span> for a 95% CI).</p>
 <h3 id="the-t-distribution">The t-Distribution</h3>
 <p>The t-distribution is similar to the standard normal distribution but has <strong>heavier tails</strong> — reflecting the extra uncertainty from estimating <span class="math inline">\(\sigma\)</span> with <span class="math inline">\(s\)</span>. As <span class="math inline">\(n\)</span> increases, the t-distribution approaches the Z-distribution.</p>
-
-<img data-src="ch04_files/figure-revealjs/fig-t-dist-1.png" class="quarto-figure quarto-figure-center r-stretch" width="672" id="fig-t-dist"><p class="caption">
-Figure&nbsp;2: t-distributions with different degrees of freedom compared to Z
-</p><h3 id="t-critical-values">t Critical Values</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-t-dist" class="quarto-float quarto-figure quarto-figure-center" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-t-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="ch04_files/figure-revealjs/fig-t-dist-1.png" class="quarto-figure quarto-figure-center" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-t-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: t-distributions with different degrees of freedom compared to Z
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<h3 id="t-critical-values">t Critical Values</h3>
 <div class="cell">
 <div id="tbl-t-critical" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-t-critical-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: Selected t Critical Values (95% CI, two-tailed: left cumulative probability = 0.975)
+Table&nbsp;2: t Critical Values by left cumulative probability (use the 0.975 column for a 95% CI)
 </figcaption>
 <div aria-describedby="tbl-t-critical-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="table table-striped table-hover table-bordered cell caption-top" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<table class="table table-striped table-hover table-condensed cell caption-top" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: center;" data-quarto-table-cell-role="th">Degrees of Freedom (df = n-1)</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">t(0.975, df)</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; empty-cells: hide; border-bottom: hidden;"></th>
+<th colspan="4" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Left cumulative probability
+</div></th>
+</tr>
+<tr class="even">
+<th style="text-align: center;" data-quarto-table-cell-role="th">df</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">0.95</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">0.975</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">0.99</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">0.995</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">1</td>
+<td style="text-align: center;">6.314</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">12.706</td>
+<td style="text-align: center;">31.821</td>
+<td style="text-align: center;">63.657</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">2</td>
+<td style="text-align: center;">2.920</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">4.303</td>
+<td style="text-align: center;">6.965</td>
+<td style="text-align: center;">9.925</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">3</td>
+<td style="text-align: center;">2.353</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">3.182</td>
+<td style="text-align: center;">4.541</td>
+<td style="text-align: center;">5.841</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">4</td>
+<td style="text-align: center;">2.132</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.776</td>
+<td style="text-align: center;">3.747</td>
+<td style="text-align: center;">4.604</td>
+</tr>
+<tr class="odd">
 <td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">5</td>
-<td style="text-align: center;">2.571</td>
+<td style="text-align: center;">2.015</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.571</td>
+<td style="text-align: center;">3.365</td>
+<td style="text-align: center;">4.032</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">6</td>
+<td style="text-align: center;">1.943</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.447</td>
+<td style="text-align: center;">3.143</td>
+<td style="text-align: center;">3.707</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">7</td>
+<td style="text-align: center;">1.895</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.365</td>
+<td style="text-align: center;">2.998</td>
+<td style="text-align: center;">3.499</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">8</td>
+<td style="text-align: center;">1.860</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.306</td>
+<td style="text-align: center;">2.896</td>
+<td style="text-align: center;">3.355</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">9</td>
+<td style="text-align: center;">1.833</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.262</td>
+<td style="text-align: center;">2.821</td>
+<td style="text-align: center;">3.250</td>
 </tr>
 <tr class="even">
 <td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">10</td>
-<td style="text-align: center;">2.228</td>
+<td style="text-align: center;">1.812</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.228</td>
+<td style="text-align: center;">2.764</td>
+<td style="text-align: center;">3.169</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">11</td>
+<td style="text-align: center;">1.796</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.201</td>
+<td style="text-align: center;">2.718</td>
+<td style="text-align: center;">3.106</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">12</td>
+<td style="text-align: center;">1.782</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.179</td>
+<td style="text-align: center;">2.681</td>
+<td style="text-align: center;">3.055</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">13</td>
+<td style="text-align: center;">1.771</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.160</td>
+<td style="text-align: center;">2.650</td>
+<td style="text-align: center;">3.012</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">14</td>
+<td style="text-align: center;">1.761</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.145</td>
+<td style="text-align: center;">2.624</td>
+<td style="text-align: center;">2.977</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">15</td>
-<td style="text-align: center;">2.131</td>
+<td style="text-align: center;">1.753</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.131</td>
+<td style="text-align: center;">2.602</td>
+<td style="text-align: center;">2.947</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">16</td>
+<td style="text-align: center;">1.746</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.120</td>
+<td style="text-align: center;">2.583</td>
+<td style="text-align: center;">2.921</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">17</td>
+<td style="text-align: center;">1.740</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.110</td>
+<td style="text-align: center;">2.567</td>
+<td style="text-align: center;">2.898</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">18</td>
+<td style="text-align: center;">1.734</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.101</td>
+<td style="text-align: center;">2.552</td>
+<td style="text-align: center;">2.878</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">19</td>
+<td style="text-align: center;">1.729</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.093</td>
+<td style="text-align: center;">2.539</td>
+<td style="text-align: center;">2.861</td>
 </tr>
 <tr class="even">
 <td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">20</td>
-<td style="text-align: center;">2.086</td>
+<td style="text-align: center;">1.725</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.086</td>
+<td style="text-align: center;">2.528</td>
+<td style="text-align: center;">2.845</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">21</td>
+<td style="text-align: center;">1.721</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.080</td>
+<td style="text-align: center;">2.518</td>
+<td style="text-align: center;">2.831</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">22</td>
+<td style="text-align: center;">1.717</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.074</td>
+<td style="text-align: center;">2.508</td>
+<td style="text-align: center;">2.819</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">23</td>
+<td style="text-align: center;">1.714</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.069</td>
+<td style="text-align: center;">2.500</td>
+<td style="text-align: center;">2.807</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">24</td>
+<td style="text-align: center;">1.711</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.064</td>
+<td style="text-align: center;">2.492</td>
+<td style="text-align: center;">2.797</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">25</td>
-<td style="text-align: center;">2.060</td>
+<td style="text-align: center;">1.708</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.060</td>
+<td style="text-align: center;">2.485</td>
+<td style="text-align: center;">2.787</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">26</td>
+<td style="text-align: center;">1.706</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.056</td>
+<td style="text-align: center;">2.479</td>
+<td style="text-align: center;">2.779</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">27</td>
+<td style="text-align: center;">1.703</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.052</td>
+<td style="text-align: center;">2.473</td>
+<td style="text-align: center;">2.771</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">28</td>
+<td style="text-align: center;">1.701</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.048</td>
+<td style="text-align: center;">2.467</td>
+<td style="text-align: center;">2.763</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">29</td>
+<td style="text-align: center;">1.699</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.045</td>
+<td style="text-align: center;">2.462</td>
+<td style="text-align: center;">2.756</td>
 </tr>
 <tr class="even">
 <td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">30</td>
-<td style="text-align: center;">2.042</td>
+<td style="text-align: center;">1.697</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.042</td>
+<td style="text-align: center;">2.457</td>
+<td style="text-align: center;">2.750</td>
 </tr>
 <tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">35</td>
+<td style="text-align: center;">1.690</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.030</td>
+<td style="text-align: center;">2.438</td>
+<td style="text-align: center;">2.724</td>
+</tr>
+<tr class="even">
 <td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">40</td>
-<td style="text-align: center;">2.021</td>
+<td style="text-align: center;">1.684</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.021</td>
+<td style="text-align: center;">2.423</td>
+<td style="text-align: center;">2.704</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">50</td>
+<td style="text-align: center;">1.676</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.009</td>
+<td style="text-align: center;">2.403</td>
+<td style="text-align: center;">2.678</td>
 </tr>
 <tr class="even">
 <td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">60</td>
-<td style="text-align: center;">2.000</td>
+<td style="text-align: center;">1.671</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">2.000</td>
+<td style="text-align: center;">2.390</td>
+<td style="text-align: center;">2.660</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">120</td>
-<td style="text-align: center;">1.980</td>
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">70</td>
+<td style="text-align: center;">1.667</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">1.994</td>
+<td style="text-align: center;">2.381</td>
+<td style="text-align: center;">2.648</td>
 </tr>
 <tr class="even">
-<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">Inf (Z)</td>
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">80</td>
+<td style="text-align: center;">1.664</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">1.990</td>
+<td style="text-align: center;">2.374</td>
+<td style="text-align: center;">2.639</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">100</td>
+<td style="text-align: center;">1.660</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">1.984</td>
+<td style="text-align: center;">2.364</td>
+<td style="text-align: center;">2.626</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">120</td>
+<td style="text-align: center;">1.658</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">1.980</td>
+<td style="text-align: center;">2.358</td>
+<td style="text-align: center;">2.617</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Inf (Z)</td>
+<td style="text-align: center;">1.645</td>
 <td style="text-align: center; font-weight: bold; background-color: rgba(234, 244, 251, 1) !important;">1.960</td>
+<td style="text-align: center;">2.326</td>
+<td style="text-align: center;">2.576</td>
 </tr>
 </tbody>
 </table>
@@ -411,25 +709,9 @@ Table&nbsp;2: Selected t Critical Values (95% CI, two-tailed: left cumulative pr
 </figure>
 </div>
 </div>
-<p>As df increases, the t critical value converges to <strong>1.960</strong> (the Z value). For <span class="math inline">\(n \geq 30\)</span>, the difference is small and Z is often used as an approximation.</p>
-</section>
-<section id="confidence-interval-for-a-proportion" class="slide level2">
-<h2>Confidence Interval for a Proportion</h2>
-<p>When the outcome of interest is a <strong>proportion</strong> (e.g., prevalence of a disease, percentage of patients who respond to treatment), we use:</p>
-<p><span class="math display">\[\hat{p} \pm z_{1-\alpha/2} \cdot \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\]</span></p>
-<p>Where <span class="math inline">\(\hat{p} = \dfrac{x}{n}\)</span> is the sample proportion (<span class="math inline">\(x\)</span> = number with the characteristic, <span class="math inline">\(n\)</span> = total sample size).</p>
-<div class="callout callout-warning no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>When Is This Formula Valid?</strong></p>
-</div>
-<div class="callout-content">
-<p>This formula requires a <strong>sufficiently large sample</strong>. A common rule of thumb is:</p>
-<p><span class="math display">\[n\hat{p} \geq 5 \quad \text{and} \quad n(1-\hat{p}) \geq 5\]</span></p>
-<p>If this condition is not met, special methods are needed (not covered in this course).</p>
-</div>
-</div>
-</div>
+<p><strong>How to use the table:</strong> for a 95% CI, use the column <strong>0.975</strong> and the row <span class="math inline">\(df = n - 1\)</span>. For example, with <span class="math inline">\(n = 25\)</span>: <span class="math inline">\(t_{0.975,\,24} = 2.064\)</span>.</p>
+<p>If your df is <strong>not listed</strong>, use the <strong>next smaller</strong> df in the table. This gives a slightly larger critical value, so the interval is slightly wider — the safe direction.</p>
+<p>As df increases, the t critical value converges to <strong>1.960</strong> (the Z value). For <span class="math inline">\(n \geq 30\)</span> the difference is small, which is why some textbooks use Z as an approximation. <strong>SPSS always uses t</strong> when <span class="math inline">\(\sigma\)</span> is unknown, and so do we in this course.</p>
 </section>
 <section id="interpreting-a-confidence-interval" class="slide level2">
 <h2>Interpreting a Confidence Interval</h2>
@@ -447,35 +729,31 @@ Table&nbsp;2: Selected t Critical Values (95% CI, two-tailed: left cumulative pr
 </div>
 </div>
 </div>
-
-<img data-src="ch04_files/figure-revealjs/fig-ci-simulation-1.png" class="quarto-figure quarto-figure-center r-stretch" width="672" id="fig-ci-simulation"><p class="caption">
-Figure&nbsp;3: Simulation: 50 confidence intervals from repeated samples. Green intervals contain the true mean (μ = 130); red ones do not.
-</p><p>The figure above shows 50 confidence intervals from 50 different samples of the same population. Most (≈95%) contain the true mean; a few do not — this is expected and not an error.</p>
-</section>
-<section id="key-takeaways" class="slide level2 scrollable">
-<h2>Key Takeaways</h2>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>Chapter 4 Summary</strong></p>
+<p><strong>Using a CI to Judge a Target Value</strong></p>
 </div>
 <div class="callout-content">
-<ol type="1">
-<li><p>A <strong>point estimate</strong> gives a single best-guess value for a population parameter; an <strong>interval estimate</strong> gives a range of plausible values.</p></li>
-<li><p>A <strong>confidence interval (CI)</strong> = Point estimate <span class="math inline">\(\pm\)</span> Margin of error. The margin of error depends on the confidence level, the SE, and the critical value.</p></li>
-<li><p>Use the <strong>Z-interval</strong> when <span class="math inline">\(\sigma\)</span> is known or <span class="math inline">\(n \geq 30\)</span>; use the <strong>t-interval</strong> when <span class="math inline">\(\sigma\)</span> is unknown and <span class="math inline">\(n\)</span> is small, with <span class="math inline">\(df = n - 1\)</span>.</p></li>
-<li><p>The <strong>95% CI</strong> is the standard in health research, using <span class="math inline">\(z_{0.975} = 1.96\)</span>.</p></li>
-<li><p>A wider CI means less precision; a larger sample size <span class="math inline">\(n\)</span> always produces a narrower (more precise) CI.</p></li>
-<li><p>The correct interpretation: <em>“We are 95% confident the true parameter lies within this interval”</em> — not a probability statement about a fixed parameter.</p></li>
-</ol>
+<p>A 95% CI contains the <strong>plausible</strong> values of the parameter. If a target or claimed value (for example, a hospital’s target readmission rate) lies <strong>outside</strong> the interval, the data suggest the true value differs from that target. We will formalise this idea as a hypothesis test in Chapter 5.</p>
 </div>
 </div>
 </div>
-</section></section>
-<section>
-<section id="examples" class="title-slide slide level1 center">
-<h1>Examples</h1>
-
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-ci-simulation" class="quarto-float quarto-figure quarto-figure-center" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-ci-simulation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="ch04_files/figure-revealjs/fig-ci-simulation-1.png" class="quarto-figure quarto-figure-center" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ci-simulation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Simulation: 50 confidence intervals from repeated samples. Green intervals contain the true mean (μ = 130); red ones do not.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The figure above shows 50 confidence intervals from 50 different samples of the same population. Most (≈95%) contain the true mean; a few do not — this is expected and not an error.</p>
 </section>
 <section id="example-1-95-ci-for-a-mean-σ-unknown" class="slide level2">
 <h2>Example 1: 95% CI for a Mean (σ unknown)</h2>
@@ -492,7 +770,7 @@ Figure&nbsp;3: Simulation: 50 confidence intervals from repeated samples. Green 
 <p><strong>Step 1 — Standard Error:</strong> <span class="math display">\[SE = \frac{s}{\sqrt{n}} = \frac{18.6}{\sqrt{36}} = \frac{18.6}{6} = 3.10\]</span></p>
 <p><strong>Step 2 — Critical value:</strong></p>
 <p><span class="math inline">\(df = n - 1 = 35\)</span>. From the t-table at left cumulative probability <span class="math inline">\(1 - \alpha/2 = 0.975\)</span>: <span class="math inline">\(t_{0.975,\, 35} = 2.030\)</span></p>
-<p><em>(Since <span class="math inline">\(n = 36 \geq 30\)</span>, we could also use <span class="math inline">\(z = 1.96\)</span> as an approximation.)</em></p>
+<p><em>(df = 35 is in the t-table. Since <span class="math inline">\(n = 36\)</span> is fairly large, the value is already close to <span class="math inline">\(z_{0.975} = 1.96\)</span>.)</em></p>
 <p><strong>Step 3 — Confidence Interval:</strong> <span class="math display">\[105.4 \pm 2.030 \times 3.10 = 105.4 \pm 6.29\]</span></p>
 <p><span class="math display">\[\textbf{95\% CI: } (99.1, \; 111.7) \text{ mg/dL}\]</span></p>
 <p><strong>Interpretation:</strong> We are 95% confident that the true mean fasting blood glucose of adults in this population is between <strong>99.1 and 111.7 mg/dL</strong>.</p>
@@ -500,29 +778,8 @@ Figure&nbsp;3: Simulation: 50 confidence intervals from repeated samples. Green 
 </div>
 </div>
 </section>
-<section id="example-2-95-ci-for-a-proportion" class="slide level2">
-<h2>Example 2: 95% CI for a Proportion</h2>
-<p>In a survey of <strong>200 adults</strong>, <strong>68 were found to have hypertension</strong>.</p>
-<p>Construct a <strong>95% confidence interval</strong> for the true prevalence of hypertension in this population.</p>
-<div class="callout callout-tip no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Solution</strong></p>
-</div>
-<div class="callout-content">
-<p><strong>Given:</strong> <span class="math inline">\(n = 200\)</span>, <span class="math inline">\(x = 68\)</span></p>
-<p><strong>Step 1 — Sample proportion:</strong> <span class="math display">\[\hat{p} = \frac{68}{200} = 0.34 \quad (34\%)\]</span></p>
-<p><strong>Step 2 — Check validity:</strong> <span class="math display">\[n\hat{p} = 200 \times 0.34 = 68 \geq 5 \checkmark\]</span> <span class="math display">\[n(1-\hat{p}) = 200 \times 0.66 = 132 \geq 5 \checkmark\]</span></p>
-<p><strong>Step 3 — Standard Error:</strong> <span class="math display">\[SE = \sqrt{\frac{0.34 \times 0.66}{200}} = \sqrt{\frac{0.2244}{200}} = \sqrt{0.001122} = 0.0335\]</span></p>
-<p><strong>Step 4 — Confidence Interval</strong> (using <span class="math inline">\(z_{0.975} = 1.96\)</span>): <span class="math display">\[0.34 \pm 1.96 \times 0.0335 = 0.34 \pm 0.066\]</span></p>
-<p><span class="math display">\[\textbf{95\% CI: } (0.274, \; 0.406) \quad \text{or} \quad (27.4\%, \; 40.6\%)\]</span></p>
-<p><strong>Interpretation:</strong> We are 95% confident that the true prevalence of hypertension in this population is between <strong>27.4% and 40.6%</strong>.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="example-3-effect-of-sample-size-on-ci-width" class="slide level2">
-<h2>Example 3: Effect of Sample Size on CI Width</h2>
+<section id="example-2-effect-of-sample-size-on-ci-width" class="slide level2">
+<h2>Example 2: Effect of Sample Size on CI Width</h2>
 <p>Using the same data as Example 1 (<span class="math inline">\(\bar{x} = 105.4\)</span>, <span class="math inline">\(s = 18.6\)</span>), compare the 95% CI when <span class="math inline">\(n = 36\)</span>, <span class="math inline">\(n = 100\)</span>, and <span class="math inline">\(n = 400\)</span>.</p>
 <div class="callout callout-tip no-icon callout-titled callout-style-default">
 <div class="callout-body">
@@ -543,6 +800,7 @@ Table&nbsp;3: Effect of Sample Size on CI Width (xbar = 105.4, s = 18.6, 95% CI)
 <tr class="header">
 <th style="text-align: center;" data-quarto-table-cell-role="th">n</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th">SE</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">t(0.975, n-1)</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th">Margin of Error</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th">Lower Bound</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th">Upper Bound</th>
@@ -553,26 +811,29 @@ Table&nbsp;3: Effect of Sample Size on CI Width (xbar = 105.4, s = 18.6, 95% CI)
 <tr class="odd">
 <td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">36</td>
 <td style="text-align: center;">3.10</td>
-<td style="text-align: center;">6.076</td>
-<td style="text-align: center;">99.32</td>
-<td style="text-align: center;">111.48</td>
-<td style="text-align: center; font-weight: bold;">12.15</td>
+<td style="text-align: center;">2.030</td>
+<td style="text-align: center;">6.29</td>
+<td style="text-align: center;">99.1</td>
+<td style="text-align: center;">111.7</td>
+<td style="text-align: center; font-weight: bold;">12.59</td>
 </tr>
 <tr class="even">
 <td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">100</td>
 <td style="text-align: center;">1.86</td>
-<td style="text-align: center;">3.646</td>
-<td style="text-align: center;">101.75</td>
-<td style="text-align: center;">109.05</td>
-<td style="text-align: center; font-weight: bold;">7.29</td>
+<td style="text-align: center;">1.984</td>
+<td style="text-align: center;">3.69</td>
+<td style="text-align: center;">101.7</td>
+<td style="text-align: center;">109.1</td>
+<td style="text-align: center; font-weight: bold;">7.38</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">400</td>
 <td style="text-align: center;">0.93</td>
-<td style="text-align: center;">1.823</td>
-<td style="text-align: center;">103.58</td>
-<td style="text-align: center;">107.22</td>
-<td style="text-align: center; font-weight: bold;">3.65</td>
+<td style="text-align: center;">1.966</td>
+<td style="text-align: center;">1.83</td>
+<td style="text-align: center;">103.6</td>
+<td style="text-align: center;">107.2</td>
+<td style="text-align: center; font-weight: bold;">3.66</td>
 </tr>
 </tbody>
 </table>
@@ -581,10 +842,165 @@ Table&nbsp;3: Effect of Sample Size on CI Width (xbar = 105.4, s = 18.6, 95% CI)
 </figure>
 </div>
 </div>
-<p><strong>Conclusion:</strong> Quadrupling the sample size (from 100 to 400) <strong>halves</strong> the CI width — because SE depends on <span class="math inline">\(\sqrt{n}\)</span>, not <span class="math inline">\(n\)</span> directly. To halve the margin of error, you need to <strong>quadruple</strong> the sample size.</p>
+<p>The first row is exactly the CI from Example 1.</p>
+<p><strong>Conclusion:</strong> Quadrupling the sample size (from 100 to 400) roughly <strong>halves</strong> the CI width — because SE depends on <span class="math inline">\(\sqrt{n}\)</span>, not <span class="math inline">\(n\)</span> directly (the small extra change comes from the t value getting closer to 1.96). To halve the margin of error, you need about <strong>four times</strong> the sample size.</p>
 </div>
 </div>
 </div>
+</section>
+<section id="confidence-interval-for-a-proportion" class="slide level2">
+<h2>Confidence Interval for a Proportion</h2>
+<p>When the outcome of interest is a <strong>proportion</strong> (e.g., prevalence of a disease, percentage of patients who respond to treatment), we use:</p>
+<p><span class="math display">\[\hat{p} \pm z_{1-\alpha/2} \cdot \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\]</span></p>
+<p>Where <span class="math inline">\(\hat{p} = \dfrac{x}{n}\)</span> is the sample proportion (<span class="math inline">\(x\)</span> = number with the characteristic, <span class="math inline">\(n\)</span> = total sample size).</p>
+<div class="callout callout-warning no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>When Is This Formula Valid?</strong></p>
+</div>
+<div class="callout-content">
+<p>This formula requires a <strong>sufficiently large sample</strong>. A common rule of thumb is:</p>
+<p><span class="math display">\[n\hat{p} \geq 5 \quad \text{and} \quad n(1-\hat{p}) \geq 5\]</span></p>
+<p>If this condition is not met, special methods are needed (not covered in this course).</p>
+</div>
+</div>
+</div>
+</section>
+<section id="example-3-95-ci-for-a-proportion" class="slide level2">
+<h2>Example 3: 95% CI for a Proportion</h2>
+<p>In a survey of <strong>200 adults</strong>, <strong>68 were found to have hypertension</strong>.</p>
+<p>Construct a <strong>95% confidence interval</strong> for the true prevalence of hypertension in this population.</p>
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Solution</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Given:</strong> <span class="math inline">\(n = 200\)</span>, <span class="math inline">\(x = 68\)</span></p>
+<p><strong>Step 1 — Sample proportion:</strong> <span class="math display">\[\hat{p} = \frac{68}{200} = 0.34 \quad (34\%)\]</span></p>
+<p><strong>Step 2 — Check validity:</strong> <span class="math display">\[n\hat{p} = 200 \times 0.34 = 68 \geq 5 \checkmark\]</span> <span class="math display">\[n(1-\hat{p}) = 200 \times 0.66 = 132 \geq 5 \checkmark\]</span></p>
+<p><strong>Step 3 — Standard Error:</strong> <span class="math display">\[SE = \sqrt{\frac{0.34 \times 0.66}{200}} = \sqrt{\frac{0.2244}{200}} = \sqrt{0.001122} = 0.0335\]</span></p>
+<p><strong>Step 4 — Confidence Interval</strong> (using <span class="math inline">\(z_{0.975} = 1.96\)</span>): <span class="math display">\[0.34 \pm 1.96 \times 0.0335 = 0.34 \pm 0.066\]</span></p>
+<p><span class="math display">\[\textbf{95\% CI: } (0.274, \; 0.406) \quad \text{or} \quad (27.4\%, \; 40.6\%)\]</span></p>
+<p><strong>Interpretation:</strong> We are 95% confident that the true prevalence of hypertension in this population is between <strong>27.4% and 40.6%</strong>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sample-size-for-estimating-a-mean" class="slide level2">
+<h2>Sample Size for Estimating a Mean</h2>
+<p>Before a study starts, researchers must decide <strong>how many participants</strong> to recruit. Too few, and the CI will be too wide to be useful; too many, and time, money and patients’ effort are wasted.</p>
+</section>
+<section id="where-the-formula-comes-from" class="slide level2 scrollable">
+<h2>Where the Formula Comes From</h2>
+<p>The <strong>margin of error</strong> <span class="math inline">\(E\)</span> is the “±” part of the CI:</p>
+<p><span class="math display">\[E = z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}\]</span></p>
+<p>If we decide in advance how small we want <span class="math inline">\(E\)</span> to be, we can solve this equation for <span class="math inline">\(n\)</span>:</p>
+<p><span class="math display">\[\sqrt{n} = \frac{z_{1-\alpha/2} \cdot \sigma}{E}
+\qquad \Rightarrow \qquad
+n = \left(\frac{z_{1-\alpha/2} \cdot \sigma}{E}\right)^2\]</span></p>
+<div class="callout callout-important no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Three Rules for Sample Size</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><strong>We use z, not t.</strong> The t value depends on <span class="math inline">\(n\)</span>, which we do not know yet.</li>
+<li><strong>We need a value for <span class="math inline">\(\sigma\)</span></strong> before the study — usually from a pilot study or a previous publication.</li>
+<li><strong>Always round UP</strong> to the next whole number, even if the decimal is small (e.g., 96.04 becomes 97). Rounding down would give a margin of error slightly <em>larger</em> than we wanted.</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="worked-example" class="slide level2">
+<h2>Worked Example</h2>
+<p>A researcher wants to estimate the mean systolic blood pressure of elderly patients in a district, with a <strong>95% CI</strong> and a margin of error of <strong>no more than 3 mmHg</strong>. A previous study reported <strong>SD = 15 mmHg</strong>.</p>
+<p><span class="math display">\[n = \left(\frac{1.96 \times 15}{3}\right)^2 = (9.8)^2 = 96.04
+\;\rightarrow\; \textbf{97 patients}\]</span></p>
+<p>Notice the effect of each part of the formula:</p>
+<ul>
+<li>A <strong>smaller</strong> <span class="math inline">\(E\)</span> (more precision) needs a <strong>larger</strong> <span class="math inline">\(n\)</span> — halving <span class="math inline">\(E\)</span> multiplies <span class="math inline">\(n\)</span> by 4.</li>
+<li>A <strong>larger</strong> <span class="math inline">\(\sigma\)</span> (more variable patients) needs a <strong>larger</strong> <span class="math inline">\(n\)</span>.</li>
+<li>A <strong>higher</strong> confidence level (99% uses 2.576) needs a <strong>larger</strong> <span class="math inline">\(n\)</span>.</li>
+</ul>
+</section>
+<section id="key-takeaways" class="slide level2 scrollable">
+<h2>Key Takeaways</h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Chapter 4 Summary</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><p>A <strong>point estimate</strong> gives a single best-guess value for a population parameter; an <strong>interval estimate</strong> gives a range of plausible values.</p></li>
+<li><p>A <strong>confidence interval (CI)</strong> = Point estimate <span class="math inline">\(\pm\)</span> Margin of error. The margin of error depends on the confidence level, the SE, and the critical value.</p></li>
+<li><p>Use the <strong>Z-interval</strong> only when <span class="math inline">\(\sigma\)</span> is known. When <span class="math inline">\(\sigma\)</span> is unknown (almost always), use the <strong>t-interval</strong> with <span class="math inline">\(df = n - 1\)</span> — this is what SPSS does. For large <span class="math inline">\(n\)</span>, the t and Z values are very close. The <strong>Central Limit Theorem</strong> is why these intervals work for large samples even when the data are skewed.</p></li>
+<li><p>The <strong>95% CI</strong> is the standard in health research, using <span class="math inline">\(z_{0.975} = 1.96\)</span>.</p></li>
+<li><p>A wider CI means less precision; a larger sample size <span class="math inline">\(n\)</span> always produces a narrower (more precise) CI.</p></li>
+<li><p><strong>Sample size for a mean:</strong> <span class="math inline">\(n = \left(z_{1-\alpha/2}\,\sigma / E\right)^2\)</span>, always rounded <strong>up</strong>.</p></li>
+<li><p>The correct interpretation: <em>“We are 95% confident the true parameter lies within this interval”</em> — not a probability statement about a fixed parameter.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="formula-summary" class="slide level2">
+<h2>Formula Summary</h2>
+<table class="table-striped caption-top">
+<caption>Formulas in this chapter</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 50%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Quantity</th>
+<th style="text-align: left;">Formula</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SE of a mean</td>
+<td style="text-align: left;"><span class="math inline">\(SE_{\bar{x}} = \dfrac{s}{\sqrt{n}}\)</span></td>
+<td style="text-align: left;">Gets smaller as <span class="math inline">\(n\)</span> increases</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SE of a proportion</td>
+<td style="text-align: left;"><span class="math inline">\(SE_{\hat{p}} = \sqrt{\dfrac{\hat{p}(1-\hat{p})}{n}}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\hat{p} = x/n\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CI for a mean, <span class="math inline">\(\sigma\)</span> known</td>
+<td style="text-align: left;"><span class="math inline">\(\bar{x} \pm z_{1-\alpha/2} \cdot \dfrac{\sigma}{\sqrt{n}}\)</span></td>
+<td style="text-align: left;">Rare in practice</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CI for a mean, <span class="math inline">\(\sigma\)</span> unknown</td>
+<td style="text-align: left;"><span class="math inline">\(\bar{x} \pm t_{1-\alpha/2,\,n-1} \cdot \dfrac{s}{\sqrt{n}}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(df = n - 1\)</span>; what SPSS uses</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CI for a proportion</td>
+<td style="text-align: left;"><span class="math inline">\(\hat{p} \pm z_{1-\alpha/2} \cdot \sqrt{\dfrac{\hat{p}(1-\hat{p})}{n}}\)</span></td>
+<td style="text-align: left;">Needs <span class="math inline">\(n\hat{p} \geq 5\)</span> and <span class="math inline">\(n(1-\hat{p}) \geq 5\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sample size for a mean</td>
+<td style="text-align: left;"><span class="math inline">\(n = \left(\dfrac{z_{1-\alpha/2} \cdot \sigma}{E}\right)^2\)</span></td>
+<td style="text-align: left;">Always round <strong>up</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Critical values of Z</td>
+<td style="text-align: left;"><span class="math inline">\(z_{0.95} = 1.645\)</span>, <span class="math inline">\(z_{0.975} = 1.96\)</span>, <span class="math inline">\(z_{0.995} = 2.576\)</span></td>
+<td style="text-align: left;">90%, 95%, 99% CI</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="exercises" class="slide level2">
 <h2>Exercises</h2>
@@ -626,7 +1042,7 @@ Table&nbsp;3: Effect of Sample Size on CI Width (xbar = 105.4, s = 18.6, 95% CI)
 <p>A researcher wants to estimate the mean diastolic blood pressure (DBP) of adults in a city. From a pilot study, the SD is estimated to be <strong>12 mmHg</strong>.</p>
 <p>The researcher wants a <strong>95% CI with a margin of error no greater than 2 mmHg</strong>.</p>
 <p>Using the formula: <span class="math display">\[n = \left(\frac{z_{1-\alpha/2} \cdot \sigma}{E}\right)^2\]</span></p>
-<p>where <span class="math inline">\(E\)</span> is the desired margin of error, calculate the <strong>minimum sample size</strong> required.</p>
+<p>where <span class="math inline">\(E\)</span> is the desired margin of error, calculate the <strong>minimum sample size</strong> required. Remember to round <strong>up</strong>.</p>
 </div>
 </div>
 </div>
@@ -657,6 +1073,7 @@ Table&nbsp;3: Effect of Sample Size on CI Width (xbar = 105.4, s = 18.6, 95% CI)
   <script src="ch04_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="ch04_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="ch04_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="ch04_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
   <script src="ch04_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -678,7 +1095,8 @@ Table&nbsp;3: Effect of Sample Size on CI Width (xbar = 105.4, s = 18.6, 95% CI)
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true,"theme":"whiteboard","boardmarkerWidth":4},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -849,7 +1267,7 @@ Table&nbsp;3: Effect of Sample Size on CI Width (xbar = 105.4, s = 18.6, 95% CI)
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
 
           RevealMath,
           RevealNotes,

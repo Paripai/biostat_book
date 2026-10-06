@@ -34,10 +34,12 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="ch02_files/libs/revealjs/dist/theme/quarto-f6742514887cbd978b8a1f78ade553e4.css">
+  <link rel="stylesheet" href="ch02_files/libs/revealjs/dist/theme/quarto-818da21322452c4f27f355e80635ed71.css">
   <link href="ch02_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="ch02_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="ch02_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="ch02_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="ch02_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
   <link href="ch02_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -145,11 +147,11 @@
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>Why Does This Matter for Nurses?</strong></p>
+<p><strong>Why Does This Matter?</strong></p>
 </div>
 <div class="callout-content">
 <p>Imagine you have blood pressure readings from 80 patients on your ward. Looking at 80 individual numbers tells you very little. But if someone says <em>“the average systolic BP is 138 mmHg and most patients fall between 120 and 155 mmHg”</em> — now you have a clear picture.</p>
-<p><strong>Data summarization</strong> is the process of turning raw data into meaningful, easy-to-understand information using numbers and charts. This is one of the most practical skills in clinical nursing and health research.</p>
+<p><strong>Data summarization</strong> is the process of turning raw data into meaningful, easy-to-understand information using numbers and charts. This is one of the most practical skills in clinical practice and health research.</p>
 </div>
 </div>
 </div>
@@ -220,7 +222,7 @@ Table&nbsp;1: Choosing the Right Measure of Central Tendency
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Measure</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Best For</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Nursing Example</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Example</th>
 </tr>
 </thead>
 <tbody>
@@ -237,7 +239,7 @@ Table&nbsp;1: Choosing the Right Measure of Central Tendency
 <tr class="odd">
 <td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Mode</td>
 <td style="text-align: left;">Nominal data; finding the most common category</td>
-<td style="text-align: left;">Most common blood type on a ward, most frequent pain score</td>
+<td style="text-align: left;">Most common blood type on a ward, most common reason for admission</td>
 </tr>
 </tbody>
 </table>
@@ -247,7 +249,7 @@ Table&nbsp;1: Choosing the Right Measure of Central Tendency
 </div>
 </div>
 </section>
-<section id="measures-of-variability" class="slide level2">
+<section id="measures-of-variability" class="slide level2 scrollable">
 <h2>Measures of Variability</h2>
 <p>Knowing the average alone is not enough. Two wards might have the same average patient age but very different spreads — one ward may have all patients aged 55–65, another may have patients aged 20–90. Variability tells us how <strong>spread out</strong> the data are.</p>
 <h3 id="range">Range</h3>
@@ -284,6 +286,55 @@ Table&nbsp;1: Choosing the Right Measure of Central Tendency
 <div class="callout-content">
 <p>A <strong>small SD</strong> means values are clustered closely around the mean. A <strong>large SD</strong> means values are widely spread.</p>
 <p>In clinical practice, you may see lab reports written as: <strong>Mean ± SD</strong>, for example: Hemoglobin = <strong>12.5 ± 1.8 g/dL</strong></p>
+</div>
+</div>
+</div>
+<h3 id="quartiles-and-the-interquartile-range-iqr">Quartiles and the Interquartile Range (IQR)</h3>
+<p>The median splits the ordered data into two halves. <strong>Quartiles</strong> split it into four quarters:</p>
+<ul>
+<li><strong>Q1</strong> (first quartile) — 25% of values lie below it</li>
+<li><strong>Q2</strong> = the median — 50% of values lie below it</li>
+<li><strong>Q3</strong> (third quartile) — 75% of values lie below it</li>
+</ul>
+<p>The <strong>interquartile range</strong> is the spread of the middle 50% of the data:</p>
+<p><span class="math display">\[\text{IQR} = Q_3 - Q_1\]</span></p>
+<p><strong>How to find Q1 and Q3</strong> (the same rule SPSS uses in <em>Explore</em>):</p>
+<ol type="1">
+<li>Arrange the data in order.</li>
+<li>Q1 is at position <span class="math inline">\(0.25(n+1)\)</span>; Q3 is at position <span class="math inline">\(0.75(n+1)\)</span>.</li>
+<li>If the position is not a whole number, go that fraction of the way between the two neighbouring values.</li>
+</ol>
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Example: Length of Stay</strong></p>
+</div>
+<div class="callout-content">
+<p>Length of stay (days) of 11 patients, already in order:</p>
+<p><span class="math display">\[2, \; 3, \; 3, \; 4, \; 4, \; 5, \; 5, \; 6, \; 7, \; 9, \; 21\]</span></p>
+<ul>
+<li>Q1: position <span class="math inline">\(0.25(11+1) = 3\)</span>, so Q1 = <strong>3 days</strong></li>
+<li>Median: position <span class="math inline">\(0.50(11+1) = 6\)</span>, so median = <strong>5 days</strong></li>
+<li>Q3: position <span class="math inline">\(0.75(11+1) = 9\)</span>, so Q3 = <strong>7 days</strong></li>
+<li>IQR = 7 − 3 = <strong>4 days</strong></li>
+</ul>
+<p><strong>Checking for outliers</strong> with the 1.5 × IQR rule:</p>
+<ul>
+<li>Upper fence = Q3 + 1.5 × IQR = 7 + 6 = 13 days</li>
+<li>Lower fence = Q1 − 1.5 × IQR = 3 − 6 = −3 days</li>
+</ul>
+<p>The patient who stayed <strong>21 days</strong> is above 13, so this value is an <strong>outlier</strong>.</p>
+</div>
+</div>
+</div>
+<p>Like the median, the IQR is <strong>not affected by extreme values</strong>, so the pair <strong>median and IQR</strong> is used to describe skewed data (the pair mean and SD is used for symmetric data).</p>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Different Software, Slightly Different Quartiles</strong></p>
+</div>
+<div class="callout-content">
+<p>There are several accepted rules for finding quartiles, so a calculator, Excel, or another textbook may give a slightly different Q1 or Q3 for small samples. In this course we use the <span class="math inline">\(0.25(n+1)\)</span> and <span class="math inline">\(0.75(n+1)\)</span> positions, which match the SPSS <em>Explore</em> output.</p>
 </div>
 </div>
 </div>
@@ -342,148 +393,11 @@ Table&nbsp;2: Summary of Numerical Summary Measures
 <td style="text-align: left;">Spread (original units)</td>
 <td style="text-align: left;">Numerical</td>
 </tr>
-</tbody>
-</table>
-</div>
-</div>
-</figure>
-</div>
-</div>
-</section>
-<section id="pictorial-summarization" class="slide level2">
-<h2>Pictorial Summarization</h2>
-<p>Charts and graphs turn numbers into visual stories. The correct chart depends on the <strong>data type</strong>.</p>
-</section>
-<section id="bar-chart" class="slide level2">
-<h2>Bar Chart</h2>
-<p>Used for <strong>categorical data</strong> (nominal or ordinal). Each bar represents a category; the height shows the count or percentage.</p>
-
-<img data-src="ch02_files/figure-revealjs/fig-bar-1.png" class="quarto-figure quarto-figure-center r-stretch" width="576" id="fig-bar"><p class="caption">
-Figure&nbsp;1: Bar Chart: Blood Types of 120 Patients in a Medical Ward
-</p></section>
-<section id="histogram" class="slide level2">
-<h2>Histogram</h2>
-<p>Used for <strong>continuous numerical data</strong>. Bars are drawn over class intervals (ranges of values); bars touch each other because the data is continuous.</p>
-
-<img data-src="ch02_files/figure-revealjs/fig-hist-1.png" class="quarto-figure quarto-figure-center r-stretch" width="576" id="fig-hist"><p class="caption">
-Figure&nbsp;2: Histogram: Systolic Blood Pressure of 80 Patients
-</p><div class="callout callout-tip no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Bar Chart vs Histogram</strong></p>
-</div>
-<div class="callout-content">
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th>Bar Chart</th>
-<th>Histogram</th>
-</tr>
-</thead>
-<tbody>
 <tr class="odd">
-<td>Data type</td>
-<td>Categorical</td>
-<td>Continuous numerical</td>
-</tr>
-<tr class="even">
-<td>Bars</td>
-<td>Separated (gaps)</td>
-<td>Touching (no gaps)</td>
-</tr>
-<tr class="odd">
-<td>X-axis</td>
-<td>Categories</td>
-<td>Numerical ranges</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</section>
-<section id="box-plot-box-and-whisker-plot" class="slide level2">
-<h2>Box Plot (Box-and-Whisker Plot)</h2>
-<p>A <strong>box plot</strong> summarizes the <strong>distribution</strong> of numerical data using 5 key values (the <strong>five-number summary</strong>):</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Minimum</td>
-<td>Smallest value (excluding outliers)</td>
-</tr>
-<tr class="even">
-<td>Q1</td>
-<td>25th percentile (lower quartile)</td>
-</tr>
-<tr class="odd">
-<td>Median (Q2)</td>
-<td>50th percentile — middle value</td>
-</tr>
-<tr class="even">
-<td>Q3</td>
-<td>75th percentile (upper quartile)</td>
-</tr>
-<tr class="odd">
-<td>Maximum</td>
-<td>Largest value (excluding outliers)</td>
-</tr>
-</tbody>
-</table>
-<p>The <strong>Interquartile Range (IQR) = Q3 − Q1</strong> represents the middle 50% of data. Points beyond <strong>1.5 × IQR</strong> from Q1 or Q3 are marked as <strong>outliers ()</strong>.</p>
-
-<img data-src="ch02_files/figure-revealjs/fig-boxplot-1.png" class="quarto-figure quarto-figure-center r-stretch" width="576" id="fig-boxplot"><p class="caption">
-Figure&nbsp;3: Box Plot: Comparing Length of Hospital Stay Between Two Wards
-</p></section>
-<section id="choosing-the-right-chart" class="slide level2">
-<h2>Choosing the Right Chart</h2>
-<div class="cell">
-<div id="tbl-charts" class="cell quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-tbl">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-charts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;3: Guide to Choosing the Right Chart
-</figcaption>
-<div aria-describedby="tbl-charts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output-display">
-<table class="table table-striped table-hover table-bordered cell caption-top" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Chart Type</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Data Type</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">What It Shows</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Nursing Example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Bar Chart</td>
-<td style="text-align: left;">Categorical (Nominal/Ordinal)</td>
-<td style="text-align: left;">Frequency or percentage of each category</td>
-<td style="text-align: left;">Number of patients by blood type</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Pie Chart</td>
-<td style="text-align: left;">Categorical (Nominal) - proportions</td>
-<td style="text-align: left;">Proportion of each category as a slice of the whole</td>
-<td style="text-align: left;">Proportion of patients by diagnosis</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Histogram</td>
-<td style="text-align: left;">Numerical (Continuous)</td>
-<td style="text-align: left;">Distribution shape, spread, and central tendency</td>
-<td style="text-align: left;">Distribution of patient ages or blood pressure</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Box Plot</td>
-<td style="text-align: left;">Numerical (Continuous/Discrete)</td>
-<td style="text-align: left;">Median, spread, quartiles, and outliers</td>
-<td style="text-align: left;">Comparing recovery time between two wards</td>
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Interquartile Range</td>
+<td style="text-align: center;">Q3 - Q1</td>
+<td style="text-align: left;">Spread of the middle 50%</td>
+<td style="text-align: left;">Numerical / Ordinal</td>
 </tr>
 </tbody>
 </table>
@@ -492,34 +406,10 @@ Table&nbsp;3: Guide to Choosing the Right Chart
 </figure>
 </div>
 </div>
-</section>
-<section id="key-takeaways" class="slide level2 scrollable">
-<h2>Key Takeaways</h2>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Chapter 2 Summary</strong></p>
-</div>
-<div class="callout-content">
-<ol type="1">
-<li><p><strong>Numerical summarization</strong> uses measures of <em>central tendency</em> (mean, median, mode) and <em>variability</em> (range, variance, SD) to describe data with numbers.</p></li>
-<li><p>The <strong>mean</strong> is best for symmetric numerical data; the <strong>median</strong> is better when data is skewed or has outliers; the <strong>mode</strong> is used for categorical data.</p></li>
-<li><p>The <strong>standard deviation (SD)</strong> is the most commonly reported measure of spread in clinical research, expressed in the same units as the data.</p></li>
-<li><p><strong>Pictorial summarization</strong> uses charts: bar charts for categorical data, histograms for continuous data, and box plots to compare groups and identify outliers.</p></li>
-<li><p>Always choose the <strong>correct summary measure and chart</strong> based on the <strong>data type</strong> — using the wrong one leads to misleading conclusions.</p></li>
-</ol>
-</div>
-</div>
-</div>
-</section></section>
-<section>
-<section id="examples" class="title-slide slide level1 center">
-<h1>Examples</h1>
-
 </section>
 <section id="example-1-calculating-mean-median-and-sd" class="slide level2">
 <h2>Example 1: Calculating Mean, Median, and SD</h2>
-<p>A nurse records the resting heart rate (beats per minute) of <strong>9 patients</strong>:</p>
+<p>A health worker records the resting heart rate (beats per minute) of <strong>9 patients</strong>:</p>
 <p><span class="math display">\[72, \; 68, \; 85, \; 74, \; 90, \; 68, \; 78, \; 72, \; 110\]</span></p>
 <p>Calculate the <strong>(a) mean</strong>, <strong>(b) median</strong>, and <strong>(c) standard deviation</strong>.</p>
 <div class="callout callout-tip no-icon callout-titled callout-style-default">
@@ -537,7 +427,7 @@ Table&nbsp;3: Guide to Choosing the Right Chart
 <p><strong>(b) Median:</strong></p>
 <p><span class="math inline">\(n = 9\)</span> (odd), so median is at position <span class="math inline">\(\dfrac{9+1}{2} = 5\)</span>th value.</p>
 <p>Counting from the ordered list: the 5th value = <strong>74 bpm</strong></p>
-<p>Notice that the median (74) is lower than the mean (79.7) because the outlier value of 110 pulls the mean upward.</p>
+<p>Notice that the median (74) is lower than the mean (79.7) because the unusually high value of 110 pulls the mean upward.</p>
 <hr>
 <p><strong>(c) Standard Deviation:</strong></p>
 <p>First, find each <span class="math inline">\((x_i - \bar{x})^2\)</span>:</p>
@@ -545,7 +435,7 @@ Table&nbsp;3: Guide to Choosing the Right Chart
 <div id="tbl-sd-calc" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-sd-calc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;4: Step-by-step SD calculation
+Table&nbsp;3: Step-by-step SD calculation
 </figcaption>
 <div aria-describedby="tbl-sd-calc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -623,14 +513,196 @@ Table&nbsp;4: Step-by-step SD calculation
 <p><span class="math display">\[\sum(x_i - \bar{x})^2 = 1480\]</span></p>
 <p><span class="math display">\[s^2 = \frac{1480}{9-1} = \frac{1480}{8} = 185\]</span></p>
 <p><span class="math display">\[s = \sqrt{185} = 13.6 \text{ bpm}\]</span></p>
-<p><strong>Interpretation:</strong> The average heart rate is <strong>79.7 ± 13.5 bpm</strong>. The relatively large SD reflects the wide spread, largely influenced by the patient with 110 bpm.</p>
+<p><strong>Interpretation:</strong> The average heart rate is <strong>79.7 ± 13.6 bpm</strong>. The relatively large SD reflects the wide spread, largely influenced by the patient with 110 bpm.</p>
 </div>
+</div>
+</div>
+</section>
+<section id="pictorial-summarization" class="slide level2">
+<h2>Pictorial Summarization</h2>
+<p>Charts and graphs turn numbers into visual stories. The correct chart depends on the <strong>data type</strong>.</p>
+</section>
+<section id="bar-chart" class="slide level2">
+<h2>Bar Chart</h2>
+<p>Used for <strong>categorical data</strong> (nominal or ordinal). Each bar represents a category; the height shows the count or percentage.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-bar" class="quarto-float quarto-figure quarto-figure-center" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="ch02_files/figure-revealjs/fig-bar-1.png" class="quarto-figure quarto-figure-center" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Bar Chart: Blood Types of 120 Patients in a Medical Ward
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="histogram" class="slide level2">
+<h2>Histogram</h2>
+<p>Used for <strong>continuous numerical data</strong>. Bars are drawn over class intervals (ranges of values); bars touch each other because the data is continuous. <em>(We will learn how to choose the class intervals in Chapter 3.)</em></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-hist" class="quarto-float quarto-figure quarto-figure-center" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="ch02_files/figure-revealjs/fig-hist-1.png" class="quarto-figure quarto-figure-center" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Histogram: Systolic Blood Pressure of 80 Patients
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Bar Chart vs Histogram</strong></p>
+</div>
+<div class="callout-content">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Bar Chart</th>
+<th>Histogram</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Data type</td>
+<td>Categorical, or discrete with few values</td>
+<td>Continuous numerical</td>
+</tr>
+<tr class="even">
+<td>Bars</td>
+<td>Separated (gaps)</td>
+<td>Touching (no gaps)</td>
+</tr>
+<tr class="odd">
+<td>X-axis</td>
+<td>Categories, or each possible count</td>
+<td>Numerical ranges</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Discrete data:</strong> if a count has only a <strong>few possible values</strong> (e.g., number of falls per month: 0, 1, 2, …, 5), draw a <strong>bar chart</strong> with one bar for each value. The gaps between the bars show that there are no values in between (no month has 1.5 falls). If a count has <strong>many possible values</strong> (e.g., number of patients seen per day, 0 to 80), group the values into class intervals and draw a <strong>histogram</strong> (Chapter 3).</p>
+</div>
+</div>
+</div>
+</section>
+<section id="box-plot-box-and-whisker-plot" class="slide level2">
+<h2>Box Plot (Box-and-Whisker Plot)</h2>
+<p>A <strong>box plot</strong> summarizes the <strong>distribution</strong> of numerical data using 5 key values (the <strong>five-number summary</strong>):</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Minimum</td>
+<td>Smallest value (excluding outliers)</td>
+</tr>
+<tr class="even">
+<td>Q1</td>
+<td>25th percentile (lower quartile)</td>
+</tr>
+<tr class="odd">
+<td>Median (Q2)</td>
+<td>50th percentile — middle value</td>
+</tr>
+<tr class="even">
+<td>Q3</td>
+<td>75th percentile (upper quartile)</td>
+</tr>
+<tr class="odd">
+<td>Maximum</td>
+<td>Largest value (excluding outliers)</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>Interquartile Range (IQR) = Q3 − Q1</strong> represents the middle 50% of data. Points beyond <strong>1.5 × IQR</strong> from Q1 or Q3 are marked as <strong>outliers</strong> (drawn as separate circles), as in the length-of-stay example above.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-boxplot" class="quarto-float quarto-figure quarto-figure-center" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="ch02_files/figure-revealjs/fig-boxplot-1.png" class="quarto-figure quarto-figure-center" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Box Plot: Comparing Length of Hospital Stay Between Two Wards
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="choosing-the-right-chart" class="slide level2">
+<h2>Choosing the Right Chart</h2>
+<div class="cell">
+<div id="tbl-charts" class="cell quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-charts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Guide to Choosing the Right Chart
+</figcaption>
+<div aria-describedby="tbl-charts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-bordered cell caption-top" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Chart Type</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Data Type</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">What It Shows</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Bar Chart</td>
+<td style="text-align: left;">Categorical (Nominal/Ordinal); Discrete with few values</td>
+<td style="text-align: left;">Frequency or percentage of each category</td>
+<td style="text-align: left;">Number of patients by blood type; number of falls per month (0-5)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Pie Chart</td>
+<td style="text-align: left;">Categorical (Nominal) - proportions</td>
+<td style="text-align: left;">Proportion of each category as a slice of the whole</td>
+<td style="text-align: left;">Proportion of patients by diagnosis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Histogram</td>
+<td style="text-align: left;">Numerical (Continuous); Discrete with many values</td>
+<td style="text-align: left;">Distribution shape, spread, and central tendency</td>
+<td style="text-align: left;">Distribution of patient ages or blood pressure</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; color: rgba(44, 123, 182, 1) !important;">Box Plot</td>
+<td style="text-align: left;">Numerical (Continuous/Discrete)</td>
+<td style="text-align: left;">Median, spread, quartiles, and outliers</td>
+<td style="text-align: left;">Comparing recovery time between two wards</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
 </div>
 </div>
 </section>
 <section id="example-2-choosing-the-right-summary-and-chart" class="slide level2">
 <h2>Example 2: Choosing the Right Summary and Chart</h2>
-<p>A hospital administrator records the <strong>diagnosis</strong> of 200 patients admitted last month and wants to summarize the data. A research nurse records the <strong>length of stay (days)</strong> for the same 200 patients.</p>
+<p>A hospital administrator records the <strong>diagnosis</strong> of 200 patients admitted last month and wants to summarize the data. A researcher records the <strong>length of stay (days)</strong> for the same 200 patients.</p>
 <div class="callout callout-tip no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -672,6 +744,90 @@ Table&nbsp;4: Step-by-step SD calculation
 </div>
 </div>
 </section>
+<section id="key-takeaways" class="slide level2 scrollable">
+<h2>Key Takeaways</h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Chapter 2 Summary</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><p><strong>Numerical summarization</strong> uses measures of <em>central tendency</em> (mean, median, mode) and <em>variability</em> (range, IQR, variance, SD) to describe data with numbers.</p></li>
+<li><p>The <strong>mean</strong> is best for symmetric numerical data; the <strong>median</strong> is better when data is skewed or has outliers; the <strong>median</strong> is also used for ordinal data, and the <strong>mode</strong> for nominal data.</p></li>
+<li><p>The <strong>standard deviation (SD)</strong> is the most commonly reported measure of spread in clinical research, expressed in the same units as the data.</p></li>
+<li><p><strong>Pictorial summarization</strong> uses charts: bar charts for categorical data (and discrete counts with few values), histograms for continuous data, and box plots to compare groups and identify outliers.</p></li>
+<li><p>Always choose the <strong>correct summary measure and chart</strong> based on the <strong>data type</strong> — using the wrong one leads to misleading conclusions.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="formula-summary" class="slide level2">
+<h2>Formula Summary</h2>
+<table class="table-striped caption-top">
+<caption>Formulas in this chapter</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 50%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Quantity</th>
+<th style="text-align: left;">Formula</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Sample mean</td>
+<td style="text-align: left;"><span class="math inline">\(\bar{x} = \dfrac{\sum x_i}{n}\)</span></td>
+<td style="text-align: left;">Symmetric numerical data</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Median</td>
+<td style="text-align: left;">Value at position <span class="math inline">\(\dfrac{n+1}{2}\)</span> in the ordered data</td>
+<td style="text-align: left;"><span class="math inline">\(n\)</span> even: average of the two middle values</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Range</td>
+<td style="text-align: left;">Maximum <span class="math inline">\(-\)</span> Minimum</td>
+<td style="text-align: left;">Uses only two values</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Population variance</td>
+<td style="text-align: left;"><span class="math inline">\(\sigma^2 = \dfrac{\sum (x_i - \mu)^2}{N}\)</span></td>
+<td style="text-align: left;">Whole population of size <span class="math inline">\(N\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sample variance</td>
+<td style="text-align: left;"><span class="math inline">\(s^2 = \dfrac{\sum (x_i - \bar{x})^2}{n-1}\)</span></td>
+<td style="text-align: left;">Squared units</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sample SD</td>
+<td style="text-align: left;"><span class="math inline">\(s = \sqrt{s^2}\)</span></td>
+<td style="text-align: left;">Same units as the data; report Mean <span class="math inline">\(\pm\)</span> SD</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Quartiles</td>
+<td style="text-align: left;"><span class="math inline">\(Q_1\)</span> at position <span class="math inline">\(0.25(n+1)\)</span>, <span class="math inline">\(Q_3\)</span> at <span class="math inline">\(0.75(n+1)\)</span></td>
+<td style="text-align: left;">Same rule as SPSS Explore</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Interquartile range</td>
+<td style="text-align: left;"><span class="math inline">\(\text{IQR} = Q_3 - Q_1\)</span></td>
+<td style="text-align: left;">Report Median and IQR for skewed data</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Outlier fences</td>
+<td style="text-align: left;"><span class="math inline">\(Q_1 - 1.5 \times \text{IQR}\)</span> and <span class="math inline">\(Q_3 + 1.5 \times \text{IQR}\)</span></td>
+<td style="text-align: left;">Values outside are outliers on a box plot</td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="exercises" class="slide level2">
 <h2>Exercises</h2>
 <div class="callout callout-caution no-icon callout-titled callout-style-default">
@@ -680,14 +836,14 @@ Table&nbsp;4: Step-by-step SD calculation
 <p><strong>Exercise 1</strong></p>
 </div>
 <div class="callout-content">
-<p>A nurse records the body temperature (°C) of <strong>10 patients</strong> at 8:00 AM:</p>
+<p>A health worker records the body temperature (°C) of <strong>10 patients</strong> at 8:00 AM:</p>
 <p><span class="math display">\[37.2, \; 36.8, \; 38.5, \; 37.0, \; 39.1, \; 36.8, \; 37.5, \; 38.0, \; 37.2, \; 40.2\]</span></p>
 <p><strong>(a)</strong> Calculate the <strong>mean</strong> body temperature.</p>
 <p><strong>(b)</strong> Find the <strong>median</strong> body temperature.</p>
 <p><strong>(c)</strong> What is the <strong>mode</strong>?</p>
 <p><strong>(d)</strong> Calculate the <strong>range</strong>.</p>
 <p><strong>(e)</strong> Calculate the <strong>standard deviation</strong>. Show all steps.</p>
-<p><strong>(f)</strong> One patient has a temperature of 40.2°C. How does this value affect the mean compared to the median? Which measure would you report to the physician, and why?</p>
+<p><strong>(f)</strong> One patient has a temperature of 40.2°C. How does this value affect the mean compared to the median? The ward’s infection-control team wants a single number for the <em>typical</em> temperature on the ward this morning. Which measure would you give them, and why? <em>(The patient with 40.2°C must, of course, still be reported to the physician individually.)</em></p>
 </div>
 </div>
 </div>
@@ -697,7 +853,7 @@ Table&nbsp;4: Step-by-step SD calculation
 <p><strong>Exercise 2</strong></p>
 </div>
 <div class="callout-content">
-<p>A community health nurse surveys <strong>50 elderly patients</strong> and records:</p>
+<p>A community health worker surveys <strong>50 elderly patients</strong> and records:</p>
 <ul>
 <li><strong>Gender</strong> (Male / Female)</li>
 <li><strong>Systolic blood pressure</strong> (mmHg)</li>
@@ -719,7 +875,7 @@ Table&nbsp;4: Step-by-step SD calculation
 <p>The number of patient falls recorded each month over <strong>12 months</strong> in a hospital ward are:</p>
 <p><span class="math display">\[2, \; 0, \; 3, \; 1, \; 4, \; 2, \; 1, \; 0, \; 3, \; 2, \; 5, \; 1\]</span></p>
 <p><strong>(a)</strong> Calculate the mean and median number of falls per month.</p>
-<p><strong>(b)</strong> Draw a <strong>bar chart</strong> (by hand or describe what it would look like) showing the frequency of each number of falls.</p>
+<p><strong>(b)</strong> Count how many months had 0, 1, 2, 3, 4 and 5 falls. Draw a <strong>bar chart</strong> (by hand or describe what it would look like) with the number of falls on the x-axis and the number of months on the y-axis. Why is a bar chart, not a histogram, suitable here?</p>
 <p><strong>(c)</strong> The ward manager wants to set a monthly target. Should she use the mean or median as the baseline? Explain.</p>
 </div>
 </div>
@@ -751,6 +907,7 @@ Table&nbsp;4: Step-by-step SD calculation
   <script src="ch02_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="ch02_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="ch02_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="ch02_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
   <script src="ch02_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -772,7 +929,8 @@ Table&nbsp;4: Step-by-step SD calculation
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true,"theme":"whiteboard","boardmarkerWidth":4},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -943,7 +1101,7 @@ Table&nbsp;4: Step-by-step SD calculation
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
 
           RevealMath,
           RevealNotes,
