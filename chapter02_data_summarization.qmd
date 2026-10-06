@@ -8,6 +8,11 @@ library(ggplot2)
 library(knitr)
 library(kableExtra)
 library(dplyr)
+# Table helpers (used by the book and the slides)
+# tbl_fs(): font size; PDF tables use 10pt so they fit the page width
+# pdf_w():  fixed column width in the PDF only, so long text wraps
+tbl_fs <- function(html_size = 13) if (knitr::is_latex_output()) 10 else html_size
+pdf_w  <- function(x) if (knitr::is_latex_output()) x else NULL
 ```
 
 ---
@@ -15,7 +20,7 @@ library(dplyr)
 # Introduction {.unnumbered}
 
 ::: {.callout-note icon=false}
-## Why Does This Matter for Nurses?
+## Why Does This Matter?
 
 Imagine you have blood pressure readings from 80 patients on your ward.
 Looking at 80 individual numbers tells you very little. But if someone says
@@ -24,7 +29,7 @@ Looking at 80 individual numbers tells you very little. But if someone says
 
 **Data summarization** is the process of turning raw data into meaningful,
 easy-to-understand information using numbers and charts. This is one of the
-most practical skills in clinical nursing and health research.
+most practical skills in clinical practice and health research.
 :::
 
 ---
@@ -103,18 +108,20 @@ ct <- data.frame(
     "Numerical data with skewness or outliers; Ordinal data",
     "Nominal data; finding the most common category"
   ),
-  `Nursing Example` = c(
+  `Example` = c(
     "Average patient age, average blood glucose",
     "Average length of hospital stay (skewed by long-stay patients)",
-    "Most common blood type on a ward, most frequent pain score"
+    "Most common blood type on a ward, most common reason for admission"
   )
 )
 
-kable(ct, col.names = c("Measure", "Best For", "Nursing Example"),
+kable(ct, col.names = c("Measure", "Best For", "Example"),
       align = c("l","l","l")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = 13) |>
-  column_spec(1, bold = TRUE, color = "#2c7bb6")
+                full_width = FALSE, font_size = tbl_fs(13)) |>
+  column_spec(1, bold = TRUE, color = "#2c7bb6", width = pdf_w("0.8in")) |>
+  column_spec(2, width = pdf_w("2.4in")) |>
+  column_spec(3, width = pdf_w("2.5in"))
 ```
 
 ---
@@ -177,6 +184,60 @@ In clinical practice, you may see lab reports written as:
 
 ---
 
+### Quartiles and the Interquartile Range (IQR)
+
+The median splits the ordered data into two halves. **Quartiles** split
+it into four quarters:
+
+- **Q1** (first quartile) — 25% of values lie below it
+- **Q2** = the median — 50% of values lie below it
+- **Q3** (third quartile) — 75% of values lie below it
+
+The **interquartile range** is the spread of the middle 50% of the data:
+
+$$\text{IQR} = Q_3 - Q_1$$
+
+**How to find Q1 and Q3** (the same rule SPSS uses in *Explore*):
+
+1. Arrange the data in order.
+2. Q1 is at position $0.25(n+1)$; Q3 is at position $0.75(n+1)$.
+3. If the position is not a whole number, go that fraction of the way
+   between the two neighbouring values.
+
+::: {.callout-tip icon=false}
+## Example: Length of Stay
+Length of stay (days) of 11 patients, already in order:
+
+$$2, \; 3, \; 3, \; 4, \; 4, \; 5, \; 5, \; 6, \; 7, \; 9, \; 21$$
+
+- Q1: position $0.25(11+1) = 3$, so Q1 = **3 days**
+- Median: position $0.50(11+1) = 6$, so median = **5 days**
+- Q3: position $0.75(11+1) = 9$, so Q3 = **7 days**
+- IQR = 7 − 3 = **4 days**
+
+**Checking for outliers** with the 1.5 × IQR rule:
+
+- Upper fence = Q3 + 1.5 × IQR = 7 + 6 = 13 days
+- Lower fence = Q1 − 1.5 × IQR = 3 − 6 = −3 days
+
+The patient who stayed **21 days** is above 13, so this value is an
+**outlier**.
+:::
+
+Like the median, the IQR is **not affected by extreme values**, so the
+pair **median and IQR** is used to describe skewed data
+(the pair mean and SD is used for symmetric data).
+
+::: {.callout-note icon=false}
+## Different Software, Slightly Different Quartiles
+There are several accepted rules for finding quartiles, so a calculator,
+Excel, or another textbook may give a slightly different Q1 or Q3 for
+small samples. In this course we use the $0.25(n+1)$ and $0.75(n+1)$
+positions, which match the SPSS *Explore* output.
+:::
+
+---
+
 ### Summary: Numerical Measures
 
 ```{r}
@@ -184,22 +245,98 @@ In clinical practice, you may see lab reports written as:
 #| tbl-cap: "Summary of Numerical Summary Measures"
 
 vm <- data.frame(
-  Measure = c("Mean", "Median", "Mode", "Range", "Variance", "Standard Deviation"),
-  Symbol = c("xbar", "Md", "Mo", "Max - Min", "s2", "s"),
+  Measure = c("Mean", "Median", "Mode", "Range", "Variance",
+              "Standard Deviation", "Interquartile Range"),
+  Symbol = c("xbar", "Md", "Mo", "Max - Min", "s2", "s", "Q3 - Q1"),
   Purpose = c("Central tendency", "Central tendency",
                "Central tendency", "Spread",
-               "Spread (squared units)", "Spread (original units)"),
+               "Spread (squared units)", "Spread (original units)",
+               "Spread of the middle 50%"),
   `Data Type` = c("Numerical", "Numerical / Ordinal",
                    "Any", "Numerical",
-                   "Numerical", "Numerical")
+                   "Numerical", "Numerical", "Numerical / Ordinal")
 )
 
 kable(vm, col.names = c("Measure","Symbol","Purpose","Appropriate Data Type"),
       align = c("l","c","l","l")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = 13) |>
+                full_width = FALSE, font_size = tbl_fs(13)) |>
   column_spec(1, bold = TRUE, color = "#2c7bb6")
 ```
+
+---
+
+## Example 1: Calculating Mean, Median, and SD
+
+A health worker records the resting heart rate (beats per minute) of **9 patients**:
+
+$$72, \; 68, \; 85, \; 74, \; 90, \; 68, \; 78, \; 72, \; 110$$
+
+Calculate the **(a) mean**, **(b) median**, and **(c) standard deviation**.
+
+::: {.callout-tip icon=false}
+## Solution
+
+**Step 1 — Arrange data in order:**
+
+$$68, \; 68, \; 72, \; 72, \; 74, \; 78, \; 85, \; 90, \; 110$$
+
+---
+
+**(a) Mean:**
+
+$$\bar{x} = \frac{68+68+72+72+74+78+85+90+110}{9} = \frac{717}{9} = 79.7 \text{ bpm}$$
+
+---
+
+**(b) Median:**
+
+$n = 9$ (odd), so median is at position $\dfrac{9+1}{2} = 5$th value.
+
+Counting from the ordered list: the 5th value = **74 bpm**
+
+Notice that the median (74) is lower than the mean (79.7) because the
+unusually high value of 110 pulls the mean upward.
+
+---
+
+**(c) Standard Deviation:**
+
+First, find each $(x_i - \bar{x})^2$:
+
+```{r}
+#| label: tbl-sd-calc
+#| tbl-cap: "Step-by-step SD calculation"
+
+hr <- c(68, 68, 72, 72, 74, 78, 85, 90, 110)
+xbar <- mean(hr)
+
+sd_table <- data.frame(
+  `Patient` = paste0("Patient ", 1:9),
+  `Heart Rate (x)` = hr,
+  `x - xbar` = round(hr - xbar, 1),
+  `(x - xbar)2` = round((hr - xbar)^2, 2)
+)
+
+kable(sd_table,
+      col.names = c("Patient", "Heart Rate (x)", "x - xbar", "(x - xbar)2"),
+      align = c("l","c","c","c")) |>
+  kable_styling(bootstrap_options = c("striped","hover","bordered"),
+                full_width = FALSE, font_size = tbl_fs(13)) |>
+  row_spec(9, bold = TRUE) |>
+  row_spec(0, bold = TRUE, color = "white", background = "#2c7bb6")
+```
+
+$$\sum(x_i - \bar{x})^2 = `r round(sum((hr - xbar)^2), 2)`$$
+
+$$s^2 = \frac{`r round(sum((hr-xbar)^2),2)`}{9-1} = \frac{`r round(sum((hr-xbar)^2),2)`}{8} = `r round(var(hr),2)`$$
+
+$$s = \sqrt{`r round(var(hr),2)`} = `r round(sd(hr),2)` \text{ bpm}$$
+
+**Interpretation:** The average heart rate is **79.7 ± `r round(sd(hr),1)` bpm**.
+The relatively large SD reflects the wide spread, largely influenced
+by the patient with 110 bpm.
+:::
 
 ---
 
@@ -241,7 +378,8 @@ ggplot(blood, aes(x = type, y = count, fill = type)) +
 
 Used for **continuous numerical data**.
 Bars are drawn over class intervals (ranges of values); bars touch each other
-because the data is continuous.
+because the data is continuous. *(We will learn how to choose the class
+intervals in Chapter 3.)*
 
 ```{r}
 #| label: fig-hist
@@ -264,9 +402,16 @@ ggplot(bp_data, aes(x = sbp)) +
 ## Bar Chart vs Histogram
 | | Bar Chart | Histogram |
 |---|---|---|
-| Data type | Categorical | Continuous numerical |
+| Data type | Categorical, or discrete with few values | Continuous numerical |
 | Bars | Separated (gaps) | Touching (no gaps) |
-| X-axis | Categories | Numerical ranges |
+| X-axis | Categories, or each possible count | Numerical ranges |
+
+**Discrete data:** if a count has only a **few possible values** (e.g., number
+of falls per month: 0, 1, 2, ..., 5), draw a **bar chart** with one bar for
+each value. The gaps between the bars show that there are no values in
+between (no month has 1.5 falls). If a count has **many possible values**
+(e.g., number of patients seen per day, 0 to 80), group the values into
+class intervals and draw a **histogram** (Chapter 3).
 :::
 
 ---
@@ -285,7 +430,8 @@ A **box plot** summarizes the **distribution** of numerical data using
 | Maximum | Largest value (excluding outliers) |
 
 The **Interquartile Range (IQR) = Q3 − Q1** represents the middle 50% of data.
-Points beyond **1.5 × IQR** from Q1 or Q3 are marked as **outliers ()**.
+Points beyond **1.5 × IQR** from Q1 or Q3 are marked as **outliers**
+(drawn as separate circles), as in the length-of-stay example above.
 
 ```{r}
 #| label: fig-boxplot
@@ -320,9 +466,9 @@ ggplot(stay, aes(x = ward, y = days, fill = ward)) +
 
 charts <- data.frame(
   `Chart Type` = c("Bar Chart", "Pie Chart", "Histogram", "Box Plot"),
-  `Data Type` = c("Categorical (Nominal/Ordinal)",
+  `Data Type` = c("Categorical (Nominal/Ordinal); Discrete with few values",
                    "Categorical (Nominal) - proportions",
-                   "Numerical (Continuous)",
+                   "Numerical (Continuous); Discrete with many values",
                    "Numerical (Continuous/Discrete)"),
   `What It Shows` = c(
     "Frequency or percentage of each category",
@@ -330,8 +476,8 @@ charts <- data.frame(
     "Distribution shape, spread, and central tendency",
     "Median, spread, quartiles, and outliers"
   ),
-  `Nursing Example` = c(
-    "Number of patients by blood type",
+  `Example` = c(
+    "Number of patients by blood type; number of falls per month (0-5)",
     "Proportion of patients by diagnosis",
     "Distribution of patient ages or blood pressure",
     "Comparing recovery time between two wards"
@@ -339,121 +485,22 @@ charts <- data.frame(
 )
 
 kable(charts,
-      col.names = c("Chart Type","Data Type","What It Shows","Nursing Example"),
+      col.names = c("Chart Type","Data Type","What It Shows","Example"),
       align = c("l","l","l","l")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = 13) |>
-  column_spec(1, bold = TRUE, color = "#2c7bb6")
+                full_width = FALSE, font_size = tbl_fs(13)) |>
+  column_spec(1, bold = TRUE, color = "#2c7bb6", width = pdf_w("0.9in")) |>
+  column_spec(2, width = pdf_w("1.4in")) |>
+  column_spec(3, width = pdf_w("1.6in")) |>
+  column_spec(4, width = pdf_w("1.6in"))
 ```
-
----
-
-# Key Takeaways
-
-::: {.callout-note icon=false}
-## Chapter 2 Summary
-
-1. **Numerical summarization** uses measures of *central tendency*
-   (mean, median, mode) and *variability* (range, variance, SD) to
-   describe data with numbers.
-
-2. The **mean** is best for symmetric numerical data;
-   the **median** is better when data is skewed or has outliers;
-   the **mode** is used for categorical data.
-
-3. The **standard deviation (SD)** is the most commonly reported measure
-   of spread in clinical research, expressed in the same units as the data.
-
-4. **Pictorial summarization** uses charts: bar charts for categorical data,
-   histograms for continuous data, and box plots to compare groups and
-   identify outliers.
-
-5. Always choose the **correct summary measure and chart** based on the
-   **data type** — using the wrong one leads to misleading conclusions.
-:::
-
----
-
-# Examples
-
-## Example 1: Calculating Mean, Median, and SD
-
-A nurse records the resting heart rate (beats per minute) of **9 patients**:
-
-$$72, \; 68, \; 85, \; 74, \; 90, \; 68, \; 78, \; 72, \; 110$$
-
-Calculate the **(a) mean**, **(b) median**, and **(c) standard deviation**.
-
-::: {.callout-tip icon=false}
-## Solution
-
-**Step 1 — Arrange data in order:**
-
-$$68, \; 68, \; 72, \; 72, \; 74, \; 78, \; 85, \; 90, \; 110$$
-
----
-
-**(a) Mean:**
-
-$$\bar{x} = \frac{68+68+72+72+74+78+85+90+110}{9} = \frac{717}{9} = 79.7 \text{ bpm}$$
-
----
-
-**(b) Median:**
-
-$n = 9$ (odd), so median is at position $\dfrac{9+1}{2} = 5$th value.
-
-Counting from the ordered list: the 5th value = **74 bpm**
-
-Notice that the median (74) is lower than the mean (79.7) because the
-outlier value of 110 pulls the mean upward.
-
----
-
-**(c) Standard Deviation:**
-
-First, find each $(x_i - \bar{x})^2$:
-
-```{r}
-#| label: tbl-sd-calc
-#| tbl-cap: "Step-by-step SD calculation"
-
-hr <- c(68, 68, 72, 72, 74, 78, 85, 90, 110)
-xbar <- mean(hr)
-
-sd_table <- data.frame(
-  `Patient` = paste0("Patient ", 1:9),
-  `Heart Rate (x)` = hr,
-  `x - xbar` = round(hr - xbar, 1),
-  `(x - xbar)2` = round((hr - xbar)^2, 2)
-)
-
-kable(sd_table,
-      col.names = c("Patient", "Heart Rate (x)", "x - xbar", "(x - xbar)2"),
-      align = c("l","c","c","c")) |>
-  kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = 13) |>
-  row_spec(9, bold = TRUE) |>
-  row_spec(0, bold = TRUE, color = "white", background = "#2c7bb6")
-```
-
-$$\sum(x_i - \bar{x})^2 = `r round(sum((hr - xbar)^2), 2)`$$
-
-$$s^2 = \frac{`r round(sum((hr-xbar)^2),2)`}{9-1} = \frac{`r round(sum((hr-xbar)^2),2)`}{8} = `r round(var(hr),2)`$$
-
-$$s = \sqrt{`r round(var(hr),2)`} = `r round(sd(hr),2)` \text{ bpm}$$
-
-**Interpretation:** The average heart rate is **79.7 ± 13.5 bpm**.
-The relatively large SD reflects the wide spread, largely influenced
-by the patient with 110 bpm.
-:::
 
 ---
 
 ## Example 2: Choosing the Right Summary and Chart
 
 A hospital administrator records the **diagnosis** of 200 patients admitted
-last month and wants to summarize the data. A research nurse records the
+last month and wants to summarize the data. A researcher records the
 **length of stay (days)** for the same 200 patients.
 
 ::: {.callout-tip icon=false}
@@ -473,12 +520,57 @@ represents the "typical" patient.
 
 ---
 
+# Key Takeaways
+
+::: {.callout-note icon=false}
+## Chapter 2 Summary
+
+1. **Numerical summarization** uses measures of *central tendency*
+   (mean, median, mode) and *variability* (range, IQR, variance, SD) to
+   describe data with numbers.
+
+2. The **mean** is best for symmetric numerical data;
+   the **median** is better when data is skewed or has outliers;
+   the **median** is also used for ordinal data, and the **mode** for
+   nominal data.
+
+3. The **standard deviation (SD)** is the most commonly reported measure
+   of spread in clinical research, expressed in the same units as the data.
+
+4. **Pictorial summarization** uses charts: bar charts for categorical data
+   (and discrete counts with few values), histograms for continuous data,
+   and box plots to compare groups and identify outliers.
+
+5. Always choose the **correct summary measure and chart** based on the
+   **data type** — using the wrong one leads to misleading conclusions.
+:::
+
+---
+
+## Formula Summary
+
+| Quantity | Formula | Notes |
+|:----------------|:----------------------------------------|:----------------------|
+| Sample mean | $\bar{x} = \dfrac{\sum x_i}{n}$ | Symmetric numerical data |
+| Median | Value at position $\dfrac{n+1}{2}$ in the ordered data | $n$ even: average of the two middle values |
+| Range | Maximum $-$ Minimum | Uses only two values |
+| Population variance | $\sigma^2 = \dfrac{\sum (x_i - \mu)^2}{N}$ | Whole population of size $N$ |
+| Sample variance | $s^2 = \dfrac{\sum (x_i - \bar{x})^2}{n-1}$ | Squared units |
+| Sample SD | $s = \sqrt{s^2}$ | Same units as the data; report Mean $\pm$ SD |
+| Quartiles | $Q_1$ at position $0.25(n+1)$, $Q_3$ at $0.75(n+1)$ | Same rule as SPSS Explore |
+| Interquartile range | $\text{IQR} = Q_3 - Q_1$ | Report Median and IQR for skewed data |
+| Outlier fences | $Q_1 - 1.5 \times \text{IQR}$ and $Q_3 + 1.5 \times \text{IQR}$ | Values outside are outliers on a box plot |
+
+: Formulas in this chapter {.striped}
+
+---
+
 # Exercises
 
 ::: {.callout-caution icon=false}
 ## Exercise 1
 
-A nurse records the body temperature (°C) of **10 patients** at 8:00 AM:
+A health worker records the body temperature (°C) of **10 patients** at 8:00 AM:
 
 $$37.2, \; 36.8, \; 38.5, \; 37.0, \; 39.1, \; 36.8, \; 37.5, \; 38.0, \; 37.2, \; 40.2$$
 
@@ -493,14 +585,17 @@ $$37.2, \; 36.8, \; 38.5, \; 37.0, \; 39.1, \; 36.8, \; 37.5, \; 38.0, \; 37.2, 
 **(e)** Calculate the **standard deviation**. Show all steps.
 
 **(f)** One patient has a temperature of 40.2°C. How does this value
-affect the mean compared to the median? Which measure would you
-report to the physician, and why?
+affect the mean compared to the median? The ward's infection-control
+team wants a single number for the *typical* temperature on the ward
+this morning. Which measure would you give them, and why?
+*(The patient with 40.2°C must, of course, still be reported to the
+physician individually.)*
 :::
 
 ::: {.callout-caution icon=false}
 ## Exercise 2
 
-A community health nurse surveys **50 elderly patients** and records:
+A community health worker surveys **50 elderly patients** and records:
 
 - **Gender** (Male / Female)
 - **Systolic blood pressure** (mmHg)
@@ -525,8 +620,10 @@ $$2, \; 0, \; 3, \; 1, \; 4, \; 2, \; 1, \; 0, \; 3, \; 2, \; 5, \; 1$$
 
 **(a)** Calculate the mean and median number of falls per month.
 
-**(b)** Draw a **bar chart** (by hand or describe what it would look like)
-showing the frequency of each number of falls.
+**(b)** Count how many months had 0, 1, 2, 3, 4 and 5 falls. Draw a
+**bar chart** (by hand or describe what it would look like) with the
+number of falls on the x-axis and the number of months on the y-axis.
+Why is a bar chart, not a histogram, suitable here?
 
 **(c)** The ward manager wants to set a monthly target.
 Should she use the mean or median as the baseline? Explain.

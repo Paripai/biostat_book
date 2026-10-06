@@ -4,3 +4,19 @@
 .reveal .slides section div.callout.callout {
   font-size: 0.95em;
 }
+
+// Tables: kableExtra writes an inline font-size (13px) that suits the book
+// but is tiny on a slide. Override it (!important beats the inline style)
+// and let long cells wrap instead of shrinking the whole table.
+.reveal .slides table {
+  font-size: 0.55em !important;
+  max-width: 100%;
+}
+.reveal .slides table th,
+.reveal .slides table td {
+  white-space: normal;
+  padding: 0.3em 0.5em;
+}
+.reveal .slides table caption {
+  font-size: 1em;
+}

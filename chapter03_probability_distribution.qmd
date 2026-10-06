@@ -8,6 +8,11 @@ library(ggplot2)
 library(knitr)
 library(kableExtra)
 library(dplyr)
+# Table helpers (used by the book and the slides)
+# tbl_fs(): font size; PDF tables use 10pt so they fit the page width
+# pdf_w():  fixed column width in the PDF only, so long text wraps
+tbl_fs <- function(html_size = 13) if (knitr::is_latex_output()) 10 else html_size
+pdf_w  <- function(x) if (knitr::is_latex_output()) x else NULL
 ```
 
 ---
@@ -27,8 +32,10 @@ Understanding **how data is distributed** allows us to answer questions like:
 - What proportion of adults have a BMI in the healthy range?
 - How unusual is a blood pressure reading of 160 mmHg in this population?
 
-In this chapter, we introduce the concepts of **frequency distributions**
-and the **normal distribution** — the most important probability distribution
+In this chapter, we start from **frequency distributions** (what we
+observed in a sample), move to **probability** and **random variables**
+(what we expect in the population), and finish with the
+**normal distribution** — the most important probability distribution
 in all of biostatistics.
 :::
 
@@ -72,7 +79,7 @@ kable(blood,
                     "Relative Frequency (f/n)", "Percentage"),
       align = c("c","c","c","c")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = 13) |>
+                full_width = FALSE, font_size = tbl_fs(13)) |>
   row_spec(5, bold = TRUE, background = "#f0f0f0") |>
   column_spec(1, bold = TRUE)
 ```
@@ -116,14 +123,67 @@ freq_table$`Cumulative Frequency` <- cumsum(freq_table$`Frequency (f)`)
 
 kable(freq_table, align = c("c","c","c","c")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = 13) |>
+                full_width = FALSE, font_size = tbl_fs(13)) |>
   column_spec(1, bold = TRUE)
 ```
 :::
 
 **Cumulative frequency** tells us how many observations fall *at or below*
 the upper boundary of each class — useful for answering questions like
-*"What proportion of patients have SBP below 140 mmHg?"*
+*"What proportion of patients have SBP below 135 mmHg?"*
+(read the cumulative frequency of the class that ends at 134, then divide by 80).
+
+---
+
+## Example 1: Constructing a Frequency Distribution Table
+
+The following are the ages (in years) of 20 patients:
+
+$$45, 62, 38, 55, 71, 48, 60, 33, 52, 67,$$
+$$41, 58, 74, 50, 65, 44, 57, 69, 36, 53$$
+
+Construct a frequency distribution table using **5 class intervals**.
+
+::: {.callout-tip icon=false}
+## Solution
+
+**Step 1 — Find the range:**
+$$\text{Range} = 74 - 33 = 41$$
+
+**Step 2 — Calculate class width:**
+$$\text{Class width} = \frac{41}{5} = 8.2 \rightarrow \text{round up to } 9$$
+
+**Step 3 — Construct the table** (starting from the minimum, 33).
+Each class is 9 years wide, so the classes are 33–41, 42–50, 51–59,
+60–68 and 69–77. Every value belongs to **exactly one** class — for
+example, age 60 is counted in 60–68, not in 51–59.
+
+```{r}
+#| label: tbl-ex1
+#| tbl-cap: "Frequency Distribution of Patient Ages (n = 20)"
+
+ages <- c(45,62,38,55,71,48,60,33,52,67,41,58,74,50,65,44,57,69,36,53)
+breaks2 <- c(33, 42, 51, 60, 69, 78)
+labels2 <- c("33-41","42-50","51-59","60-68","69-77")
+# right = FALSE: each class includes its lower limit and excludes the next
+# class's lower limit, so age 60 falls in 60-68 (not 51-59)
+age_cut <- cut(ages, breaks = breaks2, right = FALSE, labels = labels2)
+ft <- as.data.frame(table(age_cut))
+colnames(ft) <- c("Age Group (years)", "Frequency (f)")
+ft$`Relative Frequency` <- round(ft$`Frequency (f)` / 20, 2)
+ft$Percentage <- paste0(ft$`Relative Frequency` * 100, "%")
+ft$`Cumulative Frequency` <- cumsum(ft$`Frequency (f)`)
+
+kable(ft, align = c("c","c","c","c","c")) |>
+  kable_styling(bootstrap_options = c("striped","hover","bordered"),
+                full_width = FALSE, font_size = tbl_fs(13)) |>
+  column_spec(1, bold = TRUE)
+```
+
+**Interpretation:** The largest group of patients is aged **51–59 years** (5 patients, 25%).
+From the cumulative frequency column, 8 of the 20 patients (40%) are aged
+50 years or younger, and 13 patients (65%) are aged 59 years or younger.
+:::
 
 ---
 
@@ -156,6 +216,54 @@ The **shape** of the histogram is important — it tells us about the
 
 ---
 
+# From Frequency to Probability
+
+## Probability
+
+A **probability** is a number between 0 and 1 that describes how likely
+an event is:
+
+- $P = 0$ — the event never happens
+- $P = 1$ — the event always happens
+- $P = 0.25$ — the event happens about 25% of the time in the long run
+
+The **relative frequency** we calculated above is our link to probability.
+In the blood-type table, 38% of the 200 patients had blood type A.
+If we pick one patient **at random** from this group, the probability that
+the patient has blood type A is $P(\text{type A}) = 0.38$.
+
+When we only have a sample, the relative frequency is our best
+*estimate* of the probability in the population.
+
+## Random Variable
+
+A **random variable** is a variable whose value depends on **chance** —
+we do not know its value until we select an individual and measure it.
+
+> **Example:** "The systolic blood pressure of a randomly selected patient"
+> is a random variable. Before we choose the patient, we cannot say what
+> the value will be, but we *can* say which values are more likely.
+
+Random variables follow the same classification as data in Chapter 1:
+
+| Random variable | Example | Probabilities are shown as |
+|---|---|---|
+| **Discrete** | Number of falls on a ward per month | A bar for each possible count |
+| **Continuous** | Systolic blood pressure | The **area under a smooth curve** |
+
+A **probability distribution** lists all possible values of a random
+variable and how likely each one is.
+
+For a continuous random variable, imagine collecting more and more
+patients and making the class intervals of the histogram narrower and
+narrower: the bars smooth out into a **curve**. The probability that a
+value falls in a range equals the **area under the curve** over that
+range, and the **total area is 1** (100%).
+
+The most important of these curves is the **normal distribution**.
+
+---
+
 # The Normal Distribution
 
 ## What Is the Normal Distribution?
@@ -166,10 +274,14 @@ The **normal distribution** (also called the *Gaussian distribution* or
 Many biological and clinical measurements naturally follow — or approximately
 follow — a normal distribution:
 
-- Adult height and body weight
+- Adult height
 - Blood pressure in a healthy population
-- Serum cholesterol levels
-- Birth weight of newborns
+- Hemoglobin level in healthy adults
+- Birth weight of full-term newborns
+
+Not every clinical measurement is normal. Length of hospital stay,
+for example, is strongly **right-skewed** (Chapter 2), so it does not
+follow a normal distribution.
 
 ```{r}
 #| label: fig-normal-intro
@@ -271,6 +383,37 @@ ggplot(df, aes(x, y)) +
 
 This means only about **5%** of values fall more than 2 SD from the mean,
 and only **0.3%** fall more than 3 SD away — these are considered unusual or extreme.
+
+*More precisely, 95% of values lie within* **1.96** *SD of the mean.
+The rounded value 2 is fine for quick estimates; the exact value 1.96
+is the one we will use for confidence intervals in Chapter 4.*
+:::
+
+---
+
+## Example 2: Applying the Empirical Rule
+
+The systolic blood pressure (SBP) of adults in a community follows a normal
+distribution with **mean = 125 mmHg** and **SD = 14 mmHg**.
+
+**(a)** Between what two values does the SBP of the **middle 95%** of adults fall?
+
+**(b)** What percentage of adults have SBP **above 153 mmHg**?
+
+::: {.callout-tip icon=false}
+## Solution
+
+**(a)** The middle 95% falls within $\mu \pm 2\sigma$:
+
+$$125 - 2(14) = 97 \text{ mmHg} \quad \text{to} \quad 125 + 2(14) = 153 \text{ mmHg}$$
+
+So **95% of adults** have SBP between **97 and 153 mmHg**.
+
+**(b)** SBP = 153 mmHg is exactly $\mu + 2\sigma$.
+Since 95% of values fall *within* 2 SD, the remaining 5% fall *outside*.
+By symmetry, **2.5%** fall above 153 mmHg and 2.5% fall below 97 mmHg.
+
+**Answer:** Approximately **2.5%** of adults have SBP above 153 mmHg.
 :::
 
 ---
@@ -340,7 +483,7 @@ that a randomly selected observation falls below that value.
 #| label: tbl-ztable
 #| tbl-cap: "Standard Normal Table (area to the LEFT of Z)"
 
-z_vals <- seq(0.0, 2.0, by = 0.1)
+z_vals <- seq(0.0, 3.4, by = 0.1)
 decimals <- seq(0.00, 0.09, by = 0.01)
 
 z_matrix <- outer(z_vals, decimals, function(z, d) {
@@ -352,12 +495,23 @@ colnames(z_matrix) <- formatC(decimals, format = "f", digits = 2)
 
 kable(z_matrix, caption = "Area to the left of Z (rows = Z integer + 1st decimal, columns = 2nd decimal)") |>
   kable_styling(bootstrap_options = c("striped","hover","condensed"),
-                full_width = FALSE, font_size = 11) |>
+                full_width = FALSE, font_size = tbl_fs(11)) |>
   column_spec(1, bold = TRUE, color = "#2c7bb6")
 ```
 
 **How to use the table:**
-To find $P(Z < 1.23)$, look at row **1.2** and column **0.03** read off the value.
+To find $P(Z < 1.23)$, look at row **1.2** and column **0.03**, then read
+off the value: $P(Z < 1.23) = 0.8907$.
+
+### Negative Z-Scores: Use Symmetry
+
+The table above only lists **positive** Z-scores. Because the normal curve
+is **symmetric** around 0, the area to the left of $-z$ is the same as the
+area to the right of $+z$:
+
+$$P(Z < -z) = P(Z > z) = 1 - P(Z < z)$$
+
+> **Example:** $P(Z < -1.50) = 1 - P(Z < 1.50) = 1 - 0.9332 = 0.0668$
 
 ---
 
@@ -425,106 +579,7 @@ p1 + p2 + p3
 | Probability **below** z | $P(Z < z)$ — read directly from Z-table |
 | Probability **above** z | $P(Z > z) = 1 - P(Z < z)$ |
 | Probability **between** two values | $P(z_1 < Z < z_2) = P(Z < z_2) - P(Z < z_1)$ |
-:::
-
----
-
-# Key Takeaways
-
-::: {.callout-note icon=false}
-## Chapter 3 Summary
-
-1. A **frequency distribution** organizes data into a table showing how often
-   each value or range of values occurs. It can show absolute frequency,
-   relative frequency, or cumulative frequency.
-
-2. The **normal distribution** is a symmetric, bell-shaped distribution
-   described by its mean ($\mu$) and standard deviation ($\sigma$).
-
-3. The **68–95–99.7 rule**: approximately 68%, 95%, and 99.7% of values
-   fall within 1, 2, and 3 standard deviations of the mean, respectively.
-
-4. A **Z-score** measures how many standard deviations a value is from the mean:
-   $z = \dfrac{x - \mu}{\sigma}$
-
-5. The **Z-table** gives the probability (area) to the left of any Z-score,
-   allowing us to find the probability that a measurement falls in any range.
-:::
-
----
-
-# Examples
-
-## Example 1: Constructing a Frequency Distribution Table
-
-The following are the ages (in years) of 20 patients:
-
-$$45, 62, 38, 55, 71, 48, 60, 33, 52, 67,$$
-$$41, 58, 74, 50, 65, 44, 57, 69, 36, 53$$
-
-Construct a frequency distribution table using **5 class intervals**.
-
-::: {.callout-tip icon=false}
-## Solution
-
-**Step 1 — Find the range:**
-$$\text{Range} = 74 - 33 = 41$$
-
-**Step 2 — Calculate class width:**
-$$\text{Class width} = \frac{41}{5} = 8.2 \rightarrow \text{round up to } 9$$
-
-**Step 3 — Construct the table** (starting from 33):
-
-```{r}
-#| label: tbl-ex1
-#| tbl-cap: "Frequency Distribution of Patient Ages (n = 20)"
-
-ages <- c(45,62,38,55,71,48,60,33,52,67,41,58,74,50,65,44,57,69,36,53)
-breaks2 <- c(33, 42, 51, 60, 69, 78)
-labels2 <- c("33-41","42-50","51-59","60-68","69-77")
-age_cut <- cut(ages, breaks = breaks2, right = TRUE, labels = labels2,
-               include.lowest = TRUE)
-ft <- as.data.frame(table(age_cut))
-colnames(ft) <- c("Age Group (years)", "Frequency (f)")
-ft$`Relative Frequency` <- round(ft$`Frequency (f)` / 20, 2)
-ft$Percentage <- paste0(ft$`Relative Frequency` * 100, "%")
-ft$`Cumulative Frequency` <- cumsum(ft$`Frequency (f)`)
-
-kable(ft, align = c("c","c","c","c","c")) |>
-  kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = 13) |>
-  column_spec(1, bold = TRUE)
-```
-
-**Interpretation:** The largest group of patients is aged **51–59 years** (6 patients, 30%).
-Half of all patients (cumulative frequency = 10) are aged 50 years or younger.
-:::
-
----
-
-## Example 2: Applying the Empirical Rule
-
-The systolic blood pressure (SBP) of adults in a community follows a normal
-distribution with **mean = 125 mmHg** and **SD = 14 mmHg**.
-
-**(a)** Between what two values does the SBP of the **middle 95%** of adults fall?
-
-**(b)** What percentage of adults have SBP **above 153 mmHg**?
-
-::: {.callout-tip icon=false}
-## Solution
-
-**(a)** The middle 95% falls within $\mu \pm 2\sigma$:
-
-$$125 - 2(14) = 97 \text{ mmHg} \quad \text{to} \quad 125 + 2(14) = 153 \text{ mmHg}$$
-
-So **95% of adults** have SBP between **97 and 153 mmHg**.
-
-**(b)** SBP = 153 mmHg is exactly $\mu + 2\sigma$.
-Since 95% of values fall *within* 2 SD, the remaining 5% fall *outside*.
-By symmetry, **2.5%** fall above 153 mmHg and 2.5% fall below 97 mmHg.
-
-**Answer:** Approximately **2.5%** of adults have SBP above 153 mmHg.
+| Probability below a **negative** z | $P(Z < -z) = 1 - P(Z < z)$ |
 :::
 
 ---
@@ -558,6 +613,8 @@ From Z-table: $P(Z < 1.50) = \mathbf{0.9332}$
 
 $$z = \frac{55 - 70}{10} = \frac{-15}{10} = -1.50$$
 
+Using the symmetry rule, $P(Z < -1.50) = 1 - 0.9332 = 0.0668$, so
+
 $$P(Z > -1.50) = 1 - P(Z < -1.50) = 1 - 0.0668 = \mathbf{0.9332}$$
 
 **93.3%** of adult males weigh more than 55 kg.
@@ -569,12 +626,57 @@ $$P(Z > -1.50) = 1 - P(Z < -1.50) = 1 - 0.0668 = \mathbf{0.9332}$$
 
 $$z_1 = \frac{60 - 70}{10} = -1.00 \qquad z_2 = \frac{80 - 70}{10} = 1.00$$
 
+Using symmetry, $P(Z < -1.00) = 1 - 0.8413 = 0.1587$, so
+
 $$P(-1.00 < Z < 1.00) = P(Z < 1.00) - P(Z < -1.00)$$
 $$= 0.8413 - 0.1587 = \mathbf{0.6826}$$
 
 **68.3%** of adult males weigh between 60 and 80 kg —
 consistent with the 68–95–99.7 rule.
 :::
+
+---
+
+# Key Takeaways
+
+::: {.callout-note icon=false}
+## Chapter 3 Summary
+
+1. A **frequency distribution** organizes data into a table showing how often
+   each value or range of values occurs. It can show absolute frequency,
+   relative frequency, or cumulative frequency.
+
+2. The **normal distribution** is a symmetric, bell-shaped distribution
+   described by its mean ($\mu$) and standard deviation ($\sigma$).
+
+3. A **probability** is a number from 0 to 1; for a continuous
+   **random variable** it is the **area under the curve**. The
+   **68–95–99.7 rule**: approximately 68%, 95%, and 99.7% of values
+   fall within 1, 2, and 3 standard deviations of the mean, respectively.
+
+4. A **Z-score** measures how many standard deviations a value is from the mean:
+   $z = \dfrac{x - \mu}{\sigma}$
+
+5. The **Z-table** gives the probability (area) to the left of any Z-score,
+   allowing us to find the probability that a measurement falls in any range.
+:::
+
+---
+
+## Formula Summary
+
+| Quantity | Formula | Notes |
+|:----------------|:----------------------------------------|:----------------------|
+| Relative frequency | $\dfrac{f}{n}$ | Multiply by 100 for a percentage |
+| Class width | $\dfrac{\text{Range}}{\text{Number of classes}}$, rounded up | Usually 5 to 10 classes |
+| Empirical rule | $\mu \pm \sigma$: 68%, $\mu \pm 2\sigma$: 95%, $\mu \pm 3\sigma$: 99.7% | Normal distribution only |
+| Z-score | $z = \dfrac{x - \mu}{\sigma}$ | Number of SDs from the mean |
+| Probability below | $P(Z < z)$ | Read directly from the Z-table |
+| Probability above | $P(Z > z) = 1 - P(Z < z)$ |  |
+| Probability between | $P(z_1 < Z < z_2) = P(Z < z_2) - P(Z < z_1)$ |  |
+| Negative Z | $P(Z < -z) = 1 - P(Z < z)$ | Symmetry of the normal curve |
+
+: Formulas in this chapter {.striped}
 
 ---
 
@@ -595,7 +697,8 @@ cumulative frequency.
 
 **(b)** Which class interval contains the most patients?
 
-**(c)** What percentage of patients have a blood glucose level below 120 mg/dL?
+**(c)** Using the cumulative frequency column, what percentage of patients
+have a blood glucose level below 112 mg/dL?
 :::
 
 ::: {.callout-caution icon=false}

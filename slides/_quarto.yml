@@ -11,11 +11,18 @@ filters:
 format:
   revealjs:
     scrollable: true
+    # Slides scroll, so do not shrink figures to the space left on the screen
+    auto-stretch: false
     slide-number: true
     slide-level: 2
     theme: [default, custom.scss]
     fig-width: 8
     fig-height: 5
+    # Draw on slides (C) or on a blank board (B) during the lecture
+    chalkboard:
+      theme: whiteboard
+      boardmarker-width: 4
+      buttons: true
 
 execute:
   echo: false

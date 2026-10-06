@@ -8,6 +8,11 @@ library(ggplot2)
 library(knitr)
 library(kableExtra)
 library(patchwork)
+# Table helpers (used by the book and the slides)
+# tbl_fs(): font size; PDF tables use 10pt so they fit the page width
+# pdf_w():  fixed column width in the PDF only, so long text wraps
+tbl_fs <- function(html_size = 13) if (knitr::is_latex_output()) 10 else html_size
+pdf_w  <- function(x) if (knitr::is_latex_output()) x else NULL
 ```
 
 ---
@@ -81,11 +86,63 @@ In health research, **95% confidence** is the most widely used standard.
 
 ---
 
+## The Sampling Distribution of the Mean
+
+If we take **one** sample of 40 patients and calculate $\bar{x}$, we get
+one number. If a colleague takes a **different** sample of 40 patients from
+the same population, she will get a slightly different $\bar{x}$.
+The sample mean itself varies from sample to sample.
+
+Imagine repeating this many times and drawing a histogram of all the
+sample means. This histogram is called the
+**sampling distribution of the mean**. It has three important features:
+
+1. It is **centred at the population mean** $\mu$.
+2. Its spread is **smaller** than the spread of individual values:
+   its standard deviation is $\sigma / \sqrt{n}$.
+3. **Central Limit Theorem:** if the sample size is large enough
+   (a common rule of thumb is $n \geq 30$), the sampling distribution of
+   $\bar{x}$ is **approximately normal** — *even when the individual
+   values are skewed*. If the individual values are already normal, it is
+   normal for any $n$.
+
+```{r}
+#| label: fig-clt
+#| fig-cap: "Left: length of stay of individual patients is right-skewed. Right: the means of many samples of 40 patients are approximately normal."
+#| fig-align: center
+#| fig-height: 3.5
+#| fig-width: 9
+
+set.seed(2024)
+los_pop <- rexp(20000, rate = 1/5)            # skewed population, mean 5 days
+xbars   <- replicate(2000, mean(sample(los_pop, 40)))
+
+p_ind <- ggplot(data.frame(x = los_pop), aes(x)) +
+  geom_histogram(binwidth = 1, boundary = 0, fill = "#fdae61", color = "white") +
+  labs(title = "Individual patients", x = "Length of stay (days)", y = "Count") +
+  coord_cartesian(xlim = c(0, 30)) +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.minor = element_blank())
+
+p_mean <- ggplot(data.frame(x = xbars), aes(x)) +
+  geom_histogram(binwidth = 0.2, fill = "#2c7bb6", color = "white") +
+  labs(title = "Means of samples of n = 40", x = "Sample mean (days)", y = "Count") +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.minor = element_blank())
+
+p_ind + p_mean
+```
+
+This is why we can use the **normal distribution** (Chapter 3) to build
+confidence intervals for a mean, and why the rule "$n \geq 30$" appears
+in the conditions below.
+
 ## The Role of the Standard Error
 
-Before constructing a confidence interval, we need to understand the
-**standard error (SE)** — a measure of how much the sample estimate
-varies from sample to sample.
+The standard deviation of the sampling distribution has its own name:
+the **standard error (SE)**. It measures how much the sample estimate
+varies from sample to sample. Because we rarely know $\sigma$, we
+replace it with the sample SD $s$.
 
 ### Standard Error of the Mean
 
@@ -166,7 +223,7 @@ kable(crit,
       col.names = c("Confidence Level", "alpha", "1 - alpha/2 (left area)", "z(1-alpha/2)"),
       align = c("c","c","c","c")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = 13) |>
+                full_width = FALSE, font_size = tbl_fs(13)) |>
   column_spec(1, bold = TRUE, color = "#2c7bb6") |>
   row_spec(2, background = "#eaf4fb")
 ```
@@ -230,52 +287,43 @@ ggplot(df_plot, aes(x = x, y = y, color = dist, linetype = dist)) +
 
 ```{r}
 #| label: tbl-t-critical
-#| tbl-cap: "Selected t Critical Values (95% CI, two-tailed: left cumulative probability = 0.975)"
+#| tbl-cap: "t Critical Values by left cumulative probability (use the 0.975 column for a 95% CI)"
 
-df_vals <- c(5, 10, 15, 20, 25, 30, 40, 60, 120, Inf)
-t_vals  <- qt(0.975, df = df_vals)
-t_vals[length(t_vals)] <- 1.960
+df_vals <- c(1:30, 35, 40, 50, 60, 70, 80, 100, 120, Inf)
+probs   <- c(0.95, 0.975, 0.99, 0.995)
 
 t_tab <- data.frame(
-  df = c(as.character(df_vals[-length(df_vals)]), "Inf (Z)"),
-  t  = round(t_vals, 3)
+  df = c(as.character(df_vals[-length(df_vals)]), "Inf (Z)")
 )
+for (p in probs) {
+  t_tab[[as.character(p)]] <- formatC(qt(p, df = df_vals), format = "f", digits = 3)
+}
 
-kable(t_tab, col.names = c("Degrees of Freedom (df = n-1)", "t(0.975, df)"),
-      align = c("c","c")) |>
-  kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = 13) |>
+kable(t_tab,
+      col.names = c("df", "0.95", "0.975", "0.99", "0.995"),
+      align = rep("c", 5)) |>
+  kable_styling(bootstrap_options = c("striped","hover","condensed"),
+                full_width = FALSE, font_size = tbl_fs(12)) |>
+  add_header_above(c(" " = 1, "Left cumulative probability" = 4)) |>
   column_spec(1, bold = TRUE, color = "#2c7bb6") |>
-  row_spec(10, background = "#eaf4fb", bold = TRUE)
+  column_spec(3, bold = TRUE, background = "#eaf4fb")
 ```
 
+**How to use the table:** for a 95% CI, use the column **0.975** and the row
+$df = n - 1$. For example, with $n = 25$: $t_{0.975,\,24} = 2.064$.
+
+If your df is **not listed**, use the **next smaller** df in the table.
+This gives a slightly larger critical value, so the interval is slightly
+wider — the safe direction.
+
 As df increases, the t critical value converges to **1.960** (the Z value).
-For $n \geq 30$, the difference is small and Z is often used as an approximation.
+For $n \geq 30$ the difference is small, which is why some textbooks
+use Z as an approximation. **SPSS always uses t** when $\sigma$ is unknown,
+and so do we in this course.
 
 ---
 
-# Confidence Interval for a Proportion
-
-When the outcome of interest is a **proportion** (e.g., prevalence of a disease,
-percentage of patients who respond to treatment), we use:
-
-$$\hat{p} \pm z_{1-\alpha/2} \cdot \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
-
-Where $\hat{p} = \dfrac{x}{n}$ is the sample proportion
-($x$ = number with the characteristic, $n$ = total sample size).
-
-::: {.callout-warning icon=false}
-## When Is This Formula Valid?
-This formula requires a **sufficiently large sample**. A common rule of thumb is:
-
-$$n\hat{p} \geq 5 \quad \text{and} \quad n(1-\hat{p}) \geq 5$$
-
-If this condition is not met, special methods are needed (not covered in this course).
-:::
-
----
-
-# Interpreting a Confidence Interval
+## Interpreting a Confidence Interval
 
 ::: {.callout-important icon=false}
 ## Correct Interpretation
@@ -289,6 +337,15 @@ If this condition is not met, special methods are needed (not covered in this co
 **What this does NOT mean:** There is NOT a 95% probability that the
 true parameter lies in this specific interval — the true parameter is fixed;
 it either is or is not in the interval.
+:::
+
+::: {.callout-tip icon=false}
+## Using a CI to Judge a Target Value
+A 95% CI contains the **plausible** values of the parameter. If a target
+or claimed value (for example, a hospital's target readmission rate)
+lies **outside** the interval, the data suggest the true value differs
+from that target. We will formalise this idea as a hypothesis test in
+Chapter 5.
 :::
 
 ```{r}
@@ -341,37 +398,6 @@ this is expected and not an error.
 
 ---
 
-# Key Takeaways
-
-::: {.callout-note icon=false}
-## Chapter 4 Summary
-
-1. A **point estimate** gives a single best-guess value for a population
-   parameter; an **interval estimate** gives a range of plausible values.
-
-2. A **confidence interval (CI)** = Point estimate $\pm$ Margin of error.
-   The margin of error depends on the confidence level, the SE, and the
-   critical value.
-
-3. Use the **Z-interval** when $\sigma$ is known or $n \geq 30$;
-   use the **t-interval** when $\sigma$ is unknown and $n$ is small,
-   with $df = n - 1$.
-
-4. The **95% CI** is the standard in health research, using
-   $z_{0.975} = 1.96$.
-
-5. A wider CI means less precision; a larger sample size $n$ always
-   produces a narrower (more precise) CI.
-
-6. The correct interpretation: *"We are 95% confident the true parameter
-   lies within this interval"* — not a probability statement about
-   a fixed parameter.
-:::
-
----
-
-# Examples
-
 ## Example 1: 95% CI for a Mean (σ unknown)
 
 A study measured the fasting blood glucose (mg/dL) of a random sample of
@@ -394,7 +420,8 @@ $$SE = \frac{s}{\sqrt{n}} = \frac{18.6}{\sqrt{36}} = \frac{18.6}{6} = 3.10$$
 $df = n - 1 = 35$. From the t-table at left cumulative probability
 $1 - \alpha/2 = 0.975$: $t_{0.975,\, 35} = 2.030$
 
-*(Since $n = 36 \geq 30$, we could also use $z = 1.96$ as an approximation.)*
+*(df = 35 is in the t-table. Since $n = 36$ is fairly large, the value is
+already close to $z_{0.975} = 1.96$.)*
 
 **Step 3 — Confidence Interval:**
 $$105.4 \pm 2.030 \times 3.10 = 105.4 \pm 6.29$$
@@ -407,7 +434,78 @@ glucose of adults in this population is between **99.1 and 111.7 mg/dL**.
 
 ---
 
-## Example 2: 95% CI for a Proportion
+## Example 2: Effect of Sample Size on CI Width
+
+Using the same data as Example 1 ($\bar{x} = 105.4$, $s = 18.6$),
+compare the 95% CI when $n = 36$, $n = 100$, and $n = 400$.
+
+::: {.callout-tip icon=false}
+## Solution
+
+```{r}
+#| label: tbl-ci-width
+#| tbl-cap: "Effect of Sample Size on CI Width (xbar = 105.4, s = 18.6, 95% CI)"
+
+ns   <- c(36, 100, 400)
+se   <- 18.6 / sqrt(ns)
+tcr  <- qt(0.975, df = ns - 1)
+me   <- tcr * se
+lo   <- 105.4 - me
+hi   <- 105.4 + me
+wid  <- hi - lo
+
+ci_tab <- data.frame(
+  n     = ns,
+  SE    = round(se, 3),
+  t     = round(tcr, 3),
+  ME    = round(me, 2),
+  Lower = round(lo, 1),
+  Upper = round(hi, 1),
+  Width = round(wid, 2)
+)
+
+kable(ci_tab,
+      col.names = c("n", "SE", "t(0.975, n-1)", "Margin of Error",
+                    "Lower Bound", "Upper Bound", "CI Width"),
+      align = rep("c", 7)) |>
+  kable_styling(bootstrap_options = c("striped","hover","bordered"),
+                full_width = FALSE, font_size = tbl_fs(13)) |>
+  column_spec(1, bold = TRUE, color = "#2c7bb6") |>
+  column_spec(7, bold = TRUE)
+```
+
+The first row is exactly the CI from Example 1.
+
+**Conclusion:** Quadrupling the sample size (from 100 to 400) roughly
+**halves** the CI width — because SE depends on $\sqrt{n}$, not $n$ directly
+(the small extra change comes from the t value getting closer to 1.96).
+To halve the margin of error, you need about **four times** the sample size.
+:::
+
+---
+
+# Confidence Interval for a Proportion
+
+When the outcome of interest is a **proportion** (e.g., prevalence of a disease,
+percentage of patients who respond to treatment), we use:
+
+$$\hat{p} \pm z_{1-\alpha/2} \cdot \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
+
+Where $\hat{p} = \dfrac{x}{n}$ is the sample proportion
+($x$ = number with the characteristic, $n$ = total sample size).
+
+::: {.callout-warning icon=false}
+## When Is This Formula Valid?
+This formula requires a **sufficiently large sample**. A common rule of thumb is:
+
+$$n\hat{p} \geq 5 \quad \text{and} \quad n(1-\hat{p}) \geq 5$$
+
+If this condition is not met, special methods are needed (not covered in this course).
+:::
+
+---
+
+## Example 3: 95% CI for a Proportion
 
 In a survey of **200 adults**, **68 were found to have hypertension**.
 
@@ -440,49 +538,100 @@ hypertension in this population is between **27.4% and 40.6%**.
 
 ---
 
-## Example 3: Effect of Sample Size on CI Width
+# Sample Size for Estimating a Mean
 
-Using the same data as Example 1 ($\bar{x} = 105.4$, $s = 18.6$),
-compare the 95% CI when $n = 36$, $n = 100$, and $n = 400$.
+Before a study starts, researchers must decide **how many participants**
+to recruit. Too few, and the CI will be too wide to be useful; too many,
+and time, money and patients' effort are wasted.
 
-::: {.callout-tip icon=false}
-## Solution
+## Where the Formula Comes From
 
-```{r}
-#| label: tbl-ci-width
-#| tbl-cap: "Effect of Sample Size on CI Width (xbar = 105.4, s = 18.6, 95% CI)"
+The **margin of error** $E$ is the "±" part of the CI:
 
-ns   <- c(36, 100, 400)
-se   <- 18.6 / sqrt(ns)
-z    <- 1.96
-me   <- z * se
-lo   <- 105.4 - me
-hi   <- 105.4 + me
-wid  <- hi - lo
+$$E = z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}$$
 
-ci_tab <- data.frame(
-  n     = ns,
-  SE    = round(se, 3),
-  ME    = round(me, 3),
-  Lower = round(lo, 2),
-  Upper = round(hi, 2),
-  Width = round(wid, 2)
-)
+If we decide in advance how small we want $E$ to be, we can solve this
+equation for $n$:
 
-kable(ci_tab,
-      col.names = c("n", "SE", "Margin of Error",
-                    "Lower Bound", "Upper Bound", "CI Width"),
-      align = rep("c", 6)) |>
-  kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = 13) |>
-  column_spec(1, bold = TRUE, color = "#2c7bb6") |>
-  column_spec(6, bold = TRUE)
-```
+$$\sqrt{n} = \frac{z_{1-\alpha/2} \cdot \sigma}{E}
+\qquad \Rightarrow \qquad
+n = \left(\frac{z_{1-\alpha/2} \cdot \sigma}{E}\right)^2$$
 
-**Conclusion:** Quadrupling the sample size (from 100 to 400) **halves**
-the CI width — because SE depends on $\sqrt{n}$, not $n$ directly.
-To halve the margin of error, you need to **quadruple** the sample size.
+::: {.callout-important icon=false}
+## Three Rules for Sample Size
+1. **We use z, not t.** The t value depends on $n$, which we do not know yet.
+2. **We need a value for $\sigma$** before the study — usually from a
+   pilot study or a previous publication.
+3. **Always round UP** to the next whole number, even if the decimal is
+   small (e.g., 96.04 becomes 97). Rounding down would give a margin of
+   error slightly *larger* than we wanted.
 :::
+
+## Worked Example
+
+A researcher wants to estimate the mean systolic blood pressure of
+elderly patients in a district, with a **95% CI** and a margin of error of
+**no more than 3 mmHg**. A previous study reported **SD = 15 mmHg**.
+
+$$n = \left(\frac{1.96 \times 15}{3}\right)^2 = (9.8)^2 = 96.04
+\;\rightarrow\; \textbf{97 patients}$$
+
+Notice the effect of each part of the formula:
+
+- A **smaller** $E$ (more precision) needs a **larger** $n$ — halving $E$
+  multiplies $n$ by 4.
+- A **larger** $\sigma$ (more variable patients) needs a **larger** $n$.
+- A **higher** confidence level (99% uses 2.576) needs a **larger** $n$.
+
+---
+
+# Key Takeaways
+
+::: {.callout-note icon=false}
+## Chapter 4 Summary
+
+1. A **point estimate** gives a single best-guess value for a population
+   parameter; an **interval estimate** gives a range of plausible values.
+
+2. A **confidence interval (CI)** = Point estimate $\pm$ Margin of error.
+   The margin of error depends on the confidence level, the SE, and the
+   critical value.
+
+3. Use the **Z-interval** only when $\sigma$ is known. When $\sigma$ is
+   unknown (almost always), use the **t-interval** with $df = n - 1$ —
+   this is what SPSS does. For large $n$, the t and Z values are very close.
+   The **Central Limit Theorem** is why these intervals work for large
+   samples even when the data are skewed.
+
+4. The **95% CI** is the standard in health research, using
+   $z_{0.975} = 1.96$.
+
+5. A wider CI means less precision; a larger sample size $n$ always
+   produces a narrower (more precise) CI.
+
+6. **Sample size for a mean:** $n = \left(z_{1-\alpha/2}\,\sigma / E\right)^2$,
+   always rounded **up**.
+
+7. The correct interpretation: *"We are 95% confident the true parameter
+   lies within this interval"* — not a probability statement about
+   a fixed parameter.
+:::
+
+---
+
+## Formula Summary
+
+| Quantity | Formula | Notes |
+|:----------------|:----------------------------------------|:----------------------|
+| SE of a mean | $SE_{\bar{x}} = \dfrac{s}{\sqrt{n}}$ | Gets smaller as $n$ increases |
+| SE of a proportion | $SE_{\hat{p}} = \sqrt{\dfrac{\hat{p}(1-\hat{p})}{n}}$ | $\hat{p} = x/n$ |
+| CI for a mean, $\sigma$ known | $\bar{x} \pm z_{1-\alpha/2} \cdot \dfrac{\sigma}{\sqrt{n}}$ | Rare in practice |
+| CI for a mean, $\sigma$ unknown | $\bar{x} \pm t_{1-\alpha/2,\,n-1} \cdot \dfrac{s}{\sqrt{n}}$ | $df = n - 1$; what SPSS uses |
+| CI for a proportion | $\hat{p} \pm z_{1-\alpha/2} \cdot \sqrt{\dfrac{\hat{p}(1-\hat{p})}{n}}$ | Needs $n\hat{p} \geq 5$ and $n(1-\hat{p}) \geq 5$ |
+| Sample size for a mean | $n = \left(\dfrac{z_{1-\alpha/2} \cdot \sigma}{E}\right)^2$ | Always round **up** |
+| Critical values of Z | $z_{0.95} = 1.645$, $z_{0.975} = 1.96$, $z_{0.995} = 2.576$ | 90%, 95%, 99% CI |
+
+: Formulas in this chapter {.striped}
 
 ---
 
@@ -538,7 +687,7 @@ Using the formula:
 $$n = \left(\frac{z_{1-\alpha/2} \cdot \sigma}{E}\right)^2$$
 
 where $E$ is the desired margin of error, calculate the **minimum sample
-size** required.
+size** required. Remember to round **up**.
 :::
 
 ---

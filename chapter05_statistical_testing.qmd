@@ -8,6 +8,11 @@ library(ggplot2)
 library(knitr)
 library(kableExtra)
 library(patchwork)
+# Table helpers (used by the book and the slides)
+# tbl_fs(): font size; PDF tables use 10pt so they fit the page width
+# pdf_w():  fixed column width in the PDF only, so long text wraps
+tbl_fs <- function(html_size = 13) if (knitr::is_latex_output()) 10 else html_size
+pdf_w  <- function(x) if (knitr::is_latex_output()) x else NULL
 ```
 
 ---
@@ -88,16 +93,16 @@ tails <- data.frame(
   Type = c("Two-tailed", "One-tailed (right)", "One-tailed (left)"),
   `H1` = c("mu != mu0  (different from)", "mu > mu0  (greater than)", "mu < mu0  (less than)"),
   `Use When` = c(
-    "You want to detect a difference in either direction (most common)",
-    "You specifically expect the value to be higher",
-    "You specifically expect the value to be lower"
+    "Either direction (most common)",
+    "Only an increase is of interest",
+    "Only a decrease is of interest"
   )
 )
 
 kable(tails, col.names = c("Test Type", "H1", "Use When"),
       align = c("l","l","l")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = 13) |>
+                full_width = FALSE, font_size = tbl_fs(13)) |>
   column_spec(1, bold = TRUE, color = "#2c7bb6") |>
   row_spec(1, background = "#eaf4fb")
 ```
@@ -107,7 +112,29 @@ kable(tails, col.names = c("Test Type", "H1", "Use When"),
 In most health research, use a **two-tailed test** unless you have a
 strong, pre-specified reason to test in only one direction.
 Two-tailed tests are more conservative and more widely accepted.
+SPSS reports two-tailed p-values ("Sig. (2-tailed)"), and **all tests in
+this course are two-tailed**.
+
+After a significant two-tailed test, we still say **which direction** the
+difference goes by looking at the sample means (or mean ranks).
 :::
+
+---
+
+## The Test Statistic
+
+A **test statistic** is a single number calculated from the sample that
+measures **how far the data are from what $H_0$ predicts**. For the
+t-tests it has the same form as the Z-score in Chapter 3:
+
+$$\text{test statistic} = \frac{\text{what we observed} - \text{what } H_0 \text{ predicts}}{\text{standard error}}$$
+
+- A test statistic **close to 0** means the data agree with $H_0$.
+- A test statistic **far from 0** means the data are surprising if $H_0$ is true.
+
+Each test in this chapter has its own test statistic ($t$, $\chi^2$, $U$, $W$)
+and its own formula, but the idea is the same: the further the data are
+from what $H_0$ predicts, the more extreme the test statistic.
 
 ---
 
@@ -119,9 +146,9 @@ as those observed*, assuming the null hypothesis is true.
 $$p\text{-value} = P(\text{observed result or more extreme} \mid H_0 \text{ is true})$$
 
 - A **small p-value** means the observed data would be very unlikely if
- $H_0$ were true evidence against $H_0$
+  $H_0$ were true $\rightarrow$ **evidence against $H_0$**
 - A **large p-value** means the observed data are consistent with $H_0$
-  insufficient evidence to reject $H_0$
+  $\rightarrow$ **insufficient evidence to reject $H_0$**
 
 ---
 
@@ -150,6 +177,60 @@ statistically significant. Always consider the practical meaning of results.
 
 ---
 
+## Two Ways to Make the Decision: Critical Value or p-value
+
+There are two equivalent ways to decide whether to reject $H_0$.
+They **always give the same decision**.
+
+**1. Critical value approach (calculating by hand).**
+The **critical value** is the cut-off from a statistical table
+(Z, t or $\chi^2$) that marks the most extreme $\alpha$ of the distribution.
+We use the same left-cumulative notation as in Chapter 4. For a
+two-tailed test at $\alpha = 0.05$ the cut-off is at $1 - \alpha/2 = 0.975$,
+for example $t_{0.975,\,9} = 2.262$.
+
+- If $|\text{test statistic}| >$ critical value $\rightarrow$ **reject $H_0$**
+- If $|\text{test statistic}| \leq$ critical value $\rightarrow$ **do not reject $H_0$**
+
+*(The rank tests later in this chapter also use this rule: we convert their
+test statistic to a Z-score first.)*
+
+**2. p-value approach (reading SPSS output).**
+An exact p-value is hard to find by hand, but SPSS calculates it for us
+(the column **Sig.**). We compare it with $\alpha$ as in the table above.
+
+```{r}
+#| label: fig-critical
+#| fig-cap: "Two-tailed test at alpha = 0.05 with df = 9: reject H0 when the test statistic falls in a red tail beyond the critical value 2.262"
+#| fig-align: center
+#| fig-height: 3.2
+#| fig-width: 7
+
+x  <- seq(-5, 5, length = 600)
+dd <- data.frame(x = x, y = dt(x, df = 9))
+cv <- qt(0.975, df = 9)
+
+ggplot(dd, aes(x, y)) +
+  geom_area(data = subset(dd, x <= -cv), fill = "#d7191c", alpha = 0.6) +
+  geom_area(data = subset(dd, x >=  cv), fill = "#d7191c", alpha = 0.6) +
+  geom_line(linewidth = 1) +
+  geom_vline(xintercept = c(-cv, cv), linetype = "dashed", color = "#d7191c") +
+  annotate("text", x = 0, y = 0.12, label = "Do not reject H0\n(middle 95%)", size = 3.6) +
+  annotate("text", x = -3.9, y = 0.07, label = "Reject H0\n(2.5%)", size = 3.3, color = "#d7191c") +
+  annotate("text", x =  3.9, y = 0.07, label = "Reject H0\n(2.5%)", size = 3.3, color = "#d7191c") +
+  scale_x_continuous(breaks = c(-round(cv, 3), 0, round(cv, 3))) +
+  labs(x = "t", y = "") +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid = element_blank(), axis.text.y = element_blank())
+```
+
+In this book, worked examples use the **critical value** for the hand
+calculation and then show the **p-value** that SPSS would report, so you
+can see that both lead to the same conclusion. In the lab, you will
+use the p-value.
+
+---
+
 ## Type I and Type II Errors
 
 When making a decision about $H_0$, two types of errors are possible:
@@ -169,7 +250,7 @@ errors <- data.frame(
 kable(errors, col.names = c("Our Decision", "H0 is TRUE", "H0 is FALSE"),
       align = c("l","c","c")) |>
   kable_styling(bootstrap_options = c("bordered"),
-                full_width = FALSE, font_size = 13) |>
+                full_width = FALSE, font_size = tbl_fs(13)) |>
   column_spec(1, bold = TRUE) |>
   column_spec(2, background = c("#fde0d9","#d9f0d3")) |>
   column_spec(3, background = c("#d9f0d3","#fde0d9"))
@@ -192,14 +273,16 @@ kable(errors, col.names = c("Our Decision", "H0 is TRUE", "H0 is FALSE"),
 **Step 2 — Choose the significance level:** Usually $\alpha = 0.05$.
 
 **Step 3 — Select and compute the test statistic:**
-A number calculated from the sample that measures how far the data
-are from what $H_0$ predicts.
+Choose the test that matches the data type and study design, and
+calculate its test statistic.
 
-**Step 4 — Find the p-value:**
-The probability of getting a test statistic this extreme if $H_0$ is true.
+**Step 4 — Compare:**
+By hand, compare the test statistic with the **critical value** from the table;
+with SPSS, read the **p-value** (Sig.).
 
 **Step 5 — Make a decision and interpret:**
-Compare p-value to α. State your conclusion in the context of the problem.
+Reject or do not reject $H_0$, then state your conclusion in the context
+of the problem — including the **direction** of any difference.
 :::
 
 ---
@@ -236,15 +319,23 @@ $$\begin{array}{|l|c|c|c|}
 $$\chi^2 = \sum \frac{(O - E)^2}{E}$$
 
 Where:
+
 - $O$ = observed frequency (actual count in each cell)
 - $E$ = expected frequency = $\dfrac{\text{Row total} \times \text{Column total}}{n}$
 
-The sum is taken over **all cells** in the table.
+The sum is taken over **all cells** in the table. The expected frequency
+is the count we would expect in a cell **if $H_0$ were true** (no association),
+so a large $\chi^2$ means the observed counts are far from what $H_0$ predicts.
 
 The test statistic follows a **chi-square distribution** with
 $df = (\text{rows} - 1) \times (\text{columns} - 1)$.
 
 For a $2 \times 2$ table: $df = (2-1)(2-1) = 1$.
+
+Because $\chi^2$ is a sum of squares, it is never negative, and only
+**large** values are evidence against $H_0$. The critical value therefore
+uses the left cumulative probability $1 - \alpha$:
+at $\alpha = 0.05$ and $df = 1$, $\chi^2_{0.95,\,1} = 3.841$.
 
 ::: {.callout-warning icon=false}
 ## Condition for Valid Chi-Square Test
@@ -257,24 +348,424 @@ If this condition is violated, use **Fisher's exact test** instead
 
 ```{r}
 #| label: tbl-chisq
-#| tbl-cap: "Chi-Square Critical Values at alpha = 0.05"
+#| tbl-cap: "Chi-Square Critical Values at alpha = 0.05 (left cumulative probability 0.95)"
 
 df_chi  <- 1:10
 cv_chi  <- round(qchisq(0.95, df = df_chi), 3)
 
 chi_tab <- data.frame(df = df_chi, critical = cv_chi)
 
-kable(chi_tab, col.names = c("Degrees of Freedom (df)", "chi2 critical value (alpha = 0.05)"),
+kable(chi_tab, col.names = c("Degrees of Freedom (df)", "chi2(0.95, df)"),
       align = c("c","c")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = 13) |>
+                full_width = FALSE, font_size = tbl_fs(13)) |>
   column_spec(1, bold = TRUE, color = "#2c7bb6") |>
   row_spec(1, background = "#eaf4fb")
 ```
 
+::: {.callout-tip icon=false}
+## Reading the SPSS Output (Crosstabs)
+SPSS prints several rows in the **Chi-Square Tests** table. In this course:
+
+1. First read the **footnote** under the table, e.g.
+   *"0 cells (0.0%) have expected count less than 5."*
+2. If **no** cell has an expected count below 5 $\rightarrow$ read the
+   **Pearson Chi-Square** row (Value, df, Asymp. Sig.).
+3. If **any** cell has an expected count below 5 $\rightarrow$ read the
+   **Fisher's Exact Test** row instead (Exact Sig. 2-sided).
+
+The other rows (Continuity Correction, Likelihood Ratio,
+Linear-by-Linear Association) are not used in this course.
+:::
+
+---
+
+## Example 1: Chi-Square Test
+
+A cross-sectional study investigates whether **smoking status** is
+associated with **hypertension** in a sample of 200 adults.
+
+|  | Hypertension | No Hypertension | Total |
+|---|:---:|:---:|:---:|
+| Smoker | 45 | 55 | 100 |
+| Non-smoker | 25 | 75 | 100 |
+| **Total** | **70** | **130** | **200** |
+
+Test at $\alpha = 0.05$ whether smoking is associated with hypertension.
+
+::: {.callout-tip icon=false}
+## Solution
+
+**Step 1 — Hypotheses:**
+
+$H_0$: Smoking status and hypertension are independent (no association).
+
+$H_1$: Smoking status and hypertension are associated.
+
+**Step 2 —** $\alpha = 0.05$
+
+**Step 3 — Expected frequencies and test statistic:**
+
+$$E = \frac{\text{Row total} \times \text{Column total}}{n}$$
+
+```{r}
+#| label: tbl-expected
+#| tbl-cap: "Observed (O) and Expected (E) Frequencies"
+
+obs <- matrix(c(45, 55, 25, 75), nrow=2, byrow=TRUE)
+row_totals <- rowSums(obs)
+col_totals <- colSums(obs)
+n <- sum(obs)
+
+exp_freq <- outer(row_totals, col_totals) / n
+
+result_tab <- data.frame(
+  Group = c("Smoker", "Non-smoker"),
+  O_hyp  = obs[,1],
+  E_hyp  = exp_freq[,1],
+  O_no   = obs[,2],
+  E_no   = exp_freq[,2]
+)
+
+kable(result_tab,
+      col.names = c("Group","O (Hyp.)","E (Hyp.)","O (No Hyp.)","E (No Hyp.)"),
+      align = rep("c",5), digits = 2) |>
+  kable_styling(bootstrap_options = c("striped","hover","bordered"),
+                full_width = FALSE, font_size = tbl_fs(13)) |>
+  column_spec(1, bold = TRUE)
+```
+
+All expected frequencies are $\geq 5$, so the chi-square test is valid.
+
+$$\chi^2 = \frac{(45-35)^2}{35} + \frac{(55-65)^2}{65} +
+           \frac{(25-35)^2}{35} + \frac{(75-65)^2}{65}$$
+
+$$= \frac{100}{35} + \frac{100}{65} + \frac{100}{35} + \frac{100}{65}
+= 2.857 + 1.538 + 2.857 + 1.538 = \mathbf{8.791}$$
+
+$df = (2-1)(2-1) = 1$
+
+**Step 4 — Compare:**
+
+Critical value from the chi-square table: $\chi^2_{0.95,\,1} = 3.841$.
+Since $8.791 > 3.841$, the test statistic falls in the rejection region.
+
+SPSS (Pearson Chi-Square row) would report $p = 0.003$, which is
+$< 0.05$ — the same decision.
+
+**Step 5 — Decision and interpretation:**
+
+We **reject $H_0$**. There is a statistically significant association between
+smoking status and hypertension ($\chi^2 = 8.79$, $df = 1$, $p = 0.003$).
+Smokers have a higher prevalence of hypertension (45%) than non-smokers (25%).
+
+*Because this is a cross-sectional study, the result shows an
+**association**, not that smoking **causes** hypertension.*
+:::
+
+---
+
+# Statistical Testing on Quantitative Data
+
+The two t-tests in this section compare **means**. Like the confidence
+intervals in Chapter 4, they rely on the data (or the sample means) being
+approximately **normal**.
+
+## Checking the Normality Assumption
+
+Before using a t-test, check whether the outcome is approximately normal:
+
+- **Graphs:** a histogram should look roughly bell-shaped, and the points on
+  a **normal Q–Q plot** should lie close to the straight line.
+- **Tests:** SPSS *Explore* reports the **Kolmogorov–Smirnov** and
+  **Shapiro–Wilk** tests (you practise these in the lab). Their hypotheses are
+
+  $H_0$: the data come from a normal distribution
+
+  $H_1$: the data do not come from a normal distribution
+
+  so **Sig. > 0.05** means *no evidence against normality* $\rightarrow$
+  a t-test is appropriate; **Sig. $\leq$ 0.05** means the data are not
+  normal $\rightarrow$ consider a rank test (later in this chapter).
+
+What to check depends on the design:
+
+| Test | Check normality of |
+|---|---|
+| Independent samples t-test | The outcome **in each group separately** |
+| Paired samples t-test | The **differences** $d_i$ within pairs |
+
+With large samples ($n \geq 30$ per group) the **Central Limit Theorem**
+(Chapter 4) makes the t-test robust even if the data are somewhat skewed.
+
+---
+
+## Independent Samples t-Test
+
+### When to Use
+
+The **independent samples t-test** is used when:
+
+- The outcome variable is **continuous (numerical)**
+- We are comparing the **means of two independent groups**
+- The data are approximately **normally distributed** in each group
+  (or sample sizes are large enough, $n \geq 30$ per group)
+
+### Hypotheses
+
+$$H_0: \mu_1 = \mu_2 \quad \text{(no difference in population means)}$$
+$$H_1: \mu_1 \neq \mu_2 \quad \text{(the population means differ)}$$
+
+### The Test Statistic
+
+$$t = \frac{\bar{x}_1 - \bar{x}_2}{SE_{\bar{x}_1 - \bar{x}_2}}$$
+
+The standard error of the difference depends on whether the two groups
+have **equal or unequal variances**.
+
+**Equal variances assumed (pooled):**
+
+$$SE = s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}, \qquad
+s_p = \sqrt{\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2}}$$
+
+**Equal variances not assumed (Welch's):**
+
+$$SE = \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}$$
+
+The test statistic follows a **t-distribution** with $df = n_1 + n_2 - 2$
+(equal variances) or an approximated df (Welch's, calculated by SPSS).
+
+### Which Version? Levene's Test
+
+SPSS decides between the two versions with **Levene's test for equality
+of variances**, printed in the first columns of the
+*Independent Samples Test* table:
+
+$H_0: \sigma_1^2 = \sigma_2^2$ (the two variances are equal)
+
+$H_1: \sigma_1^2 \neq \sigma_2^2$ (the variances differ)
+
+::: {.callout-important icon=false}
+## Reading the Independent Samples Test Table — Two Steps
+**Step 1 — Levene's test (Sig. in the Levene columns):**
+
+- Sig. **> 0.05** $\rightarrow$ no evidence that the variances differ
+  $\rightarrow$ read the **top row**, *"Equal variances assumed"*.
+- Sig. **$\leq$ 0.05** $\rightarrow$ the variances differ
+  $\rightarrow$ read the **bottom row**, *"Equal variances not assumed"*.
+
+**Step 2 — the t-test (Sig. (2-tailed) in the row you chose):**
+compare with $\alpha$ to decide whether the **means** differ.
+
+Do not confuse the two Sig. values: the first is about **variances**,
+the second is about **means**.
+:::
+
+When you calculate by hand in this course, the question will either give
+you the Levene's test result or state whether the variances can be assumed
+equal. You do not need to decide this yourself from the SDs.
+
+---
+
+## Example 2: Independent Samples t-Test
+
+A clinical trial compares the mean reduction in systolic blood pressure (mmHg)
+between patients receiving a **new drug** vs. a **placebo** after 8 weeks.
+
+| Group | n | Mean reduction | SD |
+|---|:---:|:---:|:---:|
+| New drug | 40 | 12.4 | 6.8 |
+| Placebo | 40 | 7.1 | 7.2 |
+
+Assume the two population variances are **equal**. Test at $\alpha = 0.05$
+whether the mean reduction in SBP differs between the new drug and placebo.
+
+::: {.callout-tip icon=false}
+## Solution
+
+**Step 1 — Hypotheses:**
+
+$H_0: \mu_1 = \mu_2$ (no difference in mean reduction)
+
+$H_1: \mu_1 \neq \mu_2$ (two-tailed; difference exists)
+
+**Step 2 —** $\alpha = 0.05$
+
+**Step 3 — Pooled standard error.** The question states that the variances
+are equal, so we use the pooled (equal variances) formula.
+
+$$\begin{aligned}
+s_p &= \sqrt{\frac{(40-1)(6.8)^2 + (40-1)(7.2)^2}{40+40-2}}
+     = \sqrt{\frac{39(46.24) + 39(51.84)}{78}} \\
+    &= \sqrt{\frac{1803.36 + 2021.76}{78}}
+     = \sqrt{49.041} = 7.003
+\end{aligned}$$
+
+$$SE = 7.003 \times \sqrt{\frac{1}{40}+\frac{1}{40}}
+= 7.003 \times \sqrt{0.05}
+= 7.003 \times 0.2236 = 1.566$$
+
+$$t = \frac{12.4 - 7.1}{1.566} = \frac{5.3}{1.566} = \mathbf{3.384}$$
+
+$df = 40 + 40 - 2 = 78$
+
+**Step 4 — Compare:**
+
+$df = 78$ is not listed in the t-table, so we use the next smaller df, 70:
+$t_{0.975,\,70} = 1.994$ (the exact value for $df = 78$ is 1.991).
+
+Since $3.384 > 1.994$, the test statistic falls in the rejection region.
+SPSS would report $p = 0.001$, which is $< 0.05$.
+
+**Step 5 — Decision and interpretation:**
+
+We **reject $H_0$**. The mean reduction in systolic blood pressure differs
+significantly between the two groups ($t = 3.38$, $df = 78$, $p = 0.001$).
+The new drug group had the **larger** mean reduction: 12.4 vs. 7.1 mmHg,
+a difference of 5.3 mmHg (95% CI: 2.2 to 8.4 mmHg).
+:::
+
+---
+
+## Paired Samples t-Test
+
+### When to Use
+
+The **paired samples t-test** is used when:
+
+- The outcome variable is **continuous (numerical)**
+- Observations come in **natural pairs** — the same subject measured twice
+  (e.g., before and after treatment), or matched pairs of subjects
+- We want to test whether the **mean difference** within pairs is zero
+- The **differences** are approximately normally distributed
+
+### Hypotheses
+
+$$H_0: \mu_d = 0 \quad \text{(mean difference is zero)}$$
+$$H_1: \mu_d \neq 0 \quad \text{(mean difference is not zero)}$$
+
+Where $\mu_d$ is the population mean of the within-pair differences.
+
+### The Test Statistic
+
+For each pair $i$, compute the difference: $d_i = x_{1i} - x_{2i}$
+
+Then:
+
+$$t = \frac{\bar{d}}{s_d / \sqrt{n}}$$
+
+Where:
+
+- $\bar{d}$ = mean of the differences
+- $s_d$ = standard deviation of the differences
+- $n$ = number of pairs
+
+The test statistic follows a **t-distribution** with $df = n - 1$.
+
+::: {.callout-tip icon=false}
+## Why Not Use the Independent t-Test for Paired Data?
+Each patient is compared **with themselves**, so differences between
+patients (age, weight, baseline health) cancel out. Working with the
+differences $d_i$ turns two columns of data into **one**, and the test
+becomes a one-sample test of whether the mean difference is 0.
+:::
+
+---
+
+## Example 3: Paired Samples t-Test
+
+A study measures the **diastolic blood pressure (DBP)** of 10 patients
+**before** and **after** 4 weeks of a lifestyle intervention.
+
+```{r}
+#| label: tbl-paired
+#| tbl-cap: "DBP Before and After Lifestyle Intervention (n = 10 patients)"
+
+before <- c(92, 88, 95, 100, 85, 97, 90, 94, 88, 96)
+after  <- c(85, 82, 89, 91,  80, 88, 84, 87, 83, 88)
+d      <- before - after
+
+pair_tab <- data.frame(
+  Patient = paste0("Patient ", 1:10),
+  Before  = before,
+  After   = after,
+  d       = d
+)
+
+kable(pair_tab,
+      col.names = c("Patient", "DBP Before (mmHg)",
+                    "DBP After (mmHg)", "Difference d = Before - After"),
+      align = c("l","c","c","c")) |>
+  kable_styling(bootstrap_options = c("striped","hover","bordered"),
+                full_width = FALSE, font_size = tbl_fs(13)) |>
+  column_spec(4, bold = TRUE, color = "#2c7bb6") |>
+  row_spec(0, bold = TRUE, color = "white", background = "#2c7bb6")
+```
+
+Test at $\alpha = 0.05$ whether the mean DBP changed after the intervention.
+Assume the differences are approximately normally distributed.
+
+::: {.callout-tip icon=false}
+## Solution
+
+**Step 1 — Hypotheses:**
+
+$H_0: \mu_d = 0$ (no mean change in DBP)
+
+$H_1: \mu_d \neq 0$ (mean DBP has changed)
+
+**Step 2 —** $\alpha = 0.05$
+
+**Step 3 — Compute $\bar{d}$, $s_d$ and the test statistic:**
+
+$$\bar{d} = \frac{`r sum(d)`}{10} = `r mean(d)` \text{ mmHg}$$
+
+$$s_d = \sqrt{\frac{\sum(d_i - \bar{d})^2}{n-1}} = `r round(sd(d), 3)`$$
+
+$$t = \frac{\bar{d}}{s_d/\sqrt{n}} = \frac{`r mean(d)`}{`r round(sd(d),3)`/\sqrt{10}}
+= \frac{`r mean(d)`}{`r round(sd(d)/sqrt(10),3)`} = `r round(mean(d)/(sd(d)/sqrt(10)),3)`$$
+
+$df = n - 1 = 9$
+
+**Step 4 — Compare:**
+
+$t_{0.975,\,9} = 2.262$. Since $`r round(mean(d)/(sd(d)/sqrt(10)),3)` > 2.262$,
+the test statistic falls in the rejection region.
+SPSS would report $p < 0.001$.
+
+**Step 5 — Decision and interpretation:**
+
+We **reject $H_0$**. Mean diastolic blood pressure changed significantly
+after the intervention ($t = `r round(mean(d)/(sd(d)/sqrt(10)),2)`$, $df = 9$,
+$p < 0.001$). Because $\bar{d}$ = Before − After is positive, DBP
+**decreased**, by **`r mean(d)` mmHg** on average.
+:::
+
 ---
 
 # Statistical Testing on Rank Data
+
+The t-tests need **numerical** data that are approximately **normal**.
+When the outcome is **ordinal** (such as a pain score) or the
+normality check fails, we use **rank tests** instead. Rank tests replace
+each value by its **rank** (1st, 2nd, 3rd, ...) and do not assume any
+particular distribution — they are called **non-parametric** tests.
+
+Each t-test has a rank-test partner:
+
+| Design | Numerical, normal | Ordinal, or not normal |
+|---|---|---|
+| Two **independent** groups | Independent samples t-test | **Mann-Whitney U test** |
+| Two **related** (paired) measurements | Paired samples t-test | **Wilcoxon signed-ranks test** |
+
+::: {.callout-important icon=false}
+## Rank Tests Use the Z-Table You Already Know
+The rank tests have their own statistics ($U$ and $W$), but we do not need a
+new table. We convert $U$ or $W$ to a **Z-score** — exactly what SPSS does —
+and then use the same rule as in Chapter 3 and Chapter 4:
+
+$$\text{reject } H_0 \text{ if } |z| > z_{0.975} = 1.96 \quad (\alpha = 0.05,\ \text{two-tailed})$$
+:::
 
 ## Mann-Whitney U Test for Two Independent Groups
 
@@ -287,8 +778,14 @@ The **Mann-Whitney U test** (also called the Wilcoxon rank-sum test) is used whe
   small samples or obvious skewness)
 - We are comparing **two independent groups**
 
-It is a **non-parametric** test — it does not assume the data follow
-any particular distribution.
+It is the non-parametric alternative to the **independent samples t-test**.
+
+### Hypotheses
+
+$H_0$: the outcome values in the two groups are equal (the two groups come
+from the same distribution)
+
+$H_1$: the outcome values in the two groups are different
 
 ### How It Works
 
@@ -301,8 +798,9 @@ of observations between the two groups.
    smallest (rank 1) to largest.
 2. If there are **tied values**, assign the average rank to each tied observation.
 3. Calculate the **sum of ranks** for each group: $W_1$ and $W_2$.
-4. The test statistic $U$ is computed from the rank sums.
-5. Compare to the critical value or obtain the p-value from software (SPSS).
+4. Calculate the test statistic $U$ from the rank sums (formula below).
+5. Convert $U$ to a **Z-score** (below) and compare $|z|$ with 1.96.
+   SPSS reports this Z-score and its p-value.
 
 ::: {.callout-tip icon=false}
 ## Intuition Behind the Test
@@ -321,10 +819,115 @@ $$U_2 = n_1 n_2 + \frac{n_2(n_2+1)}{2} - W_2$$
 $$U = \min(U_1, U_2)$$
 
 Where $n_1$, $n_2$ are the sample sizes and $W_1$, $W_2$ are the rank sums
-for groups 1 and 2 respectively.
+for groups 1 and 2 respectively. As a check, $U_1 + U_2 = n_1 n_2$.
 
-For large samples, $U$ is approximately normally distributed and a Z-score
-can be computed. In practice, **SPSS computes the p-value directly**.
+A **small** $U$ means the two groups hardly overlap — evidence against $H_0$.
+
+### Converting U to a Z-Score
+
+If $H_0$ is true, $U$ is centred at $n_1 n_2 / 2$ (half of the largest
+possible value). We standardise it like any Z-score — *(value − mean) / SD*:
+
+$$\mu_U = \frac{n_1 n_2}{2}, \qquad
+\sigma_U = \sqrt{\frac{n_1 n_2 (n_1 + n_2 + 1)}{12}}, \qquad
+z = \frac{U - \mu_U}{\sigma_U}$$
+
+- **Decision:** reject $H_0$ if $|z| > 1.96$.
+- **p-value (optional):** $p = 2 \times P(Z < -|z|) = 2\,[\,1 - P(Z < |z|)\,]$,
+  read from the Z-table.
+
+Because $U = \min(U_1, U_2)$ is the smaller value, $z$ is always zero or
+negative. SPSS prints the same Z-score in its *Test Statistics* table.
+
+::: {.callout-note icon=false}
+## Why Your Z May Differ Slightly From SPSS
+When there are **tied values**, SPSS adjusts $\sigma_U$ for the ties, so its
+Z-score can differ from the hand calculation in the second decimal place.
+The decision is the same in practice. The Z-approximation is most accurate
+when each group has about 10 or more observations; SPSS uses the same
+approximation for its *Asymp. Sig.* value.
+:::
+
+## Example 4: Mann-Whitney U Test
+
+Pain score (0–10, **ordinal**) was recorded 24 hours after surgery in
+**12 patients**: 6 received the standard analgesic regimen and 6 received
+a new regimen. The two groups are different patients, so they are
+**independent**.
+
+| Regimen | Pain scores |
+|---|---|
+| Standard | 6, 7, 5, 8, 6, 7 |
+| New | 3, 4, 5, 2, 4, 6 |
+
+Test at $\alpha = 0.05$ whether pain scores differ between the two regimens.
+
+::: {.callout-tip icon=false}
+## Solution
+
+**Hypotheses:** $H_0$: pain scores in the two groups are equal;
+$H_1$: pain scores in the two groups are different. $\alpha = 0.05$.
+
+```{r}
+#| label: tbl-mw-ranks
+#| tbl-cap: "Pain scores and their ranks (n1 = n2 = 6)"
+
+std_pain <- c(6, 7, 5, 8, 6, 7)
+new_pain <- c(3, 4, 5, 2, 4, 6)
+all_pain <- c(std_pain, new_pain)
+rk       <- rank(all_pain)
+
+mw <- data.frame(
+  Group = rep(c("Standard", "New"), each = 6),
+  Pain  = all_pain,
+  Rank  = rk
+)
+mw <- mw[order(mw$Pain), ]
+
+kable(mw, row.names = FALSE,
+      col.names = c("Group", "Pain score", "Rank (combined)"),
+      align = c("l","c","c")) |>
+  kable_styling(bootstrap_options = c("striped","hover","bordered"),
+                full_width = FALSE, font_size = tbl_fs(12)) |>
+  row_spec(0, bold = TRUE, color = "white", background = "#2c7bb6")
+```
+
+**Step 1 — Rank all 12 scores together.** Ties share the average rank:
+the two 4s occupy ranks 3 and 4, so each gets 3.5; the three 6s occupy
+ranks 7, 8 and 9, so each gets 8.
+
+**Step 2 — Sum the ranks in each group:**
+
+$$W_{\text{Standard}} = 8 + 10.5 + 5.5 + 12 + 8 + 10.5 = 54.5$$
+$$W_{\text{New}} = 2 + 3.5 + 5.5 + 1 + 3.5 + 8 = 23.5$$
+
+(Check: the total of ranks 1 to 12 is $12 \times 13 / 2 = 78 = 54.5 + 23.5$.)
+
+**Step 3 — Calculate U** with $n_1 = n_2 = 6$:
+
+$$U_1 = 36 + \frac{6 \times 7}{2} - 54.5 = 36 + 21 - 54.5 = 2.5$$
+$$U_2 = 36 + 21 - 23.5 = 33.5$$
+$$U = \min(2.5,\; 33.5) = 2.5$$
+
+**Step 4 — Convert U to a Z-score** with $n_1 = n_2 = 6$:
+
+$$\mu_U = \frac{6 \times 6}{2} = 18, \qquad
+\sigma_U = \sqrt{\frac{6 \times 6 \times 13}{12}} = \sqrt{39} = 6.245$$
+
+$$z = \frac{2.5 - 18}{6.245} = -2.48$$
+
+Since $|z| = 2.48 > 1.96$, the result is significant.
+From the Z-table, $p = 2 \times (1 - 0.9934) = 0.013$.
+
+SPSS reports $Z = -2.513$ and $p$ (Asymp. Sig. 2-tailed) $= 0.012$ — the
+same decision (the small difference is the tie adjustment).
+
+**Step 5 — Decision.** We **reject $H_0$**.
+Pain scores differ significantly between the two regimens. The mean rank
+of the new regimen ($23.5 / 6 = 3.9$) is lower than that of the standard
+regimen ($54.5 / 6 = 9.1$), so patients on the **new regimen reported
+less pain**.
+:::
 
 ## Wilcoxon Signed-Ranks Test for Two Related Groups
 
@@ -352,6 +955,12 @@ is the **study design**, exactly as with the two t-tests:
   $\rightarrow$ **Wilcoxon signed-ranks test**
 :::
 
+### Hypotheses
+
+$H_0$: the two related measurements are equal
+
+$H_1$: the two related measurements are different
+
 ### How It Works
 
 The Wilcoxon test looks at the **differences within each pair**, and then
@@ -376,131 +985,108 @@ ranks should roughly balance, so $W^{+}$ and $W^{-}$ should be similar.
 A **small** value of $W$ means the differences fall mostly in one
 direction, which is evidence against $H_0$.
 
-For larger samples the test statistic is converted to a Z-score, and this
-is what **SPSS reports** together with the p-value:
+### Converting W to a Z-Score
 
-$$H_0: \text{the two related measurements are equal}$$
-$$H_1: \text{the two related measurements are different}$$
+$n$ is the number of pairs **after discarding zero differences**.
+If $H_0$ is true, $W$ is centred at half of the total of all ranks:
+
+$$\mu_W = \frac{n(n+1)}{4}, \qquad
+\sigma_W = \sqrt{\frac{n(n+1)(2n+1)}{24}}, \qquad
+z = \frac{W - \mu_W}{\sigma_W}$$
+
+As with Mann-Whitney: **reject $H_0$ if $|z| > 1.96$**, and SPSS reports
+this Z-score (adjusted for ties) in its *Test Statistics* table.
 
 ::: {.callout-tip icon=false}
 ## Reading the SPSS Output
 Choose **Analyze** $\rightarrow$ **Nonparametric Tests** $\rightarrow$
-**2 Related Samples**, and tick **Wilcoxon**. The *Test Statistics*
-table reports $Z$ and the 2-tailed significance. As always, decide by
-comparing the p-value with $\alpha$ — the sign of $Z$ only indicates the
-direction of the ranks, not the importance of the result.
+**Legacy Dialogs** $\rightarrow$ **2 Related Samples**, and tick **Wilcoxon**
+(older SPSS versions, as in the lab manual, have no *Legacy Dialogs* step).
+The *Ranks* table shows the sum of the negative and positive ranks, and the
+*Test Statistics* table reports $Z$ and the 2-tailed significance.
+As always, decide by comparing the p-value with $\alpha$ — the sign of $Z$
+only indicates the direction of the ranks, not the importance of the result.
 :::
 
-### Worked Example
+## Example 5: Wilcoxon Signed-Ranks Test
 
-Blood clotting time was measured for **8 patients** using two solutions.
-Blood was taken from each patient and divided into two parts, so the two
-measurements are **paired**.
+Blood clotting time (minutes) was measured for **8 patients** using two
+solutions: an extract from shrimp shells ("Shrimp") and the standard
+solution ("Standard"). Blood was taken from each patient and divided into two parts,
+so the two measurements are **paired**.
+
+| Patient | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| Shrimp | 3 | 5 | 5 | 4 | 3 | 7 | 8 | 7 |
+| Standard | 7 | 6 | 3 | 8 | 5 | 9 | 7 | 9 |
+
+The sample is small ($n = 8$), so we cannot rely on the normality of the
+differences. Test at $\alpha = 0.05$ whether the clotting times differ,
+using the **Wilcoxon signed-ranks test**.
+
+::: {.callout-tip icon=false}
+## Solution
+
+**Hypotheses:** $H_0$: the clotting times with the two solutions are equal;
+$H_1$: they are different. $\alpha = 0.05$.
 
 ```{r}
 #| label: tbl-wilcoxon
-#| tbl-cap: "Blood clotting time using two solutions (n = 8 patients)"
+#| tbl-cap: "Blood clotting time using two solutions (n = 8 patients), with signed ranks"
 
 pt   <- 1:8
 sol1 <- c(3, 5, 5, 4, 3, 7, 8, 7)
 gsol <- c(7, 6, 3, 8, 5, 9, 7, 9)
 dif  <- sol1 - gsol
+rk_abs <- rank(abs(dif))
+signed <- ifelse(dif > 0, rk_abs, -rk_abs)
 
-wil <- data.frame(Patient = pt, Shrimp = sol1, Standard = gsol, d = dif)
+wil <- data.frame(Patient = pt, Shrimp = sol1, Standard = gsol, d = dif,
+                  absd = abs(dif), rk = rk_abs, srk = signed)
 
 kable(wil,
-      col.names = c("Patient", "Shrimp-shell extract",
-                    "Standard solution", "Difference d"),
-      align = c("c","c","c","c")) |>
+      col.names = c("Patient", "Shrimp", "Standard",
+                    "d", "abs(d)", "Rank of abs(d)", "Signed rank"),
+      align = rep("c", 7)) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = 12) |>
+                full_width = FALSE, font_size = tbl_fs(12)) |>
   row_spec(0, bold = TRUE, color = "white", background = "#2c7bb6")
 ```
 
-Because the sample is small ($n = 8$) and the outcome is a clotting time
-that need not be normally distributed, the **Wilcoxon signed-ranks test**
-is used rather than the paired t-test. SPSS reports:
+**Step 1 — Differences** $d = \text{Shrimp} - \text{Standard}$: none is zero,
+so all 8 pairs are kept.
 
-$$Z = -1.706, \qquad p\text{-value} = 0.088$$
+**Step 2 — Rank $|d|$ with average ranks for ties:**
+the two 1s share ranks 1–2 (each 1.5); the four 2s share ranks 3–6
+(each 4.5); the two 4s share ranks 7–8 (each 7.5).
 
-Since $p = 0.088 > \alpha = 0.05$, we **do not reject** $H_0$. There is
-not enough evidence to say that the clotting times produced by the two
-solutions differ, at the 0.05 level of significance.
+**Step 3 — Sum the signed ranks:**
 
----
+$$W^{+} = 4.5 \;(\text{patient } 3) + 1.5 \;(\text{patient } 7) = 6$$
+$$W^{-} = 7.5 + 1.5 + 7.5 + 4.5 + 4.5 + 4.5 = 30 \quad (\text{patients } 1, 2, 4, 5, 6, 8)$$
 
-# Statistical Testing on Quantitative Data
+(Check: $W^{+} + W^{-} = 8 \times 9 / 2 = 36$.)
 
-## Independent Samples t-Test
+$$W = \min(6,\; 30) = 6$$
 
-### When to Use
+**Step 4 — Convert W to a Z-score** with $n = 8$ pairs:
 
-The **independent samples t-test** is used when:
+$$\mu_W = \frac{8 \times 9}{4} = 18, \qquad
+\sigma_W = \sqrt{\frac{8 \times 9 \times 17}{24}} = \sqrt{51} = 7.141$$
 
-- The outcome variable is **continuous (numerical)**
-- We are comparing the **means of two independent groups**
-- The data are approximately **normally distributed** in each group
-  (or sample sizes are large enough, $n \geq 30$ per group)
+$$z = \frac{6 - 18}{7.141} = -1.68$$
 
-### Hypotheses
+Since $|z| = 1.68 \leq 1.96$, the result is not significant.
+From the Z-table, $p = 2 \times (1 - 0.9535) = 0.093$.
 
-$$H_0: \mu_1 = \mu_2 \quad \text{(no difference in population means)}$$
-$$H_1: \mu_1 \neq \mu_2 \quad \text{(the population means differ)}$$
+SPSS reports $Z = -1.706$ and $p = 0.088$ — the same decision.
+*(SPSS calculates the difference as Standard − Shrimp, so its Ranks table
+lists the 6 and the 30 the other way round; $W$ and the p-value are the same.)*
 
-### The Test Statistic
-
-$$t = \frac{\bar{x}_1 - \bar{x}_2}{SE_{\bar{x}_1 - \bar{x}_2}}$$
-
-The standard error of the difference depends on whether the two groups
-have **equal or unequal variances** — SPSS performs **Levene's test**
-automatically to help you decide which version to use.
-
-**Equal variances assumed (pooled):**
-
-$$SE = s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}, \qquad
-s_p = \sqrt{\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2}}$$
-
-**Equal variances not assumed (Welch's):**
-
-$$SE = \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}$$
-
-The test statistic follows a **t-distribution** with $df = n_1 + n_2 - 2$
-(equal variances) or an approximated df (Welch's).
-
----
-
-## Paired Samples t-Test
-
-### When to Use
-
-The **paired samples t-test** is used when:
-
-- The outcome variable is **continuous (numerical)**
-- Observations come in **natural pairs** — the same subject measured twice
-  (e.g., before and after treatment), or matched pairs of subjects
-- We want to test whether the **mean difference** within pairs is zero
-
-### Hypotheses
-
-$$H_0: \mu_d = 0 \quad \text{(mean difference is zero)}$$
-$$H_1: \mu_d \neq 0 \quad \text{(mean difference is not zero)}$$
-
-Where $\mu_d$ is the population mean of the within-pair differences.
-
-### The Test Statistic
-
-For each pair $i$, compute the difference: $d_i = x_{1i} - x_{2i}$
-
-Then:
-
-$$t = \frac{\bar{d}}{s_d / \sqrt{n}}$$
-
-Where:
-- $\bar{d}$ = mean of the differences
-- $s_d$ = standard deviation of the differences
-- $n$ = number of pairs
-
-The test statistic follows a **t-distribution** with $df = n - 1$.
+**Step 5 — Decision.** We **do not reject** $H_0$. There is not enough
+evidence to say that the clotting times produced by the two solutions
+differ, at the 0.05 level of significance.
+:::
 
 ---
 
@@ -512,25 +1098,25 @@ The test statistic follows a **t-distribution** with $df = n - 1$.
 
 tests <- data.frame(
   `Data Type` = c("Categorical (Nominal)",
-                   "Ordinal or non-normal continuous",
-                   "Ordinal or non-normal continuous",
                    "Continuous (normal)",
-                   "Continuous (normal)"),
+                   "Continuous (normal)",
+                   "Ordinal or non-normal continuous",
+                   "Ordinal or non-normal continuous"),
   `Groups` = c("2 independent groups",
                 "2 independent groups",
                 "2 related (paired) groups",
                 "2 independent groups",
                 "2 related (paired) groups"),
   `Correct Test` = c("Chi-square test",
-                      "Mann-Whitney U test",
-                      "Wilcoxon signed-ranks test",
                       "Independent samples t-test",
-                      "Paired samples t-test"),
- `SPSS Procedure` = c("Analyze Descriptive Statistics Crosstabs",
- "Analyze Nonparametric Legacy Dialogs 2 Independent Samples",
- "Analyze Nonparametric Legacy Dialogs 2 Related Samples",
- "Analyze Compare Means Independent Samples T Test",
- "Analyze Compare Means Paired Samples T Test")
+                      "Paired samples t-test",
+                      "Mann-Whitney U test",
+                      "Wilcoxon signed-ranks test"),
+ `SPSS Procedure` = c("Analyze -> Descriptive Statistics -> Crosstabs",
+ "Analyze -> Compare Means -> Independent-Samples T Test",
+ "Analyze -> Compare Means -> Paired-Samples T Test",
+ "Analyze -> Nonparametric Tests -> Legacy Dialogs -> 2 Independent Samples",
+ "Analyze -> Nonparametric Tests -> Legacy Dialogs -> 2 Related Samples")
 )
 
 kable(tests,
@@ -538,8 +1124,11 @@ kable(tests,
                     "Statistical Test", "SPSS Procedure"),
       align = c("l","l","l","l")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = 12) |>
-  column_spec(3, bold = TRUE, color = "#2c7bb6")
+                full_width = FALSE, font_size = tbl_fs(12)) |>
+  column_spec(1, width = pdf_w("1.2in")) |>
+  column_spec(2, width = pdf_w("1.2in")) |>
+  column_spec(3, bold = TRUE, color = "#2c7bb6", width = pdf_w("1.3in")) |>
+  column_spec(4, width = pdf_w("1.7in"))
 ```
 
 ```{r}
@@ -555,7 +1144,7 @@ boxes <- data.frame(
   label = c("Comparing 2 Groups", "Outcome variable type?",
             "Nominal\n(Categorical)", "Continuous\nor Ordinal",
             "Chi-square\nTest", "Groups independent\nor paired?",
-            "Normal\ndistribution?", "Normal\ndistribution?",
+            "Continuous\nand normal?", "Continuous\nand normal?",
             "Independent\nt-test", "Mann-Whitney\nU Test",
             "Paired\nt-test", "Wilcoxon\nsigned-ranks"),
   fill = c("#dce8f5","#dce8f5","#abd9e9","#abd9e9","#2c7bb6","#dce8f5",
@@ -565,17 +1154,19 @@ boxes <- data.frame(
 )
 
 seg <- data.frame(
-  x    = c(5.5, 5.5, 5.5, 2.0, 8.0, 8.0, 9.4, 5.6, 5.6, 9.4, 9.4),
-  xend = c(5.5, 2.2, 7.8, 2.0, 8.0, 5.8, 9.4, 4.4, 6.5, 8.7, 10.3),
+  # 6th and 7th rows: "Groups independent or paired?" (x = 8.0) branches
+  # left to the Independent node (5.6) and right to the Paired node (9.4)
+  x    = c(5.5, 5.5, 5.5, 2.0, 8.0, 8.0, 8.0, 5.6, 5.6, 9.4, 9.4),
+  xend = c(5.5, 2.2, 7.8, 2.0, 8.0, 5.8, 9.2, 4.4, 6.5, 8.7, 10.3),
   y    = c(8.9, 7.35, 7.35, 5.6, 5.6, 3.9, 3.9, 2.2, 2.2, 2.2, 2.2),
   yend = c(8.0, 6.6,  6.6,  4.7, 4.7, 3.0, 3.0, 1.2, 1.2, 1.2, 1.2)
 )
 
 edge_lab <- data.frame(
-  x = c(3.4, 7.7, 6.4, 9.8, 4.3, 6.6, 8.5, 10.5),
+  x = c(3.4, 7.7, 6.4, 9.3, 4.3, 6.9, 8.5, 10.8),
   y = c(7.1, 7.1, 3.6, 3.6, 1.8, 1.8, 1.8, 1.8),
   label = c("Nominal","Continuous/\nOrdinal","Independent","Paired",
-            "Yes","No","Yes","No")
+            "Yes","No /\nOrdinal","Yes","No /\nOrdinal")
 )
 
 ggplot() +
@@ -593,6 +1184,14 @@ ggplot() +
   theme_void()
 ```
 
+::: {.callout-warning icon=false}
+## Ordinal Outcomes Always Go to a Rank Test
+An ordinal outcome — such as a **pain score**, a satisfaction rating or a
+stage of disease — is never analysed with a t-test, even if it is
+written as numbers. Use the Mann-Whitney U test (independent groups)
+or the Wilcoxon signed-ranks test (paired).
+:::
+
 ---
 
 # Key Takeaways
@@ -604,31 +1203,37 @@ ggplot() +
    claims: the **null hypothesis ($H_0$)** and the
    **alternative hypothesis ($H_1$)**.
 
-2. The **p-value** is the probability of the observed data (or more extreme)
+2. The **test statistic** measures how far the data are from $H_0$.
+   By hand we compare it with a **critical value**; in SPSS we compare the
+   **p-value** with $\alpha$. Both give the same decision.
+
+3. The **p-value** is the probability of the observed data (or more extreme)
    if $H_0$ is true. A p-value $\leq \alpha$ (usually 0.05) leads us to
    **reject $H_0$**.
 
-3. **Type I error (α):** rejecting a true $H_0$ (false positive).
+4. **Type I error (α):** rejecting a true $H_0$ (false positive).
    **Type II error (β):** failing to reject a false $H_0$ (false negative).
 
-4. **Chi-square test:** for association between two categorical (nominal)
-   variables in independent groups.
+5. **Chi-square test:** for association between two categorical (nominal)
+   variables in independent groups. Read the Pearson row, or Fisher's exact
+   test if any expected count is below 5.
 
-5. **Mann-Whitney U test:** for comparing two independent groups when the
+6. **Independent samples t-test:** for comparing means of two independent
+   groups with continuous, approximately normal data. Read **Levene's test**
+   first to choose the row.
+
+7. **Paired samples t-test:** for comparing means of two related measurements
+   (before/after, or matched pairs) when the differences are approximately
+   normal.
+
+8. **Mann-Whitney U test:** for comparing two independent groups when the
    outcome is ordinal or the normality assumption is not met.
 
-6. **Wilcoxon signed-ranks test:** for comparing two **related** measurements
+9. **Wilcoxon signed-ranks test:** for comparing two **related** measurements
    when the outcome is ordinal or the differences are not normally
    distributed. It is the non-parametric alternative to the paired t-test.
-
-7. **Independent samples t-test:** for comparing means of two independent
-   groups with continuous, approximately normal data.
-
-8. **Paired samples t-test:** for comparing means of two related measurements
-   (before/after, or matched pairs) with continuous data.
-
-9. The two rank tests differ by **design**: Mann-Whitney for *independent*
-   groups, Wilcoxon signed-ranks for *related* pairs.
+   For both rank tests, convert $U$ or $W$ to a **Z-score** and
+   **reject $H_0$ if $|z| > 1.96$** — the same Z-score that SPSS reports.
 
 10. Always choose the test based on **data type** and **study design** —
     using the wrong test leads to invalid conclusions.
@@ -636,215 +1241,25 @@ ggplot() +
 
 ---
 
-# Examples
-
-## Example 1: Chi-Square Test
-
-A study investigates whether **smoking status** is associated with
-**hypertension** in a sample of 200 adults.
-
-|  | Hypertension | No Hypertension | Total |
-|---|:---:|:---:|:---:|
-| Smoker | 45 | 55 | 100 |
-| Non-smoker | 25 | 75 | 100 |
-| **Total** | **70** | **130** | **200** |
-
-Test at $\alpha = 0.05$ whether smoking is associated with hypertension.
-
-::: {.callout-tip icon=false}
-## Solution
-
-**Step 1 — Hypotheses:**
-
-$H_0$: Smoking status and hypertension are independent (no association).
-
-$H_1$: Smoking status and hypertension are associated.
-
-**Step 2 —** $\alpha = 0.05$
-
-**Step 3 — Expected frequencies:**
-
-$$E = \frac{\text{Row total} \times \text{Column total}}{n}$$
-
-```{r}
-#| label: tbl-expected
-#| tbl-cap: "Observed (O) and Expected (E) Frequencies"
-
-obs <- matrix(c(45, 55, 25, 75), nrow=2, byrow=TRUE)
-row_totals <- rowSums(obs)
-col_totals <- colSums(obs)
-n <- sum(obs)
-
-exp_freq <- outer(row_totals, col_totals) / n
-
-result_tab <- data.frame(
-  Group = c("Smoker", "Non-smoker"),
-  O_hyp  = obs[,1],
-  E_hyp  = exp_freq[,1],
-  O_no   = obs[,2],
-  E_no   = exp_freq[,2]
-)
-
-kable(result_tab,
-      col.names = c("Group","O (Hyp.)","E (Hyp.)","O (No Hyp.)","E (No Hyp.)"),
-      align = rep("c",5), digits = 2) |>
-  kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = 13) |>
-  column_spec(1, bold = TRUE)
-```
-
-All expected frequencies $\geq 5$
-
-**Step 4 — Test statistic:**
-
-$$\chi^2 = \frac{(45-35)^2}{35} + \frac{(55-65)^2}{65} +
-           \frac{(25-35)^2}{35} + \frac{(75-65)^2}{65}$$
-
-$$= \frac{100}{35} + \frac{100}{65} + \frac{100}{35} + \frac{100}{65}
-= 2.857 + 1.538 + 2.857 + 1.538 = \mathbf{8.791}$$
-
-$df = (2-1)(2-1) = 1$
-
-**Step 5 — Decision:**
-
-From the chi-square table: $\chi^2_{\text{critical}} = 3.841$ at $df=1$, $\alpha=0.05$.
-
-Since $8.791 > 3.841$, we **reject $H_0$**.
-
-The p-value $= 0.003 < 0.05$.
-
-**Conclusion:** There is a statistically significant association between
-smoking status and hypertension ($\chi^2 = 8.79$, $df = 1$, $p = 0.003$).
-Smokers have a higher prevalence of hypertension than non-smokers.
-:::
-
----
-
-## Example 2: Independent Samples t-Test
-
-A clinical trial compares the mean reduction in systolic blood pressure (mmHg)
-between patients receiving a **new drug** vs. a **placebo** after 8 weeks.
-
-| Group | n | Mean reduction | SD |
-|---|:---:|:---:|:---:|
-| New drug | 40 | 12.4 | 6.8 |
-| Placebo | 40 | 7.1 | 7.2 |
-
-Test at $\alpha = 0.05$ whether the new drug produces a greater mean
-reduction in SBP than placebo.
-
-::: {.callout-tip icon=false}
-## Solution
-
-**Step 1 — Hypotheses:**
-
-$H_0: \mu_1 = \mu_2$ (no difference in mean reduction)
-
-$H_1: \mu_1 \neq \mu_2$ (two-tailed; difference exists)
-
-**Step 2 —** $\alpha = 0.05$
-
-**Step 3 — Pooled standard error** (assuming equal variances):
-
-$$s_p = \sqrt{\frac{(40-1)(6.8)^2 + (40-1)(7.2)^2}{40+40-2}}
-= \sqrt{\frac{39(46.24) + 39(51.84)}{78}}
-= \sqrt{\frac{1803.36 + 2021.76}{78}}
-= \sqrt{49.041} = 7.003$$
-
-$$SE = 7.003 \times \sqrt{\frac{1}{40}+\frac{1}{40}}
-= 7.003 \times \sqrt{0.05}
-= 7.003 \times 0.2236 = 1.566$$
-
-**Step 4 — Test statistic:**
-
-$$t = \frac{12.4 - 7.1}{1.566} = \frac{5.3}{1.566} = \mathbf{3.384}$$
-
-$df = 40 + 40 - 2 = 78$
-
-**Step 5 — Decision:**
-
-$t_{\text{critical}} = 1.991$ at $df = 78$, $\alpha = 0.05$ (two-tailed).
-
-Since $3.384 > 1.991$, we **reject $H_0$**.
-
-The p-value $= 0.001 < 0.05$.
-
-**Conclusion:** The new drug produces a significantly greater reduction
-in systolic blood pressure compared to placebo
-($t = 3.38$, $df = 78$, $p = 0.001$).
-The mean difference is 5.3 mmHg (95% CI: 2.2 to 8.4 mmHg).
-:::
-
----
-
-## Example 3: Paired Samples t-Test
-
-A study measures the **diastolic blood pressure (DBP)** of 10 patients
-**before** and **after** 4 weeks of a lifestyle intervention.
-
-```{r}
-#| label: tbl-paired
-#| tbl-cap: "DBP Before and After Lifestyle Intervention (n = 10 patients)"
-
-set.seed(7)
-before <- c(92, 88, 95, 100, 85, 97, 90, 94, 88, 96)
-after  <- c(85, 82, 89, 91,  80, 88, 84, 87, 83, 88)
-d      <- before - after
-
-pair_tab <- data.frame(
-  Patient = paste0("Patient ", 1:10),
-  Before  = before,
-  After   = after,
-  d       = d
-)
-
-kable(pair_tab,
-      col.names = c("Patient", "DBP Before (mmHg)",
-                    "DBP After (mmHg)", "Difference d = Before - After"),
-      align = c("l","c","c","c")) |>
-  kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = 13) |>
-  column_spec(4, bold = TRUE, color = "#2c7bb6") |>
-  row_spec(0, bold = TRUE, color = "white", background = "#2c7bb6")
-```
-
-Test at $\alpha = 0.05$ whether the intervention significantly reduces DBP.
-
-::: {.callout-tip icon=false}
-## Solution
-
-**Step 1 — Hypotheses:**
-
-$H_0: \mu_d = 0$ (no mean change in DBP)
-
-$H_1: \mu_d \neq 0$ (mean DBP has changed)
-
-**Step 2 —** $\alpha = 0.05$
-
-**Step 3 — Compute $\bar{d}$ and $s_d$:**
-
-$$\bar{d} = \frac{`r sum(d)`}{10} = `r mean(d)` \text{ mmHg}$$
-
-$$s_d = \sqrt{\frac{\sum(d_i - \bar{d})^2}{n-1}} = `r round(sd(d), 3)`$$
-
-**Step 4 — Test statistic:**
-
-$$t = \frac{\bar{d}}{s_d/\sqrt{n}} = \frac{`r mean(d)`}{`r round(sd(d),3)`/\sqrt{10}}
-= \frac{`r mean(d)`}{`r round(sd(d)/sqrt(10),3)`} = `r round(mean(d)/(sd(d)/sqrt(10)),3)`$$
-
-$df = n - 1 = 9$
-
-**Step 5 — Decision:**
-
-$t_{\text{critical}} = 2.262$ at $df = 9$, $\alpha = 0.05$ (two-tailed).
-
-Since $`r round(mean(d)/(sd(d)/sqrt(10)),3)` > 2.262$, we **reject $H_0$**.
-
-**Conclusion:** The lifestyle intervention produced a statistically
-significant reduction in diastolic blood pressure
-($t = `r round(mean(d)/(sd(d)/sqrt(10)),2)`$, $df = 9$, $p < 0.05$).
-The mean reduction was **`r mean(d)` mmHg**.
-:::
+## Formula Summary
+
+| Quantity | Formula | Notes |
+|:----------------|:----------------------------------------|:----------------------|
+| Decision with SPSS | Reject $H_0$ if $p \leq \alpha$ | Usually $\alpha = 0.05$ |
+| Expected frequency | $E = \dfrac{\text{Row total} \times \text{Column total}}{n}$ | All $E \geq 5$, otherwise Fisher's exact test |
+| Chi-square | $\chi^2 = \sum \dfrac{(O - E)^2}{E}$ | $df = (r-1)(c-1)$; reject if $\chi^2 > \chi^2_{0.95,\,df}$ |
+| Pooled SD | $s_p = \sqrt{\dfrac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}}$ | Equal variances (Levene Sig. $> 0.05$) |
+| Independent t | $t = \dfrac{\bar{x}_1 - \bar{x}_2}{s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}$ | $df = n_1 + n_2 - 2$ |
+| Welch SE | $SE = \sqrt{\dfrac{s_1^2}{n_1} + \dfrac{s_2^2}{n_2}}$ | Unequal variances; df from SPSS |
+| Paired t | $t = \dfrac{\bar{d}}{s_d / \sqrt{n}}$ | $d_i = x_{1i} - x_{2i}$; $df = n - 1$ |
+| Decision for t | Reject $H_0$ if $|t| > t_{0.975,\,df}$ | Two-tailed, $\alpha = 0.05$ |
+| Mann-Whitney U | $U_1 = n_1 n_2 + \dfrac{n_1(n_1+1)}{2} - W_1$, $U = \min(U_1, U_2)$ | $W_1$ = rank sum of group 1 |
+| U to Z | $z = \dfrac{U - n_1 n_2 / 2}{\sqrt{n_1 n_2 (n_1 + n_2 + 1)/12}}$ |  |
+| Wilcoxon W | $W = \min(W^{+}, W^{-})$ | Drop zero differences first |
+| W to Z | $z = \dfrac{W - n(n+1)/4}{\sqrt{n(n+1)(2n+1)/24}}$ | $n$ = number of non-zero pairs |
+| Decision for U and W | Reject $H_0$ if $|z| > 1.96$ | Same Z as SPSS (up to ties) |
+
+: Formulas in this chapter {.striped}
 
 ---
 
@@ -885,38 +1300,92 @@ male and female patients:
 | Male | 35 | 14.8 | 1.6 |
 | Female | 35 | 12.9 | 1.4 |
 
+In SPSS, Levene's test for these data gives Sig. = 0.41.
+
 **(a)** State $H_0$ and $H_1$ (two-tailed).
 
-**(b)** Calculate the pooled standard error.
+**(b)** Based on Levene's test, should you use the "Equal variances assumed"
+or the "Equal variances not assumed" version? Why?
 
-**(c)** Calculate the t test statistic.
+**(c)** Calculate the pooled standard error.
 
-**(d)** At $\alpha = 0.05$ with appropriate df, state your conclusion.
+**(d)** Calculate the t test statistic.
+
+**(e)** At $\alpha = 0.05$ with appropriate df, state your conclusion.
 :::
 
 ::: {.callout-caution icon=false}
 ## Exercise 3 — Paired Samples t-Test
 
-A pain management study measures the **pain score (0–10)** of 8 patients
-**before** and **one hour after** receiving an analgesic:
+A diabetes clinic measures the **capillary blood glucose (mg/dL)** of
+8 patients with type 2 diabetes **before** and **2 hours after** a
+structured 30-minute walking session:
 
 | Patient | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Before | 7 | 8 | 6 | 9 | 7 | 8 | 5 | 9 |
-| After  | 4 | 5 | 4 | 6 | 3 | 5 | 3 | 6 |
+| Before | 182 | 165 | 210 | 148 | 195 | 172 | 160 | 188 |
+| After  | 160 | 150 | 182 | 141 | 170 | 158 | 152 | 165 |
 
-**(a)** Calculate the difference $d_i$ for each patient.
+Assume the differences are approximately normally distributed.
+
+**(a)** Calculate the difference $d_i$ = Before − After for each patient.
 
 **(b)** Calculate $\bar{d}$ and $s_d$.
 
 **(c)** Calculate the paired t statistic.
 
-**(d)** At $\alpha = 0.05$, is the analgesic effective in reducing pain?
-State your conclusion clearly.
+**(d)** At $\alpha = 0.05$, did blood glucose change significantly after
+the walking session? In which direction? State your conclusion clearly.
+
+**(e)** Which variable would you check for normality in SPSS before using
+this test, and which SPSS procedure would you use?
 :::
 
 ::: {.callout-caution icon=false}
-## Exercise 4 — Choosing the Right Test
+## Exercise 4 — Mann-Whitney U Test
+
+A physiotherapy team records the **time to first walk after knee surgery
+(hours)**, which is strongly right-skewed, for two independent groups of
+patients:
+
+| Group | Time to first walk (hours) |
+|---|---|
+| Early mobilisation programme | 12, 18, 9, 30, 15 |
+| Usual care | 22, 35, 28, 40, 26, 48 |
+
+**(a)** Explain why the Mann-Whitney U test is used rather than the
+independent samples t-test.
+
+**(b)** Rank all 11 values together and find the rank sums $W_1$ and $W_2$.
+
+**(c)** Calculate $U_1$, $U_2$ and $U$.
+
+**(d)** Convert $U$ to a Z-score and state your conclusion at
+$\alpha = 0.05$. Use the Z-table to find the approximate p-value.
+:::
+
+::: {.callout-caution icon=false}
+## Exercise 5 — Wilcoxon Signed-Ranks Test
+
+An anxiety score (0–20, **ordinal**) was recorded for 9 patients before and
+after a pre-operative education session:
+
+| Patient | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| Before | 14 | 11 | 16 | 9 | 13 | 15 | 12 | 10 | 17 |
+| After | 9 | 10 | 11 | 8 | 6 | 12 | 4 | 13 | 7 |
+
+**(a)** Calculate $d$ = Before − After for each patient.
+
+**(b)** Rank $|d|$ (use average ranks for ties) and find $W^{+}$, $W^{-}$
+and $W$.
+
+**(c)** Convert $W$ to a Z-score and state your conclusion at
+$\alpha = 0.05$. Did anxiety go up or down?
+:::
+
+::: {.callout-caution icon=false}
+## Exercise 6 — Choosing the Right Test
 
 For each scenario below, state which statistical test is most appropriate
 and briefly explain why:
@@ -928,15 +1397,15 @@ patients who received standard care vs. enhanced recovery protocol.
 Excellent) between two hospital wards.
 
 **(c)** Measuring the effect of a new diet on body weight by recording
-each participant's weight before and after a 12-week program.
+each participant's weight before and after a 12-week program
+(the differences are approximately normal).
 
 **(d)** Comparing the mean length of hospital stay (days) between two
 age groups (under 60 vs. 60 and over), where length-of-stay data is
 strongly right-skewed.
 
-**(e)** Comparing pain scores (rated 0--10) recorded for the **same**
-patients before and 24 hours after starting a new analgesic, where the
-differences are clearly not normally distributed.
+**(e)** Comparing pain scores (0–10, ordinal) recorded for the **same**
+patients before and 24 hours after starting a new analgesic.
 :::
 
 ---
