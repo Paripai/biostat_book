@@ -1,0 +1,34 @@
+<script>
+// Adds a clickable laser-pointer button next to the chalkboard buttons.
+// It sends the same "q" key press that the pointer plugin listens for.
+(function () {
+  function pressQ() {
+    var ev = new KeyboardEvent("keydown", { key: "q", bubbles: true });
+    Object.defineProperty(ev, "keyCode", { get: function () { return 81; } });
+    Object.defineProperty(ev, "which",   { get: function () { return 81; } });
+    document.dispatchEvent(ev);
+  }
+  function addButton() {
+    var bar = document.querySelector(".slide-chalkboard-buttons");
+    if (!bar || document.querySelector(".slide-pointer-button")) return;
+    var btn = document.createElement("span");
+    btn.className = "slide-pointer-button";
+    btn.title = "Toggle laser pointer (q)";
+    btn.innerHTML = '<span class="dot"></span>';
+    btn.addEventListener("click", function (e) {
+      e.preventDefault(); e.stopPropagation(); pressQ();
+    });
+    bar.appendChild(btn);
+  }
+  // keep the button's look in step with the pointer, however it was toggled
+  document.addEventListener("keydown", function (e) {
+    if (e.keyCode === 81 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      var b = document.querySelector(".slide-pointer-button");
+      if (b) b.classList.toggle("active");
+    }
+  });
+  if (window.Reveal && Reveal.isReady && Reveal.isReady()) addButton();
+  else if (window.Reveal) Reveal.on("ready", addButton);
+  window.addEventListener("load", addButton);
+})();
+</script>

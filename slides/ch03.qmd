@@ -1,5 +1,6 @@
 ---
-pagetitle: "Chapter 3: Random Variable and Probability Distribution"
+title: "Random Variable and Probability Distribution"
+subtitle: "Chapter 3 | 208141 Introduction to Biostatistics"
 ---
 
 {{< include ../chapter03_probability_distribution.qmd >}}

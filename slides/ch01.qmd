@@ -1,5 +1,6 @@
 ---
-pagetitle: "Chapter 1: Data in Health Science"
+title: "Data in Health Science"
+subtitle: "Chapter 1 | 208141 Introduction to Biostatistics"
 ---
 
 {{< include ../chapter01_data_in_health_science.qmd >}}

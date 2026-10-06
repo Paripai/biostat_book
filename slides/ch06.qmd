@@ -1,5 +1,6 @@
 ---
-pagetitle: "Chapter 6: Introduction to Statistical Modeling"
+title: "Introduction to Statistical Modeling"
+subtitle: "Chapter 6 | 208141 Introduction to Biostatistics"
 ---
 
 {{< include ../chapter06_statistical_modeling.qmd >}}

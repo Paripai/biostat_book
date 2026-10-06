@@ -1,5 +1,6 @@
 ---
-pagetitle: "Chapter 2: Data Summarization"
+title: "Data Summarization"
+subtitle: "Chapter 2 | 208141 Introduction to Biostatistics"
 ---
 
 {{< include ../chapter02_data_summarization.qmd >}}

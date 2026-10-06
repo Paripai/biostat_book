@@ -22,7 +22,21 @@ local function demote_level1_with_content(blocks)
   return blocks
 end
 
+-- 3. Each slide file has a title slide (title, subtitle, author), so the
+--    chapter's own first level-1 heading would repeat it. Drop that heading.
+local function drop_chapter_title(blocks, meta)
+  if meta.title == nil then return blocks end
+  for i, b in ipairs(blocks) do
+    if b.t == "Header" and b.level == 1 then
+      blocks:remove(i)
+      break
+    end
+  end
+  return blocks
+end
+
 function Pandoc(doc)
-  doc.blocks = demote_level1_with_content(drop_rules(doc.blocks))
+  local blocks = drop_chapter_title(drop_rules(doc.blocks), doc.meta)
+  doc.blocks = demote_level1_with_content(blocks)
   return doc
 end

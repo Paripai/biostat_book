@@ -1,5 +1,6 @@
 ---
-pagetitle: "Chapter 5: Statistical Testing"
+title: "Statistical Testing"
+subtitle: "Chapter 5 | 208141 Introduction to Biostatistics"
 ---
 
 {{< include ../chapter05_statistical_testing.qmd >}}

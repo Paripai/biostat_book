@@ -20,3 +20,34 @@
 .reveal .slides table caption {
   font-size: 1em;
 }
+
+// Lists: reveal.js indents lists by only 1em, so the numbers "1." "2." sit
+// right at the edge of the scrolling slide. Safari on iPad places markers a
+// little further left and clips them. Give the markers more room.
+.reveal .slides section ol,
+.reveal .slides section ul {
+  margin-left: 1.8em;
+}
+.reveal .slides section li > ol,
+.reveal .slides section li > ul {
+  margin-left: 1.2em;
+}
+
+// Laser-pointer button, placed after the chalkboard buttons
+.slide-pointer-button {
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 12px;
+  vertical-align: middle;
+}
+.slide-pointer-button .dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #2a76dd;
+}
+.slide-pointer-button.active .dot {
+  background: red;
+  border-color: red;
+}

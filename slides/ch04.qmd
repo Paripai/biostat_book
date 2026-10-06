@@ -1,5 +1,6 @@
 ---
-pagetitle: "Chapter 4: Estimation"
+title: "Estimation"
+subtitle: "Chapter 4 | 208141 Introduction to Biostatistics"
 ---
 
 {{< include ../chapter04_estimation.qmd >}}
