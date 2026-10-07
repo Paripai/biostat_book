@@ -207,6 +207,19 @@ Figure&nbsp;1: Four possible relationships between two variables
 <p>The <strong>Pearson correlation coefficient</strong> <span class="math inline">\(r\)</span> quantifies the <strong>strength</strong> and <strong>direction</strong> of the <em>linear</em> relationship between two continuous variables.</p>
 <p><span class="math display">\[r = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}
            {\sqrt{\sum_{i=1}^{n}(x_i-\bar{x})^2 \cdot \sum_{i=1}^{n}(y_i-\bar{y})^2}}\]</span></p>
+<p>This <strong>definition</strong> shows what <span class="math inline">\(r\)</span> measures: whether <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> tend to be above (or below) their means <em>together</em>. For calculating by hand, the same value is easier to get from five column totals, <span class="math inline">\(\sum x\)</span>, <span class="math inline">\(\sum y\)</span>, <span class="math inline">\(\sum x^2\)</span>, <span class="math inline">\(\sum y^2\)</span> and <span class="math inline">\(\sum xy\)</span> — no means or deviations needed:</p>
+<div class="callout callout-important no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Computational Formula for <span class="math inline">\(r\)</span> (Use This by Hand)</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[r = \frac{n\sum xy - \sum x \sum y}
+           {\sqrt{\left[n\sum x^2 - \left(\sum x\right)^2\right]\left[n\sum y^2 - \left(\sum y\right)^2\right]}}\]</span></p>
+<p>Note that <span class="math inline">\(\sum x^2\)</span> (square each value, then add) is <strong>not</strong> the same as <span class="math inline">\(\left(\sum x\right)^2\)</span> (add the values, then square the total).</p>
+</div>
+</div>
+</div>
 <h3 id="properties-of-r">Properties of <span class="math inline">\(r\)</span></h3>
 <ul>
 <li><span class="math inline">\(r\)</span> always lies between <strong>−1 and +1</strong></li>
@@ -317,90 +330,8 @@ Table&nbsp;1: General guidelines for interpreting the correlation coefficient
 </div>
 </div>
 </section>
-<section>
-<section id="simple-linear-regression" class="title-slide slide level1 center">
-<h1>Simple Linear Regression</h1>
-
-</section>
-<section id="the-regression-equation" class="slide level2">
-<h2>The Regression Equation</h2>
-<p>Simple linear regression models the relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> as a straight line:</p>
-<p><span class="math display">\[\hat{Y} = b_0 + b_1 X\]</span></p>
-<p>Where:</p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 45%">
-<col style="width: 27%">
-<col style="width: 27%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Symbol</th>
-<th>Name</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(\hat{Y}\)</span></td>
-<td>Predicted value</td>
-<td>The estimated value of <span class="math inline">\(Y\)</span> for a given <span class="math inline">\(X\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(b_0\)</span></td>
-<td>Intercept</td>
-<td>The predicted value of <span class="math inline">\(Y\)</span> when <span class="math inline">\(X = 0\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(b_1\)</span></td>
-<td>Slope</td>
-<td>The change in <span class="math inline">\(\hat{Y}\)</span> for each one-unit increase in <span class="math inline">\(X\)</span></td>
-</tr>
-</tbody>
-</table>
-<p>The line above is calculated from a <strong>sample</strong>. It estimates the true line in the <strong>population</strong>:</p>
-<p><span class="math display">\[Y = \beta_0 + \beta_1 X + \varepsilon\]</span></p>
-<p>where <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> (Greek “beta”) are the population intercept and slope — <strong>parameters</strong> — and <span class="math inline">\(\varepsilon\)</span> is random error. The sample values <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are the <strong>statistics</strong> we use to estimate them, just as <span class="math inline">\(\bar{x}\)</span> estimates <span class="math inline">\(\mu\)</span> (Chapter 1).</p>
-<p>For each patient, the <strong>residual</strong> <span class="math inline">\(e_i\)</span> is the difference between the observed value and the value predicted by the sample line:</p>
-<p><span class="math display">\[e_i = Y_i - \hat{Y}_i\]</span></p>
-</section>
-<section id="estimating-the-coefficients" class="slide level2">
-<h2>Estimating the Coefficients</h2>
-<p>The values of <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are chosen to minimize the <strong>sum of squared residuals</strong> — this method is called <strong>Ordinary Least Squares (OLS)</strong>:</p>
-<p><span class="math display">\[\text{Minimize: } \sum_{i=1}^{n}(Y_i - \hat{Y}_i)^2 = \sum_{i=1}^{n} e_i^2\]</span></p>
-<p>The OLS formulas are:</p>
-<p><span class="math display">\[b_1 = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}
-             {\sum_{i=1}^{n}(x_i - \bar{x})^2}
-       = r \cdot \frac{s_y}{s_x}\]</span></p>
-<p><span class="math display">\[b_0 = \bar{y} - b_1 \bar{x}\]</span></p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div id="fig-ols" class="quarto-float quarto-figure quarto-figure-center" data-fig-align="center">
-<figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-ols-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img data-src="ch06_files/figure-revealjs/fig-ols-1.png" class="quarto-figure quarto-figure-center" width="576">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ols-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Least squares regression line minimizes the sum of squared residuals (vertical red lines)
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="the-coefficient-of-determination-r2" class="slide level2">
-<h2>The Coefficient of Determination (<span class="math inline">\(R^2\)</span>)</h2>
-<p><strong><span class="math inline">\(R^2\)</span></strong> (R-squared) measures how well the regression line fits the data — specifically, the <strong>proportion of the total variation in <span class="math inline">\(Y\)</span> that is explained by <span class="math inline">\(X\)</span></strong>:</p>
-<p><span class="math display">\[R^2 = r^2 \quad \text{(in simple linear regression)}\]</span></p>
-<p><span class="math display">\[R^2 = \frac{\text{Variation explained by the model}}{\text{Total variation in } Y}\]</span></p>
-<ul>
-<li><span class="math inline">\(R^2 = 1\)</span>: the model explains 100% of the variation in <span class="math inline">\(Y\)</span> (perfect fit)</li>
-<li><span class="math inline">\(R^2 = 0\)</span>: the model explains none of the variation in <span class="math inline">\(Y\)</span></li>
-<li><span class="math inline">\(R^2 = 0.65\)</span> means: <em>“65% of the variation in <span class="math inline">\(Y\)</span> is explained by <span class="math inline">\(X\)</span>”</em></li>
-</ul>
-</section>
-<section id="example-1-calculating-correlation-and-regression" class="slide level2">
-<h2>Example 1: Calculating Correlation and Regression</h2>
+<section id="example-1-calculating-and-testing-pearsons-r" class="slide level2">
+<h2>Example 1: Calculating and Testing Pearson’s r</h2>
 <p>A researcher records the <strong>age (years)</strong> and <strong>systolic blood pressure (mmHg)</strong> of 8 adults:</p>
 <div class="cell">
 <div id="tbl-ex1-data" class="cell quarto-float quarto-figure quarto-figure-center">
@@ -466,10 +397,8 @@ Table&nbsp;2: Age and Systolic Blood Pressure of 8 Adults
 </figure>
 </div>
 </div>
-<p><strong>(a)</strong> Calculate Pearson’s <span class="math inline">\(r\)</span>.</p>
-<p><strong>(b)</strong> Find the regression equation <span class="math inline">\(\hat{Y} = b_0 + b_1 X\)</span>.</p>
-<p><strong>(c)</strong> Predict the SBP of a 50-year-old adult.</p>
-<p><strong>(d)</strong> Interpret <span class="math inline">\(R^2\)</span>.</p>
+<p><strong>(a)</strong> Calculate Pearson’s <span class="math inline">\(r\)</span> using the computational formula.</p>
+<p><strong>(b)</strong> Test at <span class="math inline">\(\alpha = 0.05\)</span> whether there is a significant linear relationship between age and systolic blood pressure.</p>
 <div class="callout callout-tip no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -480,7 +409,7 @@ Table&nbsp;2: Age and Systolic Blood Pressure of 8 Adults
 <div id="tbl-ex1-calc" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ex1-calc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;3: Calculation Table for Correlation and Regression
+Table&nbsp;3: Column totals needed for r (the same totals are reused for the regression line in Example 2)
 </figcaption>
 <div aria-describedby="tbl-ex1-calc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -490,11 +419,9 @@ Table&nbsp;3: Calculation Table for Correlation and Regression
 <th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Subject</th>
 <th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">x</th>
 <th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">y</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">x-xbar</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">y-ybar</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">(x-xbar)2</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">(y-ybar)2</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">(x-xbar)(y-ybar)</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">x^2</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">y^2</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">xy</th>
 </tr>
 </thead>
 <tbody>
@@ -502,91 +429,73 @@ Table&nbsp;3: Calculation Table for Correlation and Regression
 <td style="text-align: center;">S1</td>
 <td style="text-align: center;">25</td>
 <td style="text-align: center;">118</td>
-<td style="text-align: center;">-26.25</td>
-<td style="text-align: center;">-18.88</td>
-<td style="text-align: center;">689.06</td>
-<td style="text-align: center;">356.27</td>
-<td style="text-align: center;">495.47</td>
+<td style="text-align: center;">625</td>
+<td style="text-align: center;">13,924</td>
+<td style="text-align: center;">2,950</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">S2</td>
 <td style="text-align: center;">32</td>
 <td style="text-align: center;">116</td>
-<td style="text-align: center;">-19.25</td>
-<td style="text-align: center;">-20.88</td>
-<td style="text-align: center;">370.56</td>
-<td style="text-align: center;">435.77</td>
-<td style="text-align: center;">401.84</td>
+<td style="text-align: center;">1,024</td>
+<td style="text-align: center;">13,456</td>
+<td style="text-align: center;">3,712</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">S3</td>
 <td style="text-align: center;">40</td>
 <td style="text-align: center;">131</td>
-<td style="text-align: center;">-11.25</td>
-<td style="text-align: center;">-5.88</td>
-<td style="text-align: center;">126.56</td>
-<td style="text-align: center;">34.52</td>
-<td style="text-align: center;">66.09</td>
+<td style="text-align: center;">1,600</td>
+<td style="text-align: center;">17,161</td>
+<td style="text-align: center;">5,240</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">S4</td>
 <td style="text-align: center;">48</td>
 <td style="text-align: center;">128</td>
-<td style="text-align: center;">-3.25</td>
-<td style="text-align: center;">-8.88</td>
-<td style="text-align: center;">10.56</td>
-<td style="text-align: center;">78.77</td>
-<td style="text-align: center;">28.84</td>
+<td style="text-align: center;">2,304</td>
+<td style="text-align: center;">16,384</td>
+<td style="text-align: center;">6,144</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">S5</td>
 <td style="text-align: center;">55</td>
 <td style="text-align: center;">146</td>
-<td style="text-align: center;">3.75</td>
-<td style="text-align: center;">9.12</td>
-<td style="text-align: center;">14.06</td>
-<td style="text-align: center;">83.27</td>
-<td style="text-align: center;">34.22</td>
+<td style="text-align: center;">3,025</td>
+<td style="text-align: center;">21,316</td>
+<td style="text-align: center;">8,030</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">S6</td>
 <td style="text-align: center;">62</td>
 <td style="text-align: center;">139</td>
-<td style="text-align: center;">10.75</td>
-<td style="text-align: center;">2.12</td>
-<td style="text-align: center;">115.56</td>
-<td style="text-align: center;">4.52</td>
-<td style="text-align: center;">22.84</td>
+<td style="text-align: center;">3,844</td>
+<td style="text-align: center;">19,321</td>
+<td style="text-align: center;">8,618</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">S7</td>
 <td style="text-align: center;">70</td>
 <td style="text-align: center;">160</td>
-<td style="text-align: center;">18.75</td>
-<td style="text-align: center;">23.12</td>
-<td style="text-align: center;">351.56</td>
-<td style="text-align: center;">534.77</td>
-<td style="text-align: center;">433.59</td>
+<td style="text-align: center;">4,900</td>
+<td style="text-align: center;">25,600</td>
+<td style="text-align: center;">11,200</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">S8</td>
 <td style="text-align: center;">78</td>
 <td style="text-align: center;">157</td>
-<td style="text-align: center;">26.75</td>
-<td style="text-align: center;">20.12</td>
-<td style="text-align: center;">715.56</td>
-<td style="text-align: center;">405.02</td>
-<td style="text-align: center;">538.34</td>
+<td style="text-align: center;">6,084</td>
+<td style="text-align: center;">24,649</td>
+<td style="text-align: center;">12,246</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center; font-weight: bold;">**Total**</td>
-<td style="text-align: center; font-weight: bold;">NA</td>
-<td style="text-align: center; font-weight: bold;">NA</td>
-<td style="text-align: center; font-weight: bold;">NA</td>
-<td style="text-align: center; font-weight: bold;">NA</td>
-<td style="text-align: center; font-weight: bold;">2393.50</td>
-<td style="text-align: center; font-weight: bold;">1932.88</td>
-<td style="text-align: center; font-weight: bold;">2021.25</td>
+<td style="text-align: center; font-weight: bold;">Total</td>
+<td style="text-align: center; font-weight: bold;">410</td>
+<td style="text-align: center; font-weight: bold;">1,095</td>
+<td style="text-align: center; font-weight: bold;">23,406</td>
+<td style="text-align: center; font-weight: bold;">151,811</td>
+<td style="text-align: center; font-weight: bold;">58,140</td>
 </tr>
 </tbody>
 </table>
@@ -595,29 +504,147 @@ Table&nbsp;3: Calculation Table for Correlation and Regression
 </figure>
 </div>
 </div>
+<p>With <span class="math inline">\(n = 8\)</span>: <span class="math inline">\(\sum x = 410\)</span>, <span class="math inline">\(\sum y = 1{,}095\)</span>, <span class="math inline">\(\sum x^2 = 23{,}406\)</span>, <span class="math inline">\(\sum y^2 = 151{,}811\)</span>, <span class="math inline">\(\sum xy = 58{,}140\)</span>.</p>
+<p><strong>Step 1 — The three building blocks:</strong></p>
+<p><span class="math display">\[n\sum xy - \sum x \sum y = 8(58{,}140) - (410)(1{,}095) = 16{,}170\]</span></p>
+<p><span class="math display">\[n\sum x^2 - \left(\sum x\right)^2 = 8(23{,}406) - 410^2 = 19{,}148\]</span></p>
+<p><span class="math display">\[n\sum y^2 - \left(\sum y\right)^2 = 8(151{,}811) - 1{,}095^2 = 15{,}463\]</span></p>
 <p><strong>(a) Pearson’s r:</strong></p>
-<p><span class="math display">\[r = \frac{\sum(x_i-\bar{x})(y_i-\bar{y})}
-           {\sqrt{\sum(x_i-\bar{x})^2 \cdot \sum(y_i-\bar{y})^2}}
-  = \frac{2021.25}
-         {\sqrt{2393.5 \times 1932.88}}
-  = \frac{2021.25}
-         {2150.89}
-  = \mathbf{0.94}\]</span></p>
+<p><span class="math display">\[r = \frac{16{,}170}{\sqrt{19{,}148 \times 15{,}463}}
+    = \frac{16{,}170}{17{,}207.14}
+    = \mathbf{0.940}\]</span></p>
 <p>This indicates a <strong>very strong positive</strong> linear relationship between age and systolic blood pressure. <em>(Real clinical data are rarely this tidy — with only 8 adults, a correlation this high is unusual.)</em></p>
-<p><strong>(b) Regression coefficients:</strong></p>
-<p><span class="math display">\[b_1 = \frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{\sum(x_i-\bar{x})^2}
-      = \frac{2021.25}
-             {2393.5}
-      = 0.844\]</span></p>
+<p><strong>(b) Test of r:</strong></p>
+<p><span class="math inline">\(H_0: \rho = 0\)</span> (no linear relationship between age and SBP in the population)</p>
+<p><span class="math inline">\(H_1: \rho \neq 0\)</span> (there is a linear relationship); <span class="math inline">\(\alpha = 0.05\)</span></p>
+<p><span class="math display">\[t = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}}
+    = \frac{0.9397 \sqrt{8 - 2}}{\sqrt{1 - 0.9397^2}}
+    = \frac{2.3018}{0.3420}
+    = \mathbf{6.73}\]</span></p>
+<p><span class="math inline">\(df = n - 2 = 6\)</span>, and from the t-table <span class="math inline">\(t_{0.975,\,6} = 2.447\)</span>.</p>
+<p>Since <span class="math inline">\(6.73 &gt; 2.447\)</span>, we <strong>reject <span class="math inline">\(H_0\)</span></strong>. SPSS would report Sig. (2-tailed) <span class="math inline">\(= 0.001\)</span>, which is <span class="math inline">\(&lt; 0.05\)</span> — the same decision.</p>
+<p><strong>Conclusion:</strong> There is a significant positive linear relationship between age and systolic blood pressure (<span class="math inline">\(r = 0.94\)</span>, <span class="math inline">\(df = 6\)</span>, <span class="math inline">\(p = 0.001\)</span>): older adults tend to have higher SBP.</p>
+</div>
+</div>
+</div>
+</section>
+<section>
+<section id="simple-linear-regression" class="title-slide slide level1 center">
+<h1>Simple Linear Regression</h1>
+
+</section>
+<section id="the-regression-equation" class="slide level2">
+<h2>The Regression Equation</h2>
+<p>Simple linear regression models the relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> as a straight line:</p>
+<p><span class="math display">\[\hat{Y} = b_0 + b_1 X\]</span></p>
+<p>Where:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 45%">
+<col style="width: 27%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Symbol</th>
+<th>Name</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(\hat{Y}\)</span></td>
+<td>Predicted value</td>
+<td>The estimated value of <span class="math inline">\(Y\)</span> for a given <span class="math inline">\(X\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(b_0\)</span></td>
+<td>Intercept</td>
+<td>The predicted value of <span class="math inline">\(Y\)</span> when <span class="math inline">\(X = 0\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(b_1\)</span></td>
+<td>Slope</td>
+<td>The change in <span class="math inline">\(\hat{Y}\)</span> for each one-unit increase in <span class="math inline">\(X\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The line above is calculated from a <strong>sample</strong>. It estimates the true line in the <strong>population</strong>:</p>
+<p><span class="math display">\[Y = \beta_0 + \beta_1 X + \varepsilon\]</span></p>
+<p>where <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> (Greek “beta”) are the population intercept and slope — <strong>parameters</strong> — and <span class="math inline">\(\varepsilon\)</span> is random error. The sample values <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are the <strong>statistics</strong> we use to estimate them, just as <span class="math inline">\(\bar{x}\)</span> estimates <span class="math inline">\(\mu\)</span> (Chapter 1).</p>
+<p>For each patient, the <strong>residual</strong> <span class="math inline">\(e_i\)</span> is the difference between the observed value and the value predicted by the sample line:</p>
+<p><span class="math display">\[e_i = Y_i - \hat{Y}_i\]</span></p>
+</section>
+<section id="estimating-the-coefficients" class="slide level2">
+<h2>Estimating the Coefficients</h2>
+<p>The values of <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are chosen to minimize the <strong>sum of squared residuals</strong> — this method is called <strong>Ordinary Least Squares (OLS)</strong>:</p>
+<p><span class="math display">\[\text{Minimize: } \sum_{i=1}^{n}(Y_i - \hat{Y}_i)^2 = \sum_{i=1}^{n} e_i^2\]</span></p>
+<p>The OLS formulas use the <strong>same column totals</strong> as <span class="math inline">\(r\)</span> (<span class="math inline">\(\sum x\)</span>, <span class="math inline">\(\sum y\)</span>, <span class="math inline">\(\sum x^2\)</span>, <span class="math inline">\(\sum xy\)</span>):</p>
+<div class="callout callout-important no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Formulas for <span class="math inline">\(b_1\)</span> and <span class="math inline">\(b_0\)</span> (Use These by Hand)</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[b_1 = \frac{n\sum xy - \sum x \sum y}{n\sum x^2 - \left(\sum x\right)^2},
+\qquad b_0 = \bar{y} - b_1 \bar{x}\]</span></p>
+<p>The numerator is the <strong>same</strong> as the numerator of <span class="math inline">\(r\)</span>, and the denominator is the <strong>first bracket</strong> in the denominator of <span class="math inline">\(r\)</span> — so if you have already calculated <span class="math inline">\(r\)</span>, you can reuse both numbers. Keep at least <strong>4 decimal places</strong> in <span class="math inline">\(b_1\)</span> before calculating <span class="math inline">\(b_0\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-ols" class="quarto-float quarto-figure quarto-figure-center" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-ols-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="ch06_files/figure-revealjs/fig-ols-1.png" class="quarto-figure quarto-figure-center" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ols-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Least squares regression line minimizes the sum of squared residuals (vertical red lines)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="the-coefficient-of-determination-r2" class="slide level2">
+<h2>The Coefficient of Determination (<span class="math inline">\(R^2\)</span>)</h2>
+<p><strong><span class="math inline">\(R^2\)</span></strong> (R-squared) measures how well the regression line fits the data — specifically, the <strong>proportion of the total variation in <span class="math inline">\(Y\)</span> that is explained by <span class="math inline">\(X\)</span></strong>:</p>
+<p><span class="math display">\[R^2 = r^2 \quad \text{(in simple linear regression)}\]</span></p>
+<p><span class="math display">\[R^2 = \frac{\text{Variation explained by the model}}{\text{Total variation in } Y}\]</span></p>
+<ul>
+<li><span class="math inline">\(R^2 = 1\)</span>: the model explains 100% of the variation in <span class="math inline">\(Y\)</span> (perfect fit)</li>
+<li><span class="math inline">\(R^2 = 0\)</span>: the model explains none of the variation in <span class="math inline">\(Y\)</span></li>
+<li><span class="math inline">\(R^2 = 0.65\)</span> means: <em>“65% of the variation in <span class="math inline">\(Y\)</span> is explained by <span class="math inline">\(X\)</span>”</em></li>
+</ul>
+</section>
+<section id="example-2-fitting-a-regression-line" class="slide level2">
+<h2>Example 2: Fitting a Regression Line</h2>
+<p>Use the age and SBP data of the 8 adults in <strong>Example 1</strong> (and its column totals).</p>
+<p><strong>(a)</strong> Find the regression equation <span class="math inline">\(\hat{Y} = b_0 + b_1 X\)</span>.</p>
+<p><strong>(b)</strong> Predict the SBP of a 50-year-old adult.</p>
+<p><strong>(c)</strong> Calculate and interpret <span class="math inline">\(R^2\)</span>.</p>
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Solution</strong></p>
+</div>
+<div class="callout-content">
+<p>From Example 1: <span class="math inline">\(n\sum xy - \sum x \sum y = 16{,}170\)</span> and <span class="math inline">\(n\sum x^2 - \left(\sum x\right)^2 = 19{,}148\)</span>.</p>
+<p><strong>(a) Regression coefficients</strong> (reusing the numbers from Example 1):</p>
+<p><span class="math display">\[b_1 = \frac{16{,}170}{19{,}148} = 0.8445\]</span></p>
+<p><span class="math display">\[\bar{x} = \frac{410}{8} = 51.25, \qquad
+  \bar{y} = \frac{1{,}095}{8} = 136.875\]</span></p>
 <p><span class="math display">\[b_0 = \bar{y} - b_1\bar{x}
-      = 136.88 - 0.844 \times 51.25
-      = 93.6\]</span></p>
-<p><span class="math display">\[\boxed{\hat{Y} = 93.6 + 0.844 X}\]</span></p>
-<p><strong>(c) Prediction for age = 50:</strong></p>
-<p><span class="math display">\[\hat{Y} = 93.6 + 0.844 \times 50
+      = 136.875 - 0.8445 \times 51.25
+      = 93.59\]</span></p>
+<p><span class="math display">\[\boxed{\hat{Y} = 93.59 + 0.8445 X}\]</span></p>
+<p><strong>(b) Prediction for age = 50:</strong></p>
+<p><span class="math display">\[\hat{Y} = 93.59 + 0.8445 \times 50
           = 135.8 \text{ mmHg}\]</span></p>
-<p><strong>(d) <span class="math inline">\(R^2\)</span>:</strong></p>
-<p><span class="math display">\[R^2 = r^2 = (0.94)^2 = 0.883\]</span></p>
+<p><strong>(c) <span class="math inline">\(R^2\)</span>:</strong></p>
+<p><span class="math display">\[R^2 = r^2 = (0.9397)^2 = 0.883\]</span></p>
+<p><em>(Use <span class="math inline">\(r\)</span> with 4 decimal places here; squaring the rounded 0.940 would give 0.884.)</em></p>
 <p><strong>88.3% of the variation in systolic blood pressure is explained by age.</strong> The remaining 11.7% is due to other factors not included in this model.</p>
 </div>
 </div>
@@ -830,8 +857,8 @@ Table&nbsp;7: SPSS Output: Coefficients Table
 <p><strong>Regression equation:</strong> <span class="math inline">\(\widehat{\text{Glucose}} = 32.15 + 0.87 \times \text{Waist}\)</span></p>
 <p>The slope <strong>B = 0.87</strong> is statistically significant (<span class="math inline">\(p &lt; 0.001\)</span>, read from the <em>Waist circumference</em> row): for each 1 cm increase in waist circumference, fasting glucose increases by <strong>0.87 mg/dL</strong> on average. The <strong>Beta (standardized)</strong> value equals <span class="math inline">\(r\)</span> in simple regression and is not needed in this course.</p>
 </section>
-<section id="example-2-interpreting-spss-output" class="slide level2">
-<h2>Example 2: Interpreting SPSS Output</h2>
+<section id="example-3-interpreting-spss-output" class="slide level2">
+<h2>Example 3: Interpreting SPSS Output</h2>
 <p>A researcher uses SPSS to examine the relationship between <strong>BMI (kg/m²)</strong> and <strong>fasting blood glucose (mg/dL)</strong> in 60 adults. The following output is obtained:</p>
 <p><strong>Model Summary:</strong></p>
 <table class="caption-top">
@@ -937,8 +964,8 @@ Table&nbsp;7: SPSS Output: Coefficients Table
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Pearson correlation</td>
-<td style="text-align: left;"><span class="math inline">\(r = \dfrac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum (x_i - \bar{x})^2 \sum (y_i - \bar{y})^2}}\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(-1 \leq r \leq 1\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(r = \dfrac{n\sum xy - \sum x \sum y}{\sqrt{\left[n\sum x^2 - (\sum x)^2\right]\left[n\sum y^2 - (\sum y)^2\right]}}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(-1 \leq r \leq 1\)</span>; needs <span class="math inline">\(\sum x\)</span>, <span class="math inline">\(\sum y\)</span>, <span class="math inline">\(\sum x^2\)</span>, <span class="math inline">\(\sum y^2\)</span>, <span class="math inline">\(\sum xy\)</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Test of <span class="math inline">\(r\)</span></td>
@@ -947,8 +974,8 @@ Table&nbsp;7: SPSS Output: Coefficients Table
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Slope</td>
-<td style="text-align: left;"><span class="math inline">\(b_1 = \dfrac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2} = r \cdot \dfrac{s_y}{s_x}\)</span></td>
-<td style="text-align: left;">Change in <span class="math inline">\(\hat{Y}\)</span> per 1-unit increase in <span class="math inline">\(X\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(b_1 = \dfrac{n\sum xy - \sum x \sum y}{n\sum x^2 - (\sum x)^2}\)</span></td>
+<td style="text-align: left;">Same numerator as <span class="math inline">\(r\)</span>; change in <span class="math inline">\(\hat{Y}\)</span> per 1-unit increase in <span class="math inline">\(X\)</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Intercept</td>
@@ -1029,10 +1056,11 @@ Table&nbsp;7: SPSS Output: Coefficients Table
 </tbody>
 </table>
 <p><strong>(a)</strong> Draw a scatter plot and describe the relationship.</p>
-<p><strong>(b)</strong> Calculate Pearson’s <span class="math inline">\(r\)</span>. What does it indicate?</p>
-<p><strong>(c)</strong> Find the regression equation <span class="math inline">\(\hat{Y} = b_0 + b_1 X\)</span>.</p>
-<p><strong>(d)</strong> Predict the SBP of a person who sleeps 6.5 hours per night.</p>
-<p><strong>(e)</strong> Calculate <span class="math inline">\(R^2\)</span> and interpret it.</p>
+<p><strong>(b)</strong> Make a table with columns <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span>, <span class="math inline">\(x^2\)</span>, <span class="math inline">\(y^2\)</span> and <span class="math inline">\(xy\)</span>, then use the computational formula to calculate Pearson’s <span class="math inline">\(r\)</span>. What does it indicate?</p>
+<p><strong>(c)</strong> Test at <span class="math inline">\(\alpha = 0.05\)</span> whether the correlation is significant.</p>
+<p><strong>(d)</strong> Find the regression equation <span class="math inline">\(\hat{Y} = b_0 + b_1 X\)</span>.</p>
+<p><strong>(e)</strong> Predict the SBP of a person who sleeps 6.5 hours per night.</p>
+<p><strong>(f)</strong> Calculate <span class="math inline">\(R^2\)</span> and interpret it.</p>
 </div>
 </div>
 </div>
