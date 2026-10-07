@@ -121,6 +121,20 @@ and **direction** of the *linear* relationship between two continuous variables.
 $$r = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}
            {\sqrt{\sum_{i=1}^{n}(x_i-\bar{x})^2 \cdot \sum_{i=1}^{n}(y_i-\bar{y})^2}}$$
 
+This **definition** shows what $r$ measures: whether $x$ and $y$ tend to be
+above (or below) their means *together*. For calculating by hand, the same
+value is easier to get from five column totals, $\sum x$, $\sum y$,
+$\sum x^2$, $\sum y^2$ and $\sum xy$ — no means or deviations needed:
+
+::: {.callout-important icon=false}
+## Computational Formula for $r$ (Use This by Hand)
+$$r = \frac{n\sum xy - \sum x \sum y}
+           {\sqrt{\left[n\sum x^2 - \left(\sum x\right)^2\right]\left[n\sum y^2 - \left(\sum y\right)^2\right]}}$$
+
+Note that $\sum x^2$ (square each value, then add) is **not** the same as
+$\left(\sum x\right)^2$ (add the values, then square the total).
+:::
+
 ### Properties of $r$
 
 - $r$ always lies between **−1 and +1**
@@ -191,6 +205,115 @@ in the context of biological or clinical plausibility.
 
 ---
 
+## Example 1: Calculating and Testing Pearson's r
+
+A researcher records the **age (years)** and **systolic blood pressure (mmHg)**
+of 8 adults:
+
+```{r}
+#| label: tbl-ex1-data
+#| tbl-cap: "Age and Systolic Blood Pressure of 8 Adults"
+
+age <- c(25, 32, 40, 48, 55, 62, 70, 78)
+sbp <- c(118, 116, 131, 128, 146, 139, 160, 157)
+
+ex1 <- data.frame(Subject = paste0("S", 1:8), Age = age, SBP = sbp)
+
+kable(ex1, col.names = c("Subject", "Age (years)", "SBP (mmHg)"),
+      align = c("c","c","c")) |>
+  kable_styling(bootstrap_options = c("striped","hover","bordered"),
+                full_width = FALSE, font_size = tbl_fs(13))
+```
+
+**(a)** Calculate Pearson's $r$ using the computational formula.
+
+**(b)** Test at $\alpha = 0.05$ whether there is a significant linear
+relationship between age and systolic blood pressure.
+
+::: {.callout-tip icon=false}
+## Solution
+
+```{r}
+#| label: tbl-ex1-calc
+#| tbl-cap: "Column totals needed for r (the same totals are reused for the regression line in Example 2)"
+
+n   <- length(age)
+calc <- data.frame(
+  Subject = paste0("S", 1:n),
+  x  = age,
+  y  = sbp,
+  x2 = age^2,
+  y2 = sbp^2,
+  xy = age * sbp
+)
+calc_all <- rbind(calc,
+                  data.frame(Subject = "Total", x = sum(age), y = sum(sbp),
+                             x2 = sum(age^2), y2 = sum(sbp^2), xy = sum(age * sbp)))
+
+kable(calc_all,
+      col.names = c("Subject", "x", "y", "x^2", "y^2", "xy"),
+      align = rep("c", 6), format.args = list(big.mark = ",")) |>
+  kable_styling(bootstrap_options = c("striped","hover","bordered"),
+                full_width = FALSE, font_size = tbl_fs(12)) |>
+  row_spec(n + 1, bold = TRUE) |>
+  row_spec(0, bold = TRUE, color = "white", background = "#2c7bb6")
+
+Sx  <- sum(age); Sy <- sum(sbp); Sx2 <- sum(age^2); Sy2 <- sum(sbp^2); Sxy <- sum(age * sbp)
+num <- n * Sxy - Sx * Sy           # numerator of r and b1
+dx  <- n * Sx2 - Sx^2              # x-bracket
+dy  <- n * Sy2 - Sy^2              # y-bracket
+r1  <- num / sqrt(dx * dy)
+b1  <- round(num / dx, 4)
+b0  <- round(Sy / n - b1 * Sx / n, 2)
+# thousands separator for use inside $math$: {,} avoids the space LaTeX adds after a comma
+fm  <- function(v) format(v, big.mark = "{,}", scientific = FALSE)
+```
+
+With $n = `r n`$: $\sum x = `r fm(Sx)`$, $\sum y = `r fm(Sy)`$,
+$\sum x^2 = `r fm(Sx2)`$, $\sum y^2 = `r fm(Sy2)`$, $\sum xy = `r fm(Sxy)`$.
+
+**Step 1 — The three building blocks:**
+
+$$n\sum xy - \sum x \sum y = `r n`(`r fm(Sxy)`) - (`r fm(Sx)`)(`r fm(Sy)`) = `r fm(num)`$$
+
+$$n\sum x^2 - \left(\sum x\right)^2 = `r n`(`r fm(Sx2)`) - `r fm(Sx)`^2 = `r fm(dx)`$$
+
+$$n\sum y^2 - \left(\sum y\right)^2 = `r n`(`r fm(Sy2)`) - `r fm(Sy)`^2 = `r fm(dy)`$$
+
+**(a) Pearson's r:**
+
+$$r = \frac{`r fm(num)`}{\sqrt{`r fm(dx)` \times `r fm(dy)`}}
+    = \frac{`r fm(num)`}{`r format(round(sqrt(dx * dy), 2), nsmall = 2, big.mark = "{,}")`}
+    = \mathbf{`r sprintf("%.3f", r1)`}$$
+
+This indicates a **very strong positive** linear relationship between
+age and systolic blood pressure. *(Real clinical data are rarely this
+tidy — with only 8 adults, a correlation this high is unusual.)*
+
+**(b) Test of r:**
+
+$H_0: \rho = 0$ (no linear relationship between age and SBP in the population)
+
+$H_1: \rho \neq 0$ (there is a linear relationship); $\alpha = 0.05$
+
+$$t = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}}
+    = \frac{`r sprintf("%.4f", r1)` \sqrt{`r n` - 2}}{\sqrt{1 - `r sprintf("%.4f", r1)`^2}}
+    = \frac{`r sprintf("%.4f", round(r1,4) * sqrt(n - 2))`}{`r sprintf("%.4f", sqrt(1 - round(r1,4)^2))`}
+    = \mathbf{`r sprintf("%.2f", round(r1,4) * sqrt(n - 2) / sqrt(1 - round(r1,4)^2))`}$$
+
+$df = n - 2 = `r n - 2`$, and from the t-table $t_{0.975,\,`r n - 2`} = `r sprintf("%.3f", qt(0.975, n - 2))`$.
+
+Since $`r sprintf("%.2f", round(r1,4) * sqrt(n - 2) / sqrt(1 - round(r1,4)^2))` > `r sprintf("%.3f", qt(0.975, n - 2))`$,
+we **reject $H_0$**. SPSS would report Sig. (2-tailed) $= `r sprintf("%.3f", cor.test(age, sbp)$p.value)`$,
+which is $< 0.05$ — the same decision.
+
+**Conclusion:** There is a significant positive linear relationship between
+age and systolic blood pressure ($r = `r sprintf("%.2f", r1)`$, $df = `r n - 2`$,
+$p = `r sprintf("%.3f", cor.test(age, sbp)$p.value)`$): older adults tend to have higher SBP.
+:::
+
+---
+
 # Simple Linear Regression
 
 ## The Regression Equation
@@ -232,13 +355,19 @@ residuals** — this method is called **Ordinary Least Squares (OLS)**:
 
 $$\text{Minimize: } \sum_{i=1}^{n}(Y_i - \hat{Y}_i)^2 = \sum_{i=1}^{n} e_i^2$$
 
-The OLS formulas are:
+The OLS formulas use the **same column totals** as $r$
+($\sum x$, $\sum y$, $\sum x^2$, $\sum xy$):
 
-$$b_1 = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}
-             {\sum_{i=1}^{n}(x_i - \bar{x})^2}
-       = r \cdot \frac{s_y}{s_x}$$
+::: {.callout-important icon=false}
+## Formulas for $b_1$ and $b_0$ (Use These by Hand)
+$$b_1 = \frac{n\sum xy - \sum x \sum y}{n\sum x^2 - \left(\sum x\right)^2},
+\qquad b_0 = \bar{y} - b_1 \bar{x}$$
 
-$$b_0 = \bar{y} - b_1 \bar{x}$$
+The numerator is the **same** as the numerator of $r$, and the denominator is
+the **first bracket** in the denominator of $r$ — so if you have already
+calculated $r$, you can reuse both numbers. Keep at least **4 decimal places**
+in $b_1$ before calculating $b_0$.
+:::
 
 ```{r}
 #| label: fig-ols
@@ -285,111 +414,45 @@ $$R^2 = \frac{\text{Variation explained by the model}}{\text{Total variation in 
 
 ---
 
-## Example 1: Calculating Correlation and Regression
+## Example 2: Fitting a Regression Line
 
-A researcher records the **age (years)** and **systolic blood pressure (mmHg)**
-of 8 adults:
+Use the age and SBP data of the 8 adults in **Example 1** (and its column totals).
 
-```{r}
-#| label: tbl-ex1-data
-#| tbl-cap: "Age and Systolic Blood Pressure of 8 Adults"
+**(a)** Find the regression equation $\hat{Y} = b_0 + b_1 X$.
 
-age <- c(25, 32, 40, 48, 55, 62, 70, 78)
-sbp <- c(118, 116, 131, 128, 146, 139, 160, 157)
+**(b)** Predict the SBP of a 50-year-old adult.
 
-ex1 <- data.frame(Subject = paste0("S", 1:8), Age = age, SBP = sbp)
-
-kable(ex1, col.names = c("Subject", "Age (years)", "SBP (mmHg)"),
-      align = c("c","c","c")) |>
-  kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = tbl_fs(13))
-```
-
-**(a)** Calculate Pearson's $r$.
-
-**(b)** Find the regression equation $\hat{Y} = b_0 + b_1 X$.
-
-**(c)** Predict the SBP of a 50-year-old adult.
-
-**(d)** Interpret $R^2$.
+**(c)** Calculate and interpret $R^2$.
 
 ::: {.callout-tip icon=false}
 ## Solution
 
-```{r}
-#| label: tbl-ex1-calc
-#| tbl-cap: "Calculation Table for Correlation and Regression"
+From Example 1: $n\sum xy - \sum x \sum y = `r fm(num)`$ and
+$n\sum x^2 - \left(\sum x\right)^2 = `r fm(dx)`$.
 
-xbar <- mean(age)
-ybar <- mean(sbp)
+**(a) Regression coefficients** (reusing the numbers from Example 1):
 
-calc <- data.frame(
-  Subject = paste0("S", 1:8),
-  x = age,
-  y = sbp,
-  xdev = round(age - xbar, 2),
-  ydev = round(sbp - ybar, 2),
-  xdev2 = round((age - xbar)^2, 2),
-  ydev2 = round((sbp - ybar)^2, 2),
-  xydev = round((age - xbar)*(sbp - ybar), 2)
-)
+$$b_1 = \frac{`r fm(num)`}{`r fm(dx)`} = `r sprintf("%.4f", b1)`$$
 
-totrow <- data.frame(
-  Subject = "**Total**",
-  x = NA, y = NA,
-  xdev = NA, ydev = NA,
-  xdev2 = round(sum((age-xbar)^2), 2),
-  ydev2 = round(sum((sbp-ybar)^2), 2),
-  xydev = round(sum((age-xbar)*(sbp-ybar)), 2)
-)
-
-calc_all <- rbind(calc, totrow)
-
-kable(calc_all,
-      col.names = c("Subject","x","y","x-xbar","y-ybar",
-                    "(x-xbar)2","(y-ybar)2","(x-xbar)(y-ybar)"),
-      align = rep("c", 8), na_print = "-") |>
-  kable_styling(bootstrap_options = c("striped","hover","bordered"),
-                full_width = FALSE, font_size = tbl_fs(12)) |>
-  row_spec(9, bold = TRUE) |>
-  row_spec(0, bold = TRUE, color = "white", background = "#2c7bb6")
-```
-
-**(a) Pearson's r:**
-
-$$r = \frac{\sum(x_i-\bar{x})(y_i-\bar{y})}
-           {\sqrt{\sum(x_i-\bar{x})^2 \cdot \sum(y_i-\bar{y})^2}}
-  = \frac{`r round(sum((age-xbar)*(sbp-ybar)),2)`}
-         {\sqrt{`r round(sum((age-xbar)^2),2)` \times `r round(sum((sbp-ybar)^2),2)`}}
-  = \frac{`r round(sum((age-xbar)*(sbp-ybar)),2)`}
-         {`r round(sqrt(sum((age-xbar)^2)*sum((sbp-ybar)^2)),2)`}
-  = \mathbf{`r round(cor(age,sbp),3)`}$$
-
-This indicates a **very strong positive** linear relationship between
-age and systolic blood pressure. *(Real clinical data are rarely this
-tidy — with only 8 adults, a correlation this high is unusual.)*
-
-**(b) Regression coefficients:**
-
-$$b_1 = \frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{\sum(x_i-\bar{x})^2}
-      = \frac{`r round(sum((age-xbar)*(sbp-ybar)),2)`}
-             {`r round(sum((age-xbar)^2),2)`}
-      = `r round(coef(lm(sbp~age))[2],3)`$$
+$$\bar{x} = \frac{`r Sx`}{`r n`} = `r Sx / n`, \qquad
+  \bar{y} = \frac{`r fm(Sy)`}{`r n`} = `r Sy / n`$$
 
 $$b_0 = \bar{y} - b_1\bar{x}
-      = `r round(ybar,2)` - `r round(coef(lm(sbp~age))[2],3)` \times `r round(xbar,2)`
-      = `r round(coef(lm(sbp~age))[1],2)`$$
+      = `r Sy / n` - `r sprintf("%.4f", b1)` \times `r Sx / n`
+      = `r sprintf("%.2f", b0)`$$
 
-$$\boxed{\hat{Y} = `r round(coef(lm(sbp~age))[1],2)` + `r round(coef(lm(sbp~age))[2],3)` X}$$
+$$\boxed{\hat{Y} = `r sprintf("%.2f", b0)` + `r sprintf("%.4f", b1)` X}$$
 
-**(c) Prediction for age = 50:**
+**(b) Prediction for age = 50:**
 
-$$\hat{Y} = `r round(coef(lm(sbp~age))[1],2)` + `r round(coef(lm(sbp~age))[2],3)` \times 50
-          = `r round(predict(lm(sbp~age), newdata=data.frame(age=50)),1)` \text{ mmHg}$$
+$$\hat{Y} = `r sprintf("%.2f", b0)` + `r sprintf("%.4f", b1)` \times 50
+          = `r sprintf("%.1f", b0 + b1 * 50)` \text{ mmHg}$$
 
-**(d) $R^2$:**
+**(c) $R^2$:**
 
-$$R^2 = r^2 = (`r round(cor(age,sbp),3)`)^2 = `r round(cor(age,sbp)^2,3)`$$
+$$R^2 = r^2 = (`r sprintf("%.4f", r1)`)^2 = `r sprintf("%.3f", round(r1, 4)^2)`$$
+
+*(Use $r$ with 4 decimal places here; squaring the rounded 0.940 would give 0.884.)*
 
 **`r round(cor(age,sbp)^2*100,1)`% of the variation in systolic blood pressure
 is explained by age.** The remaining `r round((1-cor(age,sbp)^2)*100,1)`%
@@ -411,8 +474,8 @@ ggplot(df1, aes(x = age, y = sbp)) +
   geom_smooth(method = "lm", se = TRUE, color = "#d7191c",
               fill = "#fdae61", alpha = 0.2, formula = y ~ x) +
   annotate("text", x = 30, y = 162,
-           label = paste0("Ŷ = ", round(coef(fit1)[1],2),
-                          " + ", round(coef(fit1)[2],3), "X\n",
+           label = paste0("Ŷ = ", sprintf("%.2f", b0),
+                          " + ", sprintf("%.4f", b1), "X\n",
                           "r = ", round(cor(age,sbp),3),
                           ",  R² = ", round(cor(age,sbp)^2,3)),
            hjust = 0, size = 4, color = "#d7191c") +
@@ -583,7 +646,7 @@ not needed in this course.
 
 ---
 
-## Example 2: Interpreting SPSS Output
+## Example 3: Interpreting SPSS Output
 
 A researcher uses SPSS to examine the relationship between
 **BMI (kg/m²)** and **fasting blood glucose (mg/dL)** in 60 adults.
@@ -670,9 +733,9 @@ $$\hat{Y} = 48.32 + 2.91 \times 28 = 48.32 + 81.48 = 129.8 \text{ mg/dL}$$
 
 | Quantity | Formula | Notes |
 |:----------------|:----------------------------------------|:----------------------|
-| Pearson correlation | $r = \dfrac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum (x_i - \bar{x})^2 \sum (y_i - \bar{y})^2}}$ | $-1 \leq r \leq 1$ |
+| Pearson correlation | $r = \dfrac{n\sum xy - \sum x \sum y}{\sqrt{\left[n\sum x^2 - (\sum x)^2\right]\left[n\sum y^2 - (\sum y)^2\right]}}$ | $-1 \leq r \leq 1$; needs $\sum x$, $\sum y$, $\sum x^2$, $\sum y^2$, $\sum xy$ |
 | Test of $r$ | $t = \dfrac{r\sqrt{n-2}}{\sqrt{1 - r^2}}$ | $H_0: \rho = 0$; $df = n - 2$ |
-| Slope | $b_1 = \dfrac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2} = r \cdot \dfrac{s_y}{s_x}$ | Change in $\hat{Y}$ per 1-unit increase in $X$ |
+| Slope | $b_1 = \dfrac{n\sum xy - \sum x \sum y}{n\sum x^2 - (\sum x)^2}$ | Same numerator as $r$; change in $\hat{Y}$ per 1-unit increase in $X$ |
 | Intercept | $b_0 = \bar{y} - b_1 \bar{x}$ | Predicted $Y$ when $X = 0$ |
 | Prediction | $\hat{Y} = b_0 + b_1 X$ | Only within the range of the data |
 | Residual | $e_i = Y_i - \hat{Y}_i$ | OLS minimises $\sum e_i^2$ |
@@ -702,13 +765,16 @@ A study records the **hours of sleep per night** ($X$) and
 
 **(a)** Draw a scatter plot and describe the relationship.
 
-**(b)** Calculate Pearson's $r$. What does it indicate?
+**(b)** Make a table with columns $x$, $y$, $x^2$, $y^2$ and $xy$, then use the
+computational formula to calculate Pearson's $r$. What does it indicate?
 
-**(c)** Find the regression equation $\hat{Y} = b_0 + b_1 X$.
+**(c)** Test at $\alpha = 0.05$ whether the correlation is significant.
 
-**(d)** Predict the SBP of a person who sleeps 6.5 hours per night.
+**(d)** Find the regression equation $\hat{Y} = b_0 + b_1 X$.
 
-**(e)** Calculate $R^2$ and interpret it.
+**(e)** Predict the SBP of a person who sleeps 6.5 hours per night.
+
+**(f)** Calculate $R^2$ and interpret it.
 :::
 
 ::: {.callout-caution icon=false}
