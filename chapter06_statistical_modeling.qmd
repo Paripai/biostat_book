@@ -325,11 +325,30 @@ $$\hat{Y} = b_0 + b_1 X$$
 
 Where:
 
-| Symbol | Name | Meaning |
-|:---:|---|---|
-| $\hat{Y}$ | Predicted value | The estimated value of $Y$ for a given $X$ |
-| $b_0$ | Intercept | The predicted value of $Y$ when $X = 0$ |
-| $b_1$ | Slope | The change in $\hat{Y}$ for each one-unit increase in $X$ |
+| Symbol | Name | Also called | Meaning | In Examples 1 and 2 |
+|:-----:|:-----------|:--------------|:------------------------|:--------------|
+| $Y$ | Outcome variable | **Dependent variable**, response variable | The variable we want to explain or predict; drawn on the vertical (y) axis | Systolic blood pressure (mmHg) |
+| $X$ | Predictor variable | **Independent variable**, explanatory variable | The variable we use to explain or predict $Y$; drawn on the horizontal (x) axis | Age (years) |
+| $\hat{Y}$ | Predicted value | Fitted value | The value of $Y$ predicted by the line for a given $X$ | Predicted SBP for a given age |
+| $b_0$ | Intercept | Constant | The predicted value of $Y$ when $X = 0$ | Predicted SBP at age 0 (not meaningful) |
+| $b_1$ | Slope | Regression coefficient | The change in $\hat{Y}$ for each one-unit increase in $X$ | Change in predicted SBP per extra year of age |
+
+: Symbols in the simple linear regression equation
+
+::: {.callout-tip icon=false}
+## Which Variable Is $Y$ and Which Is $X$?
+Ask: *"Which variable do we want to predict?"* That one is the **dependent
+variable** $Y$, because its value is thought to **depend on** the other.
+The **independent variable** $X$ usually comes first in time, is the
+possible cause, or is easier to measure. For example, we use age ($X$) to
+predict blood pressure ($Y$), not the other way round.
+
+For Pearson's $r$ the choice does not matter ($r$ is the same either way),
+but for regression it does: swapping $X$ and $Y$ gives a different line.
+
+In SPSS (**Analyze** $\rightarrow$ **Regression** $\rightarrow$ **Linear**),
+put $Y$ in the **Dependent** box and $X$ in the **Independent(s)** box.
+:::
 
 The line above is calculated from a **sample**. It estimates the true
 line in the **population**:
