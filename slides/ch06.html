@@ -539,36 +539,73 @@ Table&nbsp;3: Column totals needed for r (the same totals are reused for the reg
 <p><span class="math display">\[\hat{Y} = b_0 + b_1 X\]</span></p>
 <p>Where:</p>
 <table class="caption-top">
+<caption>Symbols in the simple linear regression equation</caption>
 <colgroup>
-<col style="width: 45%">
-<col style="width: 27%">
-<col style="width: 27%">
+<col style="width: 9%">
+<col style="width: 16%">
+<col style="width: 20%">
+<col style="width: 33%">
+<col style="width: 20%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: center;">Symbol</th>
-<th>Name</th>
-<th>Meaning</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Also called</th>
+<th style="text-align: left;">Meaning</th>
+<th style="text-align: left;">In Examples 1 and 2</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(Y\)</span></td>
+<td style="text-align: left;">Outcome variable</td>
+<td style="text-align: left;"><strong>Dependent variable</strong>, response variable</td>
+<td style="text-align: left;">The variable we want to explain or predict; drawn on the vertical (y) axis</td>
+<td style="text-align: left;">Systolic blood pressure (mmHg)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(X\)</span></td>
+<td style="text-align: left;">Predictor variable</td>
+<td style="text-align: left;"><strong>Independent variable</strong>, explanatory variable</td>
+<td style="text-align: left;">The variable we use to explain or predict <span class="math inline">\(Y\)</span>; drawn on the horizontal (x) axis</td>
+<td style="text-align: left;">Age (years)</td>
+</tr>
+<tr class="odd">
 <td style="text-align: center;"><span class="math inline">\(\hat{Y}\)</span></td>
-<td>Predicted value</td>
-<td>The estimated value of <span class="math inline">\(Y\)</span> for a given <span class="math inline">\(X\)</span></td>
+<td style="text-align: left;">Predicted value</td>
+<td style="text-align: left;">Fitted value</td>
+<td style="text-align: left;">The value of <span class="math inline">\(Y\)</span> predicted by the line for a given <span class="math inline">\(X\)</span></td>
+<td style="text-align: left;">Predicted SBP for a given age</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><span class="math inline">\(b_0\)</span></td>
-<td>Intercept</td>
-<td>The predicted value of <span class="math inline">\(Y\)</span> when <span class="math inline">\(X = 0\)</span></td>
+<td style="text-align: left;">Intercept</td>
+<td style="text-align: left;">Constant</td>
+<td style="text-align: left;">The predicted value of <span class="math inline">\(Y\)</span> when <span class="math inline">\(X = 0\)</span></td>
+<td style="text-align: left;">Predicted SBP at age 0 (not meaningful)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><span class="math inline">\(b_1\)</span></td>
-<td>Slope</td>
-<td>The change in <span class="math inline">\(\hat{Y}\)</span> for each one-unit increase in <span class="math inline">\(X\)</span></td>
+<td style="text-align: left;">Slope</td>
+<td style="text-align: left;">Regression coefficient</td>
+<td style="text-align: left;">The change in <span class="math inline">\(\hat{Y}\)</span> for each one-unit increase in <span class="math inline">\(X\)</span></td>
+<td style="text-align: left;">Change in predicted SBP per extra year of age</td>
 </tr>
 </tbody>
 </table>
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Which Variable Is <span class="math inline">\(Y\)</span> and Which Is <span class="math inline">\(X\)</span>?</strong></p>
+</div>
+<div class="callout-content">
+<p>Ask: <em>“Which variable do we want to predict?”</em> That one is the <strong>dependent variable</strong> <span class="math inline">\(Y\)</span>, because its value is thought to <strong>depend on</strong> the other. The <strong>independent variable</strong> <span class="math inline">\(X\)</span> usually comes first in time, is the possible cause, or is easier to measure. For example, we use age (<span class="math inline">\(X\)</span>) to predict blood pressure (<span class="math inline">\(Y\)</span>), not the other way round.</p>
+<p>For Pearson’s <span class="math inline">\(r\)</span> the choice does not matter (<span class="math inline">\(r\)</span> is the same either way), but for regression it does: swapping <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> gives a different line.</p>
+<p>In SPSS (<strong>Analyze</strong> <span class="math inline">\(\rightarrow\)</span> <strong>Regression</strong> <span class="math inline">\(\rightarrow\)</span> <strong>Linear</strong>), put <span class="math inline">\(Y\)</span> in the <strong>Dependent</strong> box and <span class="math inline">\(X\)</span> in the <strong>Independent(s)</strong> box.</p>
+</div>
+</div>
+</div>
 <p>The line above is calculated from a <strong>sample</strong>. It estimates the true line in the <strong>population</strong>:</p>
 <p><span class="math display">\[Y = \beta_0 + \beta_1 X + \varepsilon\]</span></p>
 <p>where <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> (Greek “beta”) are the population intercept and slope — <strong>parameters</strong> — and <span class="math inline">\(\varepsilon\)</span> is random error. The sample values <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are the <strong>statistics</strong> we use to estimate them, just as <span class="math inline">\(\bar{x}\)</span> estimates <span class="math inline">\(\mu\)</span> (Chapter 1).</p>
