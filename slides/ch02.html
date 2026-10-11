@@ -35,7 +35,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="ch02_files/libs/revealjs/dist/theme/quarto-ae7e42f4f0a9bc7cad33dd64a10b9b31.css">
+  <link rel="stylesheet" href="ch02_files/libs/revealjs/dist/theme/quarto-c38eb1cfb684de4251163e209291dfcd.css">
   <link href="ch02_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="ch02_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="ch02_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -348,6 +348,23 @@ Table&nbsp;1: Choosing the Right Measure of Central Tendency
 </div>
 </div>
 </div>
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Example: When the Position Is Not a Whole Number</strong></p>
+</div>
+<div class="callout-content">
+<p>Number of clinic visits in one year for 12 patients, already in order:</p>
+<p><span class="math display">\[3, \; 4, \; 4, \; 5, \; 6, \; 7, \; 8, \; 9, \; 11, \; 12, \; 14, \; 20\]</span></p>
+<ul>
+<li>Q1: position <span class="math inline">\(0.25(12+1) = 3.25\)</span>, so go <span class="math inline">\(0.25\)</span> of the way from the 3rd value (4) to the 4th value (5): <span class="math inline">\(Q_1 = 4 + 0.25(5 - 4) = \mathbf{4.25}\)</span></li>
+<li>Median: position <span class="math inline">\(0.50(12+1) = 6.5\)</span>, halfway between the 6th and 7th values: <span class="math inline">\(\dfrac{7 + 8}{2} = \mathbf{7.5}\)</span></li>
+<li>Q3: position <span class="math inline">\(0.75(12+1) = 9.75\)</span>, so go <span class="math inline">\(0.75\)</span> of the way from the 9th value (11) to the 10th value (12): <span class="math inline">\(Q_3 = 11 + 0.75(12 - 11) = \mathbf{11.75}\)</span></li>
+<li>IQR = 11.75 − 4.25 = <strong>7.5 visits</strong></li>
+</ul>
+</div>
+</div>
+</div>
 <p>Like the median, the IQR is <strong>not affected by extreme values</strong>, so the pair <strong>median and IQR</strong> is used to describe skewed data (the pair mean and SD is used for symmetric data).</p>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
@@ -613,6 +630,7 @@ Figure&nbsp;2: Histogram: Systolic Blood Pressure of 80 Patients
 </tbody>
 </table>
 <p><strong>Discrete data:</strong> if a count has only a <strong>few possible values</strong> (e.g., number of falls per month: 0, 1, 2, …, 5), draw a <strong>bar chart</strong> with one bar for each value. The gaps between the bars show that there are no values in between (no month has 1.5 falls). If a count has <strong>many possible values</strong> (e.g., number of patients seen per day, 0 to 80), group the values into class intervals and draw a <strong>histogram</strong> (Chapter 3).</p>
+<p><strong>A histogram can have gaps too.</strong> A class with frequency 0 leaves an empty space in a histogram. It is still a histogram, because its x-axis is a <strong>number line</strong> with every class shown in order, while a bar chart’s x-axis is a list of separate categories.</p>
 </div>
 </div>
 </div>
@@ -662,6 +680,23 @@ Figure&nbsp;2: Histogram: Systolic Blood Pressure of 80 Patients
 Figure&nbsp;3: Box Plot: Comparing Length of Hospital Stay Between Two Wards
 </figcaption>
 </figure>
+</div>
+</div>
+</div>
+<div class="callout callout-important no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Shape of a Distribution: Symmetric or Skewed?</strong></p>
+</div>
+<div class="callout-content">
+<p>A distribution is <strong>right-skewed</strong> when it has a long tail of large values (like length of stay), and <strong>left-skewed</strong> when the long tail is of small values. Four ways to tell:</p>
+<ul>
+<li><strong>Box plot — look at the box</strong>, not only the whiskers. If the median is closer to <span class="math inline">\(Q_1\)</span> (the part from the median to <span class="math inline">\(Q_3\)</span> is longer), the data are right-skewed; if it is closer to <span class="math inline">\(Q_3\)</span>, left-skewed.</li>
+<li><strong>Histogram:</strong> the long tail is on the right (right-skewed) or on the left (left-skewed).</li>
+<li><strong>Mean and median:</strong> usually mean &gt; median when right-skewed, and mean &lt; median when left-skewed.</li>
+<li><strong>SPSS Skewness:</strong> a value &gt; 0 means right-skewed, &lt; 0 means left-skewed, close to 0 means roughly symmetric.</li>
+</ul>
+<p><em>Example (clinic visits, above):</em> <span class="math inline">\(\text{median} - Q_1 = 7.5 - 4.25 = 3.25\)</span> is smaller than <span class="math inline">\(Q_3 - \text{median} = 11.75 - 7.5 = 4.25\)</span>, the mean (8.58) is larger than the median (7.5), and SPSS gives Skewness = 1.12, so the data are <strong>right-skewed</strong>. Both wards in the box plot above are right-skewed too.</p>
 </div>
 </div>
 </div>
@@ -1131,13 +1166,23 @@ Table&nbsp;4: Guide to Choosing the Right Chart
       });
     </script>
     <script>
-    // Adds a clickable laser-pointer button next to the chalkboard buttons.
+    // Adds a clickable laser-pointer button and a clear-this-slide button
+    // next to the chalkboard buttons.
     // It sends the same "q" key press that the pointer plugin listens for.
     (function () {
       function pressQ() {
         var ev = new KeyboardEvent("keydown", { key: "q", bubbles: true });
         Object.defineProperty(ev, "keyCode", { get: function () { return 81; } });
         Object.defineProperty(ev, "which",   { get: function () { return 81; } });
+        document.dispatchEvent(ev);
+      }
+      // Clear button: sends the DEL key, which the chalkboard plugin uses for
+      // "clear drawings on this slide" (or on the board, when the board is open).
+      // It never touches other slides, unlike BACKSPACE.
+      function pressDel() {
+        var ev = new KeyboardEvent("keydown", { key: "Delete", bubbles: true });
+        Object.defineProperty(ev, "keyCode", { get: function () { return 46; } });
+        Object.defineProperty(ev, "which",   { get: function () { return 46; } });
         document.dispatchEvent(ev);
       }
       function addButton() {
@@ -1151,6 +1196,17 @@ Table&nbsp;4: Guide to Choosing the Right Chart
           e.preventDefault(); e.stopPropagation(); pressQ();
         });
         bar.appendChild(btn);
+
+        var clr = document.createElement("span");
+        clr.className = "slide-clear-button";
+        clr.title = "Clear the drawing on this slide (Delete)";
+        clr.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">' +
+          '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6" ' +
+          'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        clr.addEventListener("click", function (e) {
+          e.preventDefault(); e.stopPropagation(); pressDel();
+        });
+        bar.appendChild(clr);
       }
       // keep the button's look in step with the pointer, however it was toggled
       document.addEventListener("keydown", function (e) {

@@ -35,7 +35,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="ch03_files/libs/revealjs/dist/theme/quarto-ae7e42f4f0a9bc7cad33dd64a10b9b31.css">
+  <link rel="stylesheet" href="ch03_files/libs/revealjs/dist/theme/quarto-c38eb1cfb684de4251163e209291dfcd.css">
   <link href="ch03_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="ch03_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="ch03_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -345,6 +345,7 @@ Table&nbsp;2: Frequency Distribution: Systolic Blood Pressure of 80 Patients
 </div>
 </div>
 <p><strong>Cumulative frequency</strong> tells us how many observations fall <em>at or below</em> the upper boundary of each class — useful for answering questions like <em>“What proportion of patients have SBP below 135 mmHg?”</em> (read the cumulative frequency of the class that ends at 134, then divide by 80).</p>
+<p>The cumulative column also gives the <strong>median</strong>: it is the first value (or class) whose <strong>cumulative percent reaches 50%</strong>. Here 50% of 80 is 40 patients, and the first class whose cumulative frequency reaches 40 is <strong>125-134 mmHg</strong>, so that class contains the median. In SPSS <em>Frequencies</em> output, read down the <strong>Cumulative Percent</strong> column in the same way.</p>
 </section>
 <section id="example-1-constructing-a-frequency-distribution-table" class="slide level2">
 <h2>Example 1: Constructing a Frequency Distribution Table</h2>
@@ -460,6 +461,12 @@ Figure&nbsp;1: Histogram of Systolic Blood Pressure (80 patients)
 </ul>
 <p>The <strong>relative frequency</strong> we calculated above is our link to probability. In the blood-type table, 38% of the 200 patients had blood type A. If we pick one patient <strong>at random</strong> from this group, the probability that the patient has blood type A is <span class="math inline">\(P(\text{type A}) = 0.38\)</span>.</p>
 <p>When we only have a sample, the relative frequency is our best <em>estimate</em> of the probability in the population.</p>
+<p>Two rules for questions about more than one category:</p>
+<ul>
+<li><strong>“A or B”</strong> (categories that cannot happen together): <strong>add</strong> their probabilities. <span class="math inline">\(P(\text{type A or type AB}) = 0.38 + 0.15 = 0.53\)</span>, because no patient has two blood types.</li>
+<li><strong>“At least”</strong>: use the cumulative column and the complement, <span class="math inline">\(P(\text{at least } k) = 1 - P(\text{at most the value below } k)\)</span>. From the SBP table, <span class="math inline">\(P(\text{SBP} \geq 135) = 1 - P(\text{SBP} \leq 134)
+= 1 - \frac{50}{80} = 0.375\)</span>.</li>
+</ul>
 </section>
 <section id="random-variable" class="slide level2">
 <h2>Random Variable</h2>
@@ -1214,6 +1221,10 @@ Figure&nbsp;5: Three useful probability rules for the normal distribution
 <td>Probability below a <strong>negative</strong> z</td>
 <td><span class="math inline">\(P(Z &lt; -z) = 1 - P(Z &lt; z)\)</span></td>
 </tr>
+<tr class="odd">
+<td>Value with a given area below it</td>
+<td>find the area <strong>inside</strong> the table, read <span class="math inline">\(z\)</span>, then <span class="math inline">\(x = \mu + z\sigma\)</span></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1248,6 +1259,54 @@ Figure&nbsp;5: Three useful probability rules for the normal distribution
 <p>Using symmetry, <span class="math inline">\(P(Z &lt; -1.00) = 1 - 0.8413 = 0.1587\)</span>, so</p>
 <p><span class="math display">\[P(-1.00 &lt; Z &lt; 1.00) = P(Z &lt; 1.00) - P(Z &lt; -1.00)\]</span> <span class="math display">\[= 0.8413 - 0.1587 = \mathbf{0.6826}\]</span></p>
 <p><strong>68.3%</strong> of adult males weigh between 60 and 80 kg — consistent with the 68–95–99.7 rule.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="reading-the-z-table-backwards-from-an-area-to-z" class="slide level2 scrollable">
+<h2>Reading the Z-Table Backwards: From an Area to z</h2>
+<p>So far we went from a value to a probability: <span class="math inline">\(x \rightarrow z \rightarrow\)</span> area. Sometimes we know the <strong>area</strong> and need the <strong>value</strong> — for example, the cut-off below which the lowest 5% of patients fall.</p>
+<ol type="1">
+<li>Look for the area (area to the left) <strong>inside the body</strong> of the Z-table, then read <span class="math inline">\(z\)</span> from its row and column. If it lies between two entries, use the closer one.
+<ul>
+<li>0.95 lies between 0.9495 (<span class="math inline">\(z = 1.64\)</span>) and 0.9505 (<span class="math inline">\(z = 1.65\)</span>), so <span class="math inline">\(z_{0.95} = 1.645\)</span>.</li>
+<li>0.90 is closest to 0.8997, so <span class="math inline">\(z_{0.90} = 1.28\)</span>.</li>
+</ul></li>
+<li>For an area <strong>below 0.5</strong>, use symmetry: <span class="math inline">\(z_{0.05} = -z_{0.95} = -1.645\)</span>.</li>
+<li>Change <span class="math inline">\(z\)</span> back to the original units: <span class="math inline">\(x = \mu + z\sigma\)</span>.</li>
+</ol>
+</section>
+<section id="example-4-from-a-percentage-back-to-a-value" class="slide level2">
+<h2>Example 4: From a Percentage Back to a Value</h2>
+<p>The hemoglobin level of healthy adult women is approximately normally distributed with <strong>mean = 13.5 g/dL</strong> and <strong>SD = 1.0 g/dL</strong>.</p>
+<p><strong>(a)</strong> Below what hemoglobin level do the lowest <strong>5%</strong> of women fall?</p>
+<p><strong>(b)</strong> What hemoglobin level is the <strong>90th percentile</strong>?</p>
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Solution</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>(a)</strong> Area to the left = 0.05, so <span class="math inline">\(z_{0.05} = -1.645\)</span>.</p>
+<p><span class="math display">\[x = \mu + z\sigma = 13.5 + (-1.645)(1.0) = \mathbf{11.86} \text{ g/dL}\]</span></p>
+<p>The lowest 5% of healthy women have hemoglobin below about 11.9 g/dL (close to the 12 g/dL commonly used to define anemia in women).</p>
+<p><strong>(b)</strong> Area to the left = 0.90, so <span class="math inline">\(z_{0.90} = 1.28\)</span>.</p>
+<p><span class="math display">\[x = 13.5 + 1.28(1.0) = \mathbf{14.78} \text{ g/dL}\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>The Same Calculations in SPSS</strong></p>
+</div>
+<div class="callout-content">
+<p>In <strong>Transform</strong> <span class="math inline">\(\rightarrow\)</span> <strong>Compute Variable</strong>:</p>
+<ul>
+<li><code>CDF.NORMAL(x, mean, sd)</code> <span class="math inline">\(= P(X &lt; x)\)</span>, the area to the left of <span class="math inline">\(x\)</span>. For an area to the right, use <span class="math inline">\(1 -\)</span> <code>CDF.NORMAL(x, mean, sd)</code>.</li>
+<li><code>IDF.NORMAL(p, mean, sd)</code> does the reverse: the value with area <span class="math inline">\(p\)</span> to its left, e.g.&nbsp;<code>IDF.NORMAL(0.05, 13.5, 1)</code> <span class="math inline">\(= 11.86\)</span>.</li>
+</ul>
+<p>SPSS rounds probabilities to 3 decimals. A value shown as <strong>.000</strong> means less than .0005, <strong>not zero</strong> — report it as <span class="math inline">\(p &lt; .001\)</span>.</p>
 </div>
 </div>
 </div>
@@ -1327,6 +1386,21 @@ Figure&nbsp;5: Three useful probability rules for the normal distribution
 <td style="text-align: left;">Negative Z</td>
 <td style="text-align: left;"><span class="math inline">\(P(Z &lt; -z) = 1 - P(Z &lt; z)\)</span></td>
 <td style="text-align: left;">Symmetry of the normal curve</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Value from an area</td>
+<td style="text-align: left;"><span class="math inline">\(x = \mu + z\sigma\)</span></td>
+<td style="text-align: left;">Find the area inside the Z-table first; e.g.&nbsp;<span class="math inline">\(z_{0.95} = 1.645\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A or B</td>
+<td style="text-align: left;"><span class="math inline">\(P(A \text{ or } B) = P(A) + P(B)\)</span></td>
+<td style="text-align: left;">Categories that cannot happen together</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">At least <span class="math inline">\(k\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(1 - P(\text{at most the value below } k)\)</span></td>
+<td style="text-align: left;">Use the cumulative column</td>
 </tr>
 </tbody>
 </table>
@@ -1609,13 +1683,23 @@ Figure&nbsp;5: Three useful probability rules for the normal distribution
       });
     </script>
     <script>
-    // Adds a clickable laser-pointer button next to the chalkboard buttons.
+    // Adds a clickable laser-pointer button and a clear-this-slide button
+    // next to the chalkboard buttons.
     // It sends the same "q" key press that the pointer plugin listens for.
     (function () {
       function pressQ() {
         var ev = new KeyboardEvent("keydown", { key: "q", bubbles: true });
         Object.defineProperty(ev, "keyCode", { get: function () { return 81; } });
         Object.defineProperty(ev, "which",   { get: function () { return 81; } });
+        document.dispatchEvent(ev);
+      }
+      // Clear button: sends the DEL key, which the chalkboard plugin uses for
+      // "clear drawings on this slide" (or on the board, when the board is open).
+      // It never touches other slides, unlike BACKSPACE.
+      function pressDel() {
+        var ev = new KeyboardEvent("keydown", { key: "Delete", bubbles: true });
+        Object.defineProperty(ev, "keyCode", { get: function () { return 46; } });
+        Object.defineProperty(ev, "which",   { get: function () { return 46; } });
         document.dispatchEvent(ev);
       }
       function addButton() {
@@ -1629,6 +1713,17 @@ Figure&nbsp;5: Three useful probability rules for the normal distribution
           e.preventDefault(); e.stopPropagation(); pressQ();
         });
         bar.appendChild(btn);
+
+        var clr = document.createElement("span");
+        clr.className = "slide-clear-button";
+        clr.title = "Clear the drawing on this slide (Delete)";
+        clr.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">' +
+          '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6" ' +
+          'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        clr.addEventListener("click", function (e) {
+          e.preventDefault(); e.stopPropagation(); pressDel();
+        });
+        bar.appendChild(clr);
       }
       // keep the button's look in step with the pointer, however it was toggled
       document.addEventListener("keydown", function (e) {

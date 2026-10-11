@@ -286,7 +286,13 @@ window.Quarto = {
 <p>Before building a model, we first ask: <em>Is there a relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, and how strong is it?</em></p>
 <section id="the-scatter-plot" class="level2">
 <h2 class="anchored" data-anchor-id="the-scatter-plot">The Scatter Plot</h2>
-<p>A <strong>scatter plot</strong> displays pairs of values <span class="math inline">\((x_i, y_i)\)</span> as points on a graph. The pattern of points reveals the <strong>direction</strong> and <strong>strength</strong> of the relationship.</p>
+<p>A <strong>scatter plot</strong> displays pairs of values <span class="math inline">\((x_i, y_i)\)</span> as points on a graph. When you read one, describe four things:</p>
+<ul>
+<li><strong>Direction</strong> — positive (points go up to the right) or negative.</li>
+<li><strong>Strength</strong> — how tightly the points follow a line.</li>
+<li><strong>Form</strong> — is the pattern <strong>linear</strong> (a straight line) or <strong>curved</strong>? Pearson’s <span class="math inline">\(r\)</span> and linear regression only describe a straight-line pattern; a clear curve can give a small <span class="math inline">\(r\)</span> even when <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are closely related.</li>
+<li><strong>Outliers</strong> — a point far from the pattern of the others. A single outlier can change <span class="math inline">\(r\)</span> and the regression line a lot, so check it before calculating.</li>
+</ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-scatter-types" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
@@ -635,12 +641,12 @@ Table&nbsp;8.3: Column totals needed for r (the same totals are reused for the r
 <p><strong>(b) Test of r:</strong></p>
 <p><span class="math inline">\(H_0: \rho = 0\)</span> (no linear relationship between age and SBP in the population)</p>
 <p><span class="math inline">\(H_1: \rho \neq 0\)</span> (there is a linear relationship); <span class="math inline">\(\alpha = 0.05\)</span></p>
-<p><span class="math display">\[t = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}}
+<p><span class="math display">\[t_{cal} = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}}
     = \frac{0.9397 \sqrt{8 - 2}}{\sqrt{1 - 0.9397^2}}
     = \frac{2.3018}{0.3420}
     = \mathbf{6.73}\]</span></p>
 <p><span class="math inline">\(df = n - 2 = 6\)</span>, and from the t-table <span class="math inline">\(t_{0.975,\,6} = 2.447\)</span>.</p>
-<p>Since <span class="math inline">\(6.73 &gt; 2.447\)</span>, we <strong>reject <span class="math inline">\(H_0\)</span></strong>. SPSS would report Sig. (2-tailed) <span class="math inline">\(= 0.001\)</span>, which is <span class="math inline">\(&lt; 0.05\)</span> — the same decision.</p>
+<p>Since <span class="math inline">\(|t_{cal}| = 6.73 &gt; 2.447\)</span>, we <strong>reject <span class="math inline">\(H_0\)</span></strong>. SPSS would report Sig. (2-tailed) <span class="math inline">\(= 0.001\)</span>, which is <span class="math inline">\(&lt; 0.05\)</span> — the same decision.</p>
 <p><strong>Conclusion:</strong> There is a significant positive linear relationship between age and systolic blood pressure (<span class="math inline">\(r = 0.94\)</span>, <span class="math inline">\(df = 6\)</span>, <span class="math inline">\(p = 0.001\)</span>): older adults tend to have higher SBP.</p>
 </div>
 </div>
@@ -988,14 +994,32 @@ Table&nbsp;9.4: SPSS Output: Coefficients Table
 <div aria-describedby="tbl-spss-coef-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="table table-bordered cell caption-top table-sm table-striped small">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
 <thead>
 <tr class="header">
+<th colspan="6" data-quarto-table-cell-role="th" style="text-align: left; empty-cells: hide; border-bottom: hidden;"></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+95% Confidence Interval for B
+</div></th>
+</tr>
+<tr class="even">
 <th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;"></th>
 <th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">B</th>
 <th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Std. Error</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Beta (standardized)</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Beta</th>
 <th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">t</th>
 <th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Sig.</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Lower</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Upper</th>
 </tr>
 </thead>
 <tbody>
@@ -1006,6 +1030,8 @@ Table&nbsp;9.4: SPSS Output: Coefficients Table
 <td style="text-align: center;">-</td>
 <td style="text-align: center;">5.15</td>
 <td style="text-align: center;">&lt; 0.001</td>
+<td style="text-align: center;">19.52</td>
+<td style="text-align: center;">44.78</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; font-weight: bold;">Waist circumference</td>
@@ -1014,6 +1040,8 @@ Table&nbsp;9.4: SPSS Output: Coefficients Table
 <td style="text-align: center; font-weight: bold;">0.821</td>
 <td style="text-align: center; font-weight: bold;">8.87</td>
 <td style="text-align: center; font-weight: bold;">&lt; 0.001</td>
+<td style="text-align: center; font-weight: bold;">0.67</td>
+<td style="text-align: center; font-weight: bold;">1.07</td>
 </tr>
 </tbody>
 </table>
@@ -1024,6 +1052,23 @@ Table&nbsp;9.4: SPSS Output: Coefficients Table
 </div>
 <p><strong>Regression equation:</strong> <span class="math inline">\(\widehat{\text{Glucose}} = 32.15 + 0.87 \times \text{Waist}\)</span></p>
 <p>The slope <strong>B = 0.87</strong> is statistically significant (<span class="math inline">\(p &lt; 0.001\)</span>, read from the <em>Waist circumference</em> row): for each 1 cm increase in waist circumference, fasting glucose increases by <strong>0.87 mg/dL</strong> on average. The <strong>Beta (standardized)</strong> value equals <span class="math inline">\(r\)</span> in simple regression and is not needed in this course.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>The “95% Confidence Interval for B” Columns
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When you tick <em>Confidence intervals</em> in SPSS, the Coefficients table gives a 95% CI for each B: <span class="math inline">\(B \pm t_{0.975,\,n-2} \times \text{Std. Error}\)</span> (here <span class="math inline">\(t_{0.975,\,38} = 2.024\)</span>).</p>
+<ul>
+<li><strong>Slope row:</strong> we are 95% confident that each extra 1 cm of waist circumference raises mean fasting glucose by between 0.67 and 1.07 mg/dL. The CI <strong>does not include 0</strong>, which agrees with Sig. <span class="math inline">\(&lt; 0.05\)</span>: the predictor is significant. (If the CI included 0, the slope would not be significant at the 0.05 level.)</li>
+<li><strong>Constant row:</strong> a CI for the mean of <span class="math inline">\(Y\)</span> when <span class="math inline">\(X = 0\)</span>. Interpret it only if <span class="math inline">\(X = 0\)</span> is meaningful and close to the data. A waist of 0 cm is impossible, so here the Constant and its CI have no clinical meaning — predicting at <span class="math inline">\(X = 0\)</span> would be far outside the range of the data.</li>
+</ul>
+</div>
+</div>
 <hr>
 </section>
 <section id="example-3-interpreting-spss-output" class="level2">

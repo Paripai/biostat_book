@@ -411,6 +411,7 @@ Table&nbsp;6.1: One-tailed vs.&nbsp;Two-tailed Tests
 <li>A test statistic <strong>far from 0</strong> means the data are surprising if <span class="math inline">\(H_0\)</span> is true.</li>
 </ul>
 <p>Each test in this chapter has its own test statistic (<span class="math inline">\(t\)</span>, <span class="math inline">\(\chi^2\)</span>, <span class="math inline">\(U\)</span>, <span class="math inline">\(W\)</span>) and its own formula, but the idea is the same: the further the data are from what <span class="math inline">\(H_0\)</span> predicts, the more extreme the test statistic.</p>
+<p>We write the value <strong>calculated from the sample</strong> with the subscript “cal”: <span class="math inline">\(t_{cal}\)</span>, <span class="math inline">\(z_{cal}\)</span> or <span class="math inline">\(\chi^2_{cal}\)</span>. This keeps it apart from the <strong>critical value</strong> read from a table (such as <span class="math inline">\(t_{0.975,\,df}\)</span>), and we compare <span class="math inline">\(|t_{cal}|\)</span> with that critical value.</p>
 <hr>
 </section>
 <section id="the-p-value" class="level2">
@@ -470,7 +471,7 @@ Table&nbsp;6.1: One-tailed vs.&nbsp;Two-tailed Tests
 <p>There are two equivalent ways to decide whether to reject <span class="math inline">\(H_0\)</span>. They <strong>always give the same decision</strong>.</p>
 <p><strong>1. Critical value approach (calculating by hand).</strong> The <strong>critical value</strong> is the cut-off from a statistical table (Z, t or <span class="math inline">\(\chi^2\)</span>) that marks the most extreme <span class="math inline">\(\alpha\)</span> of the distribution. We use the same left-cumulative notation as in Chapter 4. For a two-tailed test at <span class="math inline">\(\alpha = 0.05\)</span> the cut-off is at <span class="math inline">\(1 - \alpha/2 = 0.975\)</span>, for example <span class="math inline">\(t_{0.975,\,9} = 2.262\)</span>.</p>
 <ul>
-<li>If <span class="math inline">\(|\text{test statistic}| &gt;\)</span> critical value <span class="math inline">\(\rightarrow\)</span> <strong>reject <span class="math inline">\(H_0\)</span></strong></li>
+<li>If <span class="math inline">\(|\text{test statistic}| &gt;\)</span> critical value (e.g.&nbsp;<span class="math inline">\(|t_{cal}| &gt; t_{0.975,\,df}\)</span>) <span class="math inline">\(\rightarrow\)</span> <strong>reject <span class="math inline">\(H_0\)</span></strong></li>
 <li>If <span class="math inline">\(|\text{test statistic}| \leq\)</span> critical value <span class="math inline">\(\rightarrow\)</span> <strong>do not reject <span class="math inline">\(H_0\)</span></strong></li>
 </ul>
 <p><em>(The rank tests later in this chapter also use this rule: we convert their test statistic to a Z-score first.)</em></p>
@@ -788,13 +789,13 @@ Table&nbsp;7.2: Observed (O) and Expected (E) Frequencies
 </div>
 </div>
 <p>All expected frequencies are <span class="math inline">\(\geq 5\)</span>, so the chi-square test is valid.</p>
-<p><span class="math display">\[\chi^2 = \frac{(45-35)^2}{35} + \frac{(55-65)^2}{65} +
+<p><span class="math display">\[\chi^2_{cal} = \frac{(45-35)^2}{35} + \frac{(55-65)^2}{65} +
            \frac{(25-35)^2}{35} + \frac{(75-65)^2}{65}\]</span></p>
 <p><span class="math display">\[= \frac{100}{35} + \frac{100}{65} + \frac{100}{35} + \frac{100}{65}
 = 2.857 + 1.538 + 2.857 + 1.538 = \mathbf{8.791}\]</span></p>
 <p><span class="math inline">\(df = (2-1)(2-1) = 1\)</span></p>
 <p><strong>Step 4 — Compare:</strong></p>
-<p>Critical value from the chi-square table: <span class="math inline">\(\chi^2_{0.95,\,1} = 3.841\)</span>. Since <span class="math inline">\(8.791 &gt; 3.841\)</span>, the test statistic falls in the rejection region.</p>
+<p>Critical value from the chi-square table: <span class="math inline">\(\chi^2_{0.95,\,1} = 3.841\)</span>. Since <span class="math inline">\(\chi^2_{cal} = 8.791 &gt; 3.841\)</span>, the test statistic falls in the rejection region.</p>
 <p>SPSS (Pearson Chi-Square row) would report <span class="math inline">\(p = 0.003\)</span>, which is <span class="math inline">\(&lt; 0.05\)</span> — the same decision.</p>
 <p><strong>Step 5 — Decision and interpretation:</strong></p>
 <p>We <strong>reject <span class="math inline">\(H_0\)</span></strong>. There is a statistically significant association between smoking status and hypertension (<span class="math inline">\(\chi^2 = 8.79\)</span>, <span class="math inline">\(df = 1\)</span>, <span class="math inline">\(p = 0.003\)</span>). Smokers have a higher prevalence of hypertension (45%) than non-smokers (25%).</p>
@@ -949,11 +950,11 @@ s_p &amp;= \sqrt{\frac{(40-1)(6.8)^2 + (40-1)(7.2)^2}{40+40-2}}
 <p><span class="math display">\[SE = 7.003 \times \sqrt{\frac{1}{40}+\frac{1}{40}}
 = 7.003 \times \sqrt{0.05}
 = 7.003 \times 0.2236 = 1.566\]</span></p>
-<p><span class="math display">\[t = \frac{12.4 - 7.1}{1.566} = \frac{5.3}{1.566} = \mathbf{3.384}\]</span></p>
+<p><span class="math display">\[t_{cal} = \frac{12.4 - 7.1}{1.566} = \frac{5.3}{1.566} = \mathbf{3.384}\]</span></p>
 <p><span class="math inline">\(df = 40 + 40 - 2 = 78\)</span></p>
 <p><strong>Step 4 — Compare:</strong></p>
 <p><span class="math inline">\(df = 78\)</span> is not listed in the t-table, so we use the next smaller df, 70: <span class="math inline">\(t_{0.975,\,70} = 1.994\)</span> (the exact value for <span class="math inline">\(df = 78\)</span> is 1.991).</p>
-<p>Since <span class="math inline">\(3.384 &gt; 1.994\)</span>, the test statistic falls in the rejection region. SPSS would report <span class="math inline">\(p = 0.001\)</span>, which is <span class="math inline">\(&lt; 0.05\)</span>.</p>
+<p>Since <span class="math inline">\(|t_{cal}| = 3.384 &gt; 1.994\)</span>, the test statistic falls in the rejection region. SPSS would report <span class="math inline">\(p = 0.001\)</span>, which is <span class="math inline">\(&lt; 0.05\)</span>.</p>
 <p><strong>Step 5 — Decision and interpretation:</strong></p>
 <p>We <strong>reject <span class="math inline">\(H_0\)</span></strong>. The mean reduction in systolic blood pressure differs significantly between the two groups (<span class="math inline">\(t = 3.38\)</span>, <span class="math inline">\(df = 78\)</span>, <span class="math inline">\(p = 0.001\)</span>). The new drug group had the <strong>larger</strong> mean reduction: 12.4 vs.&nbsp;7.1 mmHg, a difference of 5.3 mmHg (95% CI: 2.2 to 8.4 mmHg).</p>
 </div>
@@ -1111,11 +1112,11 @@ Table&nbsp;8.1: DBP Before and After Lifestyle Intervention (n = 10 patients)
 <p><strong>Step 3 — Compute <span class="math inline">\(\bar{d}\)</span>, <span class="math inline">\(s_d\)</span> and the test statistic:</strong></p>
 <p><span class="math display">\[\bar{d} = \frac{68}{10} = 6.8 \text{ mmHg}\]</span></p>
 <p><span class="math display">\[s_d = \sqrt{\frac{\sum(d_i - \bar{d})^2}{n-1}} = 1.476\]</span></p>
-<p><span class="math display">\[t = \frac{\bar{d}}{s_d/\sqrt{n}} = \frac{6.8}{1.476/\sqrt{10}}
+<p><span class="math display">\[t_{cal} = \frac{\bar{d}}{s_d/\sqrt{n}} = \frac{6.8}{1.476/\sqrt{10}}
 = \frac{6.8}{0.467} = 14.571\]</span></p>
 <p><span class="math inline">\(df = n - 1 = 9\)</span></p>
 <p><strong>Step 4 — Compare:</strong></p>
-<p><span class="math inline">\(t_{0.975,\,9} = 2.262\)</span>. Since <span class="math inline">\(14.571 &gt; 2.262\)</span>, the test statistic falls in the rejection region. SPSS would report <span class="math inline">\(p &lt; 0.001\)</span>.</p>
+<p><span class="math inline">\(t_{0.975,\,9} = 2.262\)</span>. Since <span class="math inline">\(|t_{cal}| = 14.571 &gt; 2.262\)</span>, the test statistic falls in the rejection region. SPSS would report <span class="math inline">\(p &lt; 0.001\)</span>.</p>
 <p><strong>Step 5 — Decision and interpretation:</strong></p>
 <p>We <strong>reject <span class="math inline">\(H_0\)</span></strong>. Mean diastolic blood pressure changed significantly after the intervention (<span class="math inline">\(t = 14.57\)</span>, <span class="math inline">\(df = 9\)</span>, <span class="math inline">\(p &lt; 0.001\)</span>). Because <span class="math inline">\(\bar{d}\)</span> = Before − After is positive, DBP <strong>decreased</strong>, by <strong>6.8 mmHg</strong> on average.</p>
 </div>
@@ -1369,8 +1370,8 @@ Table&nbsp;9.1: Pain scores and their ranks (n1 = n2 = 6)
 <p><strong>Step 4 — Convert U to a Z-score</strong> with <span class="math inline">\(n_1 = n_2 = 6\)</span>:</p>
 <p><span class="math display">\[\mu_U = \frac{6 \times 6}{2} = 18, \qquad
 \sigma_U = \sqrt{\frac{6 \times 6 \times 13}{12}} = \sqrt{39} = 6.245\]</span></p>
-<p><span class="math display">\[z = \frac{2.5 - 18}{6.245} = -2.48\]</span></p>
-<p>Since <span class="math inline">\(|z| = 2.48 &gt; 1.96\)</span>, the result is significant. From the Z-table, <span class="math inline">\(p = 2 \times (1 - 0.9934) = 0.013\)</span>.</p>
+<p><span class="math display">\[z_{cal} = \frac{2.5 - 18}{6.245} = -2.48\]</span></p>
+<p>Since <span class="math inline">\(|z_{cal}| = 2.48 &gt; 1.96\)</span>, the result is significant. From the Z-table, <span class="math inline">\(p = 2 \times (1 - 0.9934) = 0.013\)</span>.</p>
 <p>SPSS reports <span class="math inline">\(Z = -2.513\)</span> and <span class="math inline">\(p\)</span> (Asymp. Sig. 2-tailed) <span class="math inline">\(= 0.012\)</span> — the same decision (the small difference is the tie adjustment).</p>
 <p><strong>Step 5 — Decision.</strong> We <strong>reject <span class="math inline">\(H_0\)</span></strong>. Pain scores differ significantly between the two regimens. The mean rank of the new regimen (<span class="math inline">\(23.5 / 6 = 3.9\)</span>) is lower than that of the standard regimen (<span class="math inline">\(54.5 / 6 = 9.1\)</span>), so patients on the <strong>new regimen reported less pain</strong>.</p>
 </div>
@@ -1611,8 +1612,8 @@ Table&nbsp;9.2: Blood clotting time using two solutions (n = 8 patients), with s
 <p><strong>Step 4 — Convert W to a Z-score</strong> with <span class="math inline">\(n = 8\)</span> pairs:</p>
 <p><span class="math display">\[\mu_W = \frac{8 \times 9}{4} = 18, \qquad
 \sigma_W = \sqrt{\frac{8 \times 9 \times 17}{24}} = \sqrt{51} = 7.141\]</span></p>
-<p><span class="math display">\[z = \frac{6 - 18}{7.141} = -1.68\]</span></p>
-<p>Since <span class="math inline">\(|z| = 1.68 \leq 1.96\)</span>, the result is not significant. From the Z-table, <span class="math inline">\(p = 2 \times (1 - 0.9535) = 0.093\)</span>.</p>
+<p><span class="math display">\[z_{cal} = \frac{6 - 18}{7.141} = -1.68\]</span></p>
+<p>Since <span class="math inline">\(|z_{cal}| = 1.68 \leq 1.96\)</span>, the result is not significant. From the Z-table, <span class="math inline">\(p = 2 \times (1 - 0.9535) = 0.093\)</span>.</p>
 <p>SPSS reports <span class="math inline">\(Z = -1.706\)</span> and <span class="math inline">\(p = 0.088\)</span> — the same decision. <em>(SPSS calculates the difference as Standard − Shrimp, so its Ranks table lists the 6 and the 30 the other way round; <span class="math inline">\(W\)</span> and the p-value are the same.)</em></p>
 <p><strong>Step 5 — Decision.</strong> We <strong>do not reject</strong> <span class="math inline">\(H_0\)</span>. There is not enough evidence to say that the clotting times produced by the two solutions differ, at the 0.05 level of significance.</p>
 </div>
