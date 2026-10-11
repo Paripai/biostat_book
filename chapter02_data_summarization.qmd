@@ -239,6 +239,21 @@ The patient who stayed **21 days** is above 13, so this value is an
 **outlier**.
 :::
 
+::: {.callout-tip icon=false}
+## Example: When the Position Is Not a Whole Number
+Number of clinic visits in one year for 12 patients, already in order:
+
+$$3, \; 4, \; 4, \; 5, \; 6, \; 7, \; 8, \; 9, \; 11, \; 12, \; 14, \; 20$$
+
+- Q1: position $0.25(12+1) = 3.25$, so go $0.25$ of the way from the
+  3rd value (4) to the 4th value (5): $Q_1 = 4 + 0.25(5 - 4) = \mathbf{4.25}$
+- Median: position $0.50(12+1) = 6.5$, halfway between the 6th and 7th
+  values: $\dfrac{7 + 8}{2} = \mathbf{7.5}$
+- Q3: position $0.75(12+1) = 9.75$, so go $0.75$ of the way from the
+  9th value (11) to the 10th value (12): $Q_3 = 11 + 0.75(12 - 11) = \mathbf{11.75}$
+- IQR = 11.75 − 4.25 = **7.5 visits**
+:::
+
 Like the median, the IQR is **not affected by extreme values**, so the
 pair **median and IQR** is used to describe skewed data
 (the pair mean and SD is used for symmetric data).
@@ -432,6 +447,11 @@ each value. The gaps between the bars show that there are no values in
 between (no month has 1.5 falls). If a count has **many possible values**
 (e.g., number of patients seen per day, 0 to 80), group the values into
 class intervals and draw a **histogram** (Chapter 3).
+
+**A histogram can have gaps too.** A class with frequency 0 leaves an empty
+space in a histogram. It is still a histogram, because its x-axis is a
+**number line** with every class shown in order, while a bar chart's x-axis
+is a list of separate categories.
 :::
 
 ---
@@ -475,6 +495,29 @@ ggplot(stay, aes(x = ward, y = days, fill = ward)) +
   theme(legend.position = "none",
         panel.grid.major.x = element_blank())
 ```
+
+::: {.callout-important icon=false}
+## Shape of a Distribution: Symmetric or Skewed?
+A distribution is **right-skewed** when it has a long tail of large values
+(like length of stay), and **left-skewed** when the long tail is of small
+values. Four ways to tell:
+
+- **Box plot — look at the box**, not only the whiskers. If the median is
+  closer to $Q_1$ (the part from the median to $Q_3$ is longer), the data
+  are right-skewed; if it is closer to $Q_3$, left-skewed.
+- **Histogram:** the long tail is on the right (right-skewed) or on the
+  left (left-skewed).
+- **Mean and median:** usually mean > median when right-skewed, and
+  mean < median when left-skewed.
+- **SPSS Skewness:** a value > 0 means right-skewed, < 0 means left-skewed,
+  close to 0 means roughly symmetric.
+
+*Example (clinic visits, above):* $\text{median} - Q_1 = 7.5 - 4.25 = 3.25$
+is smaller than $Q_3 - \text{median} = 11.75 - 7.5 = 4.25$, the mean
+(8.58) is larger than the median (7.5), and SPSS gives Skewness = 1.12,
+so the data are **right-skewed**. Both wards in the box plot above are
+right-skewed too.
+:::
 
 ---
 

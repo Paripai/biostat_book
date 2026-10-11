@@ -133,6 +133,13 @@ the upper boundary of each class — useful for answering questions like
 *"What proportion of patients have SBP below 135 mmHg?"*
 (read the cumulative frequency of the class that ends at 134, then divide by 80).
 
+The cumulative column also gives the **median**: it is the first value
+(or class) whose **cumulative percent reaches 50%**. Here 50% of 80 is 40
+patients, and the first class whose cumulative frequency reaches 40 is
+**`r as.character(freq_table[[1]][which(freq_table[["Cumulative Frequency"]] >= 40)[1]])` mmHg**,
+so that class contains the median. In SPSS *Frequencies* output, read down
+the **Cumulative Percent** column in the same way.
+
 ---
 
 ## Example 1: Constructing a Frequency Distribution Table
@@ -234,6 +241,16 @@ the patient has blood type A is $P(\text{type A}) = 0.38$.
 
 When we only have a sample, the relative frequency is our best
 *estimate* of the probability in the population.
+
+Two rules for questions about more than one category:
+
+- **"A or B"** (categories that cannot happen together): **add** their
+  probabilities. $P(\text{type A or type AB}) = 0.38 + 0.15 = 0.53$,
+  because no patient has two blood types.
+- **"At least"**: use the cumulative column and the complement,
+  $P(\text{at least } k) = 1 - P(\text{at most the value below } k)$.
+  From the SBP table, $P(\text{SBP} \geq 135) = 1 - P(\text{SBP} \leq 134)
+  = 1 - \frac{`r sum(sbp < 135)`}{80} = `r 1 - sum(sbp < 135) / 80`$.
 
 ## Random Variable
 
@@ -580,6 +597,7 @@ p1 + p2 + p3
 | Probability **above** z | $P(Z > z) = 1 - P(Z < z)$ |
 | Probability **between** two values | $P(z_1 < Z < z_2) = P(Z < z_2) - P(Z < z_1)$ |
 | Probability below a **negative** z | $P(Z < -z) = 1 - P(Z < z)$ |
+| Value with a given area below it | find the area **inside** the table, read $z$, then $x = \mu + z\sigma$ |
 :::
 
 ---
@@ -637,6 +655,61 @@ consistent with the 68–95–99.7 rule.
 
 ---
 
+
+## Reading the Z-Table Backwards: From an Area to z
+
+So far we went from a value to a probability: $x \rightarrow z \rightarrow$
+area. Sometimes we know the **area** and need the **value** — for example,
+the cut-off below which the lowest 5% of patients fall.
+
+1. Look for the area (area to the left) **inside the body** of the Z-table,
+   then read $z$ from its row and column. If it lies between two entries,
+   use the closer one.
+   - 0.95 lies between 0.9495 ($z = 1.64$) and 0.9505 ($z = 1.65$), so
+     $z_{0.95} = 1.645$.
+   - 0.90 is closest to 0.8997, so $z_{0.90} = 1.28$.
+2. For an area **below 0.5**, use symmetry: $z_{0.05} = -z_{0.95} = -1.645$.
+3. Change $z$ back to the original units: $x = \mu + z\sigma$.
+
+## Example 4: From a Percentage Back to a Value
+
+The hemoglobin level of healthy adult women is approximately normally
+distributed with **mean = 13.5 g/dL** and **SD = 1.0 g/dL**.
+
+**(a)** Below what hemoglobin level do the lowest **5%** of women fall?
+
+**(b)** What hemoglobin level is the **90th percentile**?
+
+::: {.callout-tip icon=false}
+## Solution
+
+**(a)** Area to the left = 0.05, so $z_{0.05} = -1.645$.
+
+$$x = \mu + z\sigma = 13.5 + (-1.645)(1.0) = \mathbf{11.86} \text{ g/dL}$$
+
+The lowest 5% of healthy women have hemoglobin below about 11.9 g/dL
+(close to the 12 g/dL commonly used to define anemia in women).
+
+**(b)** Area to the left = 0.90, so $z_{0.90} = 1.28$.
+
+$$x = 13.5 + 1.28(1.0) = \mathbf{14.78} \text{ g/dL}$$
+:::
+
+::: {.callout-note icon=false}
+## The Same Calculations in SPSS
+In **Transform** $\rightarrow$ **Compute Variable**:
+
+- `CDF.NORMAL(x, mean, sd)` $= P(X < x)$, the area to the left of $x$.
+  For an area to the right, use $1 -$ `CDF.NORMAL(x, mean, sd)`.
+- `IDF.NORMAL(p, mean, sd)` does the reverse: the value with area $p$ to
+  its left, e.g. `IDF.NORMAL(0.05, 13.5, 1)` $= 11.86$.
+
+SPSS rounds probabilities to 3 decimals. A value shown as **.000** means
+less than .0005, **not zero** — report it as $p < .001$.
+:::
+
+---
+
 # Key Takeaways
 
 ::: {.callout-note icon=false}
@@ -675,6 +748,9 @@ consistent with the 68–95–99.7 rule.
 | Probability above | $P(Z > z) = 1 - P(Z < z)$ |  |
 | Probability between | $P(z_1 < Z < z_2) = P(Z < z_2) - P(Z < z_1)$ |  |
 | Negative Z | $P(Z < -z) = 1 - P(Z < z)$ | Symmetry of the normal curve |
+| Value from an area | $x = \mu + z\sigma$ | Find the area inside the Z-table first; e.g. $z_{0.95} = 1.645$ |
+| A or B | $P(A \text{ or } B) = P(A) + P(B)$ | Categories that cannot happen together |
+| At least $k$ | $1 - P(\text{at most the value below } k)$ | Use the cumulative column |
 
 : Formulas in this chapter {.striped}
 

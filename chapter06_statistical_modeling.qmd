@@ -65,8 +65,17 @@ $X$ and $Y$, and how strong is it?*
 ## The Scatter Plot
 
 A **scatter plot** displays pairs of values $(x_i, y_i)$ as points on a
-graph. The pattern of points reveals the **direction** and **strength**
-of the relationship.
+graph. When you read one, describe four things:
+
+- **Direction** — positive (points go up to the right) or negative.
+- **Strength** — how tightly the points follow a line.
+- **Form** — is the pattern **linear** (a straight line) or **curved**?
+  Pearson's $r$ and linear regression only describe a straight-line
+  pattern; a clear curve can give a small $r$ even when $X$ and $Y$ are
+  closely related.
+- **Outliers** — a point far from the pattern of the others. A single
+  outlier can change $r$ and the regression line a lot, so check it before
+  calculating.
 
 ```{r}
 #| label: fig-scatter-types
@@ -296,14 +305,14 @@ $H_0: \rho = 0$ (no linear relationship between age and SBP in the population)
 
 $H_1: \rho \neq 0$ (there is a linear relationship); $\alpha = 0.05$
 
-$$t = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}}
+$$t_{cal} = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}}
     = \frac{`r sprintf("%.4f", r1)` \sqrt{`r n` - 2}}{\sqrt{1 - `r sprintf("%.4f", r1)`^2}}
     = \frac{`r sprintf("%.4f", round(r1,4) * sqrt(n - 2))`}{`r sprintf("%.4f", sqrt(1 - round(r1,4)^2))`}
     = \mathbf{`r sprintf("%.2f", round(r1,4) * sqrt(n - 2) / sqrt(1 - round(r1,4)^2))`}$$
 
 $df = n - 2 = `r n - 2`$, and from the t-table $t_{0.975,\,`r n - 2`} = `r sprintf("%.3f", qt(0.975, n - 2))`$.
 
-Since $`r sprintf("%.2f", round(r1,4) * sqrt(n - 2) / sqrt(1 - round(r1,4)^2))` > `r sprintf("%.3f", qt(0.975, n - 2))`$,
+Since $|t_{cal}| = `r sprintf("%.2f", round(r1,4) * sqrt(n - 2) / sqrt(1 - round(r1,4)^2))` > `r sprintf("%.3f", qt(0.975, n - 2))`$,
 we **reject $H_0$**. SPSS would report Sig. (2-tailed) $= `r sprintf("%.3f", cor.test(age, sbp)$p.value)`$,
 which is $< 0.05$ — the same decision.
 
@@ -643,16 +652,21 @@ coef_tab <- data.frame(
   SE = c("6.24", "0.10"),
   Beta = c("-", "0.821"),
   t = c("5.15", "8.87"),
-  Sig = c("< 0.001", "< 0.001")
+  Sig = c("< 0.001", "< 0.001"),
+  Lower = c("19.52", "0.67"),
+  Upper = c("44.78", "1.07")
 )
 
 kable(coef_tab,
-      col.names = c("", "B", "Std. Error", "Beta (standardized)", "t", "Sig."),
-      align = c("l","c","c","c","c","c")) |>
+      col.names = c("", "B", "Std. Error", "Beta", "t", "Sig.",
+                    "Lower", "Upper"),
+      align = c("l","c","c","c","c","c","c","c")) |>
   kable_styling(bootstrap_options = c("bordered"),
                 full_width = FALSE, font_size = tbl_fs(13)) |>
+  add_header_above(c(" " = 6, "95% Confidence Interval for B" = 2)) |>
   row_spec(0, bold = TRUE, color = "white", background = "#2c7bb6") |>
-  row_spec(2, bold = TRUE)
+  row_spec(2, bold = TRUE) |>
+  column_spec(1, width = pdf_w("1.1in"))
 ```
 
 **Regression equation:** $\widehat{\text{Glucose}} = 32.15 + 0.87 \times \text{Waist}$
@@ -662,6 +676,23 @@ the *Waist circumference* row): for each 1 cm increase in waist
 circumference, fasting glucose increases by **0.87 mg/dL** on average.
 The **Beta (standardized)** value equals $r$ in simple regression and is
 not needed in this course.
+
+::: {.callout-tip icon=false}
+## The "95% Confidence Interval for B" Columns
+When you tick *Confidence intervals* in SPSS, the Coefficients table gives
+a 95% CI for each B: $B \pm t_{0.975,\,n-2} \times \text{Std. Error}$
+(here $t_{0.975,\,38} = 2.024$).
+
+- **Slope row:** we are 95% confident that each extra 1 cm of waist
+  circumference raises mean fasting glucose by between 0.67 and
+  1.07 mg/dL. The CI **does not include 0**, which agrees with
+  Sig. $< 0.05$: the predictor is significant. (If the CI included 0, the
+  slope would not be significant at the 0.05 level.)
+- **Constant row:** a CI for the mean of $Y$ when $X = 0$. Interpret it
+  only if $X = 0$ is meaningful and close to the data. A waist of 0 cm is
+  impossible, so here the Constant and its CI have no clinical meaning —
+  predicting at $X = 0$ would be far outside the range of the data.
+:::
 
 ---
 

@@ -136,6 +136,11 @@ Each test in this chapter has its own test statistic ($t$, $\chi^2$, $U$, $W$)
 and its own formula, but the idea is the same: the further the data are
 from what $H_0$ predicts, the more extreme the test statistic.
 
+We write the value **calculated from the sample** with the subscript
+"cal": $t_{cal}$, $z_{cal}$ or $\chi^2_{cal}$. This keeps it apart from the
+**critical value** read from a table (such as $t_{0.975,\,df}$), and we
+compare $|t_{cal}|$ with that critical value.
+
 ---
 
 ## The p-value
@@ -189,7 +194,7 @@ We use the same left-cumulative notation as in Chapter 4. For a
 two-tailed test at $\alpha = 0.05$ the cut-off is at $1 - \alpha/2 = 0.975$,
 for example $t_{0.975,\,9} = 2.262$.
 
-- If $|\text{test statistic}| >$ critical value $\rightarrow$ **reject $H_0$**
+- If $|\text{test statistic}| >$ critical value (e.g. $|t_{cal}| > t_{0.975,\,df}$) $\rightarrow$ **reject $H_0$**
 - If $|\text{test statistic}| \leq$ critical value $\rightarrow$ **do not reject $H_0$**
 
 *(The rank tests later in this chapter also use this rule: we convert their
@@ -437,7 +442,7 @@ kable(result_tab,
 
 All expected frequencies are $\geq 5$, so the chi-square test is valid.
 
-$$\chi^2 = \frac{(45-35)^2}{35} + \frac{(55-65)^2}{65} +
+$$\chi^2_{cal} = \frac{(45-35)^2}{35} + \frac{(55-65)^2}{65} +
            \frac{(25-35)^2}{35} + \frac{(75-65)^2}{65}$$
 
 $$= \frac{100}{35} + \frac{100}{65} + \frac{100}{35} + \frac{100}{65}
@@ -448,7 +453,7 @@ $df = (2-1)(2-1) = 1$
 **Step 4 — Compare:**
 
 Critical value from the chi-square table: $\chi^2_{0.95,\,1} = 3.841$.
-Since $8.791 > 3.841$, the test statistic falls in the rejection region.
+Since $\chi^2_{cal} = 8.791 > 3.841$, the test statistic falls in the rejection region.
 
 SPSS (Pearson Chi-Square row) would report $p = 0.003$, which is
 $< 0.05$ — the same decision.
@@ -605,7 +610,7 @@ $$SE = 7.003 \times \sqrt{\frac{1}{40}+\frac{1}{40}}
 = 7.003 \times \sqrt{0.05}
 = 7.003 \times 0.2236 = 1.566$$
 
-$$t = \frac{12.4 - 7.1}{1.566} = \frac{5.3}{1.566} = \mathbf{3.384}$$
+$$t_{cal} = \frac{12.4 - 7.1}{1.566} = \frac{5.3}{1.566} = \mathbf{3.384}$$
 
 $df = 40 + 40 - 2 = 78$
 
@@ -614,7 +619,7 @@ $df = 40 + 40 - 2 = 78$
 $df = 78$ is not listed in the t-table, so we use the next smaller df, 70:
 $t_{0.975,\,70} = 1.994$ (the exact value for $df = 78$ is 1.991).
 
-Since $3.384 > 1.994$, the test statistic falls in the rejection region.
+Since $|t_{cal}| = 3.384 > 1.994$, the test statistic falls in the rejection region.
 SPSS would report $p = 0.001$, which is $< 0.05$.
 
 **Step 5 — Decision and interpretation:**
@@ -722,14 +727,14 @@ $$\bar{d} = \frac{`r sum(d)`}{10} = `r mean(d)` \text{ mmHg}$$
 
 $$s_d = \sqrt{\frac{\sum(d_i - \bar{d})^2}{n-1}} = `r round(sd(d), 3)`$$
 
-$$t = \frac{\bar{d}}{s_d/\sqrt{n}} = \frac{`r mean(d)`}{`r round(sd(d),3)`/\sqrt{10}}
+$$t_{cal} = \frac{\bar{d}}{s_d/\sqrt{n}} = \frac{`r mean(d)`}{`r round(sd(d),3)`/\sqrt{10}}
 = \frac{`r mean(d)`}{`r round(sd(d)/sqrt(10),3)`} = `r round(mean(d)/(sd(d)/sqrt(10)),3)`$$
 
 $df = n - 1 = 9$
 
 **Step 4 — Compare:**
 
-$t_{0.975,\,9} = 2.262$. Since $`r round(mean(d)/(sd(d)/sqrt(10)),3)` > 2.262$,
+$t_{0.975,\,9} = 2.262$. Since $|t_{cal}| = `r round(mean(d)/(sd(d)/sqrt(10)),3)` > 2.262$,
 the test statistic falls in the rejection region.
 SPSS would report $p < 0.001$.
 
@@ -914,9 +919,9 @@ $$U = \min(2.5,\; 33.5) = 2.5$$
 $$\mu_U = \frac{6 \times 6}{2} = 18, \qquad
 \sigma_U = \sqrt{\frac{6 \times 6 \times 13}{12}} = \sqrt{39} = 6.245$$
 
-$$z = \frac{2.5 - 18}{6.245} = -2.48$$
+$$z_{cal} = \frac{2.5 - 18}{6.245} = -2.48$$
 
-Since $|z| = 2.48 > 1.96$, the result is significant.
+Since $|z_{cal}| = 2.48 > 1.96$, the result is significant.
 From the Z-table, $p = 2 \times (1 - 0.9934) = 0.013$.
 
 SPSS reports $Z = -2.513$ and $p$ (Asymp. Sig. 2-tailed) $= 0.012$ — the
@@ -1074,9 +1079,9 @@ $$W = \min(6,\; 30) = 6$$
 $$\mu_W = \frac{8 \times 9}{4} = 18, \qquad
 \sigma_W = \sqrt{\frac{8 \times 9 \times 17}{24}} = \sqrt{51} = 7.141$$
 
-$$z = \frac{6 - 18}{7.141} = -1.68$$
+$$z_{cal} = \frac{6 - 18}{7.141} = -1.68$$
 
-Since $|z| = 1.68 \leq 1.96$, the result is not significant.
+Since $|z_{cal}| = 1.68 \leq 1.96$, the result is not significant.
 From the Z-table, $p = 2 \times (1 - 0.9535) = 0.093$.
 
 SPSS reports $Z = -1.706$ and $p = 0.088$ — the same decision.

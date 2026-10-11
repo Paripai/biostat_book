@@ -51,3 +51,15 @@
   background: red;
   border-color: red;
 }
+
+// Clear-this-slide button (trash can), after the pointer button
+.slide-clear-button {
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 12px;
+  vertical-align: middle;
+  color: #2a76dd;
+}
+.slide-clear-button:active {
+  color: red;
+}
