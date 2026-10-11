@@ -162,6 +162,21 @@ Where:
 - $N$ = population size, $n$ = sample size
 - $n-1$ in the denominator corrects for the fact that we're using a sample
 
+The formula above is the **definition**: it shows that the variance is built
+from the distances $x_i - \bar{x}$. For calculating by hand, the same value
+is easier to get from two column totals, $\sum x$ and $\sum x^2$ — no
+deviations needed, and no rounding of $\bar{x}$ along the way:
+
+::: {.callout-important icon=false}
+## Computational Formula for $s^2$ (Use This by Hand)
+$$s^2 = \frac{n\sum x^2 - \left(\sum x\right)^2}{n(n-1)}$$
+
+Note that $\sum x^2$ (square each value, then add) is **not** the same as
+$\left(\sum x\right)^2$ (add the values, then square the total).
+The numerator $n\sum x^2 - \left(\sum x\right)^2$ appears again in
+Chapter 6 (correlation and regression).
+:::
+
 ---
 
 ### Standard Deviation
@@ -170,7 +185,7 @@ The **standard deviation (SD)** is the square root of the variance.
 It is expressed in the **same units as the original data**, making it
 much easier to interpret than variance.
 
-$$s = \sqrt{s^2} = \sqrt{\frac{\sum_{i=1}^{n}(x_i - \bar{x})^2}{n-1}}$$
+$$s = \sqrt{s^2} = \sqrt{\frac{n\sum x^2 - \left(\sum x\right)^2}{n(n-1)}}$$
 
 ::: {.callout-tip icon=false}
 ## Interpreting Standard Deviation
@@ -302,36 +317,41 @@ unusually high value of 110 pulls the mean upward.
 
 **(c) Standard Deviation:**
 
-First, find each $(x_i - \bar{x})^2$:
+Make a table with $x$ and $x^2$, and add up each column:
 
 ```{r}
 #| label: tbl-sd-calc
-#| tbl-cap: "Step-by-step SD calculation"
+#| tbl-cap: "Column totals for the standard deviation"
 
 hr <- c(68, 68, 72, 72, 74, 78, 85, 90, 110)
-xbar <- mean(hr)
+n  <- length(hr)
+Sx <- sum(hr); Sx2 <- sum(hr^2)
+br <- n * Sx2 - Sx^2                       # n * sum(x^2) - (sum x)^2
+fm <- function(v) format(v, big.mark = "{,}", scientific = FALSE)   # for $math$
 
 sd_table <- data.frame(
-  `Patient` = paste0("Patient ", 1:9),
-  `Heart Rate (x)` = hr,
-  `x - xbar` = round(hr - xbar, 1),
-  `(x - xbar)2` = round((hr - xbar)^2, 2)
+  Patient = c(paste0("Patient ", 1:n), "Total"),
+  x       = c(hr, Sx),
+  x2      = c(hr^2, Sx2)
 )
 
 kable(sd_table,
-      col.names = c("Patient", "Heart Rate (x)", "x - xbar", "(x - xbar)2"),
-      align = c("l","c","c","c")) |>
+      col.names = c("Patient", "Heart rate x", "x^2"),
+      align = c("l","c","c"), format.args = list(big.mark = ",")) |>
   kable_styling(bootstrap_options = c("striped","hover","bordered"),
                 full_width = FALSE, font_size = tbl_fs(13)) |>
-  row_spec(9, bold = TRUE) |>
+  row_spec(n + 1, bold = TRUE) |>
   row_spec(0, bold = TRUE, color = "white", background = "#2c7bb6")
 ```
 
-$$\sum(x_i - \bar{x})^2 = `r round(sum((hr - xbar)^2), 2)`$$
+With $n = `r n`$: $\sum x = `r fm(Sx)`$ and $\sum x^2 = `r fm(Sx2)`$.
 
-$$s^2 = \frac{`r round(sum((hr-xbar)^2),2)`}{9-1} = \frac{`r round(sum((hr-xbar)^2),2)`}{8} = `r round(var(hr),2)`$$
+$$n\sum x^2 - \left(\sum x\right)^2 = `r n`(`r fm(Sx2)`) - `r fm(Sx)`^2
+  = `r fm(n * Sx2)` - `r fm(Sx^2)` = `r fm(br)`$$
 
-$$s = \sqrt{`r round(var(hr),2)`} = `r round(sd(hr),2)` \text{ bpm}$$
+$$s^2 = \frac{`r fm(br)`}{`r n`(`r n` - 1)} = \frac{`r fm(br)`}{`r n * (n - 1)`} = `r round(br / (n * (n - 1)), 2)`$$
+
+$$s = \sqrt{`r round(br / (n * (n - 1)), 2)`} = `r sprintf("%.2f", sqrt(br / (n * (n - 1))))` \text{ bpm}$$
 
 **Interpretation:** The average heart rate is **79.7 ± `r round(sd(hr),1)` bpm**.
 The relatively large SD reflects the wide spread, largely influenced
@@ -555,7 +575,7 @@ represents the "typical" patient.
 | Median | Value at position $\dfrac{n+1}{2}$ in the ordered data | $n$ even: average of the two middle values |
 | Range | Maximum $-$ Minimum | Uses only two values |
 | Population variance | $\sigma^2 = \dfrac{\sum (x_i - \mu)^2}{N}$ | Whole population of size $N$ |
-| Sample variance | $s^2 = \dfrac{\sum (x_i - \bar{x})^2}{n-1}$ | Squared units |
+| Sample variance | $s^2 = \dfrac{n\sum x^2 - \left(\sum x\right)^2}{n(n-1)}$ | Squared units; needs $\sum x$ and $\sum x^2$ |
 | Sample SD | $s = \sqrt{s^2}$ | Same units as the data; report Mean $\pm$ SD |
 | Quartiles | $Q_1$ at position $0.25(n+1)$, $Q_3$ at $0.75(n+1)$ | Same rule as SPSS Explore |
 | Interquartile range | $\text{IQR} = Q_3 - Q_1$ | Report Median and IQR for skewed data |
@@ -582,7 +602,8 @@ $$37.2, \; 36.8, \; 38.5, \; 37.0, \; 39.1, \; 36.8, \; 37.5, \; 38.0, \; 37.2, 
 
 **(d)** Calculate the **range**.
 
-**(e)** Calculate the **standard deviation**. Show all steps.
+**(e)** Make a table with columns $x$ and $x^2$, then use the computational
+formula to calculate the **standard deviation**. Show all steps.
 
 **(f)** One patient has a temperature of 40.2°C. How does this value
 affect the mean compared to the median? The ward's infection-control
