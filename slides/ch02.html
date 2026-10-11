@@ -284,9 +284,21 @@ Table&nbsp;1: Choosing the Right Measure of Central Tendency
 <li><span class="math inline">\(N\)</span> = population size, <span class="math inline">\(n\)</span> = sample size</li>
 <li><span class="math inline">\(n-1\)</span> in the denominator corrects for the fact that we’re using a sample</li>
 </ul>
+<p>The formula above is the <strong>definition</strong>: it shows that the variance is built from the distances <span class="math inline">\(x_i - \bar{x}\)</span>. For calculating by hand, the same value is easier to get from two column totals, <span class="math inline">\(\sum x\)</span> and <span class="math inline">\(\sum x^2\)</span> — no deviations needed, and no rounding of <span class="math inline">\(\bar{x}\)</span> along the way:</p>
+<div class="callout callout-important no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Computational Formula for <span class="math inline">\(s^2\)</span> (Use This by Hand)</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[s^2 = \frac{n\sum x^2 - \left(\sum x\right)^2}{n(n-1)}\]</span></p>
+<p>Note that <span class="math inline">\(\sum x^2\)</span> (square each value, then add) is <strong>not</strong> the same as <span class="math inline">\(\left(\sum x\right)^2\)</span> (add the values, then square the total). The numerator <span class="math inline">\(n\sum x^2 - \left(\sum x\right)^2\)</span> appears again in Chapter 6 (correlation and regression).</p>
+</div>
+</div>
+</div>
 <h3 id="standard-deviation">Standard Deviation</h3>
 <p>The <strong>standard deviation (SD)</strong> is the square root of the variance. It is expressed in the <strong>same units as the original data</strong>, making it much easier to interpret than variance.</p>
-<p><span class="math display">\[s = \sqrt{s^2} = \sqrt{\frac{\sum_{i=1}^{n}(x_i - \bar{x})^2}{n-1}}\]</span></p>
+<p><span class="math display">\[s = \sqrt{s^2} = \sqrt{\frac{n\sum x^2 - \left(\sum x\right)^2}{n(n-1)}}\]</span></p>
 <div class="callout callout-tip no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -439,12 +451,12 @@ Table&nbsp;2: Summary of Numerical Summary Measures
 <p>Notice that the median (74) is lower than the mean (79.7) because the unusually high value of 110 pulls the mean upward.</p>
 <hr>
 <p><strong>(c) Standard Deviation:</strong></p>
-<p>First, find each <span class="math inline">\((x_i - \bar{x})^2\)</span>:</p>
+<p>Make a table with <span class="math inline">\(x\)</span> and <span class="math inline">\(x^2\)</span>, and add up each column:</p>
 <div class="cell">
 <div id="tbl-sd-calc" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-sd-calc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;3: Step-by-step SD calculation
+Table&nbsp;3: Column totals for the standard deviation
 </figcaption>
 <div aria-describedby="tbl-sd-calc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -452,65 +464,60 @@ Table&nbsp;3: Step-by-step SD calculation
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Patient</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Heart Rate (x)</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">x - xbar</th>
-<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">(x - xbar)2</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">Heart rate x</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; color: white !important; background-color: rgba(44, 123, 182, 1) !important;">x^2</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Patient 1</td>
 <td style="text-align: center;">68</td>
-<td style="text-align: center;">-11.7</td>
-<td style="text-align: center;">136.11</td>
+<td style="text-align: center;">4,624</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Patient 2</td>
 <td style="text-align: center;">68</td>
-<td style="text-align: center;">-11.7</td>
-<td style="text-align: center;">136.11</td>
+<td style="text-align: center;">4,624</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Patient 3</td>
 <td style="text-align: center;">72</td>
-<td style="text-align: center;">-7.7</td>
-<td style="text-align: center;">58.78</td>
+<td style="text-align: center;">5,184</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Patient 4</td>
 <td style="text-align: center;">72</td>
-<td style="text-align: center;">-7.7</td>
-<td style="text-align: center;">58.78</td>
+<td style="text-align: center;">5,184</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Patient 5</td>
 <td style="text-align: center;">74</td>
-<td style="text-align: center;">-5.7</td>
-<td style="text-align: center;">32.11</td>
+<td style="text-align: center;">5,476</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Patient 6</td>
 <td style="text-align: center;">78</td>
-<td style="text-align: center;">-1.7</td>
-<td style="text-align: center;">2.78</td>
+<td style="text-align: center;">6,084</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Patient 7</td>
 <td style="text-align: center;">85</td>
-<td style="text-align: center;">5.3</td>
-<td style="text-align: center;">28.44</td>
+<td style="text-align: center;">7,225</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Patient 8</td>
 <td style="text-align: center;">90</td>
-<td style="text-align: center;">10.3</td>
-<td style="text-align: center;">106.78</td>
+<td style="text-align: center;">8,100</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; font-weight: bold;">Patient 9</td>
-<td style="text-align: center; font-weight: bold;">110</td>
-<td style="text-align: center; font-weight: bold;">30.3</td>
-<td style="text-align: center; font-weight: bold;">920.11</td>
+<td style="text-align: left;">Patient 9</td>
+<td style="text-align: center;">110</td>
+<td style="text-align: center;">12,100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">Total</td>
+<td style="text-align: center; font-weight: bold;">717</td>
+<td style="text-align: center; font-weight: bold;">58,601</td>
 </tr>
 </tbody>
 </table>
@@ -519,9 +526,11 @@ Table&nbsp;3: Step-by-step SD calculation
 </figure>
 </div>
 </div>
-<p><span class="math display">\[\sum(x_i - \bar{x})^2 = 1480\]</span></p>
-<p><span class="math display">\[s^2 = \frac{1480}{9-1} = \frac{1480}{8} = 185\]</span></p>
-<p><span class="math display">\[s = \sqrt{185} = 13.6 \text{ bpm}\]</span></p>
+<p>With <span class="math inline">\(n = 9\)</span>: <span class="math inline">\(\sum x = 717\)</span> and <span class="math inline">\(\sum x^2 = 58{,}601\)</span>.</p>
+<p><span class="math display">\[n\sum x^2 - \left(\sum x\right)^2 = 9(58{,}601) - 717^2
+  = 527{,}409 - 514{,}089 = 13{,}320\]</span></p>
+<p><span class="math display">\[s^2 = \frac{13{,}320}{9(9 - 1)} = \frac{13{,}320}{72} = 185\]</span></p>
+<p><span class="math display">\[s = \sqrt{185} = 13.60 \text{ bpm}\]</span></p>
 <p><strong>Interpretation:</strong> The average heart rate is <strong>79.7 ± 13.6 bpm</strong>. The relatively large SD reflects the wide spread, largely influenced by the patient with 110 bpm.</p>
 </div>
 </div>
@@ -811,8 +820,8 @@ Table&nbsp;4: Guide to Choosing the Right Chart
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Sample variance</td>
-<td style="text-align: left;"><span class="math inline">\(s^2 = \dfrac{\sum (x_i - \bar{x})^2}{n-1}\)</span></td>
-<td style="text-align: left;">Squared units</td>
+<td style="text-align: left;"><span class="math inline">\(s^2 = \dfrac{n\sum x^2 - \left(\sum x\right)^2}{n(n-1)}\)</span></td>
+<td style="text-align: left;">Squared units; needs <span class="math inline">\(\sum x\)</span> and <span class="math inline">\(\sum x^2\)</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Sample SD</td>
@@ -851,7 +860,7 @@ Table&nbsp;4: Guide to Choosing the Right Chart
 <p><strong>(b)</strong> Find the <strong>median</strong> body temperature.</p>
 <p><strong>(c)</strong> What is the <strong>mode</strong>?</p>
 <p><strong>(d)</strong> Calculate the <strong>range</strong>.</p>
-<p><strong>(e)</strong> Calculate the <strong>standard deviation</strong>. Show all steps.</p>
+<p><strong>(e)</strong> Make a table with columns <span class="math inline">\(x\)</span> and <span class="math inline">\(x^2\)</span>, then use the computational formula to calculate the <strong>standard deviation</strong>. Show all steps.</p>
 <p><strong>(f)</strong> One patient has a temperature of 40.2°C. How does this value affect the mean compared to the median? The ward’s infection-control team wants a single number for the <em>typical</em> temperature on the ward this morning. Which measure would you give them, and why? <em>(The patient with 40.2°C must, of course, still be reported to the physician individually.)</em></p>
 </div>
 </div>
